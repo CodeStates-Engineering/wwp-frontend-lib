@@ -1,0 +1,12 @@
+@import "../../../scss/libs.scss";
+
+.validation_message {
+  font-size: 0.8em;
+  margin-left: 0.5em;
+  color: $PEACH500;
+  visibility: hidden;
+  &.visible {
+    visibility: visible;
+    @include shake-horizontal(0.8s);
+  }
+}

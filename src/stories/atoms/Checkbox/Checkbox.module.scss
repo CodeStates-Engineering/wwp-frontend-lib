@@ -1,0 +1,50 @@
+@import "../../../scss/libs.scss";
+.checkbox_container {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  color: white;
+  border: 1px solid $BLUISH_GRAY400;
+  transition: color 0.2s, background-color 0.2s;
+  &.disabled {
+    background-color: darken(white, 2%);
+    color: $BLUISH_GRAY400;
+  }
+  &.checked {
+    background-color: $WEWIN_BLUE600;
+  }
+  &.half {
+    background-color: $BLUISH_GRAY300;
+    color: $WEWIN_BLUE600;
+  }
+}
+
+.checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+.checkbox_icon_wrap {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  > svg {
+    width: 85%;
+    height: 85%;
+  }
+}

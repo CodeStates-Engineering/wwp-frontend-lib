@@ -1,0 +1,39 @@
+@import "../../../scss/libs.scss";
+.announcement_message_container {
+  font-size: 14px;
+  font-weight: 400;
+  position: relative;
+  > svg {
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 100%;
+    transition: color 0.3s;
+    cursor: help;
+    &:hover {
+      color: $WEWIN_BLUE500;
+    }
+  }
+  > .announcement_message {
+    background-color: $BLUISH_GRAY10;
+    border: 1px solid $BLUISH_GRAY600;
+    color: $GRAY900;
+    position: absolute;
+    top: -0.5em;
+    left: 2em;
+    z-index: 3;
+    border-radius: 5px;
+    box-shadow: $BOX_SHADOW013;
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+    line-height: 1.2em;
+    display: none;
+    min-width: 20em;
+    width: auto;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+  &:hover > .announcement_message {
+    display: unset;
+    @include fade-in;
+  }
+}

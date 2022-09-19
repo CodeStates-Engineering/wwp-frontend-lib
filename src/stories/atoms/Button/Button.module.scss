@@ -1,0 +1,180 @@
+@import "../../../scss/libs.scss";
+
+.button {
+  text-align: center;
+  padding: 9.5px 15px;
+  &.icon_button_padding {
+    padding-right: 17px;
+  }
+  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid transparent;
+  &:disabled {
+    cursor: not-allowed;
+    border-color: $GRAY100;
+    background-color: darken(white, 2%);
+    color: $GRAY300;
+    &:hover {
+      background-color: darken(white, 2%);
+      color: $GRAY300;
+    }
+    &.delay_button {
+      background-color: transparent;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      background-color: $BLUISH_GRAY500;
+      > .delay_button_contents {
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+  svg {
+    width: 1.5em;
+    width: 1.5em;
+  }
+  &.fit_container {
+    width: 100%;
+  }
+}
+
+.button_contents {
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.delaying_bar {
+  width: 100%;
+  height: 100%;
+  background-color: $BLUISH_GRAY300;
+  top: 0;
+  left: 0;
+  position: absolute;
+  &.delaying {
+    transform: translateX(100%);
+  }
+}
+
+//theme
+.theme_wewin-blue600 {
+  color: white;
+  background-color: $WEWIN_BLUE600;
+  &:hover {
+    background-color: darken($WEWIN_BLUE600, 25%);
+    color: darken(white, 25%);
+  }
+  &:active {
+    background-color: darken($WEWIN_BLUE600, 50%);
+    color: darken(white, 50%);
+  }
+}
+
+.theme_gray200 {
+  color: $GRAY700;
+  background-color: $GRAY200;
+  border-color: $GRAY300;
+  &:hover {
+    color: darken($GRAY700, 10%);
+    background-color: darken($GRAY200, 10%);
+  }
+  &:active {
+    color: darken($GRAY700, 20%);
+    background-color: darken($GRAY200, 20%);
+  }
+}
+
+.theme_white {
+  color: $GRAY600;
+  background-color: white;
+  border-color: $GRAY300;
+  &:hover {
+    color: invert(darken($GRAY600, 10%));
+    background-color: darken(white, 10%);
+  }
+  &:active {
+    color: darken($GRAY600, 20%);
+    background-color: darken(white, 20%);
+  }
+}
+
+.theme_wewin-blue100 {
+  color: $GRAY700;
+  background-color: $WEWIN_BLUE100;
+  &:hover {
+    background-color: darken($WEWIN_BLUE100, 10%);
+  }
+  &:active {
+    background-color: darken($WEWIN_BLUE100, 20%);
+  }
+}
+
+.theme_wewin-peach500 {
+  color: white;
+  background-color: $WEWIN_PEACH500;
+  &:hover {
+    background-color: darken($WEWIN_PEACH500, 10%);
+  }
+  &:active {
+    background-color: darken($WEWIN_PEACH500, 20%);
+  }
+}
+
+.theme_clear {
+  &:hover {
+    color: invert(darken($WEWIN_BLUE100, 20%));
+    background-color: darken($WEWIN_BLUE100, 10%);
+  }
+  &:active {
+    color: darken($WEWIN_BLUE100, 30%);
+    background-color: darken($WEWIN_BLUE100, 20%);
+  }
+}
+
+//shape
+.shape_round {
+  border-radius: 100px;
+  padding: 5px 10px;
+}
+
+.shape_rectangle {
+  border-radius: 8px;
+}
+
+.shape_square {
+  border-radius: 0;
+}
+
+.shape_circle {
+  border-radius: 100%;
+  width: 2.3em;
+  height: 2.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: unset;
+}
+
+//fontSize
+.font_size_small {
+  font-size: 10px;
+}
+.font_size_medium {
+  font-size: 14px;
+}
+.font_size_large {
+  font-size: 18px;
+}
+
+//fontWeight
+.font_weight_normal {
+  font-weight: 400;
+}
+.font_weight_bold {
+  font-weight: 500;
+}
+.font_weight_boldest {
+  font-weight: 700;
+}

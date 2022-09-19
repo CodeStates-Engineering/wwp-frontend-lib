@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "importsNotUsedAsValues": "error",
+    "baseUrl": "./src",
+    "paths": {
+      "@utils": ["utils"],
+      "@hooks": ["hooks"],
+      "@scss/*": ["./scss/*"],
+      "@assets/*": ["./assets/*"]
+    },
+    "declaration": true,
+    "declarationDir": "dist/types"
+  },
+  "include": ["src", "src/stories/atoms/index.tsx"],
+  "exclude": ["**/*.stories.tsx"]
+}

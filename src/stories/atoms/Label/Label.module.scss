@@ -1,0 +1,44 @@
+@import "../../../scss/libs.scss";
+
+.essential_mark {
+  color: $PEACH500;
+}
+
+.label {
+  pointer-events: none;
+  white-space: nowrap;
+  color: $GRAY3;
+}
+
+//font-weight
+.font_weight_light {
+  font-weight: 100;
+}
+.font_weight_normal {
+  font-weight: 400;
+}
+.font_weight_semi-bold {
+  font-weight: 500;
+}
+.font_weight_bold {
+  font-weight: 700;
+}
+
+//font-size
+.font_size_small {
+  font-size: $SMALL_FONT_SIZE;
+}
+.font_size_medium {
+  font-size: $NORMAL_FONT_SIZE;
+}
+.font_size_large {
+  font-size: $LARGE_FONT_SIZE;
+}
+
+.font_size_large2x {
+  font-size: $LARGE2X_FONT_SIZE;
+}
+
+.font_size_large4x {
+  font-size: $LARGE4X_FONT_SIZE;
+}

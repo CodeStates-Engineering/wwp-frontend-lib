@@ -1,0 +1,40 @@
+@import "../../../scss/libs.scss";
+
+.expandable_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 10px;
+  padding-right: 6px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  &:hover {
+    color: white;
+    background-color: $WEWIN_BLUE500;
+    &.active {
+      background-color: $PEACH500;
+    }
+  }
+  > svg {
+    width: 1.5em;
+    width: 1.5em;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: darken(white, 2%);
+    color: $GRAY300;
+  }
+}
+
+.expandable_button_text {
+  max-width: 0;
+  overflow: hidden;
+  color: white;
+  &.active {
+    transition: max-width 2s;
+    max-width: 20em;
+    padding-right: 5px;
+  }
+}

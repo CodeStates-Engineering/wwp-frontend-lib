@@ -1,0 +1,42 @@
+@import "../../../scss/libs.scss";
+
+.section_move_button {
+  padding: 24px;
+  background-color: white;
+  border: 1px solid $BLUISH_GRAY300;
+  border-radius: 12px;
+  min-width: 25em;
+  box-sizing: border-box;
+  transition: background-color 0.3s, padding-right 0.3s, border-color 0.3s;
+  &:hover {
+    padding-right: 15px;
+    border: 1px solid $BLUISH_GRAY400;
+    background-color: $BLUISH_GRAY10;
+  }
+  > .step {
+    color: $BLUISH_GRAY600;
+    text-align: left;
+    font-size: 0.9em;
+  }
+  > .title {
+    color: $BLUISH_GRAY700;
+    width: 100%;
+    font-size: 1.3em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &.selected,
+  &:active {
+    border: 1px solid $WEWIN_BLUE600;
+    background-color: $WEWIN_BLUE50;
+    cursor: default;
+    &:hover {
+      padding-right: 24px;
+    }
+    > .title {
+      color: $WEWIN_BLUE600;
+    }
+  }
+}

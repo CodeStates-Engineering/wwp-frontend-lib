@@ -1,0 +1,41 @@
+@import "../../../scss/libs.scss";
+
+.switch {
+  width: 28px;
+  height: 16px;
+  border-radius: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+  &.on {
+    background-color: $WEWIN_BLUE500;
+    > .circle {
+      transform: translateX(14px);
+    }
+  }
+  &.off {
+    background-color: $BLUISH_GRAY400;
+    > .circle {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.circle {
+  transition: transform 0.3s ease-in-out;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 100%;
+}
+
+.switch_element {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
