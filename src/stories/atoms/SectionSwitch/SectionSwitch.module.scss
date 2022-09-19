@@ -1,0 +1,10 @@
+@import "../../../scss/libs.scss";
+
+.section_switch_item {
+  width: 100%;
+  display: none;
+
+  &.visible {
+    display: unset;
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "name": "@codestates-engineering/wwp-frontend-lib",
+  "version": "0.1.26",
+  "types": "dist/types/index.d.ts",
+  "private": false,
+  "module": "dist/index.js",
+  "repository": "https://github.com/CodeStates-Engineering/wwp-frontend-lib.git",
+  "author": "HyeokjaeLee <leehyeokjae97@gmail.com>",
+  "homepage": "https://CodeStates-Engineering.github.io/wwp-frontend-lib",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "start": "start-storybook -p 6006 -s public",
+    "build": "tsc --emitDeclarationOnly && rollup -c && build-storybook",
+    "deploy": "gh-pages -d storybook-static && yarn publish"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/node-logger": "^6.5.12",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
+    "@svgr/rollup": "^6.3.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^16.11.59",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "autoprefixer": "^10.4.11",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "date-fns": "^2.29.3",
+    "gh-pages": "^4.0.0",
+    "lodash-es": "^4.17.21",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-day-picker": "^8.2.1",
+    "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
+    "react-router-dom": "^6.4.0",
+    "react-scripts": "^5.0.1",
+    "rollup": "^2.79.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-url": "^3.0.1",
+    "sass": "^1.54.9",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "typescript": "^4.8.3",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.74.0",
+    "zustand": "^4.1.1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}

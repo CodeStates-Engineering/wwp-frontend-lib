@@ -1,0 +1,97 @@
+@import "../../../scss/libs.scss";
+
+.modal_container {
+  left: 0;
+  top: 0;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  @include fade-in(0.3s);
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.gap {
+  height: 10px;
+}
+
+.modal {
+  position: fixed;
+  background-color: white;
+  padding: 24px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+  min-width: 278px;
+  border-radius: 16px;
+  border: 1px solid $GRAY50;
+  @include scale-in-center(0.2s, 0.2s);
+}
+
+.title {
+  flex: 1;
+  font-weight: $BOLD_FONT_WEIGHT;
+  font-size: $LARGE_FONT_SIZE;
+  color: $BLUISH_GRAY700;
+  white-space: pre-wrap;
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+  }
+}
+
+.explanation {
+  font-weight: 500;
+  color: $GRAY600;
+  width: 100%;
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+    margin-top: 30px;
+    color: $COZ_BLUE500;
+  }
+}
+
+.modal_header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  > :first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.modal_close_button {
+  top: 10px;
+  right: 10px;
+  border-radius: 100%;
+  padding: 1.5px;
+  > svg {
+    width: 25px;
+    height: 25px;
+  }
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    background-color: $BLUISH_GRAY100;
+  }
+}
+
+.center_modal_contents {
+  padding: 10px 0px;
+}

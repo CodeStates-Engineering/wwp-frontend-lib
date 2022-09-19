@@ -1,0 +1,95 @@
+html {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Reset CSS */
+
+/* Document */
+
+.row-center {
+  display: block;
+  margin: 0 auto;
+}
+
+.heading {
+  height: 80px;
+  line-height: 80px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Elements */
+
+a {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Form */
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  line-height: inherit;
+  text-transform: none;
+  cursor: pointer;
+}
+
+input,
+textarea,
+button {
+  /**
+     * Form 요소는 디폴트 세팅으로 font inherit 받지 않는다. 따라서 아래 코드를 직접 설정해줘야 한다.
+     */
+  font-family: inherit;
+}
+
+#root {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

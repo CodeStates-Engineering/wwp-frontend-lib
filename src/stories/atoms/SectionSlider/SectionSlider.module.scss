@@ -1,0 +1,20 @@
+@import "../../../scss/libs.scss";
+
+.section_slider_wrap {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.section_slider {
+  transition: transform 0.5s;
+}
+
+.section_slider_item {
+  width: 100%;
+}
+
+.section_slider_item_wrap {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 1px;
+}
