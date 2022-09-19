@@ -22,7 +22,7 @@
       "@assets/*": ["./assets/*"]
     },
     "declaration": true,
-    "declarationDir": "dist/types"
+    "declarationDir": "dist/library/types"
   },
   "include": ["src", "src/stories/atoms/index.tsx"],
   "exclude": ["**/*.stories.tsx"]
