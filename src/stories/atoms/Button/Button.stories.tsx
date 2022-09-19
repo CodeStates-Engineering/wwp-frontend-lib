@@ -1,4 +1,5 @@
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from "react";
 import { File } from "react-feather";
 import { Button } from "./Button";
 

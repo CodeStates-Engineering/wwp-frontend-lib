@@ -39,6 +39,7 @@ export function Button({
 }: ButtonProps) {
   const [isDelaying, setIsDelaying] = useState(!!delay);
   const [startDelaying, setStartDelaying] = useState(false);
+  console.log(scss.button);
   useEffect(() => {
     if (delay) {
       setTimeout(() => setStartDelaying(true), 1000);

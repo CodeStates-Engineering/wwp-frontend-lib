@@ -6,9 +6,11 @@ import svgr from "@svgr/rollup";
 import url from "rollup-plugin-url";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "@rollup/plugin-typescript";
-import sass from "rollup-plugin-sass";
 import react from "react";
 import reactDom from "react-dom";
+import autoprefixer from "autoprefixer";
+import postcss from "rollup-plugin-postcss";
+
 const extensions = [".js", ".jsx", ".ts", ".tsx", ".jsxs"];
 
 process.env.BABEL_ENV = "production";
@@ -30,7 +32,13 @@ export default {
     url(),
     svgr(),
     typescript(),
-    sass(),
+    postcss({
+      modules: true,
+      plugins: [autoprefixer()],
+      sourceMap: true,
+      extract: true,
+      minimize: true,
+    }),
   ],
   output: [
     {
