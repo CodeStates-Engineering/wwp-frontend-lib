@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@fontsource/noto-sans-kr": "^4.5.11",
     "@rollup/plugin-typescript": "^8.5.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
