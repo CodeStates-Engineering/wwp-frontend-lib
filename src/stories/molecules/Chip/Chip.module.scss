@@ -1,0 +1,46 @@
+@import "../../../scss/libs.scss";
+
+.chip {
+  font-size: 15px;
+  padding: 4px 5.5px;
+  background-color: $BLUISH_GRAY50;
+  min-width: 3em;
+  width: fit-content;
+  display: flex;
+  border-radius: 3em;
+  border: 1.5px solid $BLUISH_GRAY50;
+  color: $BLUISH_GRAY700;
+  > .delete_button {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    padding: 4px;
+    background-color: white;
+    transition: background-color 0.2s;
+    > svg {
+      transition: color 0.2s;
+      width: 100%;
+      height: 100%;
+      color: $BLUISH_GRAY500;
+    }
+    &:hover {
+      background-color: $WEWIN_BLUE100;
+      > svg {
+        color: $WEWIN_BLUE500;
+      }
+    }
+    &:active {
+      background-color: $WEWIN_BLUE200;
+    }
+    &:disabled {
+      background-color: $GRAY100;
+      > svg {
+        color: $GRAY400;
+      }
+    }
+  }
+}
+
+.label {
+  margin: 0 10px;
+}

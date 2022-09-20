@@ -1,0 +1,36 @@
+@import "../../../scss/libs.scss";
+
+.form_container {
+  border-radius: 12px;
+  &.padding {
+    padding: 24px;
+  }
+}
+
+.background_color_gray {
+  background-color: $BLUISH_GRAY10;
+}
+
+.border {
+  border: 1px solid $BLUISH_GRAY300;
+}
+
+$MARGIN_TOP_MAGNIFICATION: 0.65;
+
+.margin_padding_small {
+  margin-top: calc($SMALL_FONT_SIZE * $MARGIN_TOP_MAGNIFICATION);
+}
+.margin_padding_medium {
+  margin-top: calc($NORMAL_FONT_SIZE * $MARGIN_TOP_MAGNIFICATION);
+}
+.margin_padding_large {
+  margin-top: calc($LARGE_FONT_SIZE * $MARGIN_TOP_MAGNIFICATION);
+}
+
+.margin_padding_large2x {
+  margin-top: calc($LARGE2X_FONT_SIZE * $MARGIN_TOP_MAGNIFICATION);
+}
+
+.margin_padding_large4x {
+  margin-top: calc($LARGE4X_FONT_SIZE * $MARGIN_TOP_MAGNIFICATION);
+}

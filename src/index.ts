@@ -1,1 +1,1 @@
-export { Button } from "./stories/atoms/Button/Button";
+export { Button, Searchbox } from "@stories/atoms";

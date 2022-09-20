@@ -1,0 +1,79 @@
+@import "../../../scss/libs.scss";
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 40px;
+  &.contour {
+    border-bottom: 1px solid $BLUISH_GRAY300;
+  }
+}
+
+.title {
+  font-size: $LARGE4X_FONT_SIZE;
+  font-weight: $BOLD_FONT_WEIGHT;
+}
+
+.description {
+  font-size: $NORMAL_FONT_SIZE;
+  font-weight: $REGULAR_FONT_WEIGHT;
+  color: $BLUISH_GRAY600;
+}
+
+.path_list {
+  display: flex;
+  gap: 11px;
+  font-size: $SMALL_FONT_SIZE;
+  > li {
+    color: $BLUISH_GRAY700;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    > a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    > .arrow {
+      color: $BLUISH_GRAY300;
+      font-size: 0.6em;
+    }
+  }
+}
+
+.section {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 40px;
+  &.padding_bottom {
+    padding-bottom: 40px;
+  }
+}
+
+.container {
+  background-color: white;
+  min-height: 100%;
+  min-width: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 40px;
+  &.loading {
+    max-height: 100%;
+    overflow: hidden;
+  }
+}
+
+.loading_wrap {
+  background-color: white;
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

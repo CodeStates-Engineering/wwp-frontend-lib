@@ -1,0 +1,193 @@
+@import "../../../scss/libs.scss";
+
+.table {
+  background-color: white;
+  max-height: 3000px;
+  transition: max-height 0.5s;
+  width: 100%;
+  overflow: hidden;
+  &.invalid {
+    box-shadow: 0 0 0 1px $PEACH500;
+    border-left: 0.5px solid $PEACH500;
+    border-right: 0.5px solid $PEACH500;
+  }
+}
+
+.no_row_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  border-radius: 10px;
+  background-color: white;
+  color: #c2c2c2;
+  font-weight: 700;
+  gap: 10px;
+  &.invalid {
+    border: 1px solid $PEACH500;
+  }
+  > svg {
+    height: 27.3px;
+    width: 111.8px;
+  }
+  > span {
+    height: 14px;
+  }
+}
+
+.th,
+.td {
+  text-align: center;
+  font-weight: 400;
+  max-width: fit-content;
+  min-width: fit-content;
+}
+
+.flex_container {
+  display: flex;
+  //align
+  &.align_start {
+    align-items: flex-start;
+  }
+  &.align_center {
+    align-items: center;
+  }
+  &.align_end {
+    align-items: flex-end;
+  }
+
+  //justify
+  &.justify_start {
+    justify-content: flex-start;
+  }
+  &.justify_center {
+    justify-content: center;
+  }
+  &.justify_end {
+    justify-content: flex-end;
+  }
+}
+
+.td {
+  color: $GRAY900;
+  &.resizable {
+    max-width: 0;
+  }
+}
+
+.th > div {
+  color: $BLUISH_GRAY500;
+  font-size: $SMALL_FONT_SIZE;
+  font-weight: $BOLD_FONT_WEIGHT;
+
+  padding: 8px;
+  white-space: nowrap;
+  &:first-child {
+    margin-left: 1em;
+  }
+  &:last-child {
+    margin-right: 1em;
+  }
+}
+
+.td_contents_section {
+  width: fit-content;
+  max-width: 100%;
+  position: relative;
+  transition: background-color 0.3s;
+  &:first-child {
+    margin-left: 1em;
+  }
+  &:last-child {
+    margin-right: 1em;
+  }
+}
+
+.td_contents {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  border: 1.5px solid transparent;
+  top: 0;
+  padding: 0.5em;
+  &.left {
+    right: 0;
+  }
+  &.right {
+    left: 0;
+  }
+  height: 100%;
+  border-radius: 5px;
+  &.back {
+    visibility: hidden;
+  }
+  &.front {
+    position: absolute;
+    transition: border 0.2s;
+    &:hover {
+      z-index: 9999999;
+      min-width: 100%;
+      width: fit-content;
+      max-width: fit-content;
+      &.copyable {
+        padding-right: 3em;
+      }
+      > .copy_button {
+        visibility: visible;
+      }
+    }
+  }
+  &.hover_highlight:hover {
+    background-color: white;
+    border: 1.5px solid $BLUISH_GRAY300;
+  }
+}
+
+.copy_button {
+  position: absolute;
+  visibility: hidden;
+  top: -0.2em;
+  right: 0.5em;
+  margin-top: 0.5em;
+  color: $BLUISH_GRAY700;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 100%;
+  > svg {
+    box-sizing: content-box;
+    padding: 0.4em;
+    width: 1.2em;
+    height: 1.2em;
+  }
+  &:hover {
+    color: white;
+    background-color: $BLUISH_GRAY700;
+  }
+  &.copied {
+    color: white;
+    background-color: $MINT700;
+  }
+}
+
+.thead {
+  border-top: 1px solid $BLUISH_GRAY400;
+  border-bottom: 1px solid $BLUISH_GRAY400;
+  > .tr {
+    background-color: $BLUISH_GRAY10;
+    color: $BLUISH_GRAY600;
+  }
+}
+
+.tbody > .tr {
+  position: relative;
+  border-bottom: 1px solid $BLUISH_GRAY400;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $WEWIN_BLUE50;
+  }
+}
+
+.hidden {
+  display: none;
+}
