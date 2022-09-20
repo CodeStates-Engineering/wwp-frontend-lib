@@ -51,7 +51,7 @@ export function Selectbox<T extends OptionHint>({
       typeof option === "string" ? { label: option, value: option } : option
     );
     return [...initOptions, ...objectOptions];
-  }, [originalOptions]);
+  }, [originalOptions, optionsIncludePlaceholder, placeholder]);
 
   const {
     openedState: [optionsOpened, setOptionsOpened],
