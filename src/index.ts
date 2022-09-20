@@ -48,6 +48,12 @@ export {
 } from "@stories/molecules";
 
 export {
+  ConfirmModalOpener,
+  CancelModalOpener,
+  DeleteModalOpener,
+} from "@stories/organisms";
+
+export {
   validator,
   cleanClassName,
   copyText,
