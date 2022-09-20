@@ -135,40 +135,40 @@ function attachCommonProps<T extends InputPropsHint>(
   };
 }
 
-export type ComplexTextbox = TextboxProps & CommonProps<TextboxProps>;
+export type ComplexTextboxProps = TextboxProps & CommonProps<TextboxProps>;
 export const ComplexTextbox = attachCommonProps(Textbox);
 
-export type ComplexTagbox = TagboxProps & CommonProps<TagboxProps>;
+export type ComplexTagboxProps = TagboxProps & CommonProps<TagboxProps>;
 export const ComplexTagbox = attachCommonProps(Tagbox);
 
-export type ComplexSwitch = SwitchProps & CommonProps<SwitchProps>;
+export type ComplexSwitchProps = SwitchProps & CommonProps<SwitchProps>;
 export const ComplexSwitch = attachCommonProps(Switch);
 
-export type ComplexMonthSelectbox = MonthSelectboxProps &
+export type ComplexMonthSelectboxProps = MonthSelectboxProps &
   CommonProps<MonthSelectboxProps>;
 export const ComplexMonthSelectbox = attachCommonProps(MonthSelectbox);
 
-export type ComplexDateSelectbox = DateSelectboxProps &
+export type ComplexDateSelectboxProps = DateSelectboxProps &
   CommonProps<DateSelectboxProps>;
 export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
-export type ComplexDateRangeSelectbox = DateRangeSelectboxProps &
+export type ComplexDateRangeSelectboxProps = DateRangeSelectboxProps &
   CommonProps<DateRangeSelectboxProps>;
 export const ComplexDateRangeSelectbox = attachCommonProps(DateRangeSelectbox);
 
-export type ComplexRadiobox = RadioboxProps & CommonProps<RadioboxProps>;
+export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
 
-export type ComplexTextarea = TextareaProps & CommonProps<TextareaProps>;
+export type ComplexTextareaProps = TextareaProps & CommonProps<TextareaProps>;
 export const ComplexTextarea = attachCommonProps(Textarea);
 
-export type ComplexCheckbox = CheckboxProps & CommonProps<CheckboxProps>;
+export type ComplexCheckboxProps = CheckboxProps & CommonProps<CheckboxProps>;
 export const ComplexCheckbox = attachCommonProps(Checkbox);
 
-export type ComplexSelectbox = SelectboxProps<OptionHint> &
+export type ComplexSelectboxProps = SelectboxProps<OptionHint> &
   CommonProps<SelectboxProps<OptionHint>>;
 export const ComplexSelectbox = attachCommonProps(Selectbox);
 
-export type ComplexSearchbox = SearchboxProps<OptionHint> &
+export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
