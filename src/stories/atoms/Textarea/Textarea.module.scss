@@ -1,0 +1,40 @@
+@import "../../../scss/libs.scss";
+.textarea {
+  color: $GRAY600;
+  background-color: white;
+  border: $BORDER_GRAY300;
+  border-radius: 4px;
+  font-weight: 400;
+  transition: box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  gap: 0.5em;
+  outline: none;
+  height: 10em;
+  &.invalid {
+    border: 1px solid $PEACH500;
+  }
+
+  &:hover:not(:disabled),
+  &:focus {
+    box-shadow: $BOX_SHADOW013;
+  }
+  &:focus {
+    border: $BORDER_FOCUS;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    border: 1px solid $GRAY100;
+    background-color: darken(white, 2%);
+    color: $GRAY300;
+  }
+}
+
+.type_text {
+  width: 6em;
+}
+
+.fit_container {
+  width: 100%;
+}

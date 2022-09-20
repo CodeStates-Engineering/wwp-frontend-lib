@@ -1,0 +1,160 @@
+@import "../../../scss/libs.scss";
+.tagbox,
+.input_container {
+  position: relative;
+  border: $BORDER_GRAY300;
+  background-color: white;
+  border-radius: 4px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  &.invalid {
+    border: 1px solid $PEACH500;
+  }
+  &.opened {
+    box-shadow: $BOX_SHADOW013;
+    border: $BORDER_FOCUS;
+  }
+}
+
+.input_container {
+  width: 20em;
+  > input {
+    outline: none;
+    border: none;
+  }
+}
+
+.tagbox {
+  cursor: text;
+  &:hover:not(:disabled) {
+    box-shadow: $BOX_SHADOW013;
+  }
+}
+
+.tagbox_input {
+  font-size: 1em;
+  margin: 0 0.8em;
+  outline: none;
+  background-color: transparent;
+  flex: 1;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.tag_add_button {
+  margin-right: 0.5em;
+  border-radius: 100%;
+  transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    background-color: $WEWIN_BLUE100;
+  }
+  &:active {
+    background-color: $WEWIN_BLUE300;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: darken(white, 2%);
+    color: $GRAY300;
+  }
+  > svg {
+    width: 1.3em;
+    height: 1.3em;
+  }
+}
+
+.tag_icon_wrap {
+  color: $GRAY900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 3em;
+  min-height: 42px;
+  height: 100%;
+  border-left: $BORDER_GRAY300;
+  background-color: $GRAY50;
+  cursor: pointer;
+  > svg {
+    margin-top: 0.3em;
+    width: 1.4em;
+    height: 1.4em;
+  }
+}
+
+.tag_list {
+  display: flex;
+  gap: 0.3em;
+  flex: 1;
+  margin: 0 0.8em;
+  overflow-x: auto;
+  z-index: 2;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tag {
+  background-color: $GRAY3;
+  color: white;
+  font-size: 0.8em;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3em;
+  cursor: default;
+  padding: {
+    top: 0.2em;
+    bottom: 0.2em;
+    left: 0.4em;
+  }
+}
+
+.delete_tag_button {
+  margin-right: 0.2em;
+  border-radius: 100%;
+  transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    background-color: $WEWIN_BLUE100;
+    color: $GRAY600;
+  }
+  > svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.tag_list_placeholder {
+  cursor: text;
+  color: $PLACEHOLDER;
+}
+
+.tag_modal {
+  background-color: white;
+  border: 1px solid $GRAY300;
+  position: absolute;
+  box-sizing: border-box;
+  padding: 1em;
+  margin-top: 0.5em;
+  box-shadow: $BOX_SHADOW013;
+  border-radius: 4px;
+  z-index: 3;
+  @include fade-in;
+}
+
+.prevent_message {
+  color: $PEACH500;
+  font-size: 0.8em;
+  margin: 0.5em;
+  margin-bottom: 0;
+  display: none;
+  &.show {
+    display: block;
+    @include fade-in;
+  }
+}

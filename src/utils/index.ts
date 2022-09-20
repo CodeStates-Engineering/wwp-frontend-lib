@@ -1,7 +1,5 @@
-import { validator } from "./validator";
-import { cleanClassName } from "./cleanClassName/cleanClassName";
-import { copyText } from "./copyText/copyText";
-import { undefinable } from "./undefinableType";
-import { regex } from "./regex";
-
-export { validator, cleanClassName, copyText, undefinable, regex };
+export { validator } from "./validator";
+export { cleanClassName } from "./cleanClassName";
+export { copyText } from "./copyText";
+export { undefinable } from "./undefinableType";
+export { regex } from "./regex";

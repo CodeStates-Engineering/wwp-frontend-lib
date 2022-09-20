@@ -1,9 +1,9 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "0.1.26",
-  "types": "dist/types/index.d.ts",
+  "version": "0.1.28",
+  "types": "dist/library/types/index.d.ts",
   "private": false,
-  "module": "dist/index.js",
+  "module": "dist/library/index.js",
   "repository": "https://github.com/CodeStates-Engineering/wwp-frontend-lib.git",
   "author": "HyeokjaeLee <leehyeokjae97@gmail.com>",
   "homepage": "https://CodeStates-Engineering.github.io/wwp-frontend-lib",
@@ -12,12 +12,12 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "files": [
-    "/dist"
+    "/dist/library"
   ],
   "scripts": {
     "start": "start-storybook -p 6006 -s public",
-    "build": "tsc --emitDeclarationOnly && rollup -c && build-storybook",
-    "deploy": "gh-pages -d storybook-static && yarn publish"
+    "build": "tsc --emitDeclarationOnly && rollup -c && build-storybook -o dist/storybook",
+    "deploy": "yarn build && gh-pages -d dist/storybook && yarn publish"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@fontsource/noto-sans-kr": "^4.5.11",
     "@rollup/plugin-typescript": "^8.5.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",

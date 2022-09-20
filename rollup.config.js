@@ -35,7 +35,6 @@ export default {
     postcss({
       modules: true,
       plugins: [autoprefixer()],
-      sourceMap: true,
       extract: true,
       minimize: true,
     }),

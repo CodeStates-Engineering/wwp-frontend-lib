@@ -1,0 +1,84 @@
+@import "../../../scss/libs.scss";
+
+.input_container {
+  border: $INPUT_DEFAULT_BORDER;
+  background-color: $INPUT_DEFAULT_BG_COLOR;
+  border-radius: $INPUT_BORDER_RADIUS;
+
+  height: 42px;
+  min-width: 10em;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-weight: $MEDIUM_FONT_WEIGHT;
+  transition: color 0.3s, background-color 0.3s, border 0.3s;
+
+  &.filled {
+    border: $INPUT_FILLED_BORDER;
+    color: $INPUT_FILLED_COLOR;
+    background-color: $INPUT_FILLED_BG_COLOR;
+    > .unit_wrap {
+      color: $INPUT_ICON_FILLED_COLOR;
+      background-color: $INPUT_ICON_FILLED_BG_COLOR;
+    }
+  }
+
+  &:focus-within,
+  &:hover {
+    color: $INPUT_FOCUS_COLOR;
+    background-color: $INPUT_FOCUS_BG_COLOR;
+    border: $INPUT_FOCUS_BORDER;
+    > .unit_wrap {
+      color: $INPUT_ICON_FOCUS_COLOR;
+      background-color: $INPUT_ICON_FOCUS_BG_COLOR;
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    border: $INPUT_DISABLED_BORDER;
+    background-color: $INPUT_DISABLED_BG_COLOR;
+    color: $INPUT_DISABLED_COLOR;
+  }
+
+  &.invalid {
+    border: $INPUT_ALERT_BORDER;
+  }
+
+  > input {
+    font-size: $SMALL_FONT_SIZE;
+    margin: 0 0.8em;
+    border: none;
+    outline: none;
+    &::placeholder {
+      color: $INPUT_DEFAULT_COLOR;
+    }
+    outline: none;
+    min-width: 0;
+    background-color: transparent;
+    flex: 1;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.unit_wrap {
+  font-weight: 700;
+  background-color: $INPUT_ICON_DEFAULT_BG_COLOR;
+  padding: 0 0.5em;
+  height: 32px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  min-width: 3em;
+  height: 100%;
+  color: $INPUT_ICON_DEFAULT_COLOR;
+  transition: all 0.3s;
+  > svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}

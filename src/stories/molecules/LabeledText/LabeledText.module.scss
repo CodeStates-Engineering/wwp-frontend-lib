@@ -1,0 +1,44 @@
+@import "../../../scss/libs.scss";
+
+.labeled_text_container {
+  display: flex;
+  width: fit-content;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 5px;
+  &.row {
+    align-items: center;
+  }
+  &.row-reverse {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+  &.column-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.label_container {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.text {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  color: $GRAY900;
+}
+
+.placeholder {
+  color: $PLACEHOLDER;
+}
+
+.fit_container {
+  width: 100%;
+}
