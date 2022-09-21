@@ -1,9 +1,10 @@
 @import "../../../scss/libs.scss";
 
 @mixin set-theme($variant, $color, $backgroundColor: white) {
+  color: $color;
+  background-color: $backgroundColor;
+
   @if ($variant == "fill") {
-    color: $color;
-    background-color: $backgroundColor;
     &:hover {
       color: darken($color, 7%);
       background-color: darken($backgroundColor, 7%);
@@ -19,8 +20,6 @@
   }
 
   @if ($variant == "outline") {
-    color: $color;
-    background-color: $backgroundColor;
     border: 1px solid $BLUISH_GRAY200;
     &:hover {
       color: darken($color, 7%);
@@ -38,8 +37,6 @@
   }
 
   @if ($variant == "text") {
-    color: $color;
-    background-color: $backgroundColor;
     &:hover {
       color: darken($color, 7%);
       text-decoration: underline;
