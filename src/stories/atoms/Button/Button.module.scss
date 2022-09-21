@@ -1,22 +1,62 @@
 @import "../../../scss/libs.scss";
 
-.button {
-  text-align: center;
-  padding: 9.5px 15px;
-  &.icon_button_padding {
-    padding-right: 17px;
+@mixin set-theme($variant, $color, $backgroundColor: white) {
+  color: $color;
+  background-color: $backgroundColor;
+
+  @if ($variant == "contain") {
+    &:hover {
+      color: darken($color, 7%);
+      background-color: darken($backgroundColor, 7%);
+    }
+    &:active {
+      color: darken($color, 14%);
+      background-color: darken($backgroundColor, 14%);
+    }
+    &:disabled {
+      color: #C2C2C2;
+      background-color: $GRAY50;
+    }
   }
-  transition: background-color 0.3s, color 0.3s;
-  border: 1px solid transparent;
+
+  @if ($variant == "outline") {
+    border: 1px solid $BLUISH_GRAY200;
+    &:hover {
+      color: darken($color, 7%);
+      border: 1px solid darken($BLUISH_GRAY200, 7%);
+    }
+    &:active {
+      color: darken($color, 14%);
+      border: 1px solid darken($BLUISH_GRAY200, 14%);
+    }
+    &:disabled {
+      color: $GRAY500;
+      background: white;
+      border: 1px solid $GRAY400;
+    }
+  }
+
+  @if ($variant == "text") {
+    &:hover {
+      color: darken($color, 7%);
+      text-decoration: underline;
+    }
+    &:active {
+      color: darken($color, 14%);
+      text-decoration: underline;
+    }
+    &:disabled {
+      color: $GRAY500;
+      text-decoration: unset;
+
+      &:hover {
+        background-color: rgba($BLUISH_GRAY800, 0.08);
+      }
+    }
+  }
+
   &:disabled {
     cursor: not-allowed;
-    border-color: $GRAY100;
-    background-color: darken(white, 2%);
-    color: $GRAY300;
-    &:hover {
-      background-color: darken(white, 2%);
-      color: $GRAY300;
-    }
     &.delay_button {
       background-color: transparent;
       color: white;
@@ -29,6 +69,15 @@
       }
     }
   }
+}
+
+.button {
+  text-align: center;
+  padding: 9.5px 15px;
+  line-height: 1.5em;
+  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid transparent;
+
   svg {
     width: 1.5em;
     width: 1.5em;
@@ -44,6 +93,11 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .delaying_bar {
@@ -58,123 +112,142 @@
   }
 }
 
-//theme
-.theme_wewin-blue600 {
-  color: white;
-  background-color: $WEWIN_BLUE600;
-  &:hover {
-    background-color: darken($WEWIN_BLUE600, 25%);
-    color: darken(white, 25%);
+// size
+.size_small {
+  padding: 3px 7px;
+}
+
+.size_medium {
+  padding: 6px 12px;
+}
+
+.size_large {
+  padding: 6px 16px;
+}
+
+@function getVariantFromIndex($index) {
+  @if ($index == 1) {
+    @return "contain";
   }
-  &:active {
-    background-color: darken($WEWIN_BLUE600, 50%);
-    color: darken(white, 50%);
+  @if ($index == 2) {
+    @return "outline";
+  }
+  @if ($index == 3) {
+    @return "text";
   }
 }
 
-.theme_gray200 {
-  color: $GRAY700;
-  background-color: $GRAY200;
-  border-color: $GRAY300;
-  &:hover {
-    color: darken($GRAY700, 10%);
-    background-color: darken($GRAY200, 10%);
-  }
-  &:active {
-    color: darken($GRAY700, 20%);
-    background-color: darken($GRAY200, 20%);
-  }
-}
+@for $idx from 1 through 3 {
+  $variant: getVariantFromIndex($idx);
 
-.theme_white {
-  color: $GRAY600;
-  background-color: white;
-  border-color: $GRAY300;
-  &:hover {
-    color: invert(darken($GRAY600, 10%));
-    background-color: darken(white, 10%);
+  .theme_#{$variant}-wewin-blue100 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", $WEWIN_BLUE600, $WEWIN_BLUE100);
+    } @else {
+      @include set-theme($variant, $WEWIN_BLUE100);
+    }
   }
-  &:active {
-    color: darken($GRAY600, 20%);
-    background-color: darken(white, 20%);
-  }
-}
 
-.theme_wewin-blue100 {
-  color: $GRAY700;
-  background-color: $WEWIN_BLUE100;
-  &:hover {
-    background-color: darken($WEWIN_BLUE100, 10%);
+  .theme_#{$variant}-wewin-blue600 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", $WEWIN_BLUE100, $WEWIN_BLUE600);
+    } @else {
+      @include set-theme($variant, $WEWIN_BLUE600);
+    }
   }
-  &:active {
-    background-color: darken($WEWIN_BLUE100, 20%);
-  }
-}
 
-.theme_wewin-peach500 {
-  color: white;
-  background-color: $WEWIN_PEACH500;
-  &:hover {
-    background-color: darken($WEWIN_PEACH500, 10%);
+  .theme_#{$variant}-bluish-gray50 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY50);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY50);
+    }
   }
-  &:active {
-    background-color: darken($WEWIN_PEACH500, 20%);
-  }
-}
 
-.theme_clear {
-  &:hover {
-    color: invert(darken($WEWIN_BLUE100, 20%));
-    background-color: darken($WEWIN_BLUE100, 10%);
+  .theme_#{$variant}-bluish-gray100 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY100);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY100);
+    }
   }
-  &:active {
-    color: darken($WEWIN_BLUE100, 30%);
-    background-color: darken($WEWIN_BLUE100, 20%);
+
+  .theme_#{$variant}-bluish-gray200 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY200);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY200);
+    }
+  }
+
+  .theme_#{$variant}-bluish-gray500 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", white, $BLUISH_GRAY500);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY500);
+    }
+  }
+
+  .theme_#{$variant}-bluish-gray600 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", white, $BLUISH_GRAY600);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY600);
+    }
+  }
+
+  .theme_#{$variant}-wewin-peach500 {
+    @if ($variant == "contain") {
+      @include set-theme("contain", white, $WEWIN_PEACH500);
+    } @else {
+      @include set-theme($variant, $WEWIN_PEACH500);
+    }
   }
 }
 
 //shape
 .shape_round {
-  border-radius: 100px;
-  padding: 5px 10px;
-}
-
-.shape_rectangle {
-  border-radius: 8px;
+  border-radius: 90px;
 }
 
 .shape_square {
-  border-radius: 0;
-}
-
-.shape_circle {
-  border-radius: 100%;
-  width: 2.3em;
-  height: 2.3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: unset;
+  border-radius: 8px;
 }
 
 //fontSize
+.font_size_smallX {
+  font-size: $SMALLX_FONT_SIZE;
+}
+
 .font_size_small {
-  font-size: 10px;
+  font-size: $SMALL_FONT_SIZE;
 }
+
 .font_size_medium {
-  font-size: 14px;
+  font-size: $NORMAL_FONT_SIZE;
 }
+
 .font_size_large {
-  font-size: 18px;
+  font-size: $LARGE_FONT_SIZE;
+}
+
+.font_size_large2X {
+  font-size: $LARGE2X_FONT_SIZE;
+}
+
+.font_size_large4X {
+  font-size: $LARGE4X_FONT_SIZE;
 }
 
 //fontWeight
 .font_weight_normal {
   font-weight: 400;
 }
+
 .font_weight_bold {
   font-weight: 500;
 }
+
 .font_weight_boldest {
   font-weight: 700;
 }
