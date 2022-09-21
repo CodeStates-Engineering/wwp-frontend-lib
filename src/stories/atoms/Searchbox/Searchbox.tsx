@@ -33,26 +33,23 @@ export interface SearchboxProps<T extends OptionHint> {
   openDirection?: ["up" | "down", "left" | "right"];
   fitContainer?: boolean;
   id?: string;
-  className?: string;
   disabled?: boolean;
   invalid?: boolean;
+  theme?: "linear" | "box";
+  modifier?: "system" | "readonly" | "user";
 }
 
 export function Searchbox<T extends OptionHint>({
   onChange,
-  optionsFixed,
-  className,
-  placeholder = "",
-  onlyPerfectMatch,
+  placeholder = "검색어를 입력하세요",
   value,
-  name,
   openDirection: [upDown, leftRight] = ["down", "left"],
-  id,
-  disabled,
-  fitContainer,
-  invalid,
   options: originalOptions,
+  theme = "box",
+  modifier = "user",
+  ...restProps
 }: SearchboxProps<T>) {
+  const disabled = modifier === "user" ? restProps.disabled : true;
   const options = useMemo(
     () =>
       originalOptions?.map((option) =>
@@ -60,7 +57,6 @@ export function Searchbox<T extends OptionHint>({
       ) ?? [],
     [originalOptions]
   );
-
   const [searchValue, setSearchValue] = useDepsState(() => {
     if (options.length === 0 && typeof value === "string") {
       return {
@@ -88,9 +84,9 @@ export function Searchbox<T extends OptionHint>({
 
   const filteredOptions = useDebouncedValue(() => {
     if (!options) return [];
-    if (optionsFixed) return options;
+    if (restProps.optionsFixed) return options;
 
-    const standardizeString: StandardizeString = onlyPerfectMatch
+    const standardizeString: StandardizeString = restProps.onlyPerfectMatch
       ? (inputValue) => inputValue
       : (inputValue) =>
           inputValue.toLowerCase().replace(/[^a-z0-9가-힣]/gi, "");
@@ -110,7 +106,9 @@ export function Searchbox<T extends OptionHint>({
     return options;
   }, [inputValue, options]);
 
-  const fitContainerClassName = fitContainer ? scss.fit_container : "";
+  const fitContainerClassName = restProps.fitContainer
+    ? scss.fit_container
+    : "";
 
   const onChangeInputValue = useDebouncedFunction(
     options.length === 0 && onChange ? onChange : () => {}
@@ -121,11 +119,11 @@ export function Searchbox<T extends OptionHint>({
       <div className={`${scss.searchbox_wrap} ${fitContainerClassName}`}>
         <div
           className={cleanClassName(
-            `${scss.searchbox} ${optionsOpened && scss.searching} ${
-              disabled && scss.disabled
-            } ${invalid && scss.invalid} ${
-              isFilled && scss.filled
-            } ${fitContainerClassName} ${className}`
+            `${scss.searchbox} ${scss[theme]} ${
+              optionsOpened && scss.searching
+            } ${disabled && scss.disabled} ${modifier && scss[modifier]} ${
+              restProps.invalid && scss.invalid
+            } ${isFilled && scss.filled} ${fitContainerClassName}`
           )}
         >
           <input
@@ -140,8 +138,8 @@ export function Searchbox<T extends OptionHint>({
             }}
             {...preventCloseProps}
             placeholder={placeholder}
-            name={name}
-            id={id}
+            name={restProps.name}
+            id={restProps.id}
             onClick={() => setOptionsOpened(true)}
             disabled={disabled}
           />

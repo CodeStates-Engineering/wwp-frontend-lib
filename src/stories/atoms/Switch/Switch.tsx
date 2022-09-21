@@ -1,5 +1,4 @@
 import scss from "./Switch.module.scss";
-import "@scss/global.scss";
 import { useParentState } from "@hooks";
 import { cleanClassName } from "@utils";
 

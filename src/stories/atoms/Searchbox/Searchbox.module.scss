@@ -10,23 +10,41 @@
 
 .searchbox {
   color: $INPUT_DEFAULT_COLOR;
-  border: $INPUT_DEFAULT_BORDER;
-  background-color: $INPUT_DEFAULT_BG_COLOR;
-  border-radius: $INPUT_BORDER_RADIUS;
   min-width: 10em;
   height: 42px;
   padding: 0.3em 1em;
-  font-weight: 400;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   z-index: 2;
+  border: $INPUT_DEFAULT_BORDER;
+  background-color: $INPUT_DEFAULT_BG_COLOR;
   transition: color 0.3s, background-color 0.3s, border 0.3s;
+
+  > input {
+    background-color: transparent;
+    flex: 1;
+    font-weight: 500;
+    &::placeholder {
+      color: $INPUT_DEFAULT_COLOR;
+    }
+    outline: none;
+    border: none;
+  }
+  > svg {
+    color: $INPUT_ICON_DEFAULT_COLOR;
+    width: 1.2em;
+    height: 1.2em;
+    margin-left: 0.8em;
+  }
 
   &.filled {
     border: $INPUT_FILLED_BORDER;
     color: $INPUT_FILLED_COLOR;
     background-color: $INPUT_FILLED_BG_COLOR;
+    > svg {
+      color: $INPUT_ICON_FILLED_COLOR;
+    }
   }
 
   &:hover,
@@ -34,35 +52,51 @@
     color: $INPUT_FOCUS_COLOR;
     background-color: $INPUT_FOCUS_BG_COLOR;
     border: $INPUT_FOCUS_BORDER;
-  }
-
-  > svg {
-    color: #828282;
-    width: 1.2em;
-    height: 1.2em;
-    margin-left: 0.8em;
+    > svg {
+      color: $INPUT_ICON_FOCUS_COLOR;
+    }
   }
 
   &.disabled {
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
     color: $INPUT_DISABLED_COLOR;
+    &.system {
+      border-bottom: $INPUT_SYSTEM_BORDER;
+      background-color: $INPUT_SYSTEM_BG_COLOR;
+      &.linear {
+        background-color: transparent;
+      }
+      color: $INPUT_SYSTEM_COLOR;
+    }
+    &.readonly {
+      border: none;
+      background-color: transparent;
+      color: $INPUT_READONLY_COLOR;
+      > svg {
+        display: none;
+      }
+    }
     cursor: not-allowed;
     > input {
       cursor: not-allowed;
     }
-  }
-  > input {
-    background-color: transparent;
-    flex: 1;
-    &::placeholder {
-      color: $INPUT_DEFAULT_COLOR;
+    > svg {
+      color: $INPUT_ICON_DISABLED_COLOR;
     }
-    outline: none;
-    border: none;
   }
   &.invalid {
     border: 1px solid $PEACH500;
+  }
+
+  &.linear {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+  }
+  &.box {
+    border-radius: $INPUT_BORDER_RADIUS;
   }
 }
 .searchbox_value {
