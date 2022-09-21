@@ -10,7 +10,6 @@ import react from "react";
 import reactDom from "react-dom";
 import autoprefixer from "autoprefixer";
 import postcss from "rollup-plugin-postcss";
-import { typescriptPaths } from "rollup-plugin-typescript-paths";
 import copy from "rollup-plugin-copy";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx", ".jsxs"];
@@ -40,7 +39,6 @@ export default {
       extract: true,
       minimize: true,
     }),
-    typescriptPaths(),
     copy({
       targets: [{ src: "src/scss/fonts", dest: "dist/library" }],
     }),
