@@ -10,13 +10,15 @@ import react from "react";
 import reactDom from "react-dom";
 import autoprefixer from "autoprefixer";
 import postcss from "rollup-plugin-postcss";
+import { typescriptPaths } from "rollup-plugin-typescript-paths";
+import copy from "rollup-plugin-copy";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx", ".jsxs"];
 
 process.env.BABEL_ENV = "production";
 
 export default {
-  input: "./src/index.ts",
+  input: "./src/index.tsx",
   plugins: [
     peerDepsExternal(),
     resolve({ extensions }),
@@ -37,6 +39,10 @@ export default {
       plugins: [autoprefixer()],
       extract: true,
       minimize: true,
+    }),
+    typescriptPaths(),
+    copy({
+      targets: [{ src: "src/scss/fonts", dest: "dist/library" }],
     }),
   ],
   output: [

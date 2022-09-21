@@ -19,7 +19,6 @@
       "@utils": ["utils"],
       "@hooks": ["hooks"],
       "@scss/*": ["./scss/*"],
-      "@assets/*": ["./assets/*"],
       "@stories/*": ["./stories/*"]
     },
     "declaration": true,

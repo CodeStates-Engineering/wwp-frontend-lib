@@ -11,7 +11,7 @@ import {
 } from "react";
 import { cleanClassName } from "@utils";
 import { copyText } from "@utils";
-import { ReactComponent as Logo } from "@assets/wewin_logo.svg";
+import { ReactComponent as Logo } from "../../../assets/wewin_logo.svg";
 import { Loading } from "../../atoms";
 
 type Deployment = "start" | "center" | "end";

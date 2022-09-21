@@ -1,6 +1,6 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "0.1.29",
+  "version": "0.1.34",
   "types": "dist/library/types/index.d.ts",
   "private": false,
   "module": "dist/library/index.js",
@@ -48,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@fontsource/noto-sans-kr": "^4.5.11",
     "@rollup/plugin-typescript": "^8.5.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
@@ -84,9 +83,11 @@
     "rollup": "^2.79.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript-paths": "^1.4.0",
     "rollup-plugin-url": "^3.0.1",
     "sass": "^1.54.9",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
