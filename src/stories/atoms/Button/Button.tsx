@@ -1,38 +1,46 @@
-import scss from "./Button.module.scss";
-import { cleanClassName } from "@utils";
-import { Link } from "react-router-dom";
-import { omit } from "lodash-es";
-import { useEffect, useState } from "react";
-import type { IconProps } from "react-feather";
+import scss from './Button.module.scss';
+import { cleanClassName } from '@utils';
+import { Link } from 'react-router-dom';
+import { omit } from 'lodash-es';
+import { useEffect, useState } from 'react';
+import type { IconProps } from 'react-feather';
+
+type ButtonTheme =
+  | 'fill-wewin-blue100'
+  | 'fill-wewin-blue600'
+  | 'fill-bluish-gray50'
+  | 'fill-bluish-gray100'
+  | 'fill-bluish-gray200'
+  | 'fill-bluish-gray500'
+  | 'fill-wewin-peach500'
+  | 'outline-wewin-blue600'
+  | 'outline-bluish-gray600'
+  | 'outline-wewin-peach500'
+  | 'text-wewin-blue600'
+  | 'text-bluish-gray600'
+  | 'text-wewin-peach500';
 
 export interface ButtonProps
-  extends Pick<
-    React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
-    "onClick" | "className" | "type" | "children" | "disabled" | "name" | "id"
-  > {
-  theme?:
-    | "wewin-blue600"
-    | "gray200"
-    | "white"
-    | "wewin-blue100"
-    | "wewin-peach500"
-    | "clear";
-  shape?: "rectangle" | "round" | "square" | "circle";
-  fontSize?: "small" | "medium" | "large";
-  width?: "small" | "medium" | "large"; //TODO: 제거 필요
-  minWidth?: string;
+  extends Pick<React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
+    'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'> {
+  theme?: ButtonTheme;
+  shape?: 'round' | 'square';
+  size?: 'small' | 'medium' | 'large';
+  fontSize?: 'smallX' | 'small' | 'medium' | 'large' | 'large2X' | 'large4X';
+  fontWeight?: 'normal' | 'bold' | 'boldest';
   fitContainer?: boolean;
-  fontWeight?: "normal" | "bold" | "boldest";
+  minWidth?: string;
   to?: string;
   delay?: number;
   icon?: React.FunctionComponent<IconProps>;
 }
 export function Button({
   to,
-  theme = "wewin-blue600",
-  shape = "rectangle",
-  type = "button",
-  delay,
+  theme = 'fill-wewin-blue600',
+  shape = 'square',
+  size = 'medium',
+  type = 'button',
+  delay=3000,
   minWidth,
   icon: Icon,
   ...restProps
@@ -60,14 +68,13 @@ export function Button({
       </div>
     ),
     className: cleanClassName(
-      `${scss.button} ${scss["theme_" + theme]}
-      ${scss["shape_" + shape]} 
-      ${scss["font_size_" + restProps.fontSize]}
-      ${scss["font_weight_" + restProps.fontWeight]}
+      `${scss.button} ${scss['theme_' + theme]}
+      ${scss['size_' + size]}
+      ${scss['shape_' + shape]} 
+      ${scss['font_size_' + restProps.fontSize]}
+      ${scss['font_weight_' + restProps.fontWeight]}
       ${isDelaying && scss.delay_button}
-      ${Icon && scss.icon_button_padding}
-      ${restProps.fitContainer && scss.fit_container}
-      ${restProps.className}`
+      ${restProps.fitContainer && scss.fit_container}`,
     ),
     style: {
       minWidth,
@@ -79,7 +86,7 @@ export function Button({
       <button {...buttonProps} disabled type={type}>
         <div
           className={cleanClassName(
-            `${scss.delaying_bar} ${startDelaying && scss.delaying}`
+            `${scss.delaying_bar} ${startDelaying && scss.delaying}`,
           )}
           style={{ transitionDuration: `${delay / 1000}s` }}
         />
@@ -87,6 +94,6 @@ export function Button({
       </button>
     );
   }
-  if (to) return <Link {...omit(buttonProps, ["disabled", "name"])} to={to} />;
+  if (to) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
   return <button {...buttonProps} type={type} />;
 }

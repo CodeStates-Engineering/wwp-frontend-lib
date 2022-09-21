@@ -9,10 +9,9 @@ export function CancelModalOpener({
   onCancel,
   confirmButtonContents = "네, 취소합니다.",
   modalType = "center",
-  confirmButtonTheme = "wewin-peach500",
+  confirmButtonTheme = "fill-wewin-peach500",
   fontWeight = "bold",
   fontSize = "large",
-  theme = "white",
   title = (
     <>
       작성중인 내용이 사라집니다.
@@ -26,7 +25,6 @@ export function CancelModalOpener({
     <ConfirmModalOpener
       openerType="button"
       {...restProps}
-      theme={theme}
       fontWeight={fontWeight}
       fontSize={fontSize}
       confirmButtonTheme={confirmButtonTheme}
