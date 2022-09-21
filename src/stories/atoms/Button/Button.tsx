@@ -38,7 +38,6 @@ export function Button({
   shape = 'square',
   theme = 'wewin-blue600',
   size = 'medium',
-  fontSize = 'medium',
   type = 'button',
   delay,
   minWidth,
