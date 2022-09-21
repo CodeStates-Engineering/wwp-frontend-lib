@@ -1,6 +1,7 @@
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Searchbox } from "./Searchbox";
 import type { SearchboxProps } from "./Searchbox";
+import React from "react";
 
 export default {
   title: "atoms/Searchbox",
@@ -13,6 +14,7 @@ const SearchboxStory: ComponentStory<typeof Searchbox> = (
 
 export const Default = SearchboxStory.bind({});
 Default.args = {
+  value: "1",
   options: [
     {
       value: "1",

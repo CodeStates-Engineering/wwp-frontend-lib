@@ -77,6 +77,10 @@ button {
   cursor: pointer;
 }
 
+input:disabled {
+  color: unset;
+}
+
 input,
 textarea,
 button {
