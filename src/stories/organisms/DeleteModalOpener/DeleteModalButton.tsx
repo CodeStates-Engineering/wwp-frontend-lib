@@ -10,7 +10,7 @@ export function DeleteModalOpener({
   onDelete,
   modalType = 'center',
   openerContents = '삭제',
-  confirmButtonTheme = 'fill-wewin-peach500',
+  confirmButtonTheme = 'wewin-peach500',
   ...restProps
 }: DeleteModalOpenerProps) {
   return (

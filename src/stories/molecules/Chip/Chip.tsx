@@ -23,7 +23,7 @@ export function Chip(props: ChipProps) {
           fitContainer
           fontWeight="boldest"
           fontSize="medium"
-          theme="fill-wewin-peach500"
+          theme="wewin-peach500"
           onClick={() => {
             props.onDelete?.();
             setDeleteModalOpened(false);

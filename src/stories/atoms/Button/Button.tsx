@@ -5,24 +5,22 @@ import { omit } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';
 
-type ButtonTheme =
-  | 'fill-wewin-blue100'
-  | 'fill-wewin-blue600'
-  | 'fill-bluish-gray50'
-  | 'fill-bluish-gray100'
-  | 'fill-bluish-gray200'
-  | 'fill-bluish-gray500'
-  | 'fill-wewin-peach500'
-  | 'outline-wewin-blue600'
-  | 'outline-bluish-gray600'
-  | 'outline-wewin-peach500'
-  | 'text-wewin-blue600'
-  | 'text-bluish-gray600'
-  | 'text-wewin-peach500';
+export type ButtonTheme =
+  | 'wewin-blue100'
+  | 'wewin-blue600'
+  | 'bluish-gray50'
+  | 'bluish-gray100'
+  | 'bluish-gray200'
+  | 'bluish-gray500'
+  | 'bluish-gray600'
+  | 'wewin-peach500'
+
+export type Variant = 'contain' | 'outline' | 'text';
 
 export interface ButtonProps
   extends Pick<React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
     'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'> {
+  variant?: Variant;
   theme?: ButtonTheme;
   shape?: 'round' | 'square';
   size?: 'small' | 'medium' | 'large';
@@ -36,11 +34,13 @@ export interface ButtonProps
 }
 export function Button({
   to,
-  theme = 'fill-wewin-blue600',
+  variant = 'contain',
   shape = 'square',
+  theme = 'wewin-blue600',
   size = 'medium',
+  fontSize = 'medium',
   type = 'button',
-  delay=3000,
+  delay,
   minWidth,
   icon: Icon,
   ...restProps
@@ -68,7 +68,7 @@ export function Button({
       </div>
     ),
     className: cleanClassName(
-      `${scss.button} ${scss['theme_' + theme]}
+      `${scss.button} ${scss['theme_' + variant + '-' + theme]}
       ${scss['size_' + size]}
       ${scss['shape_' + shape]} 
       ${scss['font_size_' + restProps.fontSize]}

@@ -9,7 +9,7 @@ export function CancelModalOpener({
   onCancel,
   confirmButtonContents = "네, 취소합니다.",
   modalType = "center",
-  confirmButtonTheme = "fill-wewin-peach500",
+  confirmButtonTheme = "wewin-peach500",
   fontWeight = "bold",
   fontSize = "large",
   title = (
