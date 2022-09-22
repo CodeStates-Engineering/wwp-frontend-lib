@@ -1,5 +1,7 @@
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Modal } from "./Modal";
+import { Modal, ModalProps } from "./Modal";
+import React from "react";
+import { Button } from "..";
 
 export default {
   title: "atoms/Modal",
@@ -8,10 +10,28 @@ export default {
 
 const ModalStory: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 
-export const Default = ModalStory.bind({});
-Default.args = {
+const commonArgs: ModalProps = {
   opened: true,
-  title: "모달 타이틀",
-  explanation: "모달 설명",
-  children: "모달 하위 컴포넌트가 들어갑니다.",
+  title: "제목 텍스트가 들어갑니다.",
+  explanation: "서브 텍스트가 들어갑니다.",
+  children: "콘텐츠 영역(커스텀)",
+
+  footerItems: (
+    <>
+      <Button theme="bluish-gray500">Button</Button>
+      <Button>Button</Button>
+    </>
+  ),
+};
+
+export const Left = ModalStory.bind({});
+Left.args = {
+  contour: true,
+  ...commonArgs,
+};
+
+export const Center = ModalStory.bind({});
+Center.args = {
+  modalType: "center",
+  ...commonArgs,
 };
