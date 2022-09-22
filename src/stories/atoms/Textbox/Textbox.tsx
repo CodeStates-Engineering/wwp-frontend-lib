@@ -35,8 +35,7 @@ export function Textbox({
   width = '246px',
 }: TextboxProps) {
   const [inputValue, setInputValue] = useParentState(value);
-  disabled = modifier === 'user' ? disabled : true;
-
+  const _disabled = modifier === 'user' ? disabled : true;
   const isFilled = inputValue !== '';
 
   const conditionalProps = (() => {
@@ -97,7 +96,6 @@ export function Textbox({
         ${scss[theme]} 
         ${modifier && scss[modifier]}
         ${invalid && scss.invalid} 
-        ${disabled && scss.disabled} 
         ${isFilled && scss.filled}`,
       )}
       style={{ width }}
@@ -105,7 +103,7 @@ export function Textbox({
       <input
         type={type}
         {...conditionalProps}
-        disabled={disabled}
+        disabled={_disabled}
         id={id}
         name={name}
       />

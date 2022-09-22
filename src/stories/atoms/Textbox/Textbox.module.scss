@@ -34,7 +34,7 @@
     }
   }
 
-  &.disabled {
+  &:disabled {
     cursor: not-allowed;
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;

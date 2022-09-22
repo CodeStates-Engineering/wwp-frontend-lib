@@ -29,12 +29,14 @@
     @include linear-border();
     background: transparent;
   }
+
   &.invalid {
     border: 1px solid $PEACH500;
     &.linear {
       @include linear-border(1px, solid, PEACH600);
     }
   }
+
   &:focus {
     color: $BLUISH_GRAY700;
     border: 1px solid $WEWIN_BLUE200;
@@ -42,6 +44,7 @@
       @include linear-border();
     }
   }
+
   &.filled {
     background: $WEWIN_BLUE10;
     color: $BLUISH_GRAY700;
@@ -50,6 +53,7 @@
       @include linear-border();
     }
   }
+
   &:disabled {
     cursor: not-allowed;
     border: 1px solid $GRAY100;
