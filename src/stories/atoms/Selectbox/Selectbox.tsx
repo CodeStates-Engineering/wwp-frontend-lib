@@ -37,7 +37,7 @@ export function Selectbox<T extends OptionHint>({
   name,
   openDirection: [upDown, leftRight] = ["down", "left"],
   value,
-  width = "150px",
+  width = "246px",
   modifier = "user",
   options,
   theme = "box",
