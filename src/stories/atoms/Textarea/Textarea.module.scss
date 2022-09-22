@@ -56,7 +56,7 @@
 
   &:disabled {
     cursor: not-allowed;
-    border: 1px solid $GRAY100;
+    border: none;
     background-color: $GRAY10;
     color: $GRAY500;
     &.readonly {
