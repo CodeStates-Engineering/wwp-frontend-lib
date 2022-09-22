@@ -21,37 +21,39 @@ export interface SelectboxProps<T extends OptionHint> {
   placeholder?: string;
   optionsIncludePlaceholder?: boolean;
   name?: string;
-  fitContainer?: boolean;
   id?: string;
-  className?: string;
   disabled?: boolean;
   invalid?: boolean;
+  width?: React.CSSProperties["width"];
+  theme?: "linear" | "box";
+  modifier?: "system" | "readonly" | "user";
 }
 
 export function Selectbox<T extends OptionHint>({
   placeholder = "",
   onChange,
-  className,
-  disabled,
   id,
   invalid,
   name,
   openDirection: [upDown, leftRight] = ["down", "left"],
-  fitContainer,
   value,
-  options: originalOptions,
+  width = "150px",
+  modifier = "user",
+  options,
+  theme = "box",
   optionsIncludePlaceholder = false,
+  disabled,
 }: SelectboxProps<T>) {
-  const options = useMemo(() => {
-    if (!originalOptions) return [];
+  const _options = useMemo(() => {
+    if (!options) return [];
     const initOptions = optionsIncludePlaceholder
       ? [{ label: placeholder, value: null }]
       : [];
-    const objectOptions = originalOptions.map((option) =>
+    const objectOptions = options.map((option) =>
       typeof option === "string" ? { label: option, value: option } : option
     );
     return [...initOptions, ...objectOptions];
-  }, [originalOptions, optionsIncludePlaceholder, placeholder]);
+  }, [options, optionsIncludePlaceholder, placeholder]);
 
   const {
     openedState: [optionsOpened, setOptionsOpened],
@@ -60,42 +62,34 @@ export function Selectbox<T extends OptionHint>({
 
   const [selectedValue, setSelectedValue] = useDepsState(() => value, [value]);
 
-  const label =
-    options.find(({ value }) => value === selectedValue)?.label ?? placeholder;
+  const selectedLabel = _options.find(
+    ({ value }) => value === selectedValue
+  )?.label;
 
-  const fitContainerClassName = fitContainer ? scss.fit_container : "";
+  const isFilled = selectedLabel !== undefined && selectedValue !== null;
+
+  const _disabled = modifier === "user" ? disabled : true;
 
   return (
-    <div
-      className={cleanClassName(
-        `${scss.selectbox_wrap} ${fitContainerClassName}`
-      )}
-    >
+    <div className={scss.selectbox_wrap} style={{ width }}>
       <button
         name={name}
         id={id}
         className={cleanClassName(
-          `${scss.selectbox} ${optionsOpened && scss.opened} ${
-            invalid && scss.invalid
-          } ${fitContainerClassName} ${className}`
+          `${scss.selectbox} ${invalid && scss.invalid} ${
+            isFilled && scss.filled
+          } ${optionsOpened && scss.opened} ${scss[theme]} ${scss[modifier]}`
         )}
         onClick={() => setOptionsOpened(!optionsOpened)}
         type="button"
-        disabled={disabled}
+        disabled={_disabled}
         {...preventCloseProps}
       >
-        <div
-          className={cleanClassName(
-            `${scss.selectbox_value} ${
-              (!selectedValue || selectedValue === placeholder) &&
-              placeholder &&
-              scss.placeholder
-            }`
-          )}
-        >
-          {label}
+        <div className={scss.selectbox_value}>
+          {isFilled ? selectedLabel : placeholder}
         </div>
-        {upDown === "down" ? <ChevronDown /> : <ChevronUp />}
+        {modifier !== "readonly" &&
+          (upDown === "down" ? <ChevronDown /> : <ChevronUp />)}
       </button>
       <ul
         className={cleanClassName(
@@ -106,8 +100,8 @@ export function Selectbox<T extends OptionHint>({
         {...preventCloseProps}
       >
         <li className={`${scss.empty_space} ${scss.top}`} />
-        {0 < options.length ? (
-          options.map(({ label, value }, index) => (
+        {0 < _options.length ? (
+          _options.map(({ label, value }, index) => (
             <li key={index}>
               <button
                 className={scss.item_button}
