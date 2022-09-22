@@ -20,14 +20,9 @@
   height: 100%;
 }
 
-.gap {
-  height: 10px;
-}
-
 .modal {
   position: fixed;
   background-color: white;
-  padding: 24px;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
   min-width: 278px;
   border-radius: 16px;
@@ -36,62 +31,85 @@
 }
 
 .title {
-  flex: 1;
-  font-weight: $BOLD_FONT_WEIGHT;
   font-size: $LARGE_FONT_SIZE;
+  font-weight: $BOLD_FONT_WEIGHT;
   color: $BLUISH_GRAY700;
-  white-space: pre-wrap;
-  &.left {
-    text-align: left;
-  }
-  &.center {
-    text-align: center;
-  }
 }
 
-.explanation {
-  font-weight: 500;
-  color: $GRAY600;
-  width: 100%;
+.sub_text {
+  font-size: $SMALL_FONT_SIZE;
+  font-weight: $MEDIUM_FONT_WEIGHT;
+  color: $BLUISH_GRAY500;
+}
+
+.title_section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   &.left {
-    text-align: left;
+    align-items: flex-start;
+    flex: 1;
   }
   &.center {
-    text-align: center;
-    margin-top: 30px;
-    color: $COZ_BLUE500;
+    align-items: center;
   }
 }
 
 .modal_header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding: 20px 30px;
   gap: 10px;
-  margin-bottom: 10px;
-  > :first-child {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  justify-content: flex-end;
+  &.contour {
+    border-bottom: 1px solid $BLUISH_GRAY200;
+  }
+}
+
+.modal_footer {
+  display: flex;
+  padding: 24px;
+  &.contour {
+    border-top: 1px solid $BLUISH_GRAY200;
+  }
+  gap: 12px;
+  > button {
+    flex: 1;
   }
 }
 
 .modal_close_button {
-  top: 10px;
-  right: 10px;
   border-radius: 100%;
-  padding: 1.5px;
-  > svg {
-    width: 25px;
-    height: 25px;
-  }
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > svg {
+    color: $BLUISH_GRAY700;
+    width: 21px;
+    height: 21px;
+  }
   &:hover {
     background-color: $BLUISH_GRAY100;
   }
 }
 
-.center_modal_contents {
-  padding: 10px 0px;
+.modal_body {
+  padding: 30px;
+  font-size: $NORMAL_FONT_SIZE;
+  font-weight: $MEDIUM_FONT_WEIGHT;
+  color: $BLUISH_GRAY600;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  &.left {
+    align-items: flex-start;
+  }
+  &.center {
+    align-items: center;
+  }
 }
