@@ -15,7 +15,7 @@ export interface TextareaProps {
   width?: React.CSSProperties['width'];
   theme?: 'linear' | 'box';
   modifier?: 'readonly' | 'user';
-  maxHeight: React.CSSProperties['maxHeight'] | 'auto';
+  maxHeight?: React.CSSProperties['maxHeight'] | 'auto';
 }
 
 export function Textarea({
@@ -32,7 +32,7 @@ export function Textarea({
   disabled,
 }: TextareaProps) {
   const [inputValue, setInputValue] = useParentState(String(value));
-  disabled = modifier === 'user' ? disabled : true;
+  const _disabled = modifier === 'user' ? disabled : true;
   const textarea = useRef<HTMLTextAreaElement>(null);
 
   useLayoutEffect(() => {
@@ -79,7 +79,7 @@ export function Textarea({
     value={inputValue}
     name={name}
     id={id}
-    disabled={disabled}
+    disabled={_disabled}
     onChange={(e) => {
       const { value } = e.target;
       setInputValue(value);
