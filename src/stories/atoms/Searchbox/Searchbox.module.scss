@@ -20,11 +20,11 @@
   border: $INPUT_DEFAULT_BORDER;
   background-color: $INPUT_DEFAULT_BG_COLOR;
   transition: color 0.3s, background-color 0.3s, border 0.3s;
-
   > input {
     background-color: transparent;
     flex: 1;
-    font-weight: 500;
+    font-size: $SMALL_FONT_SIZE;
+    font-weight: $MEDIUM_FONT_WEIGHT;
     &::placeholder {
       color: $INPUT_DEFAULT_COLOR;
     }
@@ -40,8 +40,10 @@
 
   &.filled {
     border: $INPUT_FILLED_BORDER;
-    color: $INPUT_FILLED_COLOR;
     background-color: $INPUT_FILLED_BG_COLOR;
+    > input {
+      color: $INPUT_FILLED_COLOR;
+    }
     > svg {
       color: $INPUT_ICON_FILLED_COLOR;
     }
@@ -49,9 +51,11 @@
 
   &:hover,
   &.searching {
-    color: $INPUT_FOCUS_COLOR;
     background-color: $INPUT_FOCUS_BG_COLOR;
     border: $INPUT_FOCUS_BORDER;
+    > input {
+      color: $INPUT_FOCUS_COLOR;
+    }
     > svg {
       color: $INPUT_ICON_FOCUS_COLOR;
     }
@@ -60,19 +64,25 @@
   &.disabled {
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
-    color: $INPUT_DISABLED_COLOR;
+    > input {
+      color: $INPUT_DISABLED_COLOR;
+    }
     &.system {
       border-bottom: $INPUT_SYSTEM_BORDER;
       background-color: $INPUT_SYSTEM_BG_COLOR;
       &.linear {
         background-color: transparent;
       }
-      color: $INPUT_SYSTEM_COLOR;
+      > input {
+        color: $INPUT_SYSTEM_COLOR;
+      }
     }
     &.readonly {
       border: none;
       background-color: transparent;
-      color: $INPUT_READONLY_COLOR;
+      > input {
+        color: $INPUT_READONLY_COLOR;
+      }
       > svg {
         display: none;
       }
