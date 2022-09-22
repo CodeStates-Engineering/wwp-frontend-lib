@@ -17,6 +17,7 @@ export interface TextboxProps {
   type?: 'number' | 'text' | 'comma-separated-number';
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
+  width?: string;
 }
 
 export function Textbox({
@@ -31,6 +32,7 @@ export function Textbox({
   invalid,
   theme = 'box',
   modifier = 'user',
+  width = '246px',
 }: TextboxProps) {
   const [inputValue, setInputValue] = useParentState(value);
   disabled = modifier === 'user' ? disabled : true;
@@ -98,6 +100,7 @@ export function Textbox({
         ${disabled && scss.disabled} 
         ${isFilled && scss.filled}`,
       )}
+      style={{ width }}
     >
       <input
         type={type}
