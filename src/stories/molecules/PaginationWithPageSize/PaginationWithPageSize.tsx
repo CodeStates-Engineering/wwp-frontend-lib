@@ -1,5 +1,6 @@
 import scss from "./PaginationWithPageSize.module.scss";
 import { Pagination, Selectbox } from "../../atoms";
+
 export interface PaginationWithPageSizeProps {
   totalItemCount?: number;
   pageSizeOptions?: number[];
@@ -31,8 +32,8 @@ export function PaginationWithPageSize({
         onChange={(option) =>
           setPageSize(Number(option?.replace(PAGE_SIZE_TEXT, "")))
         }
+        width="137px"
         value={pageSize + PAGE_SIZE_TEXT}
-        className={scss.page_size_selectbox}
         openDirection={["up", "left"]}
       />
     </div>
