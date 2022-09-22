@@ -1,7 +1,7 @@
-import { useParentState } from "@hooks";
-
-import scss from "./Textarea.module.scss";
-import { cleanClassName } from "@utils";
+import { useParentState } from '@hooks';
+import scss from './Textarea.module.scss';
+import { cleanClassName } from '@utils';
+import { useLayoutEffect, useRef } from 'react';
 
 export interface TextareaProps {
   value?: string;
@@ -12,37 +12,78 @@ export interface TextareaProps {
   invalid?: boolean;
   name?: string;
   placeholder?: string;
-  fitContainer?: boolean;
+  width?: React.CSSProperties['width'];
+  theme?: 'linear' | 'box';
+  modifier?: 'readonly' | 'user';
+  maxHeight: React.CSSProperties['maxHeight'] | 'auto';
 }
 
 export function Textarea({
-  className,
   id,
   name,
-  placeholder,
+  placeholder = '내용을 입력하세요.',
   onChange,
-  value = "",
-  fitContainer,
+  value = '',
+  width = '224px',
   invalid,
+  theme = 'box',
+  modifier = 'user',
+  maxHeight,
+  disabled,
 }: TextareaProps) {
   const [inputValue, setInputValue] = useParentState(String(value));
+  disabled = modifier === 'user' ? disabled : true;
+  const textarea = useRef<HTMLTextAreaElement>(null);
 
-  return (
-    <textarea
-      className={cleanClassName(
-        `${scss.textarea} ${invalid && scss.invalid} ${
-          fitContainer && scss.fit_container
-        } ${className}`
-      )}
-      placeholder={placeholder}
-      value={inputValue}
-      name={name}
-      id={id}
-      onChange={(e) => {
-        const { value } = e.target;
-        setInputValue(value);
-        onChange?.(value);
-      }}
-    />
-  );
+  useLayoutEffect(() => {
+    if (maxHeight && textarea.current) {
+      const unit = (() => {
+        if (Number(String(maxHeight).includes('rem'))) return 'rem';
+        if (Number(String(maxHeight).includes('em'))) return 'em';
+        return 'px';
+      })();
+
+      const maxHeightNumber = Number(String(maxHeight).split(unit)[0]);
+      maxHeight = maxHeight === 'auto'
+        ? Infinity
+        : {
+          px: maxHeightNumber,
+          em: maxHeightNumber * 14, // font-size: 14px
+          rem: maxHeightNumber * 16,
+        }[unit];
+
+      if (textarea.current.scrollHeight <= maxHeight) {
+        textarea.current.style.overflowY = 'scroll';
+        textarea.current.style.height = '0px';
+        textarea.current.style.height = textarea.current.scrollHeight + 'px';
+      }
+
+      if (textarea.current.scrollHeight > maxHeight) {
+        textarea.current.style.height = `${maxHeight}px`;
+      }
+    }
+
+  }, [maxHeight, inputValue]);
+
+  return <textarea
+    ref={textarea}
+    className={cleanClassName(
+      `${scss.textarea}
+        ${scss[theme]} ${modifier && scss[modifier]}
+        ${invalid && scss.invalid}
+        ${inputValue && scss.filled}
+       `,
+    )}
+    style={{ width }}
+    placeholder={placeholder}
+    value={inputValue}
+    name={name}
+    id={id}
+    disabled={disabled}
+    onChange={(e) => {
+      const { value } = e.target;
+      setInputValue(value);
+      onChange?.(value);
+    }}
+  />;
 }
