@@ -17,7 +17,7 @@ export interface TextboxProps {
   type?: 'number' | 'text' | 'comma-separated-number';
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
-  width?: string;
+  width?: React.CSSProperties['width'];
 }
 
 export function Textbox({
