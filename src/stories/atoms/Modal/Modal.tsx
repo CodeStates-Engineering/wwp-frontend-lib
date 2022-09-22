@@ -22,7 +22,7 @@ export function Modal({
   opened = false,
   closeButton = true,
   title,
-  subText = "서브 텍스트가 들어갑니다.",
+  subText,
   modalType = "left",
   maxWidth = "340px",
   contour = false,
