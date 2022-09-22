@@ -1,8 +1,8 @@
-import scss from "./Textbox.module.scss";
-import { useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
-import { regex } from "@utils";
-import { Percent } from "react-feather";
+import scss from './Textbox.module.scss';
+import { useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
+import { regex } from '@utils';
+import { Percent } from 'react-feather';
 
 export interface TextboxProps {
   value?: string;
@@ -14,7 +14,10 @@ export interface TextboxProps {
   placeholder?: string;
   name?: string;
   unit?: React.ReactNode;
-  type?: "number" | "text" | "comma-separated-number";
+  type?: 'number' | 'text' | 'comma-separated-number';
+  theme?: 'linear' | 'box';
+  modifier?: 'system' | 'readonly' | 'user';
+  width?: string;
 }
 
 export function Textbox({
@@ -23,21 +26,24 @@ export function Textbox({
   unit,
   id,
   type,
-  className,
   onChange,
   name,
-  value = "",
+  value = '',
   invalid,
+  theme = 'box',
+  modifier = 'user',
+  width = '246px',
 }: TextboxProps) {
   const [inputValue, setInputValue] = useParentState(value);
+  disabled = modifier === 'user' ? disabled : true;
 
-  const isFilled = inputValue !== "";
+  const isFilled = inputValue !== '';
 
   const conditionalProps = (() => {
     const createChangeEventHandler =
       (changeEventHandler: (value: string) => void) =>
-      (event: React.ChangeEvent<HTMLInputElement>) =>
-        changeEventHandler(event.target.value);
+        (event: React.ChangeEvent<HTMLInputElement>) =>
+          changeEventHandler(event.target.value);
 
     const handleCommonEvent = (value: string) => {
       setInputValue(value);
@@ -45,30 +51,30 @@ export function Textbox({
     };
 
     switch (type) {
-      case "number":
+      case 'number':
         return {
-          placeholder: placeholder ?? "0",
+          placeholder: placeholder ?? '00',
           value: inputValue,
           onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value)
+            handleCommonEvent(value),
           ),
         };
 
-      case "comma-separated-number":
+      case 'comma-separated-number':
         return {
-          placeholder: placeholder ?? "0",
-          value: inputValue.replace(regex.addCommasToNumber, ","),
+          placeholder: placeholder ?? '000,000,000',
+          value: inputValue.replace(regex.addCommasToNumber, ','),
           onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value.replace(regex.number, ""))
+            handleCommonEvent(value.replace(regex.number, '')),
           ),
         };
 
       default:
         return {
-          placeholder,
+          placeholder: placeholder ?? '내용을 입력하세요.',
           value: inputValue,
           onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value)
+            handleCommonEvent(value),
           ),
         };
     }
@@ -78,7 +84,7 @@ export function Textbox({
     if (!unit) return <></>;
     let generatedUnit = unit;
     switch (unit) {
-      case "%":
+      case '%':
         generatedUnit = <Percent />;
     }
     return <div className={scss.unit_wrap}>{generatedUnit}</div>;
@@ -87,10 +93,14 @@ export function Textbox({
   return (
     <div
       className={cleanClassName(
-        `${scss.input_container} ${invalid && scss.invalid} ${
-          disabled && scss.disabled
-        } ${isFilled && scss.filled} ${className}`
+        `${scss.input_container} 
+        ${scss[theme]} 
+        ${modifier && scss[modifier]}
+        ${invalid && scss.invalid} 
+        ${disabled && scss.disabled} 
+        ${isFilled && scss.filled}`,
       )}
+      style={{ width }}
     >
       <input
         type={type}

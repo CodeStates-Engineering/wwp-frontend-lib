@@ -39,6 +39,33 @@
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
     color: $INPUT_DISABLED_COLOR;
+
+    &.system {
+      border-bottom: $INPUT_SYSTEM_BORDER;
+      background-color: $INPUT_SYSTEM_BG_COLOR;
+      color: $INPUT_SYSTEM_COLOR;
+      &.linear {
+        background-color: transparent;
+      }
+
+      > .unit_wrap {
+        color: $INPUT_ICON_SYSTEM_COLOR;
+        background-color: $INPUT_ICON_SYSTEM_BG_COLOR;
+      }
+    }
+    &.readonly {
+      border: none;
+      background-color: transparent;
+      color: $INPUT_READONLY_COLOR;
+      > svg {
+        display: none;
+      }
+
+      > .unit_wrap {
+        color: $INPUT_ICON_READONLY_COLOR;
+        background-color: transparent;
+      }
+    }
   }
 
   &.invalid {
@@ -60,6 +87,20 @@
     &:disabled {
       cursor: not-allowed;
     }
+  }
+
+  &.linear {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+
+    > .unit_wrap {
+      background-color: transparent;
+    }
+  }
+  &.box {
+    border-radius: $INPUT_BORDER_RADIUS;
   }
 }
 
