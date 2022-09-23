@@ -17,7 +17,7 @@
   border-radius: 3px;
   font-size: 14px;
   font-weight: 500;
-  transition: box-shadow 0.3s;
+  transition: color 0.3s, background-color 0.3s, border 0.3s;
   display: flex;
   align-items: center;
   padding: 0.5714285em;
@@ -37,18 +37,20 @@
     }
   }
 
-  &:focus {
-    color: $BLUISH_GRAY700;
-    border: 1px solid $WEWIN_BLUE200;
+  &.filled {
+    background: $INPUT_FILLED_BG_COLOR;
+    color: $INPUT_FILLED_COLOR;
+    border: 1px solid $BLUISH_GRAY300;
     &.linear {
       @include linear-border();
     }
   }
 
-  &.filled {
-    background: $WEWIN_BLUE10;
-    color: $BLUISH_GRAY700;
-    border: 1px solid $BLUISH_GRAY300;
+  &:hover,
+  &:focus-within {
+    color: $INPUT_FOCUS_COLOR;
+    background-color: $INPUT_FOCUS_BG_COLOR;
+    border: $INPUT_FOCUS_BORDER;
     &.linear {
       @include linear-border();
     }
