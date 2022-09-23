@@ -122,6 +122,7 @@ export {
   copyText,
   undefinable,
   regex,
+  checkStringDate,
 } from "./utils";
 
 export {
