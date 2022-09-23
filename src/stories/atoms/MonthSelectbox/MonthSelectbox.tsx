@@ -1,7 +1,7 @@
-import scss from "./MonthSelectbox.module.scss";
-import { Check, Calendar } from "react-feather";
-import { useOpenedStateWithCloseExternalClick, useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
+import scss from './MonthSelectbox.module.scss';
+import { Check, Calendar } from 'react-feather';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
 
 export interface MonthDate {
   year?: number;
@@ -12,28 +12,29 @@ export interface MonthSelectboxProps {
   value?: MonthDate;
   onChange?: (value: MonthDate) => void;
   id?: string;
-  className?: string;
   disabled?: boolean;
   invalid?: boolean;
-  openDirection?: ["up" | "down", "left" | "right"];
+  openDirection?: ['up' | 'down', 'left' | 'right'];
   name?: string;
-  fitContainer?: boolean;
   placeholder?: string;
+  theme?: 'linear' | 'box';
+  modifier?: 'system' | 'readonly' | 'user';
+  width?: React.CSSProperties['width'];
 }
 
 const monthOptions = [
-  "01",
-  "02",
-  "03",
-  "04",
-  "05",
-  "06",
-  "07",
-  "08",
-  "09",
-  "10",
-  "11",
-  "12",
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+  '11',
+  '12',
 ];
 
 const yearOptions: number[] = [];
@@ -57,14 +58,15 @@ const scrollToSelectedValue = (targetYear?: number) => {
 export function MonthSelectbox({
   value,
   onChange,
-  className,
-  placeholder,
+  placeholder = 'YYYY-MM',
   disabled,
   id,
   invalid,
   name,
-  openDirection: [upDown, leftRight] = ["down", "left"],
-  fitContainer,
+  openDirection: [upDown, leftRight] = ['down', 'left'],
+  theme = 'box',
+  modifier = 'user',
+  width = '246px',
 }: MonthSelectboxProps) {
   const {
     openedState: [optionsOpened, setOptionsOpened],
@@ -77,32 +79,37 @@ export function MonthSelectbox({
       selectedMonthNum !== undefined ? String(selectedMonthNum + 1) : undefined,
     selectedMonth = selectedMonthString
       ? selectedMonthString.length === 1
-        ? "0" + selectedMonthString
+        ? '0' + selectedMonthString
         : selectedMonthString
       : undefined,
-    isFilled = selectedYear || selectedMonth;
+    isFilled = selectedYear || selectedMonth,
+    _disabled = modifier === 'user' ? disabled : true;
 
-  const fitContainerClassName = fitContainer && scss.fit_container;
   return (
     <div
       className={cleanClassName(
-        `${scss.month_selectbox_wrap} ${fitContainerClassName}`
+        `
+        ${scss.month_selectbox_wrap}
+        ${scss[theme]} ${modifier && scss[modifier]}`,
       )}
+      style={{ width }}
     >
       <button
         name={name}
         id={id}
+        type="button"
+        disabled={_disabled}
         className={cleanClassName(
-          `${scss.month_selectbox} ${isFilled && scss.filled} ${
-            optionsOpened && scss.opened
-          } ${invalid && scss.invalid} ${fitContainerClassName} ${className}`
+          `${scss.month_selectbox} ${isFilled && scss.filled} 
+          ${optionsOpened && scss.opened} 
+          ${invalid && scss.invalid} 
+          ${scss[theme]} ${modifier && scss[modifier]}`,
         )}
+        style={{ width }}
         onClick={() => {
           scrollToSelectedValue(selectedValue?.year);
           setOptionsOpened(!optionsOpened);
         }}
-        type="button"
-        disabled={disabled}
         {...preventCloseProps}
       >
         <div className={scss.selectbox_value}>
@@ -120,7 +127,7 @@ export function MonthSelectbox({
         className={cleanClassName(
           `${scss.options} ${!optionsOpened && scss.hidden} ${scss[upDown]} ${
             scss[leftRight]
-          }`
+          }`,
         )}
         {...preventCloseProps}
       >
@@ -134,7 +141,7 @@ export function MonthSelectbox({
                     className={cleanClassName(
                       `${scss.item_button} ${scss.month} ${
                         isSelectedYear && scss.selected
-                      }`
+                      }`,
                     )}
                     onClick={() => {
                       const year = !isSelectedYear ? yearOption : undefined;
@@ -143,8 +150,8 @@ export function MonthSelectbox({
                       setSelectedValue(_selectedValue);
                       onChange?.(_selectedValue);
                       !isSelectedYear &&
-                        selectedMonth &&
-                        setOptionsOpened(false);
+                      selectedMonth &&
+                      setOptionsOpened(false);
                     }}
                     type="button"
                   >
@@ -164,7 +171,7 @@ export function MonthSelectbox({
                     className={cleanClassName(
                       `${scss.item_button} ${scss.month} ${
                         isSelectedMonth && scss.selected
-                      }`
+                      }`,
                     )}
                     onClick={() => {
                       const month = !isSelectedMonth
@@ -175,8 +182,8 @@ export function MonthSelectbox({
                       setSelectedValue(_selectedValue);
                       onChange?.(_selectedValue);
                       !isSelectedMonth &&
-                        selectedYear &&
-                        setOptionsOpened(false);
+                      selectedYear &&
+                      setOptionsOpened(false);
                     }}
                     type="button"
                   >
