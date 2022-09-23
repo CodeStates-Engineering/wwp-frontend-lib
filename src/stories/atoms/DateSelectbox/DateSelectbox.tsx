@@ -1,63 +1,83 @@
 import { Calendar } from "react-feather";
 import { format } from "date-fns";
+import { checkStringDate } from "@utils";
 import { DayPicker, DayPickerProps, Matcher } from "react-day-picker";
 
 import ko from "date-fns/locale/ko";
 import "react-day-picker/dist/style.css";
 import scss from "./DateSelectbox.module.scss";
-import { useOpenedStateWithCloseExternalClick, useParentState } from "@hooks";
+import {
+  useOpenedStateWithCloseExternalClick,
+  useParentState,
+  useDepsState,
+} from "@hooks";
 import { cleanClassName } from "@utils";
+import { useCallback, useEffect } from "react";
 
 export interface DateSelectboxProps {
-  value?: Date;
+  value?: Date | null;
   id?: string;
   withTime?: boolean;
-  className?: string;
   invalid?: boolean;
   disabledDates?: Matcher | Matcher[];
   disabled?: boolean;
-  defaultMonth?: DayPickerProps["defaultMonth"];
   openDirection?: ["up" | "down", "left" | "right"];
   placeholder?: string;
-  onChange?: (value?: Date) => void;
-  fitContainer?: boolean;
+  onChange?: (value: Date | null) => void;
+  width?: React.CSSProperties["width"];
 }
 
-//TODO: 미완성 컴포넌트 추후 DateRangeSelectbox 참고해서 개발 완료 해야함
 export function DateSelectbox({
   withTime,
   onChange,
   disabled,
-  defaultMonth,
-  className,
   id,
   disabledDates,
-  placeholder,
+  placeholder = "YYYY-MM-DD",
   value,
   invalid,
   openDirection: [upDown, leftRight] = ["down", "left"],
-  fitContainer,
+  width = "150px", //"246px"
 }: DateSelectboxProps) {
-  const dateFormat = withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd";
   const {
     openedState: [calendarOpened, setCalendarOpened],
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
-  const [date, setDate] = useParentState(value);
+
+  const [date, setDate] = useParentState(value),
+    handleDateChange = (date: Date | null) => {
+      setDate(date);
+      onChange?.(date);
+    };
+
+  const isFilled = date !== undefined;
+
+  const formatDate = useCallback(
+    (date: Date) => format(date, withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd"),
+    [withTime]
+  );
+
+  const [dateString, setDateString] = useDepsState(
+    () => (value ? formatDate(value) : undefined),
+    [value]
+  );
+
+  const checkNumberArray = (stringArray: string[]) =>
+    stringArray.every((string) => !isNaN(Number(string)));
+
+  useEffect(() => {
+    !calendarOpened && setDateString(date ? formatDate(date) : undefined);
+  }, [calendarOpened]);
 
   return (
-    <div
-      className={cleanClassName(
-        `${scss.datebox_container} ${fitContainer && scss.fit_container}`
-      )}
-    >
+    <div className={scss.datebox_container} style={{ width }}>
       <button
         type="button"
         id={id}
         className={cleanClassName(
           `${scss.datebox} ${calendarOpened && scss.opened} ${
             invalid && scss.invalid
-          } ${fitContainer && scss.fit_container} ${className}`
+          }`
         )}
         disabled={disabled}
         onClick={() => {
@@ -66,15 +86,52 @@ export function DateSelectbox({
         {...preventCloseProps}
       >
         <div className={scss.date_text_wrap}>
-          {date ? (
-            format(date, dateFormat)
-          ) : (
-            <span className={scss.placeholder}>{placeholder}</span>
-          )}
+          <input
+            value={dateString}
+            placeholder={placeholder}
+            onChange={(e) => {
+              const { value } = e.target;
+
+              const refreshCalendar = (dateString?: string) => {
+                setCalendarOpened(false);
+                setTimeout(() => {
+                  setCalendarOpened(true);
+                  setDateString(dateString);
+                });
+              };
+
+              const selectDate = (dateString: string) => {
+                setDateString(dateString);
+                if (checkStringDate(dateString)) {
+                  const previousYear = date?.getFullYear();
+                  const previousMonth = date?.getMonth();
+                  const selectedDate = new Date(value);
+                  const selectedYear = selectedDate.getFullYear();
+                  const selectedMonth = selectedDate.getMonth();
+                  handleDateChange(selectedDate);
+                  (previousYear !== selectedYear ||
+                    previousMonth !== selectedMonth) &&
+                    refreshCalendar(dateString);
+                }
+              };
+
+              if (!dateString) {
+                const today = formatDate(new Date());
+                setDateString(today);
+                setDate(new Date(today));
+                refreshCalendar(today);
+              } else {
+                if (withTime) {
+                  const [date, time] = value.split(" ");
+                  checkNumberArray([...date.split("-"), ...time.split(":")]) &&
+                    selectDate(value);
+                } else if (checkNumberArray(value.split("-")))
+                  selectDate(value);
+              }
+            }}
+          />
         </div>
-        <div className={scss.calendar_icon_wrap}>
-          <Calendar />
-        </div>
+        <Calendar />
       </button>
       {calendarOpened && (
         <section
@@ -85,11 +142,10 @@ export function DateSelectbox({
             locale={ko}
             mode="single"
             disabled={disabledDates}
-            defaultMonth={defaultMonth ?? date}
-            selected={date}
+            defaultMonth={date ?? new Date()}
+            selected={date ?? undefined}
             onSelect={(date: Date | undefined) => {
-              setDate(date);
-              onChange?.(date);
+              handleDateChange(date ?? null);
               setCalendarOpened(false);
             }}
           />
