@@ -1,40 +1,81 @@
 @import "../../../scss/libs.scss";
+
+@mixin linear-border($width: 1px, $style: solid, $color: $BLUISH_GRAY200) {
+  border: {
+    top: unset;
+    left: unset;
+    right: unset;
+    bottom: $width $style $color;
+  }
+  background: transparent;
+}
+
 .textarea {
-  color: $GRAY600;
-  background-color: white;
-  border: $BORDER_GRAY300;
-  border-radius: 4px;
-  font-weight: 400;
-  transition: box-shadow 0.3s;
+  color: $BLUISH_GRAY500;
+  background-color: $WHITISH_GRAY;
+  border: 1px solid $BLUISH_GRAY200;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s, background-color 0.3s, border 0.3s;
   display: flex;
   align-items: center;
-  padding: 0.5em 1em;
+  padding: 0.5714285em;
   gap: 0.5em;
   outline: none;
-  height: 10em;
-  &.invalid {
-    border: 1px solid $PEACH500;
+  min-height: 6.6428575em;
+
+  &.linear {
+    @include linear-border();
+    background: transparent;
   }
 
-  &:hover:not(:disabled),
-  &:focus {
-    box-shadow: $BOX_SHADOW013;
+  &.invalid {
+    border: 1px solid $PEACH500;
+    &.linear {
+      @include linear-border(1px, solid, PEACH600);
+    }
   }
-  &:focus {
-    border: $BORDER_FOCUS;
+
+  &.filled {
+    background: $INPUT_FILLED_BG_COLOR;
+    color: $INPUT_FILLED_COLOR;
+    border: 1px solid $BLUISH_GRAY300;
+    &.linear {
+      @include linear-border();
+    }
   }
+
+  &:hover,
+  &:focus-within {
+    color: $INPUT_FOCUS_COLOR;
+    background-color: $INPUT_FOCUS_BG_COLOR;
+    border: $INPUT_FOCUS_BORDER;
+    &.linear {
+      @include linear-border();
+    }
+  }
+
   &:disabled {
     cursor: not-allowed;
-    border: 1px solid $GRAY100;
-    background-color: darken(white, 2%);
-    color: $GRAY300;
+    border: none;
+    background-color: $GRAY10;
+    color: $GRAY500;
+    &.readonly {
+      border: none;
+      background-color: transparent;
+      color: $INPUT_READONLY_COLOR;
+      resize: none;
+      &::placeholder {
+        color: $INPUT_READONLY_COLOR;
+      }
+    }
+    &::placeholder {
+      color: $GRAY500;
+    }
   }
 }
 
 .type_text {
   width: 6em;
-}
-
-.fit_container {
-  width: 100%;
 }
