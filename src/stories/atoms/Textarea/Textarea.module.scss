@@ -2,9 +2,9 @@
 
 @mixin linear-border($width: 1px, $style: solid, $color: $BLUISH_GRAY200) {
   border: {
-    top: unset;
-    left: unset;
-    right: unset;
+    top: none;
+    left: none;
+    right: none;
     bottom: $width $style $color;
   }
   background: transparent;
