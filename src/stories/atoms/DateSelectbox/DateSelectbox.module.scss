@@ -4,35 +4,115 @@
   position: relative;
 }
 
+@mixin theme($text-color, $bg-color, $border, $icon-color) {
+  &.box {
+    background-color: $bg-color;
+    border: $border;
+  }
+  &.linear {
+    background-color: transparent;
+    border-bottom: $border;
+  }
+  > .date_text_wrap > input {
+    color: $text-color;
+    &::placeholder {
+      color: $text-color;
+    }
+  }
+  > svg {
+    color: $icon-color;
+  }
+}
+
 .datebox {
-  font-size: $SMALL_FONT_SIZE;
-  font-weight: $MEDIUM_FONT_WEIGHT;
-  color: $GRAY600;
-  background-color: white;
-  border: $BORDER_GRAY300;
-  border-radius: 4px;
   min-height: 42px;
-  transition: box-shadow 0.3s;
   display: flex;
   align-items: center;
   width: 100%;
-  &.invalid {
-    border: 1px solid $PEACH500;
-  }
-  &:hover:not(:disabled),
-  &.opened {
-    box-shadow: $BOX_SHADOW013;
-  }
-  &.opened {
-    border: $BORDER_FOCUS;
+  transition: background-color 0.3s, border 0.3s;
+
+  &.box {
+    border-radius: $INPUT_BORDER_RADIUS;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    border: 1px solid $GRAY100;
-    background-color: darken(white, 2%);
-    color: $GRAY300;
+  @include theme(
+    $INPUT_DEFAULT_COLOR,
+    $INPUT_DEFAULT_BG_COLOR,
+    $INPUT_DEFAULT_BORDER,
+    $INPUT_ICON_DEFAULT_COLOR
+  );
+
+  > .date_text_wrap > input {
+    transition: color 0.3s;
+    &::placeholder {
+      transition: color 0.3s;
+    }
+    font-size: $SMALL_FONT_SIZE;
+    font-weight: $MEDIUM_FONT_WEIGHT;
   }
+
+  > svg {
+    width: 20px;
+    height: 20px;
+    margin: 0 11px;
+    transition: color 0.3s;
+  }
+
+  &.invalid {
+    border: $INPUT_ALERT_BORDER;
+  }
+
+  &.filled {
+    @include theme(
+      $INPUT_FILLED_COLOR,
+      $INPUT_FILLED_BG_COLOR,
+      $INPUT_FILLED_BORDER,
+      $INPUT_ICON_FILLED_COLOR
+    );
+  }
+
+  &:hover:not(.disabled),
+  &.opened {
+    @include theme(
+      $INPUT_FOCUS_COLOR,
+      $INPUT_FOCUS_BG_COLOR,
+      $INPUT_FOCUS_BORDER,
+      $INPUT_ICON_FOCUS_COLOR
+    );
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    .date_text_wrap > input {
+      cursor: not-allowed;
+    }
+
+    @include theme(
+      $INPUT_DISABLED_COLOR,
+      $INPUT_DISABLED_BG_COLOR,
+      $INPUT_DISABLED_BORDER,
+      $INPUT_ICON_DISABLED_COLOR
+    );
+
+    &.system {
+      @include theme(
+        $INPUT_SYSTEM_COLOR,
+        $INPUT_SYSTEM_BG_COLOR,
+        $INPUT_SYSTEM_BORDER,
+        $INPUT_ICON_SYSTEM_COLOR
+      );
+    }
+
+    &.readonly {
+      @include theme(
+        $INPUT_READONLY_COLOR,
+        transparent,
+        transparent,
+        transparent
+      );
+    }
+  }
+
   > .date_text_wrap {
     flex: 1;
     text-align: left;
@@ -41,12 +121,8 @@
       width: 100%;
       border: none;
       outline: none;
+      background-color: transparent;
     }
-  }
-  > svg {
-    width: 19px;
-    height: 19px;
-    margin: 0 11px;
   }
 }
 
@@ -76,6 +152,7 @@
     right: 0;
   }
 }
+
 .calendar_modal_footer {
   width: 100%;
   max-height: 0;
@@ -83,47 +160,4 @@
   &.open {
     max-height: 6em;
   }
-}
-.calendar_modal_contents {
-  padding: 1em;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  @include fade-in(0.6s);
-}
-
-.date_reset_button {
-  padding: 0.5em;
-  border-radius: 100%;
-  transition: color 0.3s, background-color 0.3s;
-  &:hover {
-    background-color: $WEWIN_BLUE300;
-    color: white;
-  }
-  > svg {
-    width: 1.4em;
-    height: 1.4em;
-  }
-}
-
-.reset_button_container {
-  font-weight: 500;
-  font-size: 0.8em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  &.hidden {
-    display: none;
-  }
-}
-
-.bold {
-  font-weight: 500;
-  font-size: 1.5em;
-}
-
-.time_input_container {
-  display: flex;
-  flex-direction: row;
 }

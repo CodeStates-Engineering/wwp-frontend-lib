@@ -1,7 +1,7 @@
 import { Calendar } from "react-feather";
 import { format } from "date-fns";
 import { checkStringDate } from "@utils";
-import { DayPicker, DayPickerProps, Matcher } from "react-day-picker";
+import { DayPicker, Matcher } from "react-day-picker";
 
 import ko from "date-fns/locale/ko";
 import "react-day-picker/dist/style.css";
@@ -24,7 +24,9 @@ export interface DateSelectboxProps {
   openDirection?: ["up" | "down", "left" | "right"];
   placeholder?: string;
   onChange?: (value: Date | null) => void;
+  theme?: "linear" | "box";
   width?: React.CSSProperties["width"];
+  modifier?: "system" | "readonly" | "user";
 }
 
 export function DateSelectbox({
@@ -33,12 +35,19 @@ export function DateSelectbox({
   disabled,
   id,
   disabledDates,
-  placeholder = "YYYY-MM-DD",
+  placeholder,
   value,
   invalid,
   openDirection: [upDown, leftRight] = ["down", "left"],
-  width = "150px", //"246px"
+  theme = "box",
+  width = "246px",
+  modifier = "user",
 }: DateSelectboxProps) {
+  const _placeholder =
+    placeholder ?? withTime ? "YYYY-MM-DD HH:MM" : "YYYY-MM-DD";
+
+  const _disabled = modifier === "user" ? disabled : true;
+
   const {
     openedState: [calendarOpened, setCalendarOpened],
     preventCloseProps,
@@ -49,8 +58,6 @@ export function DateSelectbox({
       setDate(date);
       onChange?.(date);
     };
-
-  const isFilled = date !== undefined;
 
   const formatDate = useCallback(
     (date: Date) => format(date, withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd"),
@@ -68,29 +75,36 @@ export function DateSelectbox({
   useEffect(() => {
     !calendarOpened && setDateString(date ? formatDate(date) : undefined);
   }, [calendarOpened]);
-
+  console.log(date);
   return (
     <div className={scss.datebox_container} style={{ width }}>
-      <button
-        type="button"
+      <div
         id={id}
         className={cleanClassName(
-          `${scss.datebox} ${calendarOpened && scss.opened} ${
-            invalid && scss.invalid
-          }`
+          `${scss.datebox} ${date && scss.filled} ${
+            calendarOpened && scss.opened
+          } ${_disabled && scss.disabled} ${invalid && scss.invalid} ${
+            scss[modifier]
+          } ${scss[theme]}`
         )}
-        disabled={disabled}
-        onClick={() => {
-          setCalendarOpened(!calendarOpened);
-        }}
         {...preventCloseProps}
       >
         <div className={scss.date_text_wrap}>
           <input
             value={dateString}
-            placeholder={placeholder}
+            placeholder={_placeholder}
+            disabled={_disabled}
+            onClick={() => {
+              setCalendarOpened(true);
+            }}
             onChange={(e) => {
               const { value } = e.target;
+
+              if (value === "") {
+                handleDateChange(null);
+                setDateString(undefined);
+                return;
+              }
 
               const refreshCalendar = (dateString?: string) => {
                 setCalendarOpened(false);
@@ -123,16 +137,18 @@ export function DateSelectbox({
               } else {
                 if (withTime) {
                   const [date, time] = value.split(" ");
-                  checkNumberArray([...date.split("-"), ...time.split(":")]) &&
-                    selectDate(value);
+                  checkNumberArray([
+                    ...date.split("-"),
+                    ...(time ? time.split(":") : []),
+                  ]) && selectDate(value);
                 } else if (checkNumberArray(value.split("-")))
                   selectDate(value);
               }
             }}
           />
         </div>
-        <Calendar />
-      </button>
+        {modifier !== "readonly" && <Calendar />}
+      </div>
       {calendarOpened && (
         <section
           className={`${scss.calendar_modal} ${scss[upDown]} ${scss[leftRight]}`}
