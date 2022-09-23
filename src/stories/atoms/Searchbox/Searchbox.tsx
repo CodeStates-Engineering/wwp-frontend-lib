@@ -31,12 +31,12 @@ export interface SearchboxProps<T extends OptionHint> {
   onlyPerfectMatch?: boolean;
   name?: string;
   openDirection?: ["up" | "down", "left" | "right"];
-  fitContainer?: boolean;
   id?: string;
   disabled?: boolean;
   invalid?: boolean;
   theme?: "linear" | "box";
   modifier?: "system" | "readonly" | "user";
+  width?: React.CSSProperties["width"];
 }
 
 export function Searchbox<T extends OptionHint>({
@@ -47,6 +47,7 @@ export function Searchbox<T extends OptionHint>({
   options: originalOptions,
   theme = "box",
   modifier = "user",
+  width = "246px",
   ...restProps
 }: SearchboxProps<T>) {
   const disabled = modifier === "user" ? restProps.disabled : true;
@@ -106,43 +107,41 @@ export function Searchbox<T extends OptionHint>({
     return options;
   }, [inputValue, options]);
 
-  const fitContainerClassName = restProps.fitContainer
-    ? scss.fit_container
-    : "";
-
   const onChangeInputValue = useDebouncedFunction(
     options.length === 0 && onChange ? onChange : () => {}
   );
 
   return (
     <>
-      <div className={`${scss.searchbox_wrap} ${fitContainerClassName}`}>
+      <div className={`${scss.searchbox_wrap}`} style={{ width }}>
         <div
           className={cleanClassName(
             `${scss.searchbox} ${scss[theme]} ${
               optionsOpened && scss.searching
             } ${disabled && scss.disabled} ${modifier && scss[modifier]} ${
               restProps.invalid && scss.invalid
-            } ${isFilled && scss.filled} ${fitContainerClassName}`
+            } ${isFilled && scss.filled} `
           )}
         >
-          <input
-            value={inputValue}
-            onChange={(e) => {
-              const inputValue = e.target.value;
-              setSearchValue({ ...searchValue, inputValue });
-              onChangeInputValue(
-                inputValue as T extends PairOption<infer U> ? U : T
-              );
-              if (!inputValue) onChange?.(undefined);
-            }}
-            {...preventCloseProps}
-            placeholder={placeholder}
-            name={restProps.name}
-            id={restProps.id}
-            onClick={() => setOptionsOpened(true)}
-            disabled={disabled}
-          />
+          <div className={scss.input_wrap}>
+            <input
+              value={inputValue}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                setSearchValue({ ...searchValue, inputValue });
+                onChangeInputValue(
+                  inputValue as T extends PairOption<infer U> ? U : T
+                );
+                if (!inputValue) onChange?.(undefined);
+              }}
+              {...preventCloseProps}
+              placeholder={placeholder}
+              name={restProps.name}
+              id={restProps.id}
+              onClick={() => setOptionsOpened(true)}
+              disabled={disabled}
+            />
+          </div>
           <Search />
         </div>
         {0 < filteredOptions.length && optionsOpened && (

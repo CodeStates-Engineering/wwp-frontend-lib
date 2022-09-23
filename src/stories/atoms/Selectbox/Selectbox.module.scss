@@ -3,16 +3,22 @@
 .selectbox_wrap {
   position: relative;
   display: inline-block;
-  text-align: center;
   height: fit-content;
-  width: fit-content;
+}
+
+@mixin linear {
+  &.linear {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 .selectbox {
-  color: $GRAY600;
-  background-color: white;
-  border: $BORDER_GRAY300;
-  border-radius: 4px;
+  color: $INPUT_DEFAULT_COLOR;
+  background-color: $INPUT_DEFAULT_BG_COLOR;
+  border: $INPUT_DEFAULT_BORDER;
   min-height: 42px;
   padding: {
     top: 0.3em;
@@ -20,41 +26,70 @@
     left: 1em;
     right: 0.7em;
   }
-  font-weight: 400;
+  width: 100%;
+  font-weight: $MEDIUM_FONT_WEIGHT;
+  font-size: $SMALL_FONT_SIZE;
   display: flex;
   align-items: center;
-  transition: box-shadow 0.3s;
   box-sizing: border-box;
   z-index: 2;
+  transition: background-color 0.3s, border 0.3s, color 0.3s;
+  > svg {
+    color: $INPUT_ICON_DEFAULT_COLOR;
+  }
+  &.filled {
+    color: $INPUT_FILLED_COLOR;
+    background-color: $INPUT_FILLED_BG_COLOR;
+    border: $INPUT_FILLED_BORDER;
+    > svg {
+      color: $INPUT_ICON_FILLED_COLOR;
+    }
+  }
+  &.box {
+    border-radius: $INPUT_BORDER_RADIUS;
+  }
   &.invalid {
-    border: 1px solid $PEACH500;
+    border: $INPUT_ALERT_BORDER;
   }
   &:hover:not(:disabled),
   &.opened {
-    box-shadow: $BOX_SHADOW013;
+    border: $INPUT_FOCUS_BORDER;
+    color: $INPUT_FOCUS_COLOR;
+    background-color: $INPUT_FOCUS_BG_COLOR;
+    > svg {
+      color: $INPUT_ICON_FOCUS_COLOR;
+    }
+    @include linear;
   }
-  &.opened {
-    border: $BORDER_FOCUS;
-  }
+
   &:disabled {
     cursor: not-allowed;
-    border: 1px solid $GRAY100;
-    background-color: darken(white, 2%);
-    color: $GRAY300;
-    &:hover {
-      box-shadow: none;
+    border: $INPUT_DISABLED_BORDER;
+    background-color: $INPUT_DISABLED_BG_COLOR;
+    color: $INPUT_DISABLED_COLOR;
+    > svg {
+      color: $INPUT_ICON_DISABLED_COLOR;
     }
+    &.system {
+      border: $INPUT_SYSTEM_BORDER;
+      background-color: $INPUT_SYSTEM_BG_COLOR;
+      color: $INPUT_SYSTEM_COLOR;
+    }
+    &.readonly {
+      border: transparent;
+      background-color: transparent;
+      color: $INPUT_READONLY_COLOR;
+    }
+    @include linear;
   }
-}
-.selectbox_value {
-  width: 100%;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  &.placeholder {
-    color: $PLACEHOLDER;
+  > .selectbox_value {
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
+  @include linear;
 }
 
 .options {
@@ -95,7 +130,7 @@
   height: 2.5em;
   display: flex;
   align-items: center;
-  padding-right: 1em;
+  padding-right: 2em;
   transition: background-color 0.2s, color 0.2s;
   width: 100%;
   > .check {
@@ -132,8 +167,4 @@
     background: linear-gradient(to top, $BLUISH_GRAY50, transparent);
     bottom: 0;
   }
-}
-
-.fit_container {
-  width: 100%;
 }

@@ -1,7 +1,7 @@
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Selectbox } from "./Selectbox";
+import { OptionHint, Selectbox } from "./Selectbox";
 import type { SelectboxProps } from "./Selectbox";
-
+import React from "react";
 export default {
   title: "atoms/Selectbox",
   component: Selectbox,
@@ -12,15 +12,15 @@ const SelectboxStory: ComponentStory<typeof Selectbox> = (
 ) => <Selectbox {...args} />;
 
 export const StringOptions = SelectboxStory.bind({});
-const stringOptions = [];
+const stringOptions: string[] = [];
 for (let i = 1; i <= 20; i++) stringOptions.push(`Selectbox Option ${i}`);
 StringOptions.args = {
-  value: stringOptions[0],
+  placeholder: "Selectbox Placeholder",
   options: stringOptions,
 };
 
 export const ObjectOptions = SelectboxStory.bind({});
-const objectOptions = [];
+const objectOptions: { label: string; value: number }[] = [];
 for (let i = 1; i <= 20; i++) {
   objectOptions.push({
     label: `Selectbox Option ${i}`,
