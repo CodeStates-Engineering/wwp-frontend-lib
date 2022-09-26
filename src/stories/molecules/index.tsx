@@ -36,10 +36,12 @@ export type { LabeledTextProps } from "./LabeledText/LabeledText";
 
 export { Table } from "./Table/Table";
 export type {
-  TableCommonProps,
   TableContainerProps,
-  TableDataProps,
+  TableRowProps,
+  TableHeadProps,
   TableTitleProps,
+  TableBodyProps,
+  TableDataProps,
 } from "./Table/Table";
 
 export { ModalOpener } from "./ModalOpener/ModalOpener";
