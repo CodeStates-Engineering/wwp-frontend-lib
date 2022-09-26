@@ -1,29 +1,30 @@
-import { Calendar } from "react-feather";
-import { format } from "date-fns";
+import { Calendar } from 'react-feather';
+import { format } from 'date-fns';
 import {
   DateRange,
   DayPicker,
   DayPickerProps,
   Matcher,
-} from "react-day-picker";
-import { RefreshCw } from "react-feather";
-import ko from "date-fns/locale/ko";
-import "react-day-picker/dist/style.css";
-import scss from "./DateRangeSelectbox.module.scss";
-import { useOpenedStateWithCloseExternalClick, useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
+} from 'react-day-picker';
+import { RefreshCw } from 'react-feather';
+import ko from 'date-fns/locale/ko';
+import 'react-day-picker/dist/style.css';
+import scss from './DateRangeSelectbox.module.scss';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
 
 export interface DateRangeSelectboxProps {
   value: DateRange;
   id?: string;
-  className?: string;
   invalid?: boolean;
-  openDirection?: ["up" | "down", "left" | "right"];
+  openDirection?: ['up' | 'down', 'left' | 'right'];
   withTime?: boolean;
   disabledDates?: Matcher | Matcher[];
-  defaultMonth?: DayPickerProps["defaultMonth"];
+  defaultMonth?: DayPickerProps['defaultMonth'];
   onChange?: (value?: DateRange) => void;
-  fitContainer?: boolean;
+  width?: React.CSSProperties['width'];
+  theme?: 'linear' | 'box';
+  modifier?: 'system' | 'readonly' | 'user';
   disabled?: {
     from?: boolean;
     to?: boolean;
@@ -35,24 +36,27 @@ export function DateRangeSelectbox({
   onChange,
   disabled: { from: disabledFrom, to: disabledTo } = { from: false, to: false },
   defaultMonth,
-  className,
   id,
   value,
   disabledDates,
-  openDirection: [upDown, leftRight] = ["down", "left"],
+  openDirection: [upDown, leftRight] = ['down', 'left'],
   invalid,
-  fitContainer,
+  width = '224px',
+  theme = 'box',
+  modifier = 'user',
 }: DateRangeSelectboxProps) {
   const [dateRange, setDateRange] = useParentState(value),
     fromDate = dateRange?.from,
     toDate = dateRange?.to;
 
-  const dateFormat = withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd";
+  const dateFormat = withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
 
   const {
     openedState: [calendarOpened, setCalendarOpened],
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
+  const isFilled = fromDate || toDate;
+  const _disabled = modifier === 'user' ? disabledFrom && disabledTo : true;
 
   const changeDateRange = (selectedDateRange: DateRange) => {
     setDateRange(selectedDateRange);
@@ -62,26 +66,28 @@ export function DateRangeSelectbox({
   return (
     <div
       className={cleanClassName(
-        `${scss.datebox_container} ${fitContainer && scss.fit_container}`
+        `${scss.datebox_container}`,
       )}
     >
       <button
         type="button"
         id={id}
+        disabled={_disabled}
         className={cleanClassName(
-          `${scss.datebox} ${calendarOpened && scss.opened} ${
-            invalid && scss.invalid
-          } ${withTime && scss.with_time} ${
-            fitContainer && scss.fit_container
-          } ${className}`
+          `${scss.datebox} 
+          ${calendarOpened && scss.opened}
+          ${isFilled && scss.filled} 
+          ${invalid && scss.invalid} 
+          ${scss[theme]} ${modifier && scss[modifier]}
+          ${withTime && scss.with_time}`,
         )}
-        disabled={disabledFrom && disabledTo}
+        style={{ width }}
         onClick={() => setCalendarOpened(!calendarOpened)}
         {...preventCloseProps}
       >
         <div
           className={cleanClassName(
-            `${scss.date_text} ${disabledFrom && scss.disabled}`
+            `${scss.date_text} ${disabledFrom && scss.disabled}`,
           )}
         >
           {fromDate ? (
@@ -92,7 +98,7 @@ export function DateRangeSelectbox({
         </div>
         <div
           className={cleanClassName(
-            `${scss.date_text} ${disabledFrom && scss.disabled}`
+            `${scss.date_text} ${disabledFrom && scss.disabled}`,
           )}
         >
           {toDate ? (
@@ -125,23 +131,23 @@ export function DateRangeSelectbox({
           />
           <footer
             className={cleanClassName(
-              `${scss.calendar_modal_footer} ${fromDate && toDate && scss.open}`
+              `${scss.calendar_modal_footer} ${fromDate && toDate && scss.open}`,
             )}
           >
             {fromDate && toDate && (
               <section className={scss.calendar_modal_contents}>
                 <div className={scss.selected_date_container}>
                   <div>
-                    <span>{format(fromDate, "yyyy-MM-dd")}</span>
+                    <span>{format(fromDate, 'yyyy-MM-dd')}</span>
                     <span>
                       <input
                         type="time"
-                        value={format(fromDate, "HH:mm")}
+                        value={format(fromDate, 'HH:mm')}
                         className={scss.time_input}
                         disabled={disabledFrom}
                         onChange={(e) => {
                           const time = e.target.value;
-                          const [hour, minute] = time.split(":");
+                          const [hour, minute] = time.split(':');
                           if (!dateRange?.from) return;
                           dateRange.from.setHours(Number(hour));
                           dateRange.from.setMinutes(Number(minute));
