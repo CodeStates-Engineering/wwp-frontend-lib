@@ -1,4 +1,5 @@
 import "../src/scss/global.scss";
+import "@storybook/addon-console";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,7 +13,15 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <div id="preview-wrap" style={{ margin: "1em auto", display: "block" }}>
+    <div
+      id="preview-wrap"
+      style={{
+        display: "flex",
+        minHeight: "80vh",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Story />
     </div>
   ),
