@@ -1,10 +1,6 @@
 @import "../../../scss/libs.scss";
 
-.datebox_container {
-  position: relative;
-}
-
-@mixin theme($text-color, $bg-color, $border, $icon-color) {
+@mixin theme($text-color, $bg-color, $border, $icon-color, $icon-bg-color) {
   &.box {
     background-color: $bg-color;
     border: $border;
@@ -13,53 +9,68 @@
     background-color: transparent;
     border-bottom: $border;
   }
-  > .date_text_wrap > input {
+
+  > .calendar_icon {
+    &.background {
+      background-color: $icon-bg-color;
+    }
+    > svg {
+      color: $icon-color;
+    }
+  }
+
+  > .date_input_container > .date_input {
     color: $text-color;
     &::placeholder {
       color: $text-color;
     }
   }
-  > svg {
-    color: $icon-color;
+  > .date_range_input_container:first-child {
+    border-right: $border;
   }
 }
 
 .datebox {
-  min-height: 42px;
+  position: relative;
+  height: 36px;
   display: flex;
   align-items: center;
   width: 100%;
   transition: background-color 0.3s, border 0.3s;
-
   &.box {
     border-radius: $INPUT_BORDER_RADIUS;
+    &.invalid {
+      border: $INPUT_ALERT_BORDER;
+    }
+  }
+
+  &.linear {
+    &.invalid {
+      border-bottom: $INPUT_ALERT_BORDER;
+    }
   }
 
   @include theme(
     $INPUT_DEFAULT_COLOR,
     $INPUT_DEFAULT_BG_COLOR,
     $INPUT_DEFAULT_BORDER,
-    $INPUT_ICON_DEFAULT_COLOR
+    $INPUT_ICON_DEFAULT_COLOR,
+    $INPUT_ICON_DEFAULT_BG_COLOR
   );
-
-  > .date_text_wrap > input {
-    transition: color 0.3s;
-    &::placeholder {
+  > .calendar_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 35px;
+    border-top-right-radius: $INPUT_BORDER_RADIUS;
+    border-bottom-right-radius: $INPUT_BORDER_RADIUS;
+    transition: background-color 0.3s;
+    > svg {
+      width: 20px;
+      height: 20px;
       transition: color 0.3s;
     }
-    font-size: $SMALL_FONT_SIZE;
-    font-weight: $MEDIUM_FONT_WEIGHT;
-  }
-
-  > svg {
-    width: 20px;
-    height: 20px;
-    margin: 0 11px;
-    transition: color 0.3s;
-  }
-
-  &.invalid {
-    border: $INPUT_ALERT_BORDER;
   }
 
   &.filled {
@@ -67,7 +78,8 @@
       $INPUT_FILLED_COLOR,
       $INPUT_FILLED_BG_COLOR,
       $INPUT_FILLED_BORDER,
-      $INPUT_ICON_FILLED_COLOR
+      $INPUT_ICON_FILLED_COLOR,
+      $INPUT_ICON_FILLED_BG_COLOR
     );
   }
 
@@ -77,30 +89,38 @@
       $INPUT_FOCUS_COLOR,
       $INPUT_FOCUS_BG_COLOR,
       $INPUT_FOCUS_BORDER,
-      $INPUT_ICON_FOCUS_COLOR
+      $INPUT_ICON_FOCUS_COLOR,
+      $INPUT_ICON_FOCUS_BG_COLOR
     );
   }
 
   &.disabled {
     cursor: not-allowed;
-    .date_text_wrap > input {
+    input {
       cursor: not-allowed;
     }
-
     @include theme(
       $INPUT_DISABLED_COLOR,
       $INPUT_DISABLED_BG_COLOR,
       $INPUT_DISABLED_BORDER,
-      $INPUT_ICON_DISABLED_COLOR
+      $INPUT_ICON_DISABLED_COLOR,
+      $INPUT_ICON_DISABLED_BG_COLOR
     );
+    > .date_range_input_container:first-child {
+      border-right: 1px solid #dfdfdf;
+    }
 
     &.system {
       @include theme(
         $INPUT_SYSTEM_COLOR,
         $INPUT_SYSTEM_BG_COLOR,
         $INPUT_SYSTEM_BORDER,
-        $INPUT_ICON_SYSTEM_COLOR
+        $INPUT_ICON_SYSTEM_COLOR,
+        $INPUT_ICON_SYSTEM_BG_COLOR
       );
+      > .date_range_input_container:first-child {
+        border-right: 1px solid #dfdfdf;
+      }
     }
 
     &.readonly {
@@ -108,21 +128,79 @@
         $INPUT_READONLY_COLOR,
         transparent,
         transparent,
+        transparent,
         transparent
       );
     }
   }
+}
 
-  > .date_text_wrap {
-    flex: 1;
-    text-align: left;
-    padding-left: 11px;
-    > input {
-      width: 100%;
-      border: none;
-      outline: none;
-      background-color: transparent;
+@mixin date-range-theme($text-color, $bg-color) {
+  &.box {
+    background-color: $bg-color;
+  }
+  &.linear {
+    background-color: transparent;
+  }
+  > .date_input_container > .date_input {
+    color: $text-color;
+    &::placeholder {
+      color: $text-color;
     }
+  }
+}
+
+.date_range_input_container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+  > .date_input_container > .date_input {
+    transition: color 0.3s;
+  }
+  @include date-range-theme($INPUT_DEFAULT_COLOR, $INPUT_DEFAULT_BG_COLOR);
+  &.filled {
+    @include date-range-theme($INPUT_FILLED_COLOR, $INPUT_FILLED_BG_COLOR);
+  }
+  &:hover:not(.disabled),
+  &.opened {
+    @include date-range-theme($INPUT_FOCUS_COLOR, $INPUT_FOCUS_BG_COLOR);
+  }
+
+  &.disabled {
+    @include date-range-theme($INPUT_DISABLED_COLOR, $INPUT_DISABLED_BG_COLOR);
+    &.readonly {
+      > .date_input_container > .date_input {
+        text-align: center;
+        padding: 0;
+        width: 100%;
+      }
+      @include date-range-theme($INPUT_READONLY_COLOR, transparent);
+    }
+    &.system {
+      &:first-child {
+        border-right: $INPUT_DISABLED_BORDER;
+      }
+      @include date-range-theme($INPUT_SYSTEM_COLOR, $INPUT_SYSTEM_BG_COLOR);
+    }
+  }
+}
+
+.date_input_container {
+  flex: 1;
+  > input {
+    padding: 11px;
+    transition: color 0.3s;
+    &::placeholder {
+      transition: color 0.3s;
+    }
+    font-size: $SMALL_FONT_SIZE;
+    font-weight: $MEDIUM_FONT_WEIGHT;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
   }
 }
 
@@ -143,7 +221,7 @@
     bottom: 3.5em;
   }
   &.down {
-    margin-top: 5px;
+    top: 3.5em;
   }
   &.left {
     left: 0;
@@ -160,4 +238,10 @@
   &.open {
     max-height: 6em;
   }
+}
+
+.readonly_text {
+  color: $INPUT_READONLY_COLOR;
+  font-size: $SMALL_FONT_SIZE;
+  font-weight: $MEDIUM_FONT_WEIGHT;
 }

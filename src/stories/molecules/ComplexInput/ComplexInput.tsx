@@ -10,7 +10,6 @@ import {
   Switch,
   MonthSelectbox,
   DateSelectbox,
-  DateRangeSelectbox,
   Radiobox,
   Textarea,
   Checkbox,
@@ -27,7 +26,7 @@ import type {
   SwitchProps,
   MonthSelectboxProps,
   DateSelectboxProps,
-  DateRangeSelectboxProps,
+  DateType,
   TextareaProps,
   CheckboxProps,
   RadioboxProps,
@@ -41,8 +40,7 @@ type InputPropsHint =
   | TagboxProps
   | SwitchProps
   | MonthSelectboxProps
-  | DateSelectboxProps
-  | DateRangeSelectboxProps
+  | DateSelectboxProps<"date" | "date-range">
   | TextareaProps
   | CheckboxProps
   | RadioboxProps
@@ -98,7 +96,7 @@ function attachCommonProps<T extends InputPropsHint>(
       id: id ? `${id}-label` : undefined,
     };
 
-    const inputProps = {
+    const inputProps: any = {
       id,
       fitContainer,
       onChange: (value: never) => {
@@ -106,7 +104,8 @@ function attachCommonProps<T extends InputPropsHint>(
         checkValidation(value);
       },
       ...restProps,
-    } as T;
+    };
+
     return (
       <div
         className={cleanClassName(
@@ -148,13 +147,9 @@ export type ComplexMonthSelectboxProps = MonthSelectboxProps &
   CommonProps<MonthSelectboxProps>;
 export const ComplexMonthSelectbox = attachCommonProps(MonthSelectbox);
 
-export type ComplexDateSelectboxProps = DateSelectboxProps &
-  CommonProps<DateSelectboxProps>;
-export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
-
-export type ComplexDateRangeSelectboxProps = DateRangeSelectboxProps &
-  CommonProps<DateRangeSelectboxProps>;
-export const ComplexDateRangeSelectbox = attachCommonProps(DateRangeSelectbox);
+export type ComplexDateSelectboxProps =
+  DateSelectboxProps<DateType> & CommonProps<DateSelectboxProps<DateType>>;
+export const ComplexDateSelectbox = attachCommonProps(DateSelectbox<DateType>);
 
 export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
@@ -172,3 +167,4 @@ export const ComplexSelectbox = attachCommonProps(Selectbox);
 export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
+

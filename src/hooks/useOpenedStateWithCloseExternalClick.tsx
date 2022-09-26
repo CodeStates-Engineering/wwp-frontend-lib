@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback } from "react";
 export function useOpenedStateWithCloseExternalClick(opened: boolean) {
   const openedState = useState(opened);
   const isMouseOnMemo = useMemo(() => ({ value: true }), []),
@@ -16,9 +16,14 @@ export function useOpenedStateWithCloseExternalClick(opened: boolean) {
   }, [isMouseOnMemo, openedState]);
 
   useEffect(() => {
-    if (openedState[0]) document.addEventListener('mousedown', modalCloseHandler);
-    else document.removeEventListener('mousedown', modalCloseHandler);
+    if (openedState[0])
+      document.addEventListener("mousedown", modalCloseHandler);
+    else document.removeEventListener("mousedown", modalCloseHandler);
   }, [openedState, modalCloseHandler]);
 
   return { openedState, preventCloseProps };
 }
+
+export type OpenedStateWithCloseExternalClick = ReturnType<
+  typeof useOpenedStateWithCloseExternalClick
+>;
