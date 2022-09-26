@@ -4,7 +4,6 @@
   border: $INPUT_DEFAULT_BORDER;
   background-color: $INPUT_DEFAULT_BG_COLOR;
   border-radius: $INPUT_BORDER_RADIUS;
-
   height: 42px;
   min-width: 10em;
   display: flex;
@@ -34,11 +33,16 @@
     }
   }
 
-  &:disabled {
+  &.disabled {
     cursor: not-allowed;
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
     color: $INPUT_DISABLED_COLOR;
+    > .unit_wrap {
+      color: $INPUT_ICON_DISABLED_COLOR;
+      background-color: $INPUT_ICON_DISABLED_BG_COLOR;
+    }
+
 
     &.system {
       border-bottom: $INPUT_SYSTEM_BORDER;
@@ -47,20 +51,18 @@
       &.linear {
         background-color: transparent;
       }
-
       > .unit_wrap {
         color: $INPUT_ICON_SYSTEM_COLOR;
         background-color: $INPUT_ICON_SYSTEM_BG_COLOR;
       }
     }
     &.readonly {
-      border: none;
+      border: 1px solid transparent;
       background-color: transparent;
       color: $INPUT_READONLY_COLOR;
       > svg {
         display: none;
       }
-
       > .unit_wrap {
         color: $INPUT_ICON_READONLY_COLOR;
         background-color: transparent;
@@ -74,6 +76,7 @@
 
   > input {
     font-size: $SMALL_FONT_SIZE;
+    font-weight: $MEDIUM_FONT_WEIGHT;
     margin: 0 0.8em;
     border: none;
     outline: none;
