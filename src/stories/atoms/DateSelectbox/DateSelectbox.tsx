@@ -75,7 +75,7 @@ export function DateSelectbox({
   useEffect(() => {
     !calendarOpened && setDateString(date ? formatDate(date) : undefined);
   }, [calendarOpened]);
-  console.log(date);
+
   return (
     <div className={scss.datebox_container} style={{ width }}>
       <div
