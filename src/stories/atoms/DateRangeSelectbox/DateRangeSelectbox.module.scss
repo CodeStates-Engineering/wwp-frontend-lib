@@ -1,35 +1,99 @@
 @import "../../../scss/libs.scss";
 
+@mixin linear-style() {
+  border: {
+    top: 1px solid transparent;
+    left: 1px solid transparent;
+    right: 1px solid transparent;
+  }
+  background-color: transparent;
+}
+
 .datebox_container {
   position: relative;
+  width: fit-content;
 }
 
 .datebox {
-  color: $GRAY600;
-  background-color: white;
-  border: $BORDER_GRAY300;
-  border-radius: 4px;
+  color: $INPUT_DEFAULT_COLOR;
+  background-color: $INPUT_DEFAULT_BG_COLOR;
+  border: $INPUT_DEFAULT_BORDER;
+  border-radius: $INPUT_BORDER_RADIUS;
   min-height: 42px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   transition: box-shadow 0.3s;
   display: flex;
   align-items: center;
+  min-width: 18em;
   &.invalid {
     border: 1px solid $PEACH500;
   }
-  &:hover:not(:disabled),
-  &.opened {
-    box-shadow: $BOX_SHADOW013;
+
+  &.filled {
+    color: $INPUT_FILLED_COLOR;
+    background-color: $INPUT_FILLED_BG_COLOR;
+    border: $INPUT_FILLED_BORDER;
+    > .calendar_icon_wrap {
+      color: $INPUT_ICON_FILLED_COLOR;
+    }
+    &.linear {
+      @include linear-style();
+    }
+    .date_text:first-child {
+      border-right: 1.5px solid $BLUISH_GRAY300;
+    }
   }
-  &.opened {
-    border: $BORDER_FOCUS;
+
+  &:hover:not(:disabled), &.opened {
+    color: $INPUT_FOCUS_COLOR;
+    background-color: $INPUT_FOCUS_BG_COLOR;
+    border: $INPUT_FOCUS_BORDER;
+    > .calendar_icon_wrap {
+      color: $INPUT_ICON_FOCUS_COLOR;
+    }
+    &.linear {
+      @include linear-style();
+    }
+    .date_text:first-child {
+      border-right: 1.5px solid $WEWIN_BLUE200;
+    }
   }
 
   &:disabled {
     cursor: not-allowed;
-    border: 1px solid $GRAY100;
-    background-color: darken(white, 2%);
-    color: $GRAY300;
+    border: none;
+    background-color: $INPUT_DISABLED_BG_COLOR;
+    color: $INPUT_DISABLED_COLOR;
+    > .calendar_icon_wrap {
+      color: $INPUT_ICON_DISABLED_COLOR;
+      background-color: $INPUT_ICON_DISABLED_BG_COLOR;
+    }
+
+    &.system {
+      background-color: $INPUT_SYSTEM_BG_COLOR;
+      color: $INPUT_SYSTEM_COLOR;
+      border: none;
+      > .calendar_icon_wrap {
+        color: $INPUT_ICON_SYSTEM_COLOR;
+        background-color: $INPUT_ICON_SYSTEM_BG_COLOR;
+        border-left: none;
+      }
+      .date_text:first-child {
+        border-right: 1.5px solid $GRAY200;
+      }
+      &.linear {
+        border: $INPUT_DEFAULT_BORDER;
+        @include linear-style();
+        > .calendar_icon_wrap {
+          background-color: transparent;
+          border-left: none;
+        }
+      }
+    }
+    .date_text:first-child {
+      border-right: 1.5px solid $GRAY50;
+    }
   }
   > div {
     min-height: 40px;
@@ -37,9 +101,36 @@
     display: flex;
     align-items: center;
   }
-  min-width: 18em;
   &.with_time {
     min-width: 23em;
+  }
+  &.readonly {
+    border: none;
+    background-color: transparent;
+    color: $INPUT_READONLY_COLOR;
+    > .date_text {
+      flex: none;
+      &:first-child {
+        position: relative;
+        border: none;
+        &::after {
+          content: "~";
+          position: absolute;
+          right: 0;
+          color: $INPUT_READONLY_COLOR;
+        }
+      }
+    }
+    > .calendar_icon_wrap {
+      display: none;
+    }
+  }
+  &.linear {
+    @include linear-style();
+    > .calendar_icon_wrap {
+      border-left: none;
+      background-color: transparent;
+    }
   }
 }
 
@@ -51,12 +142,8 @@
   flex: 1;
   padding: 0 0.7em;
   &:first-child {
-    border-right: 1px solid $GRAY300;
-  }
-
-  &.disabled {
-    background-color: darken(white, 2%);
-    color: $GRAY300;
+    padding-right: 1.4em;
+    border-right: 1.5px solid $BLUISH_GRAY200;
   }
 }
 
@@ -68,8 +155,8 @@
   border-bottom-right-radius: 4px;
   justify-content: center;
   border-left: $BORDER_GRAY300;
-  background-color: $GRAY50;
-  color: $GRAY900;
+  background-color: $INPUT_ICON_DEFAULT_BG_COLOR;
+  color: $INPUT_ICON_DEFAULT_COLOR;
   > svg {
     width: 1.4em;
     height: 1.4em;
@@ -102,6 +189,7 @@
     right: 0;
   }
 }
+
 .calendar_modal_footer {
   width: 100%;
   max-height: 0;
@@ -110,6 +198,7 @@
     max-height: 6em;
   }
 }
+
 .calendar_modal_contents {
   padding: 1em;
   display: flex;
@@ -174,10 +263,7 @@
   display: flex;
   flex-direction: row;
 }
+
 .placeholder {
   color: $PLACEHOLDER;
-}
-
-.fit_container {
-  width: 100%;
 }

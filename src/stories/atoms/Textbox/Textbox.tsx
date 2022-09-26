@@ -96,6 +96,7 @@ export function Textbox({
         ${scss[theme]} 
         ${modifier && scss[modifier]}
         ${invalid && scss.invalid} 
+        ${_disabled && scss.disabled} 
         ${isFilled && scss.filled}`,
       )}
       style={{ width }}

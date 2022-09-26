@@ -1,18 +1,18 @@
-import { Calendar } from "react-feather";
-import { format } from "date-fns";
-import { checkStringDate } from "@utils";
-import { DayPicker, Matcher } from "react-day-picker";
+import { Calendar } from 'react-feather';
+import { format } from 'date-fns';
+import { checkStringDate } from '@utils';
+import { DayPicker, Matcher } from 'react-day-picker';
 
-import ko from "date-fns/locale/ko";
-import "react-day-picker/dist/style.css";
-import scss from "./DateSelectbox.module.scss";
+import ko from 'date-fns/locale/ko';
+import 'react-day-picker/dist/style.css';
+import scss from './DateSelectbox.module.scss';
 import {
   useOpenedStateWithCloseExternalClick,
   useParentState,
   useDepsState,
-} from "@hooks";
-import { cleanClassName } from "@utils";
-import { useCallback, useEffect } from "react";
+} from '@hooks';
+import { cleanClassName } from '@utils';
+import { useCallback, useEffect } from 'react';
 
 export interface DateSelectboxProps {
   value?: Date | null;
@@ -21,12 +21,12 @@ export interface DateSelectboxProps {
   invalid?: boolean;
   disabledDates?: Matcher | Matcher[];
   disabled?: boolean;
-  openDirection?: ["up" | "down", "left" | "right"];
+  openDirection?: ['up' | 'down', 'left' | 'right'];
   placeholder?: string;
   onChange?: (value: Date | null) => void;
-  theme?: "linear" | "box";
-  width?: React.CSSProperties["width"];
-  modifier?: "system" | "readonly" | "user";
+  theme?: 'linear' | 'box';
+  width?: React.CSSProperties['width'];
+  modifier?: 'system' | 'readonly' | 'user';
 }
 
 export function DateSelectbox({
@@ -38,15 +38,15 @@ export function DateSelectbox({
   placeholder,
   value,
   invalid,
-  openDirection: [upDown, leftRight] = ["down", "left"],
-  theme = "box",
-  width = "246px",
-  modifier = "user",
+  openDirection: [upDown, leftRight] = ['down', 'left'],
+  theme = 'box',
+  width = '246px',
+  modifier = 'user',
 }: DateSelectboxProps) {
   const _placeholder =
-    placeholder ?? withTime ? "YYYY-MM-DD HH:MM" : "YYYY-MM-DD";
+    placeholder ?? withTime ? 'YYYY-MM-DD HH:MM' : 'YYYY-MM-DD';
 
-  const _disabled = modifier === "user" ? disabled : true;
+  const _disabled = modifier === 'user' ? disabled : true;
 
   const {
     openedState: [calendarOpened, setCalendarOpened],
@@ -60,13 +60,13 @@ export function DateSelectbox({
     };
 
   const formatDate = useCallback(
-    (date: Date) => format(date, withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd"),
-    [withTime]
+    (date: Date) => format(date, withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'),
+    [withTime],
   );
 
   const [dateString, setDateString] = useDepsState(
     () => (value ? formatDate(value) : undefined),
-    [value]
+    [value],
   );
 
   const checkNumberArray = (stringArray: string[]) =>
@@ -85,7 +85,7 @@ export function DateSelectbox({
             calendarOpened && scss.opened
           } ${_disabled && scss.disabled} ${invalid && scss.invalid} ${
             scss[modifier]
-          } ${scss[theme]}`
+          } ${scss[theme]}`,
         )}
         {...preventCloseProps}
       >
@@ -100,7 +100,7 @@ export function DateSelectbox({
             onChange={(e) => {
               const { value } = e.target;
 
-              if (value === "") {
+              if (value === '') {
                 handleDateChange(null);
                 setDateString(undefined);
                 return;
@@ -125,7 +125,7 @@ export function DateSelectbox({
                   handleDateChange(selectedDate);
                   (previousYear !== selectedYear ||
                     previousMonth !== selectedMonth) &&
-                    refreshCalendar(dateString);
+                  refreshCalendar(dateString);
                 }
               };
 
@@ -136,18 +136,18 @@ export function DateSelectbox({
                 refreshCalendar(today);
               } else {
                 if (withTime) {
-                  const [date, time] = value.split(" ");
+                  const [date, time] = value.split(' ');
                   checkNumberArray([
-                    ...date.split("-"),
-                    ...(time ? time.split(":") : []),
+                    ...date.split('-'),
+                    ...(time ? time.split(':') : []),
                   ]) && selectDate(value);
-                } else if (checkNumberArray(value.split("-")))
+                } else if (checkNumberArray(value.split('-')))
                   selectDate(value);
               }
             }}
           />
         </div>
-        {modifier !== "readonly" && <Calendar />}
+        {modifier !== 'readonly' && <Calendar />}
       </div>
       {calendarOpened && (
         <section
