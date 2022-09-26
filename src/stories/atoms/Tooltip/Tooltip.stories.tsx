@@ -1,8 +1,8 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Tooltip } from "./Tooltip";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Tooltip } from './Tooltip';
 
 export default {
-  title: "atoms/Tooltip",
+  title: 'atoms/Tooltip',
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 
@@ -12,5 +12,21 @@ const TooltipStory: ComponentStory<typeof Tooltip> = (args) => (
 
 export const Default = TooltipStory.bind({});
 Default.args = {
-  children: "툴팁 메시지가 들어갑니다.",
+  children: '툴팁 메시지가 들어갑니다.<br>툴팁 메시지가 들어갑니다.툴팁 메시지가 들어갑니다.툴팁 메시지가 들어갑니다.',
 };
+
+Default.decorators = [
+  (Story) => (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '120px',
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
