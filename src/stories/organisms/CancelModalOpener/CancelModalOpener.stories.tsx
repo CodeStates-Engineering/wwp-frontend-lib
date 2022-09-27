@@ -9,7 +9,10 @@ export default {
 
 const CancelModalOpenerStory: ComponentStory<typeof CancelModalOpener> = (
   args,
-) => <CancelModalOpener {...args} />;
+) => <CancelModalOpener
+  openerContents="Cancel Modal Opener"
+  {...args}
+/>;
 
 export const Default = CancelModalOpenerStory.bind({});
 Default.args = {

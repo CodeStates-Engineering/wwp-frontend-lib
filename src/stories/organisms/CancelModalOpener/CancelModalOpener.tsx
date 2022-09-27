@@ -33,7 +33,6 @@ export function CancelModalOpener({
       theme={theme}
       shape={shape}
       fitContainer={fitContainer}
-      openerContents="Cancel Modal Opener"
       openerType="button"
       fontWeight={fontWeight}
       fontSize={fontSize}
