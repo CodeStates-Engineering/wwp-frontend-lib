@@ -37,7 +37,7 @@ export function CancelModalOpener({
       fontWeight={fontWeight}
       fontSize={fontSize}
       confirmButtonTheme={confirmButtonTheme}
-      confirmButtonContents="취소"
+      confirmButtonContents={confirmButtonContents}
       title={title}
       modalType={modalType}
       onConfirm={onCancel}
