@@ -1,136 +1,218 @@
 import { Calendar } from "react-feather";
 import { format } from "date-fns";
-import { checkStringDate } from "@utils";
 import { DayPicker, Matcher } from "react-day-picker";
 
 import ko from "date-fns/locale/ko";
 import "react-day-picker/dist/style.css";
 import scss from "./DateSelectbox.module.scss";
-import {
-  useOpenedStateWithCloseExternalClick,
-  useParentState,
-  useDepsState,
-} from "@hooks";
-import type { OpenedStateWithCloseExternalClick } from "@hooks";
+import { useOpenedStateWithCloseExternalClick, useDepsState } from "@hooks";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { cleanClassName } from "@utils";
-import { useCallback, useEffect, useState } from "react";
 
-interface DateInputProps {
-  value?: Date | null;
-  withTime?: boolean;
-  disabledDates?: Matcher | Matcher[];
-  disabled?: boolean;
-  openDirection?: ["up" | "down", "left" | "right"];
-  onChange?: (value: Date | null) => void;
-  placeholder?: string;
-  openStateWithCloseExternalClick: OpenedStateWithCloseExternalClick;
-  onFilled: (filled: boolean) => void;
+export interface Period {
+  from?: Date;
+  to?: Date;
 }
 
-function DateInput({
-  withTime,
-  onChange,
-  disabled,
-  disabledDates,
-  placeholder,
+export type DateType = "date" | "date-range";
+export interface DateSelectboxProps<T extends DateType> {
+  type?: T;
+  value?: T extends "date" ? Period["from"] : Period;
+  onChange?: T extends "date"
+    ? (value: Period["from"]) => void
+    : (value: Period) => void;
+  disabledDates?: Matcher | Matcher[];
+  disabled?: boolean;
+  withTime?: boolean;
+  openDirection?: ["up" | "down", "left" | "right"];
+  placeholder?: T extends "date" ? string : { from?: string; to?: string };
+  width?: React.CSSProperties["width"];
+  id?: string;
+  theme?: "box" | "linear";
+  modifier?: "system" | "readonly" | "user";
+  invalid?: boolean;
+}
+
+export function DateSelectbox<T extends DateType>({
+  type = "date" as T,
   value,
+  onChange,
+  disabledDates,
+  disabled,
+  withTime = false,
   openDirection: [upDown, leftRight] = ["down", "left"],
-  openStateWithCloseExternalClick,
-  onFilled,
-}: DateInputProps) {
-  const _placeholder =
-    placeholder ?? (withTime ? "YYYY-MM-DD HH:MM" : "YYYY-MM-DD");
+  placeholder,
+  width,
+  id,
+  theme = "box",
+  modifier = "user",
+  invalid,
+}: DateSelectboxProps<T>) {
+  const isDate = type === "date";
+  const [selectedPeriod, setSelectedPeriod] = useDepsState<Period>(() => {
+    if (isDate)
+      return {
+        from: value as DateSelectboxProps<"date">["value"],
+      };
+    else {
+      const _value = value as DateSelectboxProps<"date-range">["value"];
+      return {
+        from: _value?.from,
+        to: _value?.to,
+      };
+    }
+  }, [value, isDate]);
+
+  const handlePeriodChange = useCallback(
+    (period: Period) => {
+      if (isDate) {
+        const _onChange = onChange as DateSelectboxProps<"date">["onChange"];
+        _onChange?.(period.from);
+      } else {
+        const _onChange =
+          onChange as DateSelectboxProps<"date-range">["onChange"];
+        _onChange?.({
+          from: period.from,
+          to: period.to,
+        });
+      }
+      setSelectedPeriod(period);
+    },
+    [onChange, setSelectedPeriod, isDate]
+  );
+
+  const periodPlaceholder = useMemo(() => {
+    const defaultPlaceholder = `YYYY-MM-DD${withTime ? " HH:mm" : ""}`;
+    if (isDate) {
+      const _placeholder =
+        placeholder as DateSelectboxProps<"date">["placeholder"];
+      return {
+        from: _placeholder ?? defaultPlaceholder,
+        to: "",
+      };
+    } else {
+      const _placeholder =
+        placeholder as DateSelectboxProps<"date-range">["placeholder"];
+      return {
+        from: _placeholder?.from ?? defaultPlaceholder,
+        to: _placeholder?.to ?? defaultPlaceholder,
+      };
+    }
+  }, [withTime, isDate, placeholder]);
+
+  const formatDate = useCallback(
+    (date?: Date) =>
+      date ? format(date, withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd") : "",
+    [withTime]
+  );
+
+  const [selectedPeriodString, setSelectedPeriodString] = useDepsState(() => {
+    if (isDate)
+      return {
+        from: formatDate(value as DateSelectboxProps<"date">["value"]),
+        to: "",
+      };
+    else {
+      const _value = value as DateSelectboxProps<"date-range">["value"];
+      return {
+        from: formatDate(_value?.from),
+        to: formatDate(_value?.to),
+      };
+    }
+  }, [value, formatDate, isDate]);
 
   const {
     openedState: [calendarOpened, setCalendarOpened],
     preventCloseProps,
-  } = openStateWithCloseExternalClick;
+  } = useOpenedStateWithCloseExternalClick(false);
 
-  const [date, setDate] = useParentState(value),
-    handleDateChange = (date: Date | null) => {
-      setDate(date);
-      onChange?.(date);
+  const [currentModal, setCurrentModal] = useState<"from" | "to">("from"),
+    currentModalDate = selectedPeriod[currentModal] ?? undefined,
+    openCalendar = (modal: "from" | "to") => () => {
+      setCurrentModal(modal);
+      setCalendarOpened(true);
     };
 
   useEffect(() => {
-    onFilled(!!date);
-  }, [date]);
-
-  const formatDate = useCallback(
-    (date: Date) => format(date, withTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd"),
-    [withTime]
-  );
-
-  const [dateString, setDateString] = useDepsState(
-    () => (value ? formatDate(value) : undefined),
-    [value]
-  );
-
-  const checkNumberArray = (stringArray: string[]) =>
-    stringArray.every((string) => !isNaN(Number(string)));
-
-  useEffect(() => {
-    !calendarOpened && setDateString(date ? formatDate(date) : undefined);
+    !calendarOpened &&
+      setSelectedPeriodString({
+        from: formatDate(selectedPeriod.from),
+        to: formatDate(selectedPeriod.to),
+      });
   }, [calendarOpened]);
 
-  return (
-    <div className={scss.date_input_container}>
-      <input
-        value={dateString ?? ""}
-        placeholder={_placeholder}
-        disabled={disabled}
-        onClick={() => {
+  const handleInputChange =
+    (type: "from" | "to") => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      const selectedDate = selectedPeriod[type];
+      const previousYearMonth = selectedDate
+        ? format(selectedDate, "yyyy-MM")
+        : "";
+      const refreshCalendar = (dateString: string) => {
+        setCalendarOpened(false);
+        setTimeout(() => {
+          setSelectedPeriodString({
+            ...selectedPeriodString,
+            [type]: dateString,
+          });
           setCalendarOpened(true);
-        }}
-        className={scss.date_input}
-        onChange={(e) => {
-          const { value } = e.target;
+        });
+      };
+      if (!selectedPeriodString[type]) {
+        const initDateString = `2000-01-01${withTime ? " 00:00" : ""}`;
+        handlePeriodChange({
+          ...selectedPeriod,
+          [type]: new Date(initDateString),
+        });
+        refreshCalendar(initDateString);
+      } else {
+        setSelectedPeriodString({
+          ...selectedPeriodString,
+          [type]: value,
+        });
+        if (value === "")
+          handlePeriodChange({ ...selectedPeriod, [type]: undefined });
+        else if (!isNaN(Date.parse(value))) {
+          const selectedDate = new Date(value);
+          handlePeriodChange({
+            ...selectedPeriod,
+            [type]: selectedDate,
+          });
+          const currentYearMonth = format(selectedDate, "yyyy-MM");
+          previousYearMonth !== currentYearMonth && refreshCalendar(value);
+        }
+      }
+    };
 
-          if (value === "") {
-            handleDateChange(null);
-            setDateString(undefined);
-            return;
-          }
-
-          const refreshCalendar = (dateString?: string) => {
-            setCalendarOpened(false);
-            setTimeout(() => {
-              setCalendarOpened(true);
-              setDateString(dateString);
-            });
-          };
-
-          const selectDate = (dateString: string) => {
-            setDateString(dateString);
-            if (checkStringDate(dateString)) {
-              const previousYear = date?.getFullYear();
-              const previousMonth = date?.getMonth();
-              const selectedDate = new Date(value);
-              const selectedYear = selectedDate.getFullYear();
-              const selectedMonth = selectedDate.getMonth();
-              handleDateChange(selectedDate);
-              (previousYear !== selectedYear ||
-                previousMonth !== selectedMonth) &&
-                refreshCalendar(dateString);
-            }
-          };
-
-          if (!dateString) {
-            const today = formatDate(new Date());
-            setDateString(today);
-            setDate(new Date(today));
-            refreshCalendar(today);
-          } else {
-            if (withTime) {
-              const [date, time] = value.split(" ");
-              checkNumberArray([
-                ...date.split("-"),
-                ...(time ? time.split(":") : []),
-              ]) && selectDate(value);
-            } else if (checkNumberArray(value.split("-"))) selectDate(value);
-          }
-        }}
-      />
+  return (
+    <div className={scss.date_selectbox_container}>
+      <div
+        className={`${
+          isDate ? scss.date_selectbox : scss.date_range_selectbox
+        } ${scss[theme]}`}
+      >
+        <div className={scss.date_input_container}>
+          <input
+            className={scss.date_input}
+            onClick={openCalendar("from")}
+            value={selectedPeriodString.from}
+            placeholder={periodPlaceholder.from}
+            onChange={handleInputChange("from")}
+          />
+          {!isDate && (
+            <input
+              className={`${scss.date_input} ${scss.styled}`}
+              onClick={openCalendar("to")}
+              value={selectedPeriodString.to}
+              placeholder={periodPlaceholder.to}
+              onChange={handleInputChange("to")}
+            />
+          )}
+        </div>
+        <div className={scss.icon_wrap}>
+          <Calendar />
+        </div>
+      </div>
       {calendarOpened && (
         <section
           className={`${scss.calendar_modal} ${scss[upDown]} ${scss[leftRight]}`}
@@ -140,10 +222,14 @@ function DateInput({
             locale={ko}
             mode="single"
             disabled={disabledDates}
-            defaultMonth={date ?? new Date()}
-            selected={date ?? undefined}
+            defaultMonth={currentModalDate ?? new Date()}
+            selected={currentModalDate}
             onSelect={(date: Date | undefined) => {
-              handleDateChange(date ?? null);
+              handlePeriodChange({ ...selectedPeriod, [currentModal]: date });
+              setSelectedPeriodString({
+                ...selectedPeriodString,
+                [currentModal]: formatDate(date),
+              });
               setCalendarOpened(false);
             }}
           />
@@ -151,191 +237,4 @@ function DateInput({
       )}
     </div>
   );
-}
-
-export interface DateRange {
-  from?: Date | null;
-  to?: Date | null;
-}
-
-export type DateType = "date" | "date-range";
-
-type CommonDateInputProps = Omit<
-  DateInputProps,
-  | "value"
-  | "onChange"
-  | "openStateWithCloseExternalClick"
-  | "onFilled"
-  | "placeholder"
->;
-
-interface DateRangePlaceholder {
-  from?: string;
-  to?: string;
-}
-
-export type DateSelectboxProps<T extends DateType> = CommonDateInputProps & {
-  type: T;
-  id?: string;
-  invalid?: boolean;
-  theme?: "linear" | "box";
-  width?: React.CSSProperties["width"];
-  modifier?: "system" | "readonly" | "user";
-} & (T extends "date-range"
-    ? {
-        placeholder?: DateRangePlaceholder;
-        value?: DateRange;
-        onChange?: (value: DateRange) => void;
-      }
-    : {
-        placeholder?: string;
-        value?: Date | null;
-        onChange?: (value: Date | null) => void;
-      });
-
-export function DateSelectbox<T extends DateType>({
-  type = "date" as T,
-  id,
-  invalid = false,
-  theme = "box",
-  width = "246px",
-  value,
-  onChange,
-  disabled,
-  modifier = "user",
-  placeholder,
-  ...restProps
-}: DateSelectboxProps<T>) {
-  const _disabled = modifier === "user" ? disabled : true;
-
-  const fromDateCalendarOpenState = useOpenedStateWithCloseExternalClick(false),
-    toDateCalendarOpenState = useOpenedStateWithCloseExternalClick(false);
-
-  const [fromCalendarOpened] = fromDateCalendarOpenState.openedState,
-    [toCalendarOpened] = toDateCalendarOpenState.openedState;
-
-  const [fromDateFilled, setFromDateFilled] = useState(false),
-    [toDateFilled, setToDateFilled] = useState(false);
-
-  const commonDateInputProps: CommonDateInputProps = {
-    ...restProps,
-    disabled: _disabled,
-  };
-
-  const CalendarIcon = () => {
-    return modifier !== "readonly" ? (
-      <div
-        className={cleanClassName(
-          `${scss.calendar_icon} ${type === "date-range" && scss.background}`
-        )}
-      >
-        <Calendar />
-      </div>
-    ) : (
-      <></>
-    );
-  };
-  const [date] = useState<Date>();
-  switch (type) {
-    case "date-range": {
-      const dateRangeValue = { ...value } as DateRange | undefined,
-        handleDateRange = onChange as (value: DateRange) => void,
-        dateRangePlaceholder = placeholder as DateRangePlaceholder | undefined;
-
-      return (
-        <div
-          id={id}
-          className={cleanClassName(
-            `${scss.datebox} ${
-              (fromCalendarOpened || toCalendarOpened) && scss.opened
-            } ${(fromDateFilled || toDateFilled) && scss.filled} ${
-              _disabled && scss.disabled
-            } ${invalid && scss.invalid} ${scss[modifier]} ${scss[theme]}`
-          )}
-          style={{ width }}
-        >
-          <div
-            className={cleanClassName(
-              `${scss.date_range_input_container} ${scss[theme]} ${
-                fromCalendarOpened && scss.opened
-              } ${fromDateFilled && scss.filled} ${
-                _disabled && scss.disabled
-              } ${scss[modifier]}`
-            )}
-          >
-            <DateInput
-              {...commonDateInputProps}
-              value={dateRangeValue?.from}
-              placeholder={dateRangePlaceholder?.from}
-              onChange={(date) => {
-                value = { ...value, from: date };
-                handleDateRange({
-                  from: date,
-                  to: dateRangeValue?.to,
-                });
-              }}
-              onFilled={setFromDateFilled}
-              openStateWithCloseExternalClick={fromDateCalendarOpenState}
-            />
-          </div>
-          {modifier === "readonly" && (
-            <div className={scss.readonly_text}>~</div>
-          )}
-          <div
-            className={cleanClassName(
-              `${scss.date_range_input_container} ${scss[theme]} ${
-                toCalendarOpened && scss.opened
-              } ${toDateFilled && scss.filled} ${_disabled && scss.disabled} ${
-                scss[modifier]
-              }`
-            )}
-          >
-            <DateInput
-              {...commonDateInputProps}
-              value={dateRangeValue?.to}
-              placeholder={dateRangePlaceholder?.to}
-              onChange={(date) => {
-                handleDateRange({
-                  from: dateRangeValue?.from,
-                  to: date,
-                });
-              }}
-              onFilled={setToDateFilled}
-              openStateWithCloseExternalClick={toDateCalendarOpenState}
-            />
-          </div>
-          <CalendarIcon />
-        </div>
-      );
-    }
-    default: {
-      const dateValue = value as Date | null | undefined,
-        handleDate = onChange as (value: Date | null) => void,
-        datePlaceholder = placeholder as string | undefined;
-
-      return (
-        <div
-          id={id}
-          className={cleanClassName(
-            `${scss.datebox} ${toDateFilled && scss.filled} ${
-              toCalendarOpened && scss.opened
-            } ${_disabled && scss.disabled} ${invalid && scss.invalid} ${
-              scss[modifier]
-            } ${scss[theme]}`
-          )}
-          style={{ width }}
-        >
-          <DateInput
-            {...commonDateInputProps}
-            placeholder={datePlaceholder}
-            value={dateValue}
-            onChange={handleDate}
-            onFilled={setToDateFilled}
-            openStateWithCloseExternalClick={toDateCalendarOpenState}
-          />
-          <CalendarIcon />
-        </div>
-      );
-    }
-  }
 }
