@@ -1,7 +1,8 @@
 @import "../../../scss/libs.scss";
+
 .announcement_message_container {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   position: relative;
   > svg {
     width: 1.1em;
@@ -14,23 +15,33 @@
     }
   }
   > .announcement_message {
-    background-color: $BLUISH_GRAY10;
-    border: 1px solid $BLUISH_GRAY600;
-    color: $GRAY900;
+    background: rgba(38, 47, 64, 0.82);
+    color: #ffffff;
     position: absolute;
-    top: -0.5em;
-    left: 2em;
+    top: -3em;
+    transform: translate(calc(-50% - 0.5em), -50%);
     z-index: 3;
-    border-radius: 5px;
+    border-radius: 6px;
     box-shadow: $BOX_SHADOW013;
-    padding: 0.5em 0.8em;
-    font-size: 0.9em;
+    padding: 0.7em 1.3em;
+    font-size: 0.8em;
     line-height: 1.2em;
     display: none;
-    min-width: 20em;
+    min-width: 6.1em;
     width: auto;
     word-break: keep-all;
     white-space: nowrap;
+    text-align: center;
+    &::before {
+      content: "";
+      position: absolute;
+      border: solid;
+      border-color: rgba(38, 47, 64, 0.82) transparent;
+      border-width: 10.5px 6px 0 6px;
+      bottom: -10px;
+      left: calc(50% - 0.7em);
+      z-index: 99;
+    }
   }
   &:hover > .announcement_message {
     display: unset;

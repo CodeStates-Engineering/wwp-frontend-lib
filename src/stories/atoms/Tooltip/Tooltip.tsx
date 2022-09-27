@@ -1,5 +1,5 @@
-import scss from "./Tooltip.module.scss";
-import { AlertCircle } from "react-feather";
+import scss from './Tooltip.module.scss';
+import { AlertCircle, AlertOctagon, AlignCenter } from 'react-feather';
 
 export interface TooltipProps {
   children?: React.ReactNode;
