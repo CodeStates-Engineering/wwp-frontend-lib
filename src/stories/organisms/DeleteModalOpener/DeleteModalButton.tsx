@@ -11,6 +11,11 @@ export function DeleteModalOpener({
   modalType = 'center',
   openerContents = '삭제',
   confirmButtonTheme = 'wewin-peach500',
+  type = 'button',
+  maxWidth = '340px',
+  disabled = false,
+  contour = false,
+  confirmButtonDisabled = false,
   ...restProps
 }: DeleteModalOpenerProps) {
   return (
@@ -22,6 +27,10 @@ export function DeleteModalOpener({
       modalType={modalType}
       openerContents={openerContents}
       onConfirm={onDelete}
+      maxWidth={maxWidth}
+      contour={contour}
+      disabled={disabled}
+      confirmButtonDisabled={confirmButtonDisabled}
     />
   );
 }
