@@ -1,17 +1,22 @@
-import { ConfirmModalOpener, ConfirmModalOpenerProps } from "..";
+import { ConfirmModalOpener, ConfirmModalOpenerProps } from '..';
 
 export interface CancelModalOpenerProps
-  extends Omit<ConfirmModalOpenerProps<"button">, "onConfirm" | "openerType"> {
-  onCancel: ConfirmModalOpenerProps<"button">["onConfirm"];
+  extends Omit<ConfirmModalOpenerProps<'button'>, 'onConfirm' | 'openerType'> {
+  onCancel: ConfirmModalOpenerProps<'button'>['onConfirm'];
 }
 
 export function CancelModalOpener({
   onCancel,
-  confirmButtonContents = "네, 취소합니다.",
-  modalType = "center",
-  confirmButtonTheme = "wewin-peach500",
-  fontWeight = "bold",
-  fontSize = "large",
+  modalType = 'center',
+  variant = 'contain',
+  theme = 'wewin-blue600',
+  shape = 'square',
+  size = 'medium',
+  confirmButtonContents = '네, 취소합니다.',
+  confirmButtonTheme = 'wewin-peach500',
+  fontWeight = 'bold',
+  fontSize = 'medium',
+  fitContainer = false,
   title = (
     <>
       작성중인 내용이 사라집니다.
@@ -23,14 +28,21 @@ export function CancelModalOpener({
 }: CancelModalOpenerProps) {
   return (
     <ConfirmModalOpener
+      variant={variant}
+      size={size}
+      theme={theme}
+      shape={shape}
+      fitContainer={fitContainer}
+      openerContents="Cancel Modal Opener"
       openerType="button"
-      {...restProps}
       fontWeight={fontWeight}
       fontSize={fontSize}
       confirmButtonTheme={confirmButtonTheme}
+      confirmButtonContents="취소"
       title={title}
       modalType={modalType}
       onConfirm={onCancel}
+      {...restProps}
     />
   );
 }
