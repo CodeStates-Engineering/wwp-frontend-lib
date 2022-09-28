@@ -22,23 +22,7 @@ Default.args = {
           <Table.Title>title3</Table.Title>
         </Table.Row>
       </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Data>data</Table.Data>
-          <Table.Data>data2</Table.Data>
-          <Table.Data>data3</Table.Data>
-        </Table.Row>
-        <Table.Row>
-          <Table.Data>data</Table.Data>
-          <Table.Data>data2</Table.Data>
-          <Table.Data>data3</Table.Data>
-        </Table.Row>
-        <Table.Row>
-          <Table.Data>data</Table.Data>
-          <Table.Data>data2</Table.Data>
-          <Table.Data>data3</Table.Data>
-        </Table.Row>
-      </Table.Body>
+      <Table.Body></Table.Body>
     </>
   ),
 };

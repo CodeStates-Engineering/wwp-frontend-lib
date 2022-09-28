@@ -20,38 +20,30 @@ interface FlexContainerProps {
   justify?: Deployment;
 }
 
-interface TableCommonProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-interface TableContainerProps extends TableCommonProps {
-  dataExisted?: boolean;
-  loading?: boolean;
-  invalid?: boolean;
-}
-interface TableTitleProps extends TableCommonProps {
-  align?: Deployment;
-  justify?: Deployment;
-}
-
 const RowExistedSetterContext = createContext<
   Dispatch<SetStateAction<boolean>>
 >(() => {});
 
+export interface TableContainerProps {
+  dataExisted?: boolean;
+  loading?: boolean;
+  invalid?: boolean;
+  maxWidth?: React.CSSProperties["maxWidth"];
+  children?: React.ReactNode;
+}
 function Container({
   children,
-  className,
-  loading = false,
-  invalid,
+  loading,
+  invalid = true,
+  maxWidth = "100%",
 }: TableContainerProps) {
   const [rowExisted, setRowExisted] = useState(true);
-
   return (
     <RowExistedSetterContext.Provider value={setRowExisted}>
       {loading ? (
         <section
           className={cleanClassName(
-            `${scss.no_row_container} ${invalid && scss.invalid}  ${className}`
+            `${scss.no_row_container} ${invalid && scss.invalid}`
           )}
         >
           <Loading />
@@ -60,9 +52,9 @@ function Container({
         <>
           <table
             className={cleanClassName(
-              `${scss.table} ${invalid && scss.invalid} ${
+              `${scss.table_container} ${invalid && scss.invalid} ${
                 !rowExisted && scss.hidden
-              } ${className}`
+              }`
             )}
           >
             {children}
@@ -71,7 +63,7 @@ function Container({
             className={cleanClassName(
               `${scss.no_row_container} ${invalid && scss.invalid} ${
                 rowExisted && scss.hidden
-              } ${className}`
+              }`
             )}
           >
             <Logo />
@@ -83,33 +75,34 @@ function Container({
   );
 }
 
-function Head({ children, className }: TableCommonProps) {
-  return (
-    <thead className={cleanClassName(`${scss.thead} ${className}`)}>
-      {children}
-    </thead>
-  );
+export interface TableHeadProps {
+  children?: React.ReactNode;
 }
-function Row({ children, className }: TableCommonProps) {
-  return (
-    <tr className={cleanClassName(`${scss.tr} ${className}`)}>{children}</tr>
-  );
+function Head({ children }: TableHeadProps) {
+  return <thead className={scss.table_head}>{children}</thead>;
+}
+
+export interface TableRowProps {
+  children?: React.ReactNode;
+}
+function Row({ children }: TableRowProps) {
+  return <tr>{children}</tr>;
+}
+
+export interface TableTitleProps extends FlexContainerProps {
+  children?: React.ReactNode;
 }
 function Title({
   children,
-  className,
   justify = "center",
   align = "center",
 }: TableTitleProps) {
   return (
-    <th className={scss.th}>
+    <th className={scss.table_row_item}>
       <div
-        className={cleanClassName(`
-          ${scss.flex_container}
-          ${scss["justify_" + justify]}
-          ${scss["align_" + align]}
-          ${className}
-          `)}
+        className={`${scss.table_title_contents} ${
+          scss["justify_" + justify]
+        } ${scss["align_" + align]}`}
       >
         {children}
       </div>
@@ -117,18 +110,17 @@ function Title({
   );
 }
 
-function Body({ children, className }: TableCommonProps) {
+export interface TableBodyProps {
+  children?: React.ReactNode;
+}
+function Body({ children }: TableBodyProps) {
   const setRowExisted = useContext(RowExistedSetterContext);
   const rowExisted = 0 < Children.count(children);
 
   useEffect(() => {
     setRowExisted(rowExisted);
   }, [rowExisted, setRowExisted]);
-  return (
-    <tbody className={cleanClassName(`${scss.tbody} ${className}`)}>
-      {children}
-    </tbody>
-  );
+  return <tbody className={scss.table_body}>{children}</tbody>;
 }
 
 interface CopyButtonProps {
@@ -140,11 +132,9 @@ function CopyButton(props: CopyButtonProps) {
   const { children, copyable, visible } = props;
   const [copied, setCopied] = useState(false);
   if (!copyable || !children) return <></>;
-  let className = scss.copy_button;
-  if (copied) className += ` ${scss.copied}`;
   return (
     <button
-      className={className}
+      className={cleanClassName(`${scss.copy_button} ${copied && scss.copied}`)}
       onClick={
         visible
           ? () => {
@@ -175,7 +165,7 @@ function DataItem({
   return (
     <div
       className={cleanClassName(
-        `${scss.td_contents} ${
+        `${scss.table_data_contents} ${
           hoverDirection === "left" ? scss.left : scss.right
         } ${visible ? scss.front : scss.back} ${
           visible && hoverHighlight && scss.hover_highlight
@@ -188,13 +178,11 @@ function DataItem({
   );
 }
 
-type TableDataProps = Omit<DataItemProps, "visible"> &
+export type TableDataProps = Omit<DataItemProps, "visible"> &
   FlexContainerProps & {
-    className?: string;
     resizable?: boolean;
   };
 function Data({
-  className,
   resizable,
   align = "center",
   justify = "center",
@@ -204,16 +192,16 @@ function Data({
   return (
     <td
       className={cleanClassName(
-        `${scss.td} ${resizable && scss.resizable} ${className}`
+        `${scss.table_row_item} ${scss.table_data} ${
+          resizable && scss.resizable
+        }`
       )}
     >
       <div
-        className={`${scss.flex_container} ${scss["align_" + align]} ${
-          scss["justify_" + justify]
-        }`}
+        className={`${scss["align_" + align]} ${scss["justify_" + justify]}`}
       >
         {children && (
-          <section className={scss.td_contents_section}>
+          <section className={scss.table_data_contents_container}>
             <DataItem {...dataItemProps} visible={true} />
             <DataItem {...dataItemProps} visible={false} />
           </section>
@@ -222,12 +210,5 @@ function Data({
     </td>
   );
 }
-
-export type {
-  TableCommonProps,
-  TableContainerProps,
-  TableTitleProps,
-  TableDataProps,
-};
 
 export const Table = { Container, Row, Head, Body, Title, Data };
