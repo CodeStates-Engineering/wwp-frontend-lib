@@ -5,19 +5,20 @@ import { regex } from '@utils';
 import { Percent } from 'react-feather';
 
 export interface TextboxProps {
-  value?: string;
-  onChange?: (value: string) => void;
-  id?: string;
-  className?: string;
-  disabled?: boolean;
-  invalid?: boolean;
-  placeholder?: string;
-  name?: string;
-  unit?: React.ReactNode;
   type?: 'number' | 'text' | 'comma-separated-number';
   theme?: 'linear' | 'box';
+  value?: string;
+  name?: string;
+  unit?: React.ReactNode;
+  placeholder?: string;
   modifier?: 'system' | 'readonly' | 'user';
+  disabled?: boolean;
+  invalid?: boolean;
+  id?: string;
+  className?: string;
   width?: React.CSSProperties['width'];
+
+  onChange?: (value: string) => void;
 }
 
 export function Textbox({
