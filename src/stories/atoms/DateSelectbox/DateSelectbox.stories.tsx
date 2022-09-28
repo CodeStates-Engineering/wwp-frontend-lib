@@ -10,10 +10,4 @@ export default {
 const DateSelectboxStory: ComponentStory<typeof DateSelectbox> = (args) => {
   return <DateSelectbox {...args} />;
 };
-export const Date = DateSelectboxStory.bind({});
-Date.args = {
-  type: "date-range",
-};
-
-export const DateRange = DateSelectboxStory.bind({});
-DateRange.args = {};
+export const Default = DateSelectboxStory.bind({});

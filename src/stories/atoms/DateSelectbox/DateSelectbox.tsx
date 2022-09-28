@@ -42,13 +42,16 @@ export function DateSelectbox<T extends DateType>({
   withTime = false,
   openDirection: [upDown, leftRight] = ["down", "left"],
   placeholder,
-  width,
+  width = "300px",
   id,
   theme = "box",
   modifier = "user",
   invalid,
 }: DateSelectboxProps<T>) {
   const isDate = type === "date";
+
+  const _disabled = modifier === "user" ? disabled : true;
+
   const [selectedPeriod, setSelectedPeriod] = useDepsState<Period>(() => {
     if (isDate)
       return {
@@ -127,11 +130,7 @@ export function DateSelectbox<T extends DateType>({
   } = useOpenedStateWithCloseExternalClick(false);
 
   const [currentModal, setCurrentModal] = useState<"from" | "to">("from"),
-    currentModalDate = selectedPeriod[currentModal] ?? undefined,
-    openCalendar = (modal: "from" | "to") => () => {
-      setCurrentModal(modal);
-      setCalendarOpened(true);
-    };
+    currentModalDate = selectedPeriod[currentModal] ?? undefined;
 
   useEffect(() => {
     !calendarOpened &&
@@ -184,29 +183,42 @@ export function DateSelectbox<T extends DateType>({
       }
     };
 
+  const setInputProps = (type: "from" | "to") => ({
+    className: cleanClassName(
+      `${scss.date_input} ${!!selectedPeriod[type] && scss.filled} ${
+        calendarOpened && currentModal === type && scss.opened
+      }`
+    ),
+    onClick: () => {
+      setCurrentModal(type);
+      setCalendarOpened(true);
+    },
+    value: selectedPeriodString[type],
+    placeholder: periodPlaceholder[type],
+    onChange: handleInputChange(type),
+    disabled: _disabled,
+  });
+
   return (
-    <div className={scss.date_selectbox_container}>
+    <div className={scss.date_selectbox_container} id={id} style={{ width }}>
       <div
         className={`${
           isDate ? scss.date_selectbox : scss.date_range_selectbox
-        } ${scss[theme]}`}
+        } ${scss[theme]} ${_disabled && scss.disabled} ${scss[modifier]} ${
+          (!!selectedPeriod.from || !!selectedPeriod.to) && scss.filled
+        } ${calendarOpened && scss.opened} ${invalid && scss.invalid}`}
       >
         <div className={scss.date_input_container}>
-          <input
-            className={scss.date_input}
-            onClick={openCalendar("from")}
-            value={selectedPeriodString.from}
-            placeholder={periodPlaceholder.from}
-            onChange={handleInputChange("from")}
-          />
+          <div className={scss.date_input_wrap}>
+            <input {...setInputProps("from")} />
+          </div>
           {!isDate && (
-            <input
-              className={`${scss.date_input} ${scss.styled}`}
-              onClick={openCalendar("to")}
-              value={selectedPeriodString.to}
-              placeholder={periodPlaceholder.to}
-              onChange={handleInputChange("to")}
-            />
+            <>
+              {modifier === "readonly" && <span className={scss.tilde}>~</span>}
+              <div className={scss.date_input_wrap}>
+                <input {...setInputProps("to")} />
+              </div>
+            </>
           )}
         </div>
         <div className={scss.icon_wrap}>

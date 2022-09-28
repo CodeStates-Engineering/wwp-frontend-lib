@@ -4,7 +4,7 @@
   position: relative;
 }
 
-@mixin theme($text-color, $bg-color, $border, $icon-color, $icon-bg-color) {
+@mixin border-icon-theme($bg-color, $border, $icon-color, $icon-bg-color) {
   &.date_range_selectbox,
   &.date_selectbox {
     &.box {
@@ -19,19 +19,8 @@
   }
 
   &.date_selectbox {
-    > .date_input_container > .date_input {
-      color: $text-color;
-      &::placeholder {
-        color: $text-color;
-      }
-    }
-    &.box {
-      > .icon_wrap {
-        background-color: $bg-color;
-      }
-      > .date_input_container > .date_input {
-        background-color: $bg-color;
-      }
+    &.box > .icon_wrap {
+      background-color: $bg-color;
     }
   }
 
@@ -41,32 +30,80 @@
     }
   }
 }
-//TODO: date_range_selectbox 조건부 스타일링 추가 필요
+
+@mixin dividing-line($border) {
+  &.date_range_selectbox > .date_input_container > .date_input_wrap {
+    &:last-child {
+      border-left: $border;
+    }
+  }
+}
+
+@mixin input-theme($text-color, $bg-color) {
+  &.date_range_selectbox,
+  &.date_selectbox {
+    &.box > .date_input_container > .date_input_wrap > .date_input {
+      background-color: $bg-color;
+    }
+    > .date_input_container > .date_input_wrap > .date_input {
+      color: $text-color;
+      &::placeholder {
+        color: $text-color;
+      }
+    }
+  }
+
+  &.date_selectbox {
+    &.box > .icon_wrap {
+      background-color: $bg-color;
+    }
+  }
+}
+
+.date_range_selectbox {
+  &.readonly {
+    > .date_input_container {
+      > .tilde {
+        color: $INPUT_READONLY_COLOR;
+        font-weight: $BOLD_FONT_WEIGHT;
+        margin: auto;
+      }
+      > .date_input_wrap > .date_input {
+        text-align: center;
+      }
+    }
+  }
+}
 .date_range_selectbox,
 .date_selectbox {
   height: 36px;
   display: flex;
+  transition: border 0.3s;
   &.box {
     border-radius: $INPUT_BORDER_RADIUS;
     overflow: hidden;
   }
-
   > .date_input_container {
     flex: 1;
     height: 100%;
-    > .date_input {
-      background-color: transparent;
-      border: none;
-      outline: none;
-      height: 100%;
-      background-color: $INPUT_DEFAULT_BG_COLOR;
-      color: $INPUT_DEFAULT_COLOR;
-      &::placeholder {
-        color: $INPUT_DEFAULT_COLOR;
+    display: flex;
+    > .date_input_wrap {
+      flex: 1;
+      transition: border 0.3s;
+      > .date_input {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        transition: background-color 0.3s, color 0.3s;
+        height: 100%;
+        padding: 0 11px;
+        font-size: $SMALL_FONT_SIZE;
+        font-weight: $MEDIUM_FONT_WEIGHT;
+        &::placeholder {
+          transition: color 0.3s;
+        }
       }
-      padding: 0 11px;
-      font-size: $SMALL_FONT_SIZE;
-      font-weight: $MEDIUM_FONT_WEIGHT;
     }
   }
 
@@ -79,22 +116,115 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s, color 0.3s;
-    &::placeholder {
-      transition: color 0.3s;
-    }
     > svg {
       width: 20px;
       height: 20px;
     }
   }
 
-  @include theme(
-    $INPUT_DEFAULT_COLOR,
+  @include input-theme($INPUT_DEFAULT_COLOR, $INPUT_DEFAULT_BG_COLOR);
+  @include border-icon-theme(
     $INPUT_DEFAULT_BG_COLOR,
     $INPUT_DEFAULT_BORDER,
     $INPUT_ICON_DEFAULT_COLOR,
     $INPUT_ICON_DEFAULT_BG_COLOR
   );
+  @include dividing-line($INPUT_DEFAULT_BORDER);
+
+  &.filled:not(.disabled) {
+    @include border-icon-theme(
+      $INPUT_FILLED_BG_COLOR,
+      $INPUT_FILLED_BORDER,
+      $INPUT_ICON_FILLED_COLOR,
+      $INPUT_ICON_FILLED_BG_COLOR
+    );
+    @include dividing-line($INPUT_FILLED_BORDER);
+    &.box > .date_input_container > .date_input_wrap > .date_input {
+      &.filled {
+        background-color: $INPUT_FILLED_BG_COLOR;
+      }
+    }
+
+    > .date_input_container > .date_input_wrap > .date_input {
+      &.filled {
+        color: $INPUT_FILLED_COLOR;
+        &::placeholder {
+          color: $INPUT_FILLED_COLOR;
+        }
+      }
+    }
+  }
+
+  &:hover:not(.disabled),
+  &.opened:not(.disabled) {
+    @include border-icon-theme(
+      $INPUT_FOCUS_BG_COLOR,
+      $INPUT_FOCUS_BORDER,
+      $INPUT_ICON_FOCUS_COLOR,
+      $INPUT_ICON_FOCUS_BG_COLOR
+    );
+    @include dividing-line($INPUT_FOCUS_BORDER);
+
+    &.box > .date_input_container > .date_input_wrap > .date_input {
+      &:hover,
+      &.opened {
+        background-color: $INPUT_FOCUS_BG_COLOR;
+      }
+    }
+
+    > .date_input_container > .date_input_wrap > .date_input {
+      &:hover,
+      &.opened {
+        color: $INPUT_FOCUS_COLOR;
+        &::placeholder {
+          color: $INPUT_FOCUS_COLOR;
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    > .date_input_container > .date_input_wrap > .date_input {
+      cursor: not-allowed;
+    }
+    @include input-theme($INPUT_DISABLED_COLOR, $INPUT_DISABLED_BG_COLOR);
+    @include border-icon-theme(
+      $INPUT_DISABLED_BG_COLOR,
+      $INPUT_DISABLED_BORDER,
+      $INPUT_ICON_DISABLED_COLOR,
+      $INPUT_ICON_DISABLED_BG_COLOR
+    );
+    &.system {
+      @include input-theme($INPUT_SYSTEM_COLOR, $INPUT_SYSTEM_BG_COLOR);
+      @include border-icon-theme(
+        $INPUT_SYSTEM_BG_COLOR,
+        $INPUT_SYSTEM_BORDER,
+        $INPUT_ICON_SYSTEM_COLOR,
+        $INPUT_ICON_SYSTEM_BG_COLOR
+      );
+    }
+    &.readonly {
+      @include input-theme($INPUT_READONLY_COLOR, transparent);
+      @include border-icon-theme(
+        transparent,
+        transparent,
+        transparent,
+        transparent
+      );
+      @include dividing-line(transparent);
+    }
+  }
+
+  &.invalid {
+    @include dividing-line($INPUT_ALERT_BORDER);
+    &.box {
+      border: $INPUT_ALERT_BORDER;
+    }
+    &.linear {
+      border-bottom: $INPUT_ALERT_BORDER;
+    }
+  }
 }
 
 .calendar_modal {
