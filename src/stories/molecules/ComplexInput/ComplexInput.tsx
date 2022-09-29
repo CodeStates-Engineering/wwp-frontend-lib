@@ -57,7 +57,7 @@ interface CommonProps<T extends InputPropsHint> {
   labelFontWeight?: LabelProps["fontWeight"];
   validationStorage?: ValidationStorage;
   validations?: Validation<T["value"]>[];
-  width?: React.CSSProperties['width'];
+  width?: React.CSSProperties["width"];
 }
 
 type InputComponentHint<T extends InputPropsHint> = (props: T) => JSX.Element;
@@ -77,7 +77,7 @@ function attachCommonProps<T extends InputPropsHint>(
     validationStorage,
     validations,
     onChange,
-    width = '246px',
+    width = "246px",
     ...restProps
   }: T & CommonProps<T>) => {
     const { checkValidation, validated, visableMessage } = useValidation(
@@ -98,7 +98,7 @@ function attachCommonProps<T extends InputPropsHint>(
 
     const inputProps: any = {
       id,
-      width:"100%",
+      width: "100%",
       onChange: (value: never) => {
         onChange?.(value);
         checkValidation(value);
@@ -111,7 +111,7 @@ function attachCommonProps<T extends InputPropsHint>(
         className={cleanClassName(
           `${scss.labeled_input_container} ${scss[labelDirection]}`
         )}
-        style={{width}}
+        style={{ width }}
       >
         {label ? (
           <div className={scss.label_container}>
@@ -120,7 +120,7 @@ function attachCommonProps<T extends InputPropsHint>(
           </div>
         ) : null}
         <div className={scss.input_container}>
-          <Input {...inputProps}/>
+          <Input {...inputProps} />
           {validations ? (
             <ValidationMessage
               validated={validated}
@@ -146,9 +146,9 @@ export type ComplexMonthSelectboxProps = MonthSelectboxProps &
   CommonProps<MonthSelectboxProps>;
 export const ComplexMonthSelectbox = attachCommonProps(MonthSelectbox);
 
-export type ComplexDateSelectboxProps =
-  DateSelectboxProps<DateType> & CommonProps<DateSelectboxProps<DateType>>;
-export const ComplexDateSelectbox = attachCommonProps(DateSelectbox<DateType>);
+export type ComplexDateSelectboxProps<T extends DateType = "date"> =
+  DateSelectboxProps<T> & CommonProps<DateSelectboxProps<T>>;
+export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
 export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
@@ -166,4 +166,3 @@ export const ComplexSelectbox = attachCommonProps(Selectbox);
 export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
-
