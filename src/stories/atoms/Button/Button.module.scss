@@ -58,11 +58,11 @@
   &:disabled {
     cursor: not-allowed;
     &.delay_button {
-      background-color: transparent;
       color: white;
       position: relative;
       overflow: hidden;
       background-color: $BLUISH_GRAY500;
+      border: 1px solid $BLUISH_GRAY300;
       > .delay_button_contents {
         z-index: 1;
         position: relative;
