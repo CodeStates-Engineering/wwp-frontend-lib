@@ -54,7 +54,6 @@ export function Button({
       setTimeout(() => setIsDelaying(false), 1000 + delay);
     }
   }, [setStartDelaying, setIsDelaying, delay]);
-
   const buttonProps = {
     ...restProps,
     disabled: restProps.disabled || isDelaying,
