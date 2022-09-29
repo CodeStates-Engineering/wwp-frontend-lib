@@ -29,6 +29,8 @@ export type {
   ButtonProps,
   CheckboxProps,
   DateSelectboxProps,
+  DateType,
+  Period,
   EditStampProps,
   ExpandableButtonProps,
   HrProps,
