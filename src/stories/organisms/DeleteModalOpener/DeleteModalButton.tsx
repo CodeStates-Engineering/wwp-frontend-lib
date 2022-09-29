@@ -1,36 +1,26 @@
-import { ConfirmModalOpener, ConfirmModalOpenerProps } from '..';
-import { Trash } from 'react-feather';
+import { ModalOpener } from "../../molecules";
+import { Button } from "../../atoms";
+import type { ModalOpenerProps } from "../../molecules";
+import { Trash } from "react-feather";
 
 export interface DeleteModalOpenerProps
-  extends Omit<ConfirmModalOpenerProps<'expandable-button'>,
-    'openerType' | 'icon' | 'onConfirm'> {
-  onDelete: ConfirmModalOpenerProps<'expandable-button'>['onConfirm'];
-}
+  extends Omit<ModalOpenerProps<"button">, "footerItems" | "openerType"> {}
 export function DeleteModalOpener({
-  onDelete,
-  modalType = 'center',
-  openerContents = '삭제',
-  confirmButtonTheme = 'wewin-peach500',
-  type = 'button',
-  maxWidth = '340px',
-  disabled = false,
-  contour = false,
-  confirmButtonDisabled = false,
+  modalType = "center",
   ...restProps
 }: DeleteModalOpenerProps) {
+  const DeleteModalOpenerProps = {
+    ...restProps,
+  };
   return (
-    <ConfirmModalOpener
-      openerType="expandable-button"
-      {...restProps}
+    <ModalOpener
+      {...DeleteModalOpenerProps}
+      footerItems={<Button />}
+      openerType="button"
+      variant="ghost"
+      theme="bluish-gray200"
+      openerContents={"ss"}
       icon={Trash}
-      confirmButtonTheme={confirmButtonTheme}
-      modalType={modalType}
-      openerContents={openerContents}
-      onConfirm={onDelete}
-      maxWidth={maxWidth}
-      contour={contour}
-      disabled={disabled}
-      confirmButtonDisabled={confirmButtonDisabled}
     />
   );
 }
