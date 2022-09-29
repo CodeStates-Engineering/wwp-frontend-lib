@@ -1,57 +1,59 @@
-import {
-  ModalOpener,
-  ModalOpenerProps,
-  ModalOpenerType,
-} from "../../molecules";
-import { Button, ButtonProps } from "../../atoms";
-import scss from "./ConfirmModalOpener.module.scss";
+import { ModalOpener, Button } from "../../..";
+import type { ModalOpenerProps, ButtonProps } from "../../..";
 import { useParentState } from "@hooks";
 
 type ConfirmReturnType = { isRejected: boolean } | void;
 
-export type ConfirmModalOpenerProps<T extends ModalOpenerType> =
-  ModalOpenerProps<T> & {
-    onConfirm?: () => Promise<ConfirmReturnType> | ConfirmReturnType;
-    confirmButtonContents?: React.ReactNode;
-    confirmButtonTheme?: ButtonProps["theme"];
-    confirmButtonDisabled?: boolean;
-    confirmButtonDelay?: ButtonProps["delay"];
+export interface ConfirmModalOpenerProps {
+  openerProps?: Omit<ModalOpenerProps["openerProps"], "theme">;
+  modalProps?: Omit<
+    ModalOpenerProps["modalProps"],
+    "footerItems" | "title" | "modalType" | "children"
+  >;
+  confirmButtonProps?: Omit<ButtonProps, "onClick"> & {
+    onClick?: (event: any) => Promise<ConfirmReturnType> | ConfirmReturnType;
   };
+  opened?: ModalOpenerProps["opened"];
+  children?: React.ReactNode;
+}
 
-export function ConfirmModalOpener<T extends ModalOpenerType>({
-  onConfirm,
-  confirmButtonContents,
-  opened,
+export function ConfirmModalOpener({
+  confirmButtonProps,
+  openerProps,
+  modalProps,
   children,
-  confirmButtonDisabled,
-  confirmButtonTheme,
-  confirmButtonDelay,
-  ...modalOpenerProps
-}: ConfirmModalOpenerProps<T>) {
-  const [modalOpened, setModalOpened] = useParentState(opened);
-
+  opened,
+}: ConfirmModalOpenerProps) {
+  const [_opened, setOpened] = useParentState(opened);
+  const _openerProps: ModalOpenerProps["openerProps"] = {
+    fontWeight: "bold",
+    fontSize: "large",
+    ...openerProps,
+  };
+  const _confirmButtonProps: ButtonProps = {
+    fontWeight: "bold",
+    fontSize: "medium",
+    onClick: (event: any) => {
+      setOpened(true);
+      setTimeout(async () => {
+        const { isRejected } =
+          (await confirmButtonProps?.onClick?.(event)) ?? {};
+        !isRejected && setOpened(false);
+      });
+    },
+    ...confirmButtonProps,
+  };
+  const _modalProps: ModalOpenerProps["modalProps"] = {
+    footerItems: <Button {..._confirmButtonProps} />,
+    ...modalProps,
+  };
   return (
     <ModalOpener
-      {...(modalOpenerProps as ModalOpenerProps<ModalOpenerType>)}
-      opened={modalOpened}
+      openerProps={_openerProps}
+      modalProps={_modalProps}
+      opened={_opened}
     >
-      <div className={scss.confirm_modal_contents}>{children}</div>
-      <Button
-        fontSize="medium"
-        theme={confirmButtonTheme}
-        fontWeight="boldest"
-        fitContainer
-        disabled={confirmButtonDisabled}
-        delay={confirmButtonDelay}
-        onClick={async () => {
-          setModalOpened(true);
-          const confirm = await onConfirm?.();
-          if (confirm?.isRejected) return;
-          setTimeout(() => setModalOpened(false));
-        }}
-      >
-        {confirmButtonContents ?? modalOpenerProps.openerContents}
-      </Button>
+      {children}
     </ModalOpener>
   );
 }

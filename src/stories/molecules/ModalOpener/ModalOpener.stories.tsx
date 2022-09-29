@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { ModalOpener } from "./ModalOpener";
+import { File } from "react-feather";
 import React from "react";
 
 export default {
@@ -13,7 +14,10 @@ const ModalOpenerStory: ComponentStory<typeof ModalOpener> = (args) => (
 
 export const Default = ModalOpenerStory.bind({});
 Default.args = {
-  openerContents: "openerContents",
+  openerProps: {
+    contents: "openerContents",
+    icon: File,
+  },
   title: "title",
   children: "children",
 };
