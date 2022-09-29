@@ -1,4 +1,5 @@
 export { useOpenedStateWithCloseExternalClick } from "./useOpenedStateWithCloseExternalClick";
+export type { OpenedStateWithCloseExternalClick } from "./useOpenedStateWithCloseExternalClick";
 
 export { useParentState } from "./useParentState";
 

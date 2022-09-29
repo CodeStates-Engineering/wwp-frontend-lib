@@ -3,7 +3,6 @@ import "./scss/global.scss";
 export {
   Button,
   Checkbox,
-  DateRangeSelectbox,
   DateSelectbox,
   EditStamp,
   ExpandableButton,
@@ -29,7 +28,6 @@ export {
 export type {
   ButtonProps,
   CheckboxProps,
-  DateRangeSelectboxProps,
   DateSelectboxProps,
   EditStampProps,
   ExpandableButtonProps,
@@ -59,7 +57,6 @@ export type {
 export {
   Chip,
   ComplexCheckbox,
-  ComplexDateRangeSelectbox,
   ComplexDateSelectbox,
   ComplexMonthSelectbox,
   ComplexRadiobox,
@@ -79,7 +76,6 @@ export {
 } from "./stories/molecules";
 export type {
   ComplexCheckboxProps,
-  ComplexDateRangeSelectboxProps,
   ComplexDateSelectboxProps,
   ComplexMonthSelectboxProps,
   ComplexRadioboxProps,
@@ -138,6 +134,7 @@ export {
   assignTypeToPropsStore,
 } from "./hooks";
 export type {
+  OpenedStateWithCloseExternalClick,
   PaginationState,
   ValidationStorage,
   Validation,

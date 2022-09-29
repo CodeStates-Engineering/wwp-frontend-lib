@@ -1,6 +1,5 @@
 export {
   ComplexCheckbox,
-  ComplexDateRangeSelectbox,
   ComplexDateSelectbox,
   ComplexMonthSelectbox,
   ComplexRadiobox,
@@ -13,7 +12,6 @@ export {
 } from "./ComplexInput/ComplexInput";
 export type {
   ComplexCheckboxProps,
-  ComplexDateRangeSelectboxProps,
   ComplexDateSelectboxProps,
   ComplexMonthSelectboxProps,
   ComplexRadioboxProps,

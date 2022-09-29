@@ -4,11 +4,11 @@ export type { ButtonProps } from "./Button/Button";
 export { Checkbox } from "./Checkbox/Checkbox";
 export type { CheckboxProps } from "./Checkbox/Checkbox";
 
-export { DateRangeSelectbox } from "./DateRangeSelectbox/DateRangeSelectbox";
-export type { DateRangeSelectboxProps } from "./DateRangeSelectbox/DateRangeSelectbox";
-
 export { DateSelectbox } from "./DateSelectbox/DateSelectbox";
-export type { DateSelectboxProps } from "./DateSelectbox/DateSelectbox";
+export type {
+  DateSelectboxProps,
+  DateType,
+} from "./DateSelectbox/DateSelectbox";
 
 export { EditStamp } from "./EditStamp/EditStamp";
 export type { EditStampProps } from "./EditStamp/EditStamp";

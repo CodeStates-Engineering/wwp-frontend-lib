@@ -4,7 +4,7 @@
   border: $INPUT_DEFAULT_BORDER;
   background-color: $INPUT_DEFAULT_BG_COLOR;
   border-radius: $INPUT_BORDER_RADIUS;
-  height: 42px;
+  height: 36px;
   min-width: 10em;
   display: flex;
   align-items: center;
@@ -42,7 +42,6 @@
       color: $INPUT_ICON_DISABLED_COLOR;
       background-color: $INPUT_ICON_DISABLED_BG_COLOR;
     }
-
 
     &.system {
       border-bottom: $INPUT_SYSTEM_BORDER;
@@ -94,8 +93,8 @@
 
   &.linear {
     border-top: 1px solid transparent;
-    border-left: 1px solid transparent;;
-    border-right: 1px solid transparent;;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
     background-color: transparent;
 
     > .unit_wrap {
@@ -111,18 +110,17 @@
   font-weight: 700;
   background-color: $INPUT_ICON_DEFAULT_BG_COLOR;
   padding: 0 0.5em;
-  height: 32px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: default;
-  min-width: 3em;
+  min-width: 36px;
   height: 100%;
   color: $INPUT_ICON_DEFAULT_COLOR;
   transition: all 0.3s;
   > svg {
-    width: 1.5em;
-    height: 1.5em;
+    width: 20px;
+    height: 20px;
   }
 }
