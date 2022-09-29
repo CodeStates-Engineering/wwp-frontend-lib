@@ -7,8 +7,9 @@
   width: 100%;
   overflow: hidden;
   border-spacing: 0;
+  border-collapse: collapse;
   &.invalid {
-    border: $INPUT_ALERT_BORDER;
+    box-shadow: 0 0 0 1px $WEWIN_PEACH600;
   }
 }
 
@@ -23,7 +24,7 @@
   font-weight: 700;
   gap: 10px;
   &.invalid {
-    border: 1px solid $PEACH500;
+    box-shadow: 0 0 0 1px $PEACH500;
   }
   > svg {
     height: 27.3px;
@@ -165,8 +166,8 @@
 }
 
 .table_head {
-  border-top: 1px solid black;
-  border-bottom: 1px solid $BLUISH_GRAY400;
+  border-top: 1px solid $BLUISH_GRAY300;
+  border-bottom: 1px solid $BLUISH_GRAY300;
   > tr {
     background-color: $BLUISH_GRAY10;
     color: $BLUISH_GRAY600;
@@ -175,7 +176,7 @@
 
 .table_body > tr {
   position: relative;
-  border-bottom: 1px solid $BLUISH_GRAY400;
+  border-bottom: 1px solid $BLUISH_GRAY300;
   transition: background-color 0.3s;
   &:hover {
     background-color: $WEWIN_BLUE50;
