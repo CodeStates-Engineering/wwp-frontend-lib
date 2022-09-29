@@ -52,12 +52,12 @@ interface CommonProps<T extends InputPropsHint> {
   label?: boolean;
   labelDirection?: "row" | "column" | "row-reverse" | "column-reverse";
   labelText?: string;
-  fitContainer?: boolean; //TODO: 추후 전체 컴포넌트에 적용 필요
   essential?: LabelProps["essential"];
   labelFontSize?: LabelProps["fontSize"];
   labelFontWeight?: LabelProps["fontWeight"];
   validationStorage?: ValidationStorage;
   validations?: Validation<T["value"]>[];
+  width?: React.CSSProperties["width"];
 }
 
 type InputComponentHint<T extends InputPropsHint> = (props: T) => JSX.Element;
@@ -71,13 +71,13 @@ function attachCommonProps<T extends InputPropsHint>(
     label = true,
     labelDirection = "column",
     labelText,
-    fitContainer,
     essential,
     labelFontSize,
     labelFontWeight,
     validationStorage,
     validations,
     onChange,
+    width = "246px",
     ...restProps
   }: T & CommonProps<T>) => {
     const { checkValidation, validated, visableMessage } = useValidation(
@@ -98,7 +98,7 @@ function attachCommonProps<T extends InputPropsHint>(
 
     const inputProps: any = {
       id,
-      fitContainer,
+      width: "100%",
       onChange: (value: never) => {
         onChange?.(value);
         checkValidation(value);
@@ -109,10 +109,9 @@ function attachCommonProps<T extends InputPropsHint>(
     return (
       <div
         className={cleanClassName(
-          `${scss.labeled_input_container} ${scss[labelDirection]} ${
-            fitContainer && scss.fit_container
-          }`
+          `${scss.labeled_input_container} ${scss[labelDirection]}`
         )}
+        style={{ width }}
       >
         {label ? (
           <div className={scss.label_container}>
@@ -120,7 +119,7 @@ function attachCommonProps<T extends InputPropsHint>(
             {children ? <Tooltip>{children}</Tooltip> : null}
           </div>
         ) : null}
-        <div>
+        <div className={scss.input_container}>
           <Input {...inputProps} />
           {validations ? (
             <ValidationMessage
@@ -147,9 +146,9 @@ export type ComplexMonthSelectboxProps = MonthSelectboxProps &
   CommonProps<MonthSelectboxProps>;
 export const ComplexMonthSelectbox = attachCommonProps(MonthSelectbox);
 
-export type ComplexDateSelectboxProps =
-  DateSelectboxProps<DateType> & CommonProps<DateSelectboxProps<DateType>>;
-export const ComplexDateSelectbox = attachCommonProps(DateSelectbox<DateType>);
+export type ComplexDateSelectboxProps<T extends DateType = "date"> =
+  DateSelectboxProps<T> & CommonProps<DateSelectboxProps<T>>;
+export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
 export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
@@ -167,4 +166,3 @@ export const ComplexSelectbox = attachCommonProps(Selectbox);
 export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
-

@@ -7,6 +7,7 @@ export type { CheckboxProps } from "./Checkbox/Checkbox";
 export { DateSelectbox } from "./DateSelectbox/DateSelectbox";
 export type {
   DateSelectboxProps,
+  Period,
   DateType,
 } from "./DateSelectbox/DateSelectbox";
 
