@@ -14,7 +14,7 @@
       background-color: darken($backgroundColor, 14%);
     }
     &:disabled {
-      color: #C2C2C2;
+      color: #c2c2c2;
       background-color: $GRAY50;
     }
   }
@@ -36,7 +36,7 @@
     }
   }
 
-  @if ($variant == "text") {
+  @if ($variant == "ghost") {
     &:hover {
       color: darken($color, 7%);
       text-decoration: underline;
@@ -133,7 +133,7 @@
     @return "outline";
   }
   @if ($index == 3) {
-    @return "text";
+    @return "ghost";
   }
 }
 
