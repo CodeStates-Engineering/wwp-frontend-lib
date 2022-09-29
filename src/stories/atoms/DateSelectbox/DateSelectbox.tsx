@@ -42,7 +42,7 @@ export function DateSelectbox<T extends DateType>({
   withTime = false,
   openDirection: [upDown, leftRight] = ["down", "left"],
   placeholder,
-  width = "300px",
+  width = "246px",
   id,
   theme = "box",
   modifier = "user",
