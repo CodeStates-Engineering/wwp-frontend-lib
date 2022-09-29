@@ -34,6 +34,7 @@ export function ModalOpener<T extends ModalOpenerType>({
   explanation,
   modalType,
   onClick,
+  footerItems,
   ...openerPropsPart
 }: ModalOpenerProps<T>) {
   const [modalOpened, setModalOpend] = useParentState(opened);
@@ -55,6 +56,7 @@ export function ModalOpener<T extends ModalOpenerType>({
     closeButton,
     title,
     explanation,
+    footerItems
   };
 
   const Opener = (() => {
