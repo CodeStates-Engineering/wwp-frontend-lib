@@ -19,7 +19,8 @@
     color: #ffffff;
     position: absolute;
     top: -3em;
-    transform: translate(calc(-50% - 0.5em), -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
     z-index: 3;
     border-radius: 6px;
     box-shadow: $BOX_SHADOW013;
@@ -34,13 +35,48 @@
     text-align: center;
     &::before {
       content: "";
+      transform: translate(-50%, -50%);
       position: absolute;
+      left: 50%;
+      bottom: -15px;
       border: solid;
       border-color: rgba(38, 47, 64, 0.82) transparent;
-      border-width: 10.5px 6px 0 6px;
-      bottom: -10px;
-      left: calc(50% - 0.7em);
+      border-width: 10px 6px 0 6px;
       z-index: 99;
+    }
+    &.down {
+      top: unset;
+      bottom: -7em;
+      &::before {
+        bottom: unset;
+        top: -5px;
+        border-width: 0 6px 10px 6px;
+      }
+    }
+
+    &.left {
+      left: unset;
+      right: 0;
+      top: 50%;
+      transform: translate(-30px, -50%);
+      &::before {
+        top: calc(50% - 0.7em);
+        bottom: calc(50% - 0.7em);
+        left: unset;
+        right: -14px;
+        transform: rotate(270deg);
+      }
+    }
+    &.right {
+      left: unset;
+      transform: translate(15px, -50%);
+      top: 50%;
+      &::before {
+        top: calc(50% - 0.7em);
+        bottom: calc(50% - 0.7em);
+        left: -14px;
+        transform: rotate(90deg);
+      }
     }
   }
   &:hover > .announcement_message {
