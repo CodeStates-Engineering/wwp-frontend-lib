@@ -24,6 +24,7 @@ export {
   Textbox,
   Tooltip,
   ValidationMessage,
+  DrawerModal,
 } from "./stories/atoms";
 export type {
   ButtonProps,
@@ -54,6 +55,7 @@ export type {
   TextboxProps,
   TooltipProps,
   ValidationMessageProps,
+  DrawerModalProps,
 } from "./stories/atoms";
 
 export {
