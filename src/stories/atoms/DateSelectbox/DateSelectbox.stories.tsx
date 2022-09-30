@@ -11,3 +11,6 @@ const DateSelectboxStory: ComponentStory<typeof DateSelectbox> = (args) => {
   return <DateSelectbox {...args} />;
 };
 export const Default = DateSelectboxStory.bind({});
+Default.args = {
+  openDirection: ["down", "left"],
+};

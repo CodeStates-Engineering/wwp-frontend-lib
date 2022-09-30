@@ -2,7 +2,6 @@ import scss from "./Modal.module.scss";
 import { X } from "react-feather";
 import { useParentState } from "@hooks";
 import { cleanClassName } from "@utils";
-import { Button } from "../Button/Button";
 
 export interface ModalProps {
   children?: React.ReactNode;
@@ -10,7 +9,6 @@ export interface ModalProps {
   closeButton?: boolean;
   title?: React.ReactNode;
   subText?: React.ReactNode;
-  explanation?: React.ReactNode;
   modalType?: "left" | "center";
   maxWidth?: React.CSSProperties["maxWidth"];
   footerItems?: React.ReactNode;
