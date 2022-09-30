@@ -207,6 +207,7 @@ export function DateSelectbox<T extends DateType>({
         } ${scss[theme]} ${_disabled && scss.disabled} ${scss[modifier]} ${
           (!!selectedPeriod.from || !!selectedPeriod.to) && scss.filled
         } ${calendarOpened && scss.opened} ${invalid && scss.invalid}`}
+        {...preventCloseProps}
       >
         <div className={scss.date_input_container}>
           <div className={scss.date_input_wrap}>
