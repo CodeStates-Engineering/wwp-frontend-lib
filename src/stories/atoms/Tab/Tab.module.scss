@@ -1,0 +1,32 @@
+@import "../../../scss/libs.scss";
+
+.tab {
+  width: 100%;
+  position: relative;
+}
+.tab_list {
+  display: flex;
+  > li {
+    padding: 12px 24px;
+    &.active {
+      z-index: 1;
+      border-bottom: 2px solid $WEWIN_BLUE600;
+    }
+  }
+}
+
+.tab_link {
+  font-size: $NORMAL_FONT_SIZE;
+  font-weight: $MEDIUM_FONT_WEIGHT;
+  &.active {
+    font-weight: $BOLD_FONT_WEIGHT;
+  }
+}
+
+.line {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 1px;
+  border-bottom: 1px solid $BLUISH_GRAY200;
+}

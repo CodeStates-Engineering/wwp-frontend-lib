@@ -79,8 +79,14 @@ export type { TextboxProps } from './Textbox/Textbox';
 export { Tooltip } from './Tooltip/Tooltip';
 export type { TooltipProps } from './Tooltip/Tooltip';
 
-export { ValidationMessage } from './ValidationMessage/ValidationMessage';
-export type { ValidationMessageProps } from './ValidationMessage/ValidationMessage';
+
+export { ValidationMessage } from "./ValidationMessage/ValidationMessage";
+export type { ValidationMessageProps } from "./ValidationMessage/ValidationMessage";
+
+export { Tab } from "./Tab/Tab";
+export type { TabProps } from "./Tab/Tab";
+
 
 export { Progress } from './Progress/Progress';
 export type { ProgressProps } from './Progress/Progress';
+
