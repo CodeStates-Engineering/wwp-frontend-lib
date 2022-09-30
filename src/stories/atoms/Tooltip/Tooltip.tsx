@@ -4,11 +4,11 @@ import { cleanClassName } from '@utils';
 
 export interface TooltipProps {
   children?: React.ReactNode;
-  openDirection?: 'top' | 'bottom' | 'left' | 'right';
+  openDirection?: 'up' | 'down' | 'left' | 'right';
 }
 export function Tooltip({
   children,
-  openDirection = 'top',
+  openDirection = 'up',
 }: TooltipProps) {
   return (
     <div className={scss.announcement_message_container}>
