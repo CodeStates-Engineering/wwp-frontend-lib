@@ -24,6 +24,7 @@ export {
   Textbox,
   Tooltip,
   ValidationMessage,
+  Tab,
 } from "./stories/atoms";
 export type {
   ButtonProps,
@@ -54,6 +55,7 @@ export type {
   TextboxProps,
   TooltipProps,
   ValidationMessageProps,
+  TabProps,
 } from "./stories/atoms";
 
 export {

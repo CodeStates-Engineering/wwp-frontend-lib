@@ -2,6 +2,7 @@ import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
 import { File } from "react-feather";
 import { Button } from "./Button";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "atoms/Button",
@@ -17,3 +18,6 @@ Default.args = {
   children: "Button",
   icon: File,
 };
+Default.decorators = [
+  (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
+];
