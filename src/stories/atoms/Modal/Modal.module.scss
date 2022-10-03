@@ -12,6 +12,9 @@
   height: 100vh;
   z-index: 999;
   background: rgba(0, 0, 0, 0.6);
+  &.closing {
+    @include fade-out(0.2s);
+  }
 }
 
 .background {

@@ -15,13 +15,16 @@ const commonArgs: ModalProps = {
   title: "제목 텍스트가 들어갑니다.",
   subText: "서브 텍스트가 들어갑니다.",
   children: "콘텐츠 영역(커스텀)",
-
-  footerItems: (
-    <>
-      <Button theme="bluish-gray500">Button</Button>
-      <Button>Button</Button>
-    </>
-  ),
+  buttonOptions: [
+    {
+      theme: "bluish-gray500",
+      children: "Button",
+      onClick: (closeModal) => {
+        closeModal();
+      },
+    },
+    { children: "Button" },
+  ],
 };
 
 export const Left = ModalStory.bind({});
