@@ -21,40 +21,41 @@ type OpenerProps<T extends ModalOpenerType = "button"> = T extends "tag"
 export interface ModalOpenerProps<T extends ModalOpenerType = "button"> {
   type?: T;
   children?: React.ReactNode;
-  opened?: boolean;
-  openerProps?: { contents?: React.ReactNode } & Omit<
-    OpenerProps<T>,
-    "children"
-  >;
-  modalProps?: Omit<ModalProps, "children" | "opened">;
+  openerOptions?: OpenerProps<T>;
+  modalOptions?: Omit<ModalProps, "children">;
 }
+
+type OpenerOnClickParams = OpenerProps[];
 
 export function ModalOpener<T extends ModalOpenerType = "button">({
   type = "button" as T,
   children,
-  opened = false,
-  openerProps,
-  modalProps,
+  openerOptions,
+  modalOptions,
 }: ModalOpenerProps<T>) {
-  const [modalOpened, setModalOpend] = useParentState(opened);
-  const { contents, onClick, ...restOpenerProps } = openerProps ?? {
-    contents: <></>,
-  };
+  const { opened, onClose, ...restModalOptions } = modalOptions ?? {},
+    [modalOpened, setModalOpend] = useParentState(opened);
 
-  const _openerProps = {
-    ...restOpenerProps,
-    children: contents,
-    onClick: (event: any) => {
+  const { onClick, ...restOpenerOptions } = openerOptions ?? {};
+
+  const openerProps = {
+    ...restOpenerOptions,
+    onClick: (
+      event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>
+    ) => {
+      setModalOpend(true);
       onClick?.(event);
-      setModalOpend(false);
-      setTimeout(() => setModalOpend(true));
     },
   };
 
-  const _modalProps = {
+  const modalProps = {
+    ...restModalOptions,
     children,
     opened: modalOpened,
-    ...modalProps,
+    onClose: () => {
+      setModalOpend(false);
+      onClose?.();
+    },
   };
 
   return (
@@ -62,18 +63,18 @@ export function ModalOpener<T extends ModalOpenerType = "button">({
       {(() => {
         switch (type) {
           case "tag":
-            return <Tag {...(_openerProps as OpenerProps<"tag">)} />;
+            return <Tag {...(openerProps as OpenerProps<"tag">)} />;
           case "expandable-button":
             return (
               <ExpandableButton
-                {...(_openerProps as OpenerProps<"expandable-button">)}
+                {...(openerProps as OpenerProps<"expandable-button">)}
               />
             );
           default:
-            return <Button {...(_openerProps as OpenerProps<"button">)} />;
+            return <Button {...(openerProps as OpenerProps<"button">)} />;
         }
       })()}
-      <Modal {..._modalProps} />
+      <Modal {...modalProps} />
     </>
   );
 }
