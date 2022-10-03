@@ -79,11 +79,15 @@ export type { TextboxProps } from "./Textbox/Textbox";
 export { Tooltip } from "./Tooltip/Tooltip";
 export type { TooltipProps } from "./Tooltip/Tooltip";
 
+export { DrawerModal } from "./DrawerModal/DrawerModal";
+export type { DrawerModalProps } from "./DrawerModal/DrawerModal";
+
 export { ValidationMessage } from "./ValidationMessage/ValidationMessage";
 export type { ValidationMessageProps } from "./ValidationMessage/ValidationMessage";
 
-export { Progress } from "./Progress/Progress";
-export type { ProgressProps } from "./Progress/Progress";
+export { Tab } from "./Tab/Tab";
+export type { TabProps } from "./Tab/Tab";
 
-export { DrawerModal } from "./DrawerModal/DrawerModal";
-export type { DrawerModalProps } from "./DrawerModal/DrawerModal";
+export { Progress } from './Progress/Progress';
+export type { ProgressProps } from './Progress/Progress';
+

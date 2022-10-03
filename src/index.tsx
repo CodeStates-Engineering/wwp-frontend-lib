@@ -25,6 +25,7 @@ export {
   Tooltip,
   ValidationMessage,
   DrawerModal,
+  Tab,
 } from "./stories/atoms";
 export type {
   ButtonProps,
@@ -56,6 +57,7 @@ export type {
   TooltipProps,
   ValidationMessageProps,
   DrawerModalProps,
+  TabProps,
 } from "./stories/atoms";
 
 export {
