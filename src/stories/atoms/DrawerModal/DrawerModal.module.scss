@@ -1,0 +1,82 @@
+@import "../../../scss/libs.scss";
+
+.modal_container {
+  left: 0;
+  top: 0;
+  position: fixed;
+  justify-content: flex-end;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: transparent;
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: fixed;
+  background-color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  min-width: 480px;
+  height: 100vh;
+  overflow: hidden;
+  color: $BLUISH_GRAY700;
+  display: flex;
+  flex-direction: column;
+  @include slide-in-right(0.5s);
+}
+
+.title {
+  font-size: $LARGE_FONT_SIZE;
+  font-weight: $BOLD_FONT_WEIGHT;
+}
+
+.modal_header {
+  display: flex;
+  flex-direction: row;
+  padding: 23px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  &.contour {
+    border-bottom: 1px solid $BLUISH_GRAY200;
+  }
+}
+
+.modal_close_button {
+  border-radius: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > svg {
+    color: $BLUISH_GRAY700;
+    width: 21px;
+    height: 21px;
+  }
+  &:hover {
+    background-color: $BLUISH_GRAY100;
+  }
+}
+
+.modal_body {
+  flex: 1;
+  overflow-y: scroll;
+  &.contour > section {
+    border-bottom: 1px solid $BLUISH_GRAY200;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  > section {
+    padding: 30px;
+  }
+}
