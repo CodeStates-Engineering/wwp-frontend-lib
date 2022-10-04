@@ -15,15 +15,18 @@ const ConfirmModalOpenerStory: ComponentStory<typeof ConfirmModalOpener> = (
 
 export const Default = ConfirmModalOpenerStory.bind({});
 const defaultArgs: ConfirmModalOpenerProps = {
-  openerProps: {
-    contents: "저장",
+  openerOptions: {
+    children: "저장",
     icon: File,
   },
-  confirmButtonProps: {
+  confirmButtonOptions: {
     children: "네, 저장합니다.",
-    onClick: () => console.log("confirm"),
+    onClick: (closeModal) => {
+      console.log("confirm");
+      closeModal();
+    },
   },
-  modalProps: {
+  modalOptions: {
     title: "저장 확인",
   },
   children: "정말로 저장하시겠습니까?",

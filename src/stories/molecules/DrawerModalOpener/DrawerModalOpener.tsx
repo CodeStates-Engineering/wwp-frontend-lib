@@ -1,6 +1,6 @@
 import {
-  Modal,
-  ModalProps,
+  DrawerModal,
+  DrawerModalProps,
   Tag,
   TagProps,
   ExpandableButton,
@@ -18,19 +18,19 @@ type OpenerProps<T extends ModalOpenerType = "button"> = T extends "tag"
   ? ExpandableButtonProps
   : ButtonProps;
 
-export interface ModalOpenerProps<T extends ModalOpenerType = "button"> {
+export interface DrawerModalOpenerProps<T extends ModalOpenerType = "button"> {
   type?: T;
   children?: React.ReactNode;
   openerOptions?: OpenerProps<T>;
-  modalOptions?: Omit<ModalProps, "children">;
+  modalOptions?: Omit<DrawerModalProps, "children">;
 }
 
-export function ModalOpener<T extends ModalOpenerType = "button">({
+export function DrawerModalOpener<T extends ModalOpenerType = "button">({
   type = "button" as T,
   children,
   openerOptions,
   modalOptions,
-}: ModalOpenerProps<T>) {
+}: DrawerModalOpenerProps<T>) {
   const { opened, onClose, ...restModalOptions } = modalOptions ?? {},
     [modalOpened, setModalOpend] = useParentState(opened);
 
@@ -72,7 +72,7 @@ export function ModalOpener<T extends ModalOpenerType = "button">({
             return <Button {...(openerProps as OpenerProps<"button">)} />;
         }
       })()}
-      <Modal {...modalProps} />
+      <DrawerModal {...modalProps} />
     </>
   );
 }

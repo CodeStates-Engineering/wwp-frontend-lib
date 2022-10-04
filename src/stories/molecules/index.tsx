@@ -10,6 +10,7 @@ export {
   ComplexTextarea,
   ComplexTextbox,
 } from "./ComplexInput/ComplexInput";
+
 export type {
   ComplexCheckboxProps,
   ComplexDateSelectboxProps,
@@ -43,10 +44,10 @@ export type {
 } from "./Table/Table";
 
 export { ModalOpener } from "./ModalOpener/ModalOpener";
-export type {
-  ModalOpenerProps,
-  ModalOpenerType,
-} from "./ModalOpener/ModalOpener";
+export type { ModalOpenerProps } from "./ModalOpener/ModalOpener";
+
+export { DrawerModalOpener } from "./DrawerModalOpener/DrawerModalOpener";
+export type { DrawerModalOpenerProps } from "./DrawerModalOpener/DrawerModalOpener";
 
 export { PageContents } from "./PageContents/PageContents";
 export type {

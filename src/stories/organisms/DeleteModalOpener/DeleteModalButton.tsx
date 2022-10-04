@@ -1,68 +1,50 @@
-import { ModalOpener, Button } from "../../..";
-import type { ModalOpenerProps, ButtonProps } from "../../..";
-import { useParentState } from "@hooks";
 import { Trash2 } from "react-feather";
+import { ModalOpener } from "../../molecules";
+import type { ModalOpenerProps } from "../../molecules";
 
-type DeleteReturnType = { isRejected: boolean } | void;
-
-export interface DeleteModalOpenerProps {
-  openerProps?: Omit<ModalOpenerProps["openerProps"], "theme">;
-  modalProps?: Omit<
-    ModalOpenerProps["modalProps"],
-    "footerItems" | "title" | "modalType" | "children"
+export interface DeleteModalOpenerProps
+  extends Omit<ModalOpenerProps<"button">, "modalOptions" | "type"> {
+  modalOptions?: Omit<
+    Required<ModalOpenerProps>["modalOptions"],
+    "buttonsOptions"
   >;
-  confirmButtonProps?: Omit<ButtonProps, "onClick"> & {
-    onClick?: (event: any) => Promise<DeleteReturnType> | DeleteReturnType;
-  };
-  opened?: ModalOpenerProps["opened"];
-  children?: React.ReactNode;
+  deleteButtonOptions?: Required<
+    Required<ModalOpenerProps>["modalOptions"]
+  >["buttonsOptions"][0];
 }
 
 export function DeleteModalOpener({
-  confirmButtonProps,
-  openerProps,
-  modalProps,
-  children,
-  opened,
+  deleteButtonOptions,
+  openerOptions,
+  modalOptions,
+  ...restProps
 }: DeleteModalOpenerProps) {
-  const [_opened, setOpened] = useParentState(opened);
-  const _openerProps: ModalOpenerProps["openerProps"] = {
+  const openerProps: DeleteModalOpenerProps["openerOptions"] = {
     fontWeight: "bold",
     fontSize: "large",
     variant: "ghost",
     theme: "bluish-gray600",
     icon: Trash2,
-    ...openerProps,
+    ...openerOptions,
   };
-  const _deleteButtonProps: ButtonProps = {
+
+  const deleteButtonProps: DeleteModalOpenerProps["deleteButtonOptions"] = {
     fontWeight: "bold",
     fontSize: "medium",
     children: "네, 삭제합니다.",
     theme: "wewin-peach500",
     delay: 3000,
-    onClick: (event: any) => {
-      setOpened(true);
-      setTimeout(async () => {
-        const { isRejected } =
-          (await confirmButtonProps?.onClick?.(event)) ?? {};
-        !isRejected && setOpened(false);
-      });
+    ...deleteButtonOptions,
+  };
+
+  const modalOpenerProps: ModalOpenerProps = {
+    modalOptions: {
+      modalType: "center",
+      ...modalOptions,
+      buttonsOptions: [deleteButtonProps],
     },
-    ...confirmButtonProps,
+    openerOptions: openerProps,
+    ...restProps,
   };
-  const _modalProps: ModalOpenerProps["modalProps"] = {
-    modalType: "center",
-    title: "정말로 삭제하시겠습니까?",
-    footerItems: <Button {..._deleteButtonProps} />,
-    ...modalProps,
-  };
-  return (
-    <ModalOpener
-      openerProps={_openerProps}
-      modalProps={_modalProps}
-      opened={_opened}
-    >
-      {children}
-    </ModalOpener>
-  );
+  return <ModalOpener {...modalOpenerProps} />;
 }

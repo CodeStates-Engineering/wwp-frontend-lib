@@ -2,16 +2,21 @@ import scss from "./Modal.module.scss";
 import { X } from "react-feather";
 import { useParentState } from "@hooks";
 import { cleanClassName } from "@utils";
+import { Button, ButtonProps } from "../Button/Button";
+import { useState } from "react";
 
 export interface ModalProps {
   children?: React.ReactNode;
   opened?: boolean;
+  onClose?: () => void;
   closeButton?: boolean;
   title?: React.ReactNode;
   subText?: React.ReactNode;
   modalType?: "left" | "center";
   maxWidth?: React.CSSProperties["maxWidth"];
-  footerItems?: React.ReactNode;
+  buttonsOptions?: (Omit<ButtonProps, "onClick"> & {
+    onClick?: (closeModal: () => void) => void;
+  })[];
   contour?: boolean;
 }
 
@@ -19,15 +24,24 @@ export function Modal({
   children,
   opened = false,
   closeButton = true,
+  onClose,
   title,
   subText,
   modalType = "left",
   maxWidth = "340px",
   contour = false,
-  footerItems,
+  buttonsOptions,
 }: ModalProps) {
   const [modalOpened, setModalOpened] = useParentState(opened),
-    closeModal = () => setModalOpened(false);
+    [modalClosing, setModalClosing] = useState(false),
+    closeModal = () => {
+      setModalClosing(true);
+      setTimeout(() => {
+        setModalClosing(false);
+        setModalOpened(false);
+        onClose?.();
+      }, 200);
+    };
 
   if (!modalOpened) return <></>;
 
@@ -52,7 +66,11 @@ export function Modal({
   const modalBodyClassName = `${scss.modal_body} ${scss[modalType]}`;
 
   return (
-    <div className={scss.modal_container}>
+    <div
+      className={cleanClassName(
+        `${scss.modal_container} ${modalClosing && scss.closing}`
+      )}
+    >
       <div className={scss.background} onClick={closeModal} />
       <article className={scss.modal} style={{ maxWidth }}>
         {(() => {
@@ -89,9 +107,17 @@ export function Modal({
               );
           }
         })()}
-        {footerItems && (
+        {buttonsOptions && (
           <footer className={`${scss.modal_footer} ${contour && scss.contour}`}>
-            {footerItems}
+            {buttonsOptions.map((buttonOptions) => {
+              const { onClick, ...buttonProps } = buttonOptions;
+              return (
+                <Button
+                  {...buttonProps}
+                  onClick={() => onClick?.(closeModal)}
+                />
+              );
+            })}
           </footer>
         )}
       </article>

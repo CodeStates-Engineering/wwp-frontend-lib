@@ -14,7 +14,8 @@ const DeleteModalOpenerStory: ComponentStory<typeof DeleteModalOpener> = (
 
 export const Default = DeleteModalOpenerStory.bind({});
 const defaultArgs: DeleteModalOpenerProps = {
-  modalProps: {
+  modalOptions: {
     title: "정말 삭제하시겠습니까?",
   },
 };
+Default.args = defaultArgs;
