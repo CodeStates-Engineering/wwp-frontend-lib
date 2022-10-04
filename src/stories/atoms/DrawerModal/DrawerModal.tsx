@@ -2,6 +2,7 @@ import scss from "./DrawerModal.module.scss";
 import { X } from "react-feather";
 import { useParentState } from "@hooks";
 import { cleanClassName } from "@utils";
+import { useState } from "react";
 
 export interface DrawerModalProps {
   children?: React.ReactNode;
@@ -9,6 +10,7 @@ export interface DrawerModalProps {
   closeButton?: boolean;
   title?: React.ReactNode;
   contour?: boolean;
+  onClose?: () => void;
 }
 
 export function DrawerModal({
@@ -17,13 +19,27 @@ export function DrawerModal({
   closeButton = true,
   title,
   contour = true,
+  onClose,
 }: DrawerModalProps) {
+  const [] = useState();
   const [modalOpened, setModalOpened] = useParentState(opened),
-    closeModal = () => setModalOpened(false);
+    [modalClosing, setModalClosing] = useState(false),
+    closeModal = () => {
+      setModalClosing(true);
+      setTimeout(() => {
+        setModalOpened(false);
+        setModalClosing(false);
+        onClose?.();
+      }, 700);
+    };
   return modalOpened ? (
     <div className={scss.modal_container}>
       <div className={scss.background} onClick={closeModal} />
-      <article className={scss.modal}>
+      <article
+        className={cleanClassName(
+          `${scss.modal} ${modalClosing && scss.closing}`
+        )}
+      >
         <header
           className={cleanClassName(
             `${scss.modal_header} ${contour && scss.contour}`
