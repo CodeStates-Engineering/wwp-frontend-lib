@@ -40,7 +40,11 @@ export default {
       minimize: true,
     }),
     copy({
-      targets: [{ src: "src/scss/fonts", dest: "dist/library" }],
+      targets: [
+        { src: "src/scss/fonts", dest: "dist/library" },
+        { src: "src/scss/libs", dest: "dist/library/scss" },
+        { src: "src/scss/libs.scss", dest: "dist/library/scss" },
+      ],
     }),
   ],
   output: [
