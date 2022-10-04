@@ -8,6 +8,7 @@ import {
   Button,
   ButtonProps,
 } from "../../atoms";
+import React from "react";
 import { useParentState } from "@hooks";
 
 export type ModalOpenerType = "tag" | "expandable-button" | "button";

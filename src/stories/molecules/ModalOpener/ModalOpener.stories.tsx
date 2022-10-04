@@ -22,7 +22,7 @@ const defaultArgs: ModalOpenerProps = {
   children: "children",
   modalOptions: {
     title: "title",
-    buttonOptions: [
+    buttonsOptions: [
       {
         theme: "bluish-gray500",
         children: "Button",

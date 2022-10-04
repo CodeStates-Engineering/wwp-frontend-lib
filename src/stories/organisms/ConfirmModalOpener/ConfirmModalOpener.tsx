@@ -1,59 +1,42 @@
-import { ModalOpener, Button } from "../../..";
-import type { ModalOpenerProps, ButtonProps } from "../../..";
-import { useParentState } from "@hooks";
+import { ModalOpener } from "../../molecules";
+import type { ModalOpenerProps } from "../../molecules";
 
-type ConfirmReturnType = { isRejected: boolean } | void;
-
-export interface ConfirmModalOpenerProps {
-  openerProps?: Omit<ModalOpenerProps["openerProps"], "theme">;
-  modalProps?: Omit<
-    ModalOpenerProps["modalProps"],
-    "footerItems" | "title" | "modalType" | "children"
+export interface ConfirmModalOpenerProps
+  extends Omit<ModalOpenerProps<"button">, "modalOptions" | "type"> {
+  modalOptions?: Omit<
+    Required<ModalOpenerProps>["modalOptions"],
+    "buttonsOptions"
   >;
-  confirmButtonProps?: Omit<ButtonProps, "onClick"> & {
-    onClick?: (event: any) => Promise<ConfirmReturnType> | ConfirmReturnType;
-  };
-  opened?: ModalOpenerProps["opened"];
-  children?: React.ReactNode;
+  confirmButtonOptions?: Required<
+    Required<ModalOpenerProps>["modalOptions"]
+  >["buttonsOptions"][0];
 }
 
 export function ConfirmModalOpener({
-  confirmButtonProps,
-  openerProps,
-  modalProps,
-  children,
-  opened,
+  confirmButtonOptions,
+  openerOptions,
+  modalOptions,
+  ...restProps
 }: ConfirmModalOpenerProps) {
-  const [_opened, setOpened] = useParentState(opened);
-  const _openerProps: ModalOpenerProps["openerProps"] = {
+  const openerProps: ConfirmModalOpenerProps["openerOptions"] = {
     fontWeight: "bold",
     fontSize: "large",
-    ...openerProps,
+    ...openerOptions,
   };
-  const _confirmButtonProps: ButtonProps = {
+
+  const confirmButtonProps: ConfirmModalOpenerProps["confirmButtonOptions"] = {
     fontWeight: "bold",
     fontSize: "medium",
-    onClick: (event: any) => {
-      setOpened(true);
-      setTimeout(async () => {
-        const { isRejected } =
-          (await confirmButtonProps?.onClick?.(event)) ?? {};
-        !isRejected && setOpened(false);
-      });
+    ...confirmButtonOptions,
+  };
+
+  const modalOpenerProps: ModalOpenerProps = {
+    modalOptions: {
+      ...modalOptions,
+      buttonsOptions: [confirmButtonProps],
     },
-    ...confirmButtonProps,
+    openerOptions: openerProps,
+    ...restProps,
   };
-  const _modalProps: ModalOpenerProps["modalProps"] = {
-    footerItems: <Button {..._confirmButtonProps} />,
-    ...modalProps,
-  };
-  return (
-    <ModalOpener
-      openerProps={_openerProps}
-      modalProps={_modalProps}
-      opened={_opened}
-    >
-      {children}
-    </ModalOpener>
-  );
+  return <ModalOpener {...modalOpenerProps} />;
 }

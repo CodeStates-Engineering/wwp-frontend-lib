@@ -20,7 +20,7 @@ export function Chip(props: ChipProps) {
         modalType="center"
         title="정말로 삭제하시겠습니까?"
         onClose={() => setDeleteModalOpened(false)}
-        buttonOptions={[
+        buttonsOptions={[
           {
             fontWeight: "boldest",
             fontSize: "medium",

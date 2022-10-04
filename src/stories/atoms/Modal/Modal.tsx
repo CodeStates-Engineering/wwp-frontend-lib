@@ -14,7 +14,7 @@ export interface ModalProps {
   subText?: React.ReactNode;
   modalType?: "left" | "center";
   maxWidth?: React.CSSProperties["maxWidth"];
-  buttonOptions?: (Omit<ButtonProps, "onClick"> & {
+  buttonsOptions?: (Omit<ButtonProps, "onClick"> & {
     onClick?: (closeModal: () => void) => void;
   })[];
   contour?: boolean;
@@ -30,7 +30,7 @@ export function Modal({
   modalType = "left",
   maxWidth = "340px",
   contour = false,
-  buttonOptions,
+  buttonsOptions,
 }: ModalProps) {
   const [modalOpened, setModalOpened] = useParentState(opened),
     [modalClosing, setModalClosing] = useState(false),
@@ -107,10 +107,10 @@ export function Modal({
               );
           }
         })()}
-        {buttonOptions && (
+        {buttonsOptions && (
           <footer className={`${scss.modal_footer} ${contour && scss.contour}`}>
-            {buttonOptions.map((buttonOption) => {
-              const { onClick, ...buttonProps } = buttonOption;
+            {buttonsOptions.map((buttonOptions) => {
+              const { onClick, ...buttonProps } = buttonOptions;
               return (
                 <Button
                   {...buttonProps}

@@ -15,7 +15,7 @@ const commonArgs: ModalProps = {
   title: "제목 텍스트가 들어갑니다.",
   subText: "서브 텍스트가 들어갑니다.",
   children: "콘텐츠 영역(커스텀)",
-  buttonOptions: [
+  buttonsOptions: [
     {
       theme: "bluish-gray500",
       children: "Button",
