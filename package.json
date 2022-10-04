@@ -1,6 +1,6 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "types": "dist/library/types/index.d.ts",
   "private": false,
   "module": "dist/library/index.js",
@@ -97,6 +97,7 @@
     "zustand": "^4.1.1"
   },
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^18.0.0",
+    "react-router-dom": "^6.4.0"
   }
 }

@@ -15,10 +15,10 @@ const SwitchStory: ComponentStory<typeof Tab> = (args) => <Tab {...args} />;
 export const Default = SwitchStory.bind({});
 Default.args = {
   items: [
-    { label: "rootPage", path: "/" },
-    { label: "page2", path: "/page2" },
-    { label: "page3", path: "/page3" },
-    { label: "page4", path: "/page4" },
+    { label: "rootPage", to: "/" },
+    { label: "page2", to: "/page2" },
+    { label: "page3", to: "/page3" },
+    { label: "page4", to: "/page4" },
   ],
 };
 Default.decorators = [
