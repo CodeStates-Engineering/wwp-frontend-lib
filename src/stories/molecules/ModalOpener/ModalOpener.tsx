@@ -10,7 +10,7 @@ import {
 } from "../../atoms";
 import { useParentState } from "@hooks";
 
-export type ModalOpenerType = "tag" | "expandable-button" | "button";
+type ModalOpenerType = "tag" | "expandable-button" | "button";
 
 type OpenerProps<T extends ModalOpenerType = "button"> = T extends "tag"
   ? TagProps
