@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Textbox } from './Textbox';
-import React from 'react';
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Textbox } from "./Textbox";
+import React from "react";
 
 export default {
-  title: 'atoms/Textbox',
+  title: "atoms/Textbox",
   component: Textbox,
 } as ComponentMeta<typeof Textbox>;
 
@@ -12,87 +12,91 @@ const TextboxStory: ComponentStory<typeof Textbox> = (args) => (
 );
 
 export const Default = TextboxStory.bind({});
+Default.args = {
+  unit: "%",
+};
+
 Default.argTypes = {
   type: {
-    defaultValue: 'text',
+    defaultValue: "text",
     control: {
-      type: 'radio',
+      type: "radio",
     },
     table: {
       defaultValue: {
-        summary: 'text',
+        summary: "text",
       },
     },
   },
   theme: {
-    defaultValue: 'box',
+    defaultValue: "box",
     control: {
-      type: 'radio',
+      type: "radio",
     },
   },
   name: {
     defaultValue: undefined,
     control: {
-      type: 'text',
+      type: "text",
     },
   },
   unit: {
     defaultValue: undefined,
     control: {
-      type: 'object',
+      type: "object",
     },
   },
   placeholder: {
-    defaultValue: '내용을 입력하세요.',
+    defaultValue: "내용을 입력하세요.",
     control: {
-      type: 'text',
+      type: "text",
     },
     table: {
       defaultValue: {
-        summary: '내용을 입력하세요.',
+        summary: "내용을 입력하세요.",
       },
     },
   },
   modifier: {
-    defaultValue: 'user',
+    defaultValue: "user",
     control: {
-      type: 'radio',
+      type: "radio",
     },
   },
   disabled: {
     defaultValue: undefined,
     control: {
-      type: 'boolean',
+      type: "boolean",
     },
   },
   invalid: {
     defaultValue: undefined,
     control: {
-      type: 'boolean',
+      type: "boolean",
     },
   },
   id: {
     defaultValue: undefined,
     control: {
-      type: 'text',
+      type: "text",
     },
   },
   className: {
     defaultValue: undefined,
     control: {
-      type: 'text',
+      type: "text",
     },
   },
   width: {
-    defaultValue: '246px',
+    defaultValue: "246px",
     control: {
-      type: 'text',
+      type: "text",
     },
   },
   onChange: {
     defaultValue: undefined,
     control: {
-      type: 'function',
+      type: "function",
     },
   },
 };
