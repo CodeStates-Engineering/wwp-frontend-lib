@@ -93,3 +93,6 @@ export type { ProgressProps } from "./Progress/Progress";
 
 export { FileDownload } from "./FileDownload/FileDownload";
 export type { FileDownloadProps } from "./FileDownload/FileDownload";
+
+export { FileUpload } from "./FileUpload/FileUpload";
+export type { FileUploadProps } from "./FileUpload/FileUpload";

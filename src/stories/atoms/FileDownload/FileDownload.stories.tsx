@@ -13,6 +13,5 @@ const HrStory: ComponentStory<typeof FileDownload> = (args) => (
 
 export const Default = HrStory.bind({});
 Default.args = {
-  fileUrl:
-    "https://isa-platform-image.s3.ap-northeast-2.amazonaws.com/gongdangi/edu-admin-instructors.png",
+  fileUrl: "https://imgdownloader.com/98926b88-2543-47f7-a6b9-46609226cfb6",
 };

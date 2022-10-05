@@ -27,6 +27,7 @@ export {
   DrawerModal,
   Tab,
   FileDownload,
+  FileUpload,
 } from "./stories/atoms";
 export type {
   ButtonProps,
@@ -60,6 +61,7 @@ export type {
   DrawerModalProps,
   TabProps,
   FileDownloadProps,
+  FileUploadProps,
 } from "./stories/atoms";
 
 export {

@@ -1,6 +1,6 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "types": "dist/library/types/index.d.ts",
   "private": false,
   "module": "dist/library/index.js",
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "start": "start-storybook --no-manager-cache -p 6006 -s public",
-    "build": "tsc --emitDeclarationOnly && rollup -c && build-storybook -o dist/storybook",
+    "build": "export BUILD_TYPE=storybook && tsc --emitDeclarationOnly && rollup -c && build-storybook -o dist/storybook && export BUILD_TYPE=",
     "deploy": "yarn build && gh-pages -d dist/storybook && yarn publish"
   },
   "eslintConfig": {
@@ -99,5 +99,8 @@
   "peerDependencies": {
     "react": "^18.0.0",
     "react-router-dom": "^6.4.0"
+  },
+  "dependencies": {
+    "axios": "^1.0.0"
   }
 }
