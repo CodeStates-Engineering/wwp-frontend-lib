@@ -14,6 +14,6 @@ const LabeledTextStory: ComponentStory<typeof LabeledText> = (args) => (
 export const Default = LabeledTextStory.bind({});
 Default.args = {
   value: "text 값이 들어갑니다.",
-  id: "id/label-text",
+  id: "라벨",
   children: "tooltip 내용이 들어갑니다.",
 };

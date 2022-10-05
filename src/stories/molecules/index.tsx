@@ -61,3 +61,6 @@ export type { FormGroupProps } from "./FormGroup/FormGroup";
 
 export { Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";
+
+export { LabeledFileDownload } from "./LabeledFileDownload/LabeledFileDownload";
+export type { LabeledFileDownloadProps } from "./LabeledFileDownload/LabeledFileDownload";
