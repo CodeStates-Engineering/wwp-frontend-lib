@@ -14,6 +14,8 @@ export interface FileUploadProps {
   instantUpload?: boolean;
   invalid?: boolean;
   disabled?: boolean;
+  value?: string;
+  id?: string;
 }
 
 export function FileUpload({
@@ -26,9 +28,11 @@ export function FileUpload({
   instantUpload = true,
   invalid = false,
   disabled = false,
+  value,
+  id,
   ...restProps
 }: FileUploadProps) {
-  const [displayFileName, setDisplayFileName] = useState(placeholder);
+  const [displayFileName, setDisplayFileName] = useState(value ?? placeholder);
 
   const UPLOAD_FAILED_MESSAGE = "업로드에 실패했습니다.";
   const UPLOAD_PROGRESS_MESSAGE = "업로드 중입니다.";
@@ -50,6 +54,7 @@ export function FileUpload({
 
   return (
     <div
+      id={id}
       style={{ width }}
       className={cleanClassName(
         `${scss.file_upload} ${scss[theme]} ${
