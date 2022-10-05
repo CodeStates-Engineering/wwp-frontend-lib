@@ -17,7 +17,7 @@ export function FileDownload({
   const displayFileName = fileName || fileUrl?.split("/").pop() || placeholder;
   return (
     <div style={{ width }} className={scss.file_download}>
-      <p className={scss.file_name}>{displayFileName}</p>
+      <div className={scss.file_name}>{displayFileName}</div>
       <a
         href={fileUrl}
         download

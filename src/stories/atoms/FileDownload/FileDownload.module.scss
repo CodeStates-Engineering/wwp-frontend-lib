@@ -3,10 +3,11 @@
 .file_download {
   display: flex;
   min-height: 36px;
-
   align-items: center;
+
   > .file_name {
     color: $BLUISH_GRAY600;
+    min-width: 0;
     flex: 1;
     display: block;
     font-weight: $MEDIUM_FONT_WEIGHT;
@@ -16,7 +17,11 @@
       right: 11px;
       bottom: 2px;
     }
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
+
   > .download_link {
     width: 36px;
     height: 31px;
