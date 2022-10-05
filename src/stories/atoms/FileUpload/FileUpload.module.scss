@@ -1,25 +1,142 @@
 @import "../../../scss/libs.scss";
 
-.file_upload {
-  min-height: 36px;
-  background-color: gainsboro;
-  display: flex;
-}
-.file_upload_button {
-  background-color: beige;
-  cursor: pointer;
-  padding: 0 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  > input {
-    display: none;
+@mixin theme($text-color, $bg-color, $border, $icon-color, $icon-bg-color) {
+  color: $text-color;
+
+  &.box {
+    border: $border;
+    background-color: $bg-color;
+    > .file_upload_button {
+      background-color: $icon-bg-color;
+      color: $icon-color;
+    }
+  }
+
+  &.linear {
+    border-bottom: $border;
+  }
+  > .file_upload_button {
+    color: $WEWIN_BLUE600;
   }
 }
 
-.display_file_name {
-  flex: 1;
-  padding: 0 11px;
+.file_upload {
+  min-height: 36px;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
   display: flex;
-  align-items: center;
+
+  > .display_file_name {
+    padding: 0 11px;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex: 1 1 auto;
+    > span {
+      font-weight: $MEDIUM_FONT_WEIGHT;
+      font-size: $SMALL_FONT_SIZE;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  > .file_upload_button {
+    font-weight: $MEDIUM_FONT_WEIGHT;
+    font-size: $SMALL_FONT_SIZE;
+    cursor: pointer;
+    padding: 0 11px;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+    flex: 0 0 auto;
+    &:disabled {
+      cursor: not-allowed;
+    }
+    > input {
+      display: none;
+    }
+  }
+  @include theme(
+    $INPUT_DEFAULT_COLOR,
+    $INPUT_DEFAULT_BG_COLOR,
+    $INPUT_DEFAULT_BORDER,
+    $INPUT_ICON_DEFAULT_COLOR,
+    $INPUT_ICON_DEFAULT_BG_COLOR
+  );
+
+  &.progress {
+    @include theme(
+      $INPUT_FOCUS_COLOR,
+      $INPUT_FOCUS_BG_COLOR,
+      $INPUT_FOCUS_BORDER,
+      $INPUT_ICON_FOCUS_COLOR,
+      $INPUT_ICON_FOCUS_BG_COLOR
+    );
+  }
+
+  &.filled {
+    @include theme(
+      $INPUT_FILLED_COLOR,
+      $INPUT_FILLED_BG_COLOR,
+      $INPUT_FILLED_BORDER,
+      $INPUT_ICON_FILLED_COLOR,
+      $INPUT_ICON_FILLED_BG_COLOR
+    );
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    @include theme(
+      $INPUT_DISABLED_COLOR,
+      $INPUT_DISABLED_BG_COLOR,
+      $INPUT_DISABLED_BORDER,
+      $INPUT_ICON_DISABLED_COLOR,
+      $INPUT_ICON_DISABLED_BG_COLOR
+    );
+    &.system {
+      @include theme(
+        $INPUT_SYSTEM_COLOR,
+        $INPUT_SYSTEM_BG_COLOR,
+        $INPUT_SYSTEM_BORDER,
+        $INPUT_ICON_SYSTEM_COLOR,
+        $INPUT_ICON_SYSTEM_BG_COLOR
+      );
+    }
+    &.readonly {
+      cursor: default;
+      @include theme(
+        $INPUT_READONLY_COLOR,
+        transparent,
+        transparent,
+        transparent,
+        transparent
+      );
+    }
+    &.linear {
+      > .file_upload_button {
+        color: $GRAY400;
+      }
+    }
+  }
+
+  &.box {
+    border-radius: $INPUT_BORDER_RADIUS;
+    overflow: hidden;
+    > .file_upload_button {
+      &:hover:not(:disabled) {
+        color: $INPUT_ICON_FOCUS_COLOR;
+      }
+    }
+    &.invalid {
+      border: $INPUT_ALERT_BORDER;
+    }
+  }
+
+  &.linear {
+    &.invalid {
+      border-bottom: $INPUT_ALERT_BORDER;
+    }
+  }
 }
