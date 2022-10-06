@@ -22,8 +22,8 @@ export function Chip(props: ChipProps) {
         onClose={() => setDeleteModalOpened(false)}
         buttonsOptions={[
           {
-            fontWeight: "boldest",
-            fontSize: "medium",
+            fontWeight: "bold",
+            fontSize: "normal",
             theme: "wewin-peach500",
             children: "네, 삭제합니다.",
             onClick: (closeModal) => {

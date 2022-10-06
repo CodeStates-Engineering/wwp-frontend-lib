@@ -20,8 +20,8 @@ export function DeleteModalOpener({
   ...restProps
 }: DeleteModalOpenerProps) {
   const openerProps: DeleteModalOpenerProps["openerOptions"] = {
-    fontWeight: "bold",
-    fontSize: "large",
+    fontWeight: "medium",
+    fontSize: "small",
     variant: "ghost",
     theme: "bluish-gray600",
     icon: Trash2,
@@ -29,8 +29,8 @@ export function DeleteModalOpener({
   };
 
   const deleteButtonProps: DeleteModalOpenerProps["deleteButtonOptions"] = {
-    fontWeight: "bold",
-    fontSize: "medium",
+    fontWeight: "medium",
+    fontSize: "normal",
     children: "네, 삭제합니다.",
     theme: "wewin-peach500",
     delay: 3000,

@@ -19,17 +19,16 @@ export function CancelModalOpener({
   ...restProps
 }: CancelModalOpenerProps) {
   const openerProps: CancelModalOpenerProps["openerOptions"] = {
-    theme: "bluish-gray600",
-    variant: "outline",
-    fontWeight: "bold",
-    fontSize: "large",
+    theme: "bluish-gray50",
+    fontWeight: "medium",
+    fontSize: "small",
     ...openerOptions,
   };
 
   const cancelButtonProps: CancelModalOpenerProps["cancelButtonOptions"] = {
     theme: "wewin-peach500",
-    fontWeight: "bold",
-    fontSize: "medium",
+    fontWeight: "medium",
+    fontSize: "normal",
     children: "네, 취소합니다.",
     ...cancelButtonOptions,
   };

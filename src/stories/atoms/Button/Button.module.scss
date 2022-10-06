@@ -223,7 +223,7 @@
   font-size: $SMALL_FONT_SIZE;
 }
 
-.font_size_medium {
+.font_size_normal {
   font-size: $NORMAL_FONT_SIZE;
 }
 
@@ -240,14 +240,14 @@
 }
 
 //fontWeight
-.font_weight_normal {
+.font_weight_reqular {
   font-weight: 400;
 }
 
-.font_weight_bold {
+.font_weight_medium {
   font-weight: 500;
 }
 
-.font_weight_boldest {
+.font_weight_bold {
   font-weight: 700;
 }

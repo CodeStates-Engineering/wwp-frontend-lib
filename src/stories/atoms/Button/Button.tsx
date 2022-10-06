@@ -26,8 +26,8 @@ export interface ButtonProps
   theme?: ButtonTheme;
   shape?: "round" | "square";
   size?: "small" | "medium" | "large";
-  fontSize?: "smallX" | "small" | "medium" | "large" | "large2X" | "large4X";
-  fontWeight?: "normal" | "bold" | "boldest";
+  fontSize?: "smallX" | "small" | "normal" | "large" | "large2X" | "large4X";
+  fontWeight?: "regular" | "medium" | "bold";
   fitContainer?: boolean;
   minWidth?: string;
   to?: string;

@@ -19,14 +19,14 @@ export function ConfirmModalOpener({
   ...restProps
 }: ConfirmModalOpenerProps) {
   const openerProps: ConfirmModalOpenerProps["openerOptions"] = {
-    fontWeight: "bold",
-    fontSize: "large",
+    fontWeight: "medium",
+    fontSize: "small",
     ...openerOptions,
   };
 
   const confirmButtonProps: ConfirmModalOpenerProps["confirmButtonOptions"] = {
-    fontWeight: "bold",
-    fontSize: "medium",
+    fontWeight: "medium",
+    fontSize: "normal",
     ...confirmButtonOptions,
   };
 
