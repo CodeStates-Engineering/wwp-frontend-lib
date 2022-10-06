@@ -63,6 +63,7 @@ interface CommonProps<T extends InputPropsHint> {
   width?: React.CSSProperties["width"];
   inputWidth?: React.CSSProperties["width"];
   justifyContent?: React.CSSProperties["justifyContent"];
+  minHeight?: React.CSSProperties["minHeight"];
 }
 
 type InputComponentHint<T extends InputPropsHint> = (props: T) => JSX.Element;
@@ -85,6 +86,7 @@ function attachCommonProps<T extends InputPropsHint>(
     width = "246px",
     inputWidth = "100%",
     justifyContent = "flex-start",
+    minHeight,
     ...restProps
   }: T & CommonProps<T>) => {
     const { checkValidation, validated, visableMessage } = useValidation(
@@ -118,7 +120,7 @@ function attachCommonProps<T extends InputPropsHint>(
         className={cleanClassName(
           `${scss.labeled_input_container} ${scss[labelDirection]}`
         )}
-        style={{ width, justifyContent }}
+        style={{ width, justifyContent, minHeight }}
       >
         {label ? (
           <div className={scss.label_container}>
