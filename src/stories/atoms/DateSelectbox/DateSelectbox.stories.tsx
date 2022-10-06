@@ -1,7 +1,7 @@
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { DateSelectbox } from "./DateSelectbox";
 import React from "react";
-import { format } from "date-fns";
+
 export default {
   title: "atoms/DateSelectbox",
   component: DateSelectbox,
