@@ -1,29 +1,37 @@
-import { cleanClassName } from "@utils";
-import scss from "./FileDownload.module.scss";
-import { Download } from "react-feather";
+import { cleanClassName } from '@utils';
+import scss from './FileDownload.module.scss';
+import { Download } from 'react-feather';
+import { useMountedEffect } from '@hooks';
 
 export interface FileDownloadProps {
-  fileName?: string;
-  fileUrl?: string;
-  width?: React.CSSProperties["width"];
+  id?: string;
+  value?: {
+    label?: string;
+    url?: string;
+  };
+  width?: React.CSSProperties['width'];
   placeholder?: string;
+  onChange?: (value: FileDownloadProps['value']) => void;
 }
 export function FileDownload({
-  fileName,
-  fileUrl,
-  width = "246px",
-  placeholder = "파일이 존재하지 않습니다.",
+  id,
+  value,
+  width = '246px',
+  placeholder = '파일이 존재하지 않습니다.',
+  onChange,
 }: FileDownloadProps) {
-  const displayFileName = fileName || fileUrl?.split("/").pop() || placeholder;
+  const { label, url } = value || {};
+  const displayFileName = label || url?.split('/').pop() || placeholder;
+  useMountedEffect(() => {
+    onChange?.(value);
+  }, [label, url]);
   return (
-    <div style={{ width }} className={scss.file_download}>
+    <div style={{ width }} className={scss.file_download} id={id}>
       <div className={scss.file_name}>{displayFileName}</div>
       <a
-        href={fileUrl}
+        href={url}
         download
-        className={cleanClassName(
-          `${scss.download_link} ${!fileUrl && scss.disabled}`
-        )}
+        className={cleanClassName(`${scss.download_link} ${!value?.url && scss.disabled}`)}
       >
         <Download />
       </a>

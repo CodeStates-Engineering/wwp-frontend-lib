@@ -10,7 +10,8 @@ export {
   ComplexTextarea,
   ComplexTextbox,
   ComplexFileUpload,
-} from "./ComplexInput/ComplexInput";
+  ComplexFileDownload,
+} from './ComplexInput/ComplexInput';
 
 export type {
   ComplexCheckboxProps,
@@ -24,18 +25,16 @@ export type {
   ComplexTextareaProps,
   ComplexTextboxProps,
   ComplexFileUploadProps,
-} from "./ComplexInput/ComplexInput";
+  ComplexFileDownloadProps,
+} from './ComplexInput/ComplexInput';
 
-export { FormEditStamp } from "./FormEditStamp/FormEditStamp";
-export type { FormEditStampProps } from "./FormEditStamp/FormEditStamp";
+export { FormEditStamp } from './FormEditStamp/FormEditStamp';
+export type { FormEditStampProps } from './FormEditStamp/FormEditStamp';
 
-export { PaginationWithPageSize } from "./PaginationWithPageSize/PaginationWithPageSize";
-export type { PaginationWithPageSizeProps } from "./PaginationWithPageSize/PaginationWithPageSize";
+export { PaginationWithPageSize } from './PaginationWithPageSize/PaginationWithPageSize';
+export type { PaginationWithPageSizeProps } from './PaginationWithPageSize/PaginationWithPageSize';
 
-export { LabeledText } from "./LabeledText/LabeledText";
-export type { LabeledTextProps } from "./LabeledText/LabeledText";
-
-export { Table } from "./Table/Table";
+export { Table } from './Table/Table';
 export type {
   TableContainerProps,
   TableRowProps,
@@ -43,26 +42,23 @@ export type {
   TableTitleProps,
   TableBodyProps,
   TableDataProps,
-} from "./Table/Table";
+} from './Table/Table';
 
-export { ModalOpener } from "./ModalOpener/ModalOpener";
-export type { ModalOpenerProps } from "./ModalOpener/ModalOpener";
+export { ModalOpener } from './ModalOpener/ModalOpener';
+export type { ModalOpenerProps } from './ModalOpener/ModalOpener';
 
-export { DrawerModalOpener } from "./DrawerModalOpener/DrawerModalOpener";
-export type { DrawerModalOpenerProps } from "./DrawerModalOpener/DrawerModalOpener";
+export { DrawerModalOpener } from './DrawerModalOpener/DrawerModalOpener';
+export type { DrawerModalOpenerProps } from './DrawerModalOpener/DrawerModalOpener';
 
-export { PageContents } from "./PageContents/PageContents";
+export { PageContents } from './PageContents/PageContents';
 export type {
   PageContentsContainerProps,
   PageContentsHeaderProps,
   PageContentsSectionProps,
-} from "./PageContents/PageContents";
+} from './PageContents/PageContents';
 
-export { FormGroup } from "./FormGroup/FormGroup";
-export type { FormGroupProps } from "./FormGroup/FormGroup";
+export { FormGroup } from './FormGroup/FormGroup';
+export type { FormGroupProps } from './FormGroup/FormGroup';
 
-export { Chip } from "./Chip/Chip";
-export type { ChipProps } from "./Chip/Chip";
-
-export { LabeledFileDownload } from "./LabeledFileDownload/LabeledFileDownload";
-export type { LabeledFileDownloadProps } from "./LabeledFileDownload/LabeledFileDownload";
+export { Chip } from './Chip/Chip';
+export type { ChipProps } from './Chip/Chip';

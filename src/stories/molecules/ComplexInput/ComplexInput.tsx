@@ -1,4 +1,4 @@
-import scss from "./ComplexInput.module.scss";
+import scss from './ComplexInput.module.scss';
 
 import {
   Searchbox,
@@ -14,8 +14,9 @@ import {
   Textarea,
   Checkbox,
   FileUpload,
+  FileDownload,
   ValidationMessage,
-} from "../../atoms";
+} from '../../atoms';
 
 import type {
   SearchboxProps,
@@ -32,50 +33,50 @@ import type {
   CheckboxProps,
   RadioboxProps,
   FileUploadProps,
-} from "../../atoms";
-import { useValidation } from "@hooks";
-import { cleanClassName } from "@utils";
-import type { Validation, ValidationStorage } from "@hooks";
+  FileDownloadProps,
+} from '../../atoms';
+import { useValidation } from '@hooks';
+import { cleanClassName } from '@utils';
+import type { Validation, ValidationStorage } from '@hooks';
 
 type InputPropsHint =
   | TextboxProps
   | TagboxProps
   | SwitchProps
   | MonthSelectboxProps
-  | DateSelectboxProps<"date" | "date-range">
+  | DateSelectboxProps<'date' | 'date-range'>
   | TextareaProps
   | CheckboxProps
   | RadioboxProps
   | SelectboxProps<OptionHint>
   | SearchboxProps<OptionHint>
-  | FileUploadProps;
+  | FileUploadProps
+  | FileDownloadProps;
 
 interface CommonProps<T extends InputPropsHint> {
   children?: React.ReactNode;
   label?: boolean;
-  labelDirection?: "row" | "column" | "row-reverse" | "column-reverse";
+  labelDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   labelText?: string;
-  essential?: LabelProps["essential"];
-  labelFontSize?: LabelProps["fontSize"];
-  labelFontWeight?: LabelProps["fontWeight"];
+  essential?: LabelProps['essential'];
+  labelFontSize?: LabelProps['fontSize'];
+  labelFontWeight?: LabelProps['fontWeight'];
   validationStorage?: ValidationStorage;
-  validations?: Validation<T["value"]>[];
-  width?: React.CSSProperties["width"];
-  inputWidth?: React.CSSProperties["width"];
-  justifyContent?: React.CSSProperties["justifyContent"];
-  minHeight?: React.CSSProperties["minHeight"];
+  validations?: Validation<T['value']>[];
+  width?: React.CSSProperties['width'];
+  inputWidth?: React.CSSProperties['width'];
+  justifyContent?: React.CSSProperties['justifyContent'];
+  minHeight?: React.CSSProperties['minHeight'];
 }
 
 type InputComponentHint<T extends InputPropsHint> = (props: T) => JSX.Element;
 
-function attachCommonProps<T extends InputPropsHint>(
-  Input: InputComponentHint<T>
-) {
+function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T>) {
   return ({
     id,
     children,
     label = true,
-    labelDirection = "column",
+    labelDirection = 'column',
     labelText,
     essential,
     labelFontSize,
@@ -83,9 +84,9 @@ function attachCommonProps<T extends InputPropsHint>(
     validationStorage,
     validations,
     onChange,
-    width = "fit-content",
-    inputWidth = "246px",
-    justifyContent = "flex-start",
+    width = 'fit-content',
+    inputWidth = '246px',
+    justifyContent = 'flex-start',
     minHeight,
     ...restProps
   }: T & CommonProps<T>) => {
@@ -107,7 +108,7 @@ function attachCommonProps<T extends InputPropsHint>(
 
     const inputProps: any = {
       id,
-      width: "100%",
+      width: '100%',
       onChange: (value: never) => {
         onChange?.(value);
         checkValidation(value);
@@ -117,9 +118,7 @@ function attachCommonProps<T extends InputPropsHint>(
 
     return (
       <div
-        className={cleanClassName(
-          `${scss.labeled_input_container} ${scss[labelDirection]}`
-        )}
+        className={cleanClassName(`${scss.labeled_input_container} ${scss[labelDirection]}`)}
         style={{ width, justifyContent, minHeight }}
       >
         {label ? (
@@ -131,10 +130,7 @@ function attachCommonProps<T extends InputPropsHint>(
         <div style={{ width: inputWidth }}>
           <Input {...inputProps} />
           {validations ? (
-            <ValidationMessage
-              validated={validated}
-              visableMessage={visableMessage}
-            />
+            <ValidationMessage validated={validated} visableMessage={visableMessage} />
           ) : null}
         </div>
       </div>
@@ -151,12 +147,11 @@ export const ComplexTagbox = attachCommonProps(Tagbox);
 export type ComplexSwitchProps = SwitchProps & CommonProps<SwitchProps>;
 export const ComplexSwitch = attachCommonProps(Switch);
 
-export type ComplexMonthSelectboxProps = MonthSelectboxProps &
-  CommonProps<MonthSelectboxProps>;
+export type ComplexMonthSelectboxProps = MonthSelectboxProps & CommonProps<MonthSelectboxProps>;
 export const ComplexMonthSelectbox = attachCommonProps(MonthSelectbox);
 
-export type ComplexDateSelectboxProps<T extends DateType = "date"> =
-  DateSelectboxProps<T> & CommonProps<DateSelectboxProps<T>>;
+export type ComplexDateSelectboxProps<T extends DateType = 'date'> = DateSelectboxProps<T> &
+  CommonProps<DateSelectboxProps<T>>;
 export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
 export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
@@ -176,6 +171,8 @@ export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
 
-export type ComplexFileUploadProps = FileUploadProps &
-  CommonProps<FileUploadProps>;
+export type ComplexFileUploadProps = FileUploadProps & CommonProps<FileUploadProps>;
 export const ComplexFileUpload = attachCommonProps(FileUpload);
+
+export type ComplexFileDownloadProps = FileDownloadProps & CommonProps<FileDownloadProps>;
+export const ComplexFileDownload = attachCommonProps(FileDownload);
