@@ -9,6 +9,7 @@ export {
   ComplexTagbox,
   ComplexTextarea,
   ComplexTextbox,
+  ComplexFileUpload,
 } from "./ComplexInput/ComplexInput";
 
 export type {
@@ -22,6 +23,7 @@ export type {
   ComplexTagboxProps,
   ComplexTextareaProps,
   ComplexTextboxProps,
+  ComplexFileUploadProps,
 } from "./ComplexInput/ComplexInput";
 
 export { FormEditStamp } from "./FormEditStamp/FormEditStamp";
@@ -61,3 +63,6 @@ export type { FormGroupProps } from "./FormGroup/FormGroup";
 
 export { Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";
+
+export { LabeledFileDownload } from "./LabeledFileDownload/LabeledFileDownload";
+export type { LabeledFileDownloadProps } from "./LabeledFileDownload/LabeledFileDownload";

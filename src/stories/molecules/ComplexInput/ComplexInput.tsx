@@ -13,6 +13,7 @@ import {
   Radiobox,
   Textarea,
   Checkbox,
+  FileUpload,
   ValidationMessage,
 } from "../../atoms";
 
@@ -30,6 +31,7 @@ import type {
   TextareaProps,
   CheckboxProps,
   RadioboxProps,
+  FileUploadProps,
 } from "../../atoms";
 import { useValidation } from "@hooks";
 import { cleanClassName } from "@utils";
@@ -45,7 +47,8 @@ type InputPropsHint =
   | CheckboxProps
   | RadioboxProps
   | SelectboxProps<OptionHint>
-  | SearchboxProps<OptionHint>;
+  | SearchboxProps<OptionHint>
+  | FileUploadProps;
 
 interface CommonProps<T extends InputPropsHint> {
   children?: React.ReactNode;
@@ -166,3 +169,7 @@ export const ComplexSelectbox = attachCommonProps(Selectbox);
 export type ComplexSearchboxProps = SearchboxProps<OptionHint> &
   CommonProps<SearchboxProps<OptionHint>>;
 export const ComplexSearchbox = attachCommonProps(Searchbox);
+
+export type ComplexFileUploadProps = FileUploadProps &
+  CommonProps<FileUploadProps>;
+export const ComplexFileUpload = attachCommonProps(FileUpload);

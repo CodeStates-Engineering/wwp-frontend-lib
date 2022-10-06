@@ -26,6 +26,8 @@ export {
   ValidationMessage,
   DrawerModal,
   Tab,
+  FileDownload,
+  FileUpload,
 } from "./stories/atoms";
 export type {
   ButtonProps,
@@ -58,6 +60,8 @@ export type {
   ValidationMessageProps,
   DrawerModalProps,
   TabProps,
+  FileDownloadProps,
+  FileUploadProps,
 } from "./stories/atoms";
 
 export {
@@ -72,6 +76,7 @@ export {
   ComplexTextarea,
   ComplexTagbox,
   ComplexSearchbox,
+  ComplexFileUpload,
   FormEditStamp,
   FormGroup,
   LabeledText,
@@ -80,6 +85,7 @@ export {
   PageContents,
   PaginationWithPageSize,
   Table,
+  LabeledFileDownload,
 } from "./stories/molecules";
 export type {
   ComplexCheckboxProps,
@@ -92,6 +98,7 @@ export type {
   ComplexTagboxProps,
   ComplexTextareaProps,
   ComplexTextboxProps,
+  ComplexFileUploadProps,
   FormEditStampProps,
   PaginationWithPageSizeProps,
   LabeledTextProps,
@@ -108,6 +115,7 @@ export type {
   PageContentsSectionProps,
   FormGroupProps,
   ChipProps,
+  LabeledFileDownloadProps,
 } from "./stories/molecules";
 
 export {

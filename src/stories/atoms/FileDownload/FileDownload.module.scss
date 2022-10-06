@@ -1,0 +1,46 @@
+@import "../../../scss/libs.scss";
+
+.file_download {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+
+  > .file_name {
+    color: $BLUISH_GRAY600;
+    min-width: 0;
+    flex: 1;
+    display: block;
+    font-weight: $MEDIUM_FONT_WEIGHT;
+    font-size: $SMALL_FONT_SIZE;
+    padding: {
+      left: 11px;
+      right: 11px;
+      bottom: 2px;
+    }
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  > .download_link {
+    width: 36px;
+    height: 31px;
+    background-color: $INPUT_ICON_DEFAULT_BG_COLOR;
+    color: $INPUT_ICON_DEFAULT_COLOR;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    &:hover {
+      color: $INPUT_ICON_FOCUS_COLOR;
+      background-color: $INPUT_ICON_FOCUS_BG_COLOR;
+    }
+    &.disabled {
+      color: $INPUT_ICON_DISABLED_COLOR;
+      background-color: $INPUT_ICON_DISABLED_BG_COLOR;
+      cursor: not-allowed;
+    }
+  }
+}

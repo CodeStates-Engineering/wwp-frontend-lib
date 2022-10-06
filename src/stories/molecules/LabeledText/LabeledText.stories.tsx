@@ -3,7 +3,7 @@ import { LabeledText } from "./LabeledText";
 import React from "react";
 
 export default {
-  title: "molecules/LabeledText",
+  title: "molecules/LabeledComponent/LabeledText",
   component: LabeledText,
 } as ComponentMeta<typeof LabeledText>;
 
@@ -13,7 +13,7 @@ const LabeledTextStory: ComponentStory<typeof LabeledText> = (args) => (
 
 export const Default = LabeledTextStory.bind({});
 Default.args = {
-  value: "LabeledText",
-  id: "LabeledText",
-  children: "LabeledText",
+  value: "text 값이 들어갑니다.",
+  id: "라벨",
+  children: "tooltip 내용이 들어갑니다.",
 };
