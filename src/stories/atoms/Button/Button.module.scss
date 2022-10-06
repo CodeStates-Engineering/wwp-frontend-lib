@@ -1,10 +1,10 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 @mixin set-theme($variant, $color, $backgroundColor: white) {
   color: $color;
   background-color: $backgroundColor;
 
-  @if ($variant == "contain") {
+  @if ($variant == 'contain') {
     &:hover {
       color: darken($color, 7%);
       background-color: darken($backgroundColor, 7%);
@@ -19,7 +19,7 @@
     }
   }
 
-  @if ($variant == "outline") {
+  @if ($variant == 'outline') {
     border: 1px solid $BLUISH_GRAY200;
     &:hover {
       color: darken($color, 7%);
@@ -36,7 +36,7 @@
     }
   }
 
-  @if ($variant == "ghost") {
+  @if ($variant == 'ghost') {
     &:hover {
       color: darken($color, 7%);
       text-decoration: underline;
@@ -80,7 +80,7 @@
 
   svg {
     width: 1.5em;
-    height: 100%
+    height: 100%;
   }
   &.fit_container {
     width: 100%;
@@ -92,9 +92,9 @@
   white-space: nowrap;
   justify-content: center;
   align-items: center;
+  flex-direction: row-reverse;
   gap: 8px;
   height: 1.5em;
-
   > div {
     display: flex;
     align-items: center;
@@ -128,13 +128,13 @@
 
 @function getVariantFromIndex($index) {
   @if ($index == 1) {
-    @return "contain";
+    @return 'contain';
   }
   @if ($index == 2) {
-    @return "outline";
+    @return 'outline';
   }
   @if ($index == 3) {
-    @return "ghost";
+    @return 'ghost';
   }
 }
 
@@ -142,64 +142,64 @@
   $variant: getVariantFromIndex($idx);
 
   .theme_#{$variant}-wewin-blue100 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", $WEWIN_BLUE600, $WEWIN_BLUE100);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', $WEWIN_BLUE600, $WEWIN_BLUE100);
     } @else {
       @include set-theme($variant, $WEWIN_BLUE100);
     }
   }
 
   .theme_#{$variant}-wewin-blue600 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", $WEWIN_BLUE100, $WEWIN_BLUE600);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', $WEWIN_BLUE100, $WEWIN_BLUE600);
     } @else {
       @include set-theme($variant, $WEWIN_BLUE600);
     }
   }
 
   .theme_#{$variant}-bluish-gray50 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY50);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', $BLUISH_GRAY700, $BLUISH_GRAY50);
     } @else {
       @include set-theme($variant, $BLUISH_GRAY50);
     }
   }
 
   .theme_#{$variant}-bluish-gray100 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY100);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', $BLUISH_GRAY700, $BLUISH_GRAY100);
     } @else {
       @include set-theme($variant, $BLUISH_GRAY100);
     }
   }
 
   .theme_#{$variant}-bluish-gray200 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", $BLUISH_GRAY700, $BLUISH_GRAY200);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', $BLUISH_GRAY700, $BLUISH_GRAY200);
     } @else {
       @include set-theme($variant, $BLUISH_GRAY200);
     }
   }
 
   .theme_#{$variant}-bluish-gray500 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", white, $BLUISH_GRAY500);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', white, $BLUISH_GRAY500);
     } @else {
       @include set-theme($variant, $BLUISH_GRAY500);
     }
   }
 
   .theme_#{$variant}-bluish-gray600 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", white, $BLUISH_GRAY600);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', white, $BLUISH_GRAY600);
     } @else {
       @include set-theme($variant, $BLUISH_GRAY600);
     }
   }
 
   .theme_#{$variant}-wewin-peach500 {
-    @if ($variant == "contain") {
-      @include set-theme("contain", white, $WEWIN_PEACH500);
+    @if ($variant == 'contain') {
+      @include set-theme('contain', white, $WEWIN_PEACH500);
     } @else {
       @include set-theme($variant, $WEWIN_PEACH500);
     }

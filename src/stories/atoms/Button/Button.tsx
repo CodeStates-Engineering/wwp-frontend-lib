@@ -18,8 +18,10 @@ export type ButtonTheme =
 export type Variant = 'contain' | 'outline' | 'ghost';
 
 export interface ButtonProps
-  extends Pick<React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
-    'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'> {
+  extends Pick<
+    React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
+    'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'
+  > {
   variant?: Variant;
   theme?: ButtonTheme;
   shape?: 'round' | 'square';
@@ -57,12 +59,12 @@ export function Button({
     disabled: restProps.disabled || isDelaying,
     children: (
       <div className={scss.button_contents}>
+        {restProps.children}
         {Icon ? (
           <div className={scss.button_wrap}>
             <Icon />
           </div>
         ) : undefined}
-        {restProps.children}
       </div>
     ),
     className: cleanClassName(
@@ -72,7 +74,7 @@ export function Button({
       ${scss['font_size_' + restProps.fontSize]}
       ${scss['font_weight_' + restProps.fontWeight]}
       ${isDelaying && scss.delay_button}
-      ${restProps.fitContainer && scss.fit_container}`,
+      ${restProps.fitContainer && scss.fit_container}`
     ),
     style: {
       minWidth,
@@ -83,9 +85,7 @@ export function Button({
     return (
       <button {...buttonProps} disabled type={type}>
         <div
-          className={cleanClassName(
-            `${scss.delaying_bar} ${startDelaying && scss.delaying}`,
-          )}
+          className={cleanClassName(`${scss.delaying_bar} ${startDelaying && scss.delaying}`)}
           style={{ transitionDuration: `${delay / 1000}s` }}
         />
         <div className={scss.delay_button_contents}>{buttonProps.children}</div>
