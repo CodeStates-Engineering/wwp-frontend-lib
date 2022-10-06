@@ -34,7 +34,6 @@ export default {
     svgr(),
     typescript(),
     postcss({
-      modules: true,
       plugins: [autoprefixer()],
       extract: true,
       minimize: true,
