@@ -105,7 +105,7 @@ function attachCommonProps<T extends InputPropsHint>(
 
     const inputProps: any = {
       id,
-      width: inputWidth,
+      width: "100%",
       onChange: (value: never) => {
         onChange?.(value);
         checkValidation(value);
@@ -126,7 +126,7 @@ function attachCommonProps<T extends InputPropsHint>(
             {children ? <Tooltip>{children}</Tooltip> : null}
           </div>
         ) : null}
-        <div className={scss.input_container}>
+        <div style={{ width: inputWidth }}>
           <Input {...inputProps} />
           {validations ? (
             <ValidationMessage
