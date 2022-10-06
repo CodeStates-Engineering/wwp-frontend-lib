@@ -83,8 +83,8 @@ function attachCommonProps<T extends InputPropsHint>(
     validationStorage,
     validations,
     onChange,
-    width = "246px",
-    inputWidth = "100%",
+    width = "fit-content",
+    inputWidth = "246px",
     justifyContent = "flex-start",
     minHeight,
     ...restProps
