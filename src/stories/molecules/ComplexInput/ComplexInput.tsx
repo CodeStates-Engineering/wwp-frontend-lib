@@ -121,7 +121,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
         className={cleanClassName(`${scss.labeled_input_container} ${scss[labelDirection]}`)}
         style={{ width, justifyContent, minHeight }}
       >
-        {label ? (
+        {label && (labelText || id) ? (
           <div className={scss.label_container}>
             <Label {...labelProps} />
             {children ? <Tooltip>{children}</Tooltip> : null}
