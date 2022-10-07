@@ -1,8 +1,8 @@
-import scss from "./DrawerModal.module.scss";
-import { X } from "react-feather";
-import { useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
-import { useState } from "react";
+import scss from './DrawerModal.module.scss';
+import { X } from 'react-feather';
+import { useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
+import { useState } from 'react';
 
 export interface DrawerModalProps {
   children?: React.ReactNode;
@@ -15,7 +15,7 @@ export interface DrawerModalProps {
 
 export function DrawerModal({
   children,
-  opened = false,
+  opened,
   closeButton = true,
   title,
   contour = true,
@@ -27,7 +27,7 @@ export function DrawerModal({
     closeModal = () => {
       setModalClosing(true);
       setTimeout(() => {
-        setModalOpened(false);
+        setModalOpened?.(false);
         setModalClosing(false);
         onClose?.();
       }, 700);
@@ -35,16 +35,8 @@ export function DrawerModal({
   return modalOpened ? (
     <div className={scss.modal_container}>
       <div className={scss.background} onClick={closeModal} />
-      <article
-        className={cleanClassName(
-          `${scss.modal} ${modalClosing && scss.closing}`
-        )}
-      >
-        <header
-          className={cleanClassName(
-            `${scss.modal_header} ${contour && scss.contour}`
-          )}
-        >
+      <article className={cleanClassName(`${scss.modal} ${modalClosing && scss.closing}`)}>
+        <header className={cleanClassName(`${scss.modal_header} ${contour && scss.contour}`)}>
           <h2 className={scss.title}>{title}</h2>
           {closeButton && (
             <button className={scss.modal_close_button} onClick={closeModal}>
@@ -52,9 +44,7 @@ export function DrawerModal({
             </button>
           )}
         </header>
-        <section
-          className={cleanClassName(`${scss.modal_body} ${scss.contour}`)}
-        >
+        <section className={cleanClassName(`${scss.modal_body} ${scss.contour}`)}>
           {children}
         </section>
       </article>

@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 .checkbox_container {
   position: relative;
   display: block;
@@ -12,10 +12,12 @@
     background-color: darken(white, 2%);
     color: $BLUISH_GRAY400;
   }
+
   &.checked {
     background-color: $WEWIN_BLUE600;
   }
-  &.half {
+
+  &.indeterminate {
     background-color: $BLUISH_GRAY300;
     color: $WEWIN_BLUE600;
   }

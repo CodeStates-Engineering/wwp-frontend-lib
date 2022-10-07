@@ -23,7 +23,7 @@ export function Textarea({
   name,
   placeholder = '내용을 입력하세요.',
   onChange,
-  value = '',
+  value,
   width = '224px',
   invalid,
   theme = 'box',
@@ -31,7 +31,7 @@ export function Textarea({
   maxHeight,
   disabled,
 }: TextareaProps) {
-  const [inputValue, setInputValue] = useParentState(String(value));
+  const [inputValue, setInputValue] = useParentState(value);
   const _disabled = modifier === 'user' ? disabled : true;
   const textarea = useRef<HTMLTextAreaElement>(null);
 
@@ -44,13 +44,14 @@ export function Textarea({
       })();
 
       const maxHeightNumber = Number(String(maxHeight).split(unit)[0]);
-      maxHeight = maxHeight === 'auto'
-        ? Infinity
-        : {
-          px: maxHeightNumber,
-          em: maxHeightNumber * 14, // font-size: 14px
-          rem: maxHeightNumber * 16,
-        }[unit];
+      maxHeight =
+        maxHeight === 'auto'
+          ? Infinity
+          : {
+              px: maxHeightNumber,
+              em: maxHeightNumber * 14, // font-size: 14px
+              rem: maxHeightNumber * 16,
+            }[unit];
 
       if (textarea.current.scrollHeight <= maxHeight) {
         textarea.current.style.overflowY = 'scroll';
@@ -62,28 +63,29 @@ export function Textarea({
         textarea.current.style.height = `${maxHeight}px`;
       }
     }
-
   }, [maxHeight, inputValue]);
 
-  return <textarea
-    ref={textarea}
-    className={cleanClassName(
-      `${scss.textarea}
+  return (
+    <textarea
+      ref={textarea}
+      className={cleanClassName(
+        `${scss.textarea}
         ${scss[theme]} ${modifier && scss[modifier]}
         ${invalid && scss.invalid}
         ${inputValue && scss.filled}
-       `,
-    )}
-    style={{ width }}
-    placeholder={placeholder}
-    value={inputValue}
-    name={name}
-    id={id}
-    disabled={_disabled}
-    onChange={(e) => {
-      const { value } = e.target;
-      setInputValue(value);
-      onChange?.(value);
-    }}
-  />;
+       `
+      )}
+      style={{ width }}
+      placeholder={placeholder}
+      value={inputValue}
+      name={name}
+      id={id}
+      disabled={_disabled}
+      onChange={(e) => {
+        const { value } = e.target;
+        setInputValue?.(value);
+        onChange?.(value);
+      }}
+    />
+  );
 }

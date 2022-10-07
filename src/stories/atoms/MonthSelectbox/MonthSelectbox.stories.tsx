@@ -1,9 +1,9 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MonthSelectbox } from "./MonthSelectbox";
-import React from "react";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { MonthSelectbox } from './MonthSelectbox';
+import React from 'react';
 
 export default {
-  title: "atoms/MonthSelectbox",
+  title: 'atoms/MonthSelectbox',
   component: MonthSelectbox,
 } as ComponentMeta<typeof MonthSelectbox>;
 

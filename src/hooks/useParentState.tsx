@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 
-/**
- * param으로 전달 받은 값을 구독하여 상태를 업데이트 해줌
- */
+/**undefined을 제외한 값을 받으면 setter를 반환하지 않는다.*/
 export function useParentState<T>(value: T) {
-  const state = useState(value),
-    setValue = state[1];
-  useEffect(() => setValue(value), [value, setValue]);
-  return state;
+  const state = useState(value);
+  if (value !== undefined) return [value] as [Exclude<T, undefined>];
+  else return state;
 }
