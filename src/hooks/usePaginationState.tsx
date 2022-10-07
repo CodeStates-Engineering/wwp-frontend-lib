@@ -7,11 +7,11 @@ export interface PaginationState {
 export function usePaginationState(initialPage: number = 1, initialPageSize: number = 30) {
   const pageState = useState(initialPage),
     setPage = pageState[1];
-  const PageSizeState = useState(initialPageSize),
-    pageSize = PageSizeState[0];
+  const pageSizeState = useState(initialPageSize),
+    pageSize = pageSizeState[0];
   useEffect(() => setPage(initialPage), [pageSize, setPage, initialPage]);
   return {
     pageState,
-    PageSizeState,
+    pageSizeState,
   };
 }
