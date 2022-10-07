@@ -1,9 +1,12 @@
 import scss from './Pagination.module.scss';
 import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'react-feather';
+import type { PaginationState } from '@hooks';
+
 export interface PaginationProps {
   pageCount: number;
-  pageState: [number, (page: number) => void];
+  pageState: PaginationState['pageState'];
 }
+
 export function Pagination({ pageCount, pageState }: PaginationProps) {
   const [page, setPage] = pageState;
   const isFirstPage = page === 1;
