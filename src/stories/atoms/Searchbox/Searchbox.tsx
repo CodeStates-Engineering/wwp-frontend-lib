@@ -13,7 +13,9 @@ export interface SearchboxProps<T extends OptionHint> {
   /**options을 제공하지 않는 경우 value는 입력값입니다.*/
   value?: T extends PairOption<infer U> ? PairOption<U>['value'] : T;
   /**options을 제공하지 않는 경우 onChange는 입력값을 받습니다.*/
-  onChange?: (value?: T extends PairOption<infer U> ? PairOption<U>['value'] : T) => void;
+  onChange?: (
+    value: T extends PairOption<infer U> ? PairOption<U>['value'] | undefined : T
+  ) => void;
   /**
    * @type {string[]} - options props의 label과 value는 같은 값을 가진다.
    * @type {PairOption<T>[]} - onChange prop은 options prop 선택값의 value를 받고 value prop은 선택한 options prop의 value이다.
@@ -51,6 +53,7 @@ export function Searchbox<T extends OptionHint>({
       ) ?? [],
     [originalOptions]
   );
+  const isOptionsExist = 0 < options.length;
   const [searchValue, setSearchValue] = useDepsState(() => {
     if (options.length === 0 && typeof value === 'string') {
       return {
@@ -117,8 +120,10 @@ export function Searchbox<T extends OptionHint>({
               onChange={(e) => {
                 const inputValue = e.target.value;
                 setSearchValue({ ...searchValue, inputValue });
-                onChange?.(inputValue as T extends PairOption<infer U> ? U : T);
-                if (!inputValue) onChange?.(undefined);
+                type OnChangeParam = T extends PairOption<infer U> ? U | undefined : T;
+                isOptionsExist
+                  ? !inputValue && onChange?.(undefined as OnChangeParam)
+                  : onChange?.(inputValue as OnChangeParam);
               }}
               {...preventCloseProps}
               placeholder={placeholder}
@@ -144,7 +149,7 @@ export function Searchbox<T extends OptionHint>({
                       inputValue: option.label,
                       selectedOption: option,
                     });
-                    onChange?.(option.value);
+                    isOptionsExist && onChange?.(option.value);
                     setOptionsOpened(false);
                   }}
                 >
