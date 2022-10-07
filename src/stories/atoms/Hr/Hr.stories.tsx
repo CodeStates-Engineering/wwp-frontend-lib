@@ -1,8 +1,8 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Hr } from "./Hr";
-
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Hr } from './Hr';
+import React from 'react';
 export default {
-  title: "atoms/Hr",
+  title: 'atoms/Hr',
   component: Hr,
 } as ComponentMeta<typeof Hr>;
 
@@ -13,11 +13,11 @@ Default.decorators = [
   (Story) => (
     <div
       style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Story />

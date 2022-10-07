@@ -1,19 +1,17 @@
-import { cleanClassName } from "@utils";
-import scss from "./Hr.module.scss";
+import { cleanClassName } from '@utils';
+import scss from './Hr.module.scss';
 
 export interface HrProps {
-  className?: string;
-  type?: "dotted" | "solid" | "dashed";
-  color?: "gray300";
+  type?: 'dotted' | 'solid' | 'dashed';
+  color?: 'gray300';
+  margin?: React.CSSProperties['width'];
 }
-export function Hr(props: HrProps) {
-  const { className, type, color } = props;
+export function Hr({ type, color, margin }: HrProps) {
   return (
     <hr
+      style={{ margin }}
       className={cleanClassName(
-        `${scss.hr} ${scss[`type-${type ?? "solid"}`]} ${
-          scss[`color-${color ?? "gray300"}`]
-        } ${className}`
+        `${scss.hr} ${scss[`type-${type ?? 'solid'}`]} ${scss[`color-${color ?? 'gray300'}`]}`
       )}
     />
   );
