@@ -1,9 +1,9 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { DateSelectbox } from "./DateSelectbox";
-import React from "react";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { DateSelectbox, DateSelectboxProps } from './DateSelectbox';
+import React from 'react';
 
 export default {
-  title: "atoms/DateSelectbox",
+  title: 'atoms/DateSelectbox',
   component: DateSelectbox,
 } as ComponentMeta<typeof DateSelectbox>;
 
@@ -11,6 +11,9 @@ const DateSelectboxStory: ComponentStory<typeof DateSelectbox> = (args) => {
   return <DateSelectbox {...args} />;
 };
 export const Default = DateSelectboxStory.bind({});
-Default.args = {
-  openDirection: ["down", "left"],
+
+const defaultArgs: DateSelectboxProps<'date-range'> = {
+  openDirection: ['down', 'left'],
+  type: 'date-range',
 };
+Default.args = defaultArgs;

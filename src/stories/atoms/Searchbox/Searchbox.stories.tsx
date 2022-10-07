@@ -14,7 +14,6 @@ const SearchboxStory: ComponentStory<typeof Searchbox> = (args: SearchboxProps<a
 
 export const Default = SearchboxStory.bind({});
 Default.args = {
-  value: '1',
   openDirection: ['down', 'left'],
   options: [
     {

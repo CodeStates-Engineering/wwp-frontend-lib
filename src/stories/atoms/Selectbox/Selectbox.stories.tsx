@@ -1,21 +1,21 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { OptionHint, Selectbox } from "./Selectbox";
-import type { SelectboxProps } from "./Selectbox";
-import React from "react";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { OptionHint, Selectbox } from './Selectbox';
+import type { SelectboxProps } from './Selectbox';
+import React from 'react';
 export default {
-  title: "atoms/Selectbox",
+  title: 'atoms/Selectbox',
   component: Selectbox,
 } as ComponentMeta<typeof Selectbox>;
 
-const SelectboxStory: ComponentStory<typeof Selectbox> = (
-  args: SelectboxProps<any>
-) => <Selectbox {...args} />;
+const SelectboxStory: ComponentStory<typeof Selectbox> = (args: SelectboxProps<any>) => (
+  <Selectbox {...args} />
+);
 
 export const StringOptions = SelectboxStory.bind({});
 const stringOptions: string[] = [];
 for (let i = 1; i <= 20; i++) stringOptions.push(`Selectbox Option ${i}`);
 StringOptions.args = {
-  placeholder: "Selectbox Placeholder",
+  placeholder: 'Selectbox Placeholder',
   options: stringOptions,
 };
 
@@ -29,7 +29,7 @@ for (let i = 1; i <= 20; i++) {
 }
 
 ObjectOptions.args = {
-  placeholder: "Selectbox Placeholder",
+  placeholder: 'Selectbox Placeholder',
   optionsIncludePlaceholder: true,
   options: objectOptions,
 };

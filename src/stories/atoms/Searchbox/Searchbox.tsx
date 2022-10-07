@@ -1,4 +1,4 @@
-import { useOpenedStateWithCloseExternalClick, useDepsState } from '@hooks';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '@hooks';
 
 import scss from './Searchbox.module.scss';
 import { Check, Search } from 'react-feather';
@@ -54,24 +54,29 @@ export function Searchbox<T extends OptionHint>({
     [originalOptions]
   );
   const isOptionsExist = 0 < options.length;
-  const [searchValue, setSearchValue] = useDepsState(() => {
-    if (options.length === 0 && typeof value === 'string') {
-      return {
-        inputValue: value,
-        selectedOption: {
-          label: value,
-          value,
-        },
-      };
-    }
-    const selectedOption = options.find((option) => option.value === value);
+  const [searchValue, setSearchValue] = useParentState(
+      (() => {
+        if (!value) return;
+        if (options.length === 0 && typeof value === 'string') {
+          return {
+            inputValue: value,
+            selectedOption: {
+              label: value,
+              value,
+            },
+          };
+        }
+        const selectedOption = options.find((option) => option.value === value);
 
-    return {
-      inputValue: selectedOption?.label ?? '',
-      selectedOption,
-    };
-  }, [options, value]);
-  const { inputValue, selectedOption } = searchValue;
+        return {
+          inputValue: selectedOption?.label ?? '',
+          selectedOption,
+        };
+      })()
+    ),
+    _searchValue = searchValue ?? { inputValue: '', selectedOption: undefined };
+
+  const { inputValue, selectedOption } = _searchValue;
   const isFilled = inputValue && inputValue === selectedOption?.label;
 
   const {
@@ -119,7 +124,7 @@ export function Searchbox<T extends OptionHint>({
               value={inputValue}
               onChange={(e) => {
                 const inputValue = e.target.value;
-                setSearchValue({ ...searchValue, inputValue });
+                setSearchValue?.({ ..._searchValue, inputValue });
                 type OnChangeParam = T extends PairOption<infer U> ? U | undefined : T;
                 isOptionsExist
                   ? !inputValue && onChange?.(undefined as OnChangeParam)
@@ -145,7 +150,7 @@ export function Searchbox<T extends OptionHint>({
                 <button
                   className={scss.item_button}
                   onClick={() => {
-                    setSearchValue({
+                    setSearchValue?.({
                       inputValue: option.label,
                       selectedOption: option,
                     });
