@@ -1,5 +1,5 @@
-import scss from "./Table.module.scss";
-import { Copy, Clipboard } from "react-feather";
+import scss from './Table.module.scss';
+import { Copy, Clipboard } from 'react-feather';
 import {
   useState,
   Children,
@@ -8,62 +8,46 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-} from "react";
-import { cleanClassName } from "@utils";
-import { copyText } from "@utils";
-import { ReactComponent as Logo } from "../../../assets/wewin_logo.svg";
-import { Loading } from "../../atoms";
+} from 'react';
+import { cleanClassName } from '@utils';
+import { copyText } from '@utils';
+import { ReactComponent as Logo } from '../../../assets/wewin_logo.svg';
+import { Loading } from '../../atoms';
 
-type Deployment = "start" | "center" | "end";
+type Deployment = 'start' | 'center' | 'end';
 interface FlexContainerProps {
   align?: Deployment;
   justify?: Deployment;
 }
 
-const RowExistedSetterContext = createContext<
-  Dispatch<SetStateAction<boolean>>
->(() => {});
+const RowExistedSetterContext = createContext<Dispatch<SetStateAction<boolean>>>(() => {});
 
 export interface TableContainerProps {
   dataExisted?: boolean;
   loading?: boolean;
   invalid?: boolean;
-  maxWidth?: React.CSSProperties["maxWidth"];
   children?: React.ReactNode;
 }
-function Container({
-  children,
-  loading,
-  invalid = true,
-  maxWidth = "100%",
-}: TableContainerProps) {
+function Container({ children, loading, invalid = false }: TableContainerProps) {
   const [rowExisted, setRowExisted] = useState(true);
   return (
     <RowExistedSetterContext.Provider value={setRowExisted}>
       {loading ? (
-        <section
-          className={cleanClassName(
-            `${scss.no_row_container} ${invalid && scss.invalid}`
-          )}
-        >
+        <section className={cleanClassName(`${scss.no_row_container} ${invalid && scss.invalid}`)}>
           <Loading />
         </section>
       ) : (
         <>
           <table
             className={cleanClassName(
-              `${scss.table_container} ${invalid && scss.invalid} ${
-                !rowExisted && scss.hidden
-              }`
+              `${scss.table_container} ${invalid && scss.invalid} ${!rowExisted && scss.hidden}`
             )}
           >
             {children}
           </table>
           <section
             className={cleanClassName(
-              `${scss.no_row_container} ${invalid && scss.invalid} ${
-                rowExisted && scss.hidden
-              }`
+              `${scss.no_row_container} ${invalid && scss.invalid} ${rowExisted && scss.hidden}`
             )}
           >
             <Logo />
@@ -92,17 +76,13 @@ function Row({ children }: TableRowProps) {
 export interface TableTitleProps extends FlexContainerProps {
   children?: React.ReactNode;
 }
-function Title({
-  children,
-  justify = "center",
-  align = "center",
-}: TableTitleProps) {
+function Title({ children, justify = 'center', align = 'center' }: TableTitleProps) {
   return (
     <th className={scss.table_row_item}>
       <div
-        className={`${scss.table_title_contents} ${
-          scss["justify_" + justify]
-        } ${scss["align_" + align]}`}
+        className={`${scss.table_title_contents} ${scss['justify_' + justify]} ${
+          scss['align_' + align]
+        }`}
       >
         {children}
       </div>
@@ -152,24 +132,18 @@ function CopyButton(props: CopyButtonProps) {
 }
 
 interface DataItemProps extends CopyButtonProps {
-  hoverDirection?: "left" | "right";
+  hoverDirection?: 'left' | 'right';
   hoverHighlight?: boolean;
 }
-function DataItem({
-  hoverDirection,
-  hoverHighlight = true,
-  ...copyButtonProps
-}: DataItemProps) {
+function DataItem({ hoverDirection, hoverHighlight = true, ...copyButtonProps }: DataItemProps) {
   const { children, copyable, visible } = copyButtonProps;
   if (!children) return <></>;
   return (
     <div
       className={cleanClassName(
-        `${scss.table_data_contents} ${
-          hoverDirection === "left" ? scss.left : scss.right
-        } ${visible ? scss.front : scss.back} ${
-          visible && hoverHighlight && scss.hover_highlight
-        } ${copyable && scss.copyable}`
+        `${scss.table_data_contents} ${hoverDirection === 'left' ? scss.left : scss.right} ${
+          visible ? scss.front : scss.back
+        } ${visible && hoverHighlight && scss.hover_highlight} ${copyable && scss.copyable}`
       )}
     >
       {children}
@@ -178,28 +152,24 @@ function DataItem({
   );
 }
 
-export type TableDataProps = Omit<DataItemProps, "visible"> &
+export type TableDataProps = Omit<DataItemProps, 'visible'> &
   FlexContainerProps & {
     resizable?: boolean;
   };
 function Data({
   resizable,
-  align = "center",
-  justify = "center",
+  align = 'center',
+  justify = 'center',
   ...dataItemProps
 }: TableDataProps) {
   const { children } = dataItemProps;
   return (
     <td
       className={cleanClassName(
-        `${scss.table_row_item} ${scss.table_data} ${
-          resizable && scss.resizable
-        }`
+        `${scss.table_row_item} ${scss.table_data} ${resizable && scss.resizable}`
       )}
     >
-      <div
-        className={`${scss["align_" + align]} ${scss["justify_" + justify]}`}
-      >
+      <div className={`${scss['align_' + align]} ${scss['justify_' + justify]}`}>
         {children && (
           <section className={scss.table_data_contents_container}>
             <DataItem {...dataItemProps} visible={true} />

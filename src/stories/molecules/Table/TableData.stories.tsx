@@ -7,23 +7,23 @@ export default {
   component: Table.Data,
 } as ComponentMeta<typeof Table.Data>;
 
-const TableDataStory: ComponentStory<typeof Table.Data> = (args) => (
-  <Table.Data {...args} />
-);
+const TableDataStory: ComponentStory<typeof Table.Data> = (args) => <Table.Data {...args} />;
 
 function TableCommonDecorators({ children }: { children?: React.ReactNode }) {
   return (
-    <Table.Container>
-      <Table.Head>
-        <Table.Row>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>{children}</Table.Body>
-    </Table.Container>
+    <div style={{ width: '1000px' }}>
+      <Table.Container>
+        <Table.Head>
+          <Table.Row>
+            <Table.Title>title</Table.Title>
+            <Table.Title>title</Table.Title>
+            <Table.Title>title</Table.Title>
+            <Table.Title>title</Table.Title>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>{children}</Table.Body>
+      </Table.Container>
+    </div>
   );
 }
 
@@ -138,15 +138,14 @@ Default.decorators = [
           <Story />
           <Story />
           <Story />
-        </Table.Row>,
+        </Table.Row>
       );
     }
     return <TableCommonDecorators>{RowList}</TableCommonDecorators>;
   },
 ];
 Default.args = {
-  children:
-    '이것은 긴 텍스트를 내용의 적용된 모습을 보기위한 dummy-data 입니다.',
+  children: '이것은 긴 텍스트를 내용의 적용된 모습을 보기위한 dummy-data 입니다.',
   resizable: true,
 };
 
