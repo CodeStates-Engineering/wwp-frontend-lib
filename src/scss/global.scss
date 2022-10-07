@@ -17,20 +17,11 @@ code {
     monospace;
 }
 
-/* Reset CSS */
-
-/* Document */
-
-.row-center {
-  display: block;
-  margin: 0 auto;
-}
-
-.heading {
-  height: 80px;
-  line-height: 80px;
-  font-size: 26px;
-  font-weight: 700;
+#root {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 *,
