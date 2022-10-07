@@ -1,26 +1,19 @@
-import {
-  useOpenedStateWithCloseExternalClick,
-  useDepsState,
-  useDebouncedValue,
-  useDebouncedFunction,
-} from "@hooks";
+import { useOpenedStateWithCloseExternalClick, useDepsState } from '@hooks';
 
-import scss from "./Searchbox.module.scss";
-import { Check, Search } from "react-feather";
-import { cleanClassName } from "@utils";
-import { useMemo } from "react";
+import scss from './Searchbox.module.scss';
+import { Check, Search } from 'react-feather';
+import { cleanClassName } from '@utils';
+import { useMemo } from 'react';
 
-import type { PairOption, OptionHint } from "../Selectbox/Selectbox";
+import type { PairOption, OptionHint } from '../Selectbox/Selectbox';
 
 type StandardizeString = (inputText: string) => string;
 
 export interface SearchboxProps<T extends OptionHint> {
   /**options을 제공하지 않는 경우 value는 입력값입니다.*/
-  value?: T extends PairOption<infer U> ? PairOption<U>["value"] : T;
+  value?: T extends PairOption<infer U> ? PairOption<U>['value'] : T;
   /**options을 제공하지 않는 경우 onChange는 입력값을 받습니다.*/
-  onChange?: (
-    value?: T extends PairOption<infer U> ? PairOption<U>["value"] : T
-  ) => void;
+  onChange?: (value?: T extends PairOption<infer U> ? PairOption<U>['value'] : T) => void;
   /**
    * @type {string[]} - options props의 label과 value는 같은 값을 가진다.
    * @type {PairOption<T>[]} - onChange prop은 options prop 선택값의 value를 받고 value prop은 선택한 options prop의 value이다.
@@ -30,36 +23,36 @@ export interface SearchboxProps<T extends OptionHint> {
   placeholder?: string;
   onlyPerfectMatch?: boolean;
   name?: string;
-  openDirection?: ["up" | "down", "left" | "right"];
+  openDirection?: ['up' | 'down', 'left' | 'right'];
   id?: string;
   disabled?: boolean;
   invalid?: boolean;
-  theme?: "linear" | "box";
-  modifier?: "system" | "readonly" | "user";
-  width?: React.CSSProperties["width"];
+  theme?: 'linear' | 'box';
+  modifier?: 'system' | 'readonly' | 'user';
+  width?: React.CSSProperties['width'];
 }
 
 export function Searchbox<T extends OptionHint>({
   onChange,
-  placeholder = "검색어를 입력하세요",
+  placeholder = '검색어를 입력하세요',
   value,
-  openDirection: [upDown, leftRight] = ["down", "left"],
+  openDirection: [upDown, leftRight] = ['down', 'left'],
   options: originalOptions,
-  theme = "box",
-  modifier = "user",
-  width = "246px",
+  theme = 'box',
+  modifier = 'user',
+  width = '246px',
   ...restProps
 }: SearchboxProps<T>) {
-  const disabled = modifier === "user" ? restProps.disabled : true;
+  const disabled = modifier === 'user' ? restProps.disabled : true;
   const options = useMemo(
     () =>
       originalOptions?.map((option) =>
-        typeof option === "string" ? { label: option, value: option } : option
+        typeof option === 'string' ? { label: option, value: option } : option
       ) ?? [],
     [originalOptions]
   );
   const [searchValue, setSearchValue] = useDepsState(() => {
-    if (options.length === 0 && typeof value === "string") {
+    if (options.length === 0 && typeof value === 'string') {
       return {
         inputValue: value,
         selectedOption: {
@@ -71,7 +64,7 @@ export function Searchbox<T extends OptionHint>({
     const selectedOption = options.find((option) => option.value === value);
 
     return {
-      inputValue: selectedOption?.label ?? "",
+      inputValue: selectedOption?.label ?? '',
       selectedOption,
     };
   }, [options, value]);
@@ -83,14 +76,13 @@ export function Searchbox<T extends OptionHint>({
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
 
-  const filteredOptions = useDebouncedValue(() => {
+  const filteredOptions = useMemo(() => {
     if (!options) return [];
     if (restProps.optionsFixed) return options;
 
     const standardizeString: StandardizeString = restProps.onlyPerfectMatch
       ? (inputValue) => inputValue
-      : (inputValue) =>
-          inputValue.toLowerCase().replace(/[^a-z0-9가-힣]/gi, "");
+      : (inputValue) => inputValue.toLowerCase().replace(/[^a-z0-9가-힣]/gi, '');
 
     const standardizedInputText = standardizeString(inputValue);
 
@@ -107,20 +99,16 @@ export function Searchbox<T extends OptionHint>({
     return options;
   }, [inputValue, options]);
 
-  const onChangeInputValue = useDebouncedFunction(
-    options.length === 0 && onChange ? onChange : () => {}
-  );
-
   return (
     <>
       <div className={`${scss.searchbox_wrap}`} style={{ width }}>
         <div
           className={cleanClassName(
-            `${scss.searchbox} ${scss[theme]} ${
-              optionsOpened && scss.searching
-            } ${disabled && scss.disabled} ${modifier && scss[modifier]} ${
-              restProps.invalid && scss.invalid
-            } ${isFilled && scss.filled} `
+            `${scss.searchbox} ${scss[theme]} ${optionsOpened && scss.searching} ${
+              disabled && scss.disabled
+            } ${modifier && scss[modifier]} ${restProps.invalid && scss.invalid} ${
+              isFilled && scss.filled
+            } `
           )}
         >
           <div className={scss.input_wrap}>
@@ -129,9 +117,7 @@ export function Searchbox<T extends OptionHint>({
               onChange={(e) => {
                 const inputValue = e.target.value;
                 setSearchValue({ ...searchValue, inputValue });
-                onChangeInputValue(
-                  inputValue as T extends PairOption<infer U> ? U : T
-                );
+                onChange?.(inputValue as T extends PairOption<infer U> ? U : T);
                 if (!inputValue) onChange?.(undefined);
               }}
               {...preventCloseProps}
