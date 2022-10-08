@@ -1,8 +1,8 @@
-import scss from "./Selectbox.module.scss";
-import { Check, ChevronUp, ChevronDown } from "react-feather";
-import { useOpenedStateWithCloseExternalClick, useDepsState } from "@hooks";
-import { cleanClassName } from "@utils";
-import { useMemo } from "react";
+import scss from './Selectbox.module.scss';
+import { Check, ChevronUp, ChevronDown } from 'react-feather';
+import { useOpenedStateWithCloseExternalClick, useDepsState, useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
+import { useMemo } from 'react';
 
 export interface PairOption<T> {
   label: string;
@@ -12,45 +12,43 @@ export interface PairOption<T> {
 export type OptionHint = string | PairOption<any>;
 
 export interface SelectboxProps<T extends OptionHint> {
-  value?: T extends PairOption<infer U> ? PairOption<U>["value"] : T;
-  onChange?: (
-    value: T extends PairOption<infer U> ? PairOption<U>["value"] : T
-  ) => void;
+  value?: T extends PairOption<infer U> ? PairOption<U>['value'] : T;
+  onChange?: (value: T extends PairOption<infer U> ? PairOption<U>['value'] : T) => void;
   options?: T extends PairOption<infer U> ? PairOption<U>[] : T[];
-  openDirection?: ["up" | "down", "left" | "right"];
+  openDirection?: ['up' | 'down', 'left' | 'right'];
   placeholder?: string;
   optionsIncludePlaceholder?: boolean;
   name?: string;
   id?: string;
   disabled?: boolean;
   invalid?: boolean;
-  width?: React.CSSProperties["width"];
-  theme?: "linear" | "box";
-  modifier?: "system" | "readonly" | "user";
+  width?: React.CSSProperties['width'];
+  theme?: 'linear' | 'box';
+  modifier?: 'system' | 'readonly' | 'user';
+  valueSync?: boolean;
 }
 
 export function Selectbox<T extends OptionHint>({
-  placeholder = "",
+  placeholder = '',
   onChange,
   id,
   invalid,
   name,
-  openDirection: [upDown, leftRight] = ["down", "left"],
+  openDirection: [upDown, leftRight] = ['down', 'left'],
   value,
-  width = "246px",
-  modifier = "user",
+  width = '246px',
+  modifier = 'user',
   options,
-  theme = "box",
+  theme = 'box',
   optionsIncludePlaceholder = false,
   disabled,
+  valueSync,
 }: SelectboxProps<T>) {
   const _options = useMemo(() => {
     if (!options) return [];
-    const initOptions = optionsIncludePlaceholder
-      ? [{ label: placeholder, value: null }]
-      : [];
+    const initOptions = optionsIncludePlaceholder ? [{ label: placeholder, value: null }] : [];
     const objectOptions = options.map((option) =>
-      typeof option === "string" ? { label: option, value: option } : option
+      typeof option === 'string' ? { label: option, value: option } : option
     );
     return [...initOptions, ...objectOptions];
   }, [options, optionsIncludePlaceholder, placeholder]);
@@ -60,15 +58,13 @@ export function Selectbox<T extends OptionHint>({
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
 
-  const [selectedValue, setSelectedValue] = useDepsState(() => value, [value]);
+  const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync);
 
-  const selectedLabel = _options.find(
-    ({ value }) => value === selectedValue
-  )?.label;
+  const selectedLabel = _options.find(({ value }) => value === selectedValue)?.label;
 
   const isFilled = selectedLabel !== undefined && selectedValue !== null;
 
-  const _disabled = modifier === "user" ? disabled : true;
+  const _disabled = modifier === 'user' ? disabled : true;
 
   return (
     <div className={scss.selectbox_wrap} style={{ width }}>
@@ -76,26 +72,21 @@ export function Selectbox<T extends OptionHint>({
         name={name}
         id={id}
         className={cleanClassName(
-          `${scss.selectbox} ${invalid && scss.invalid} ${
-            isFilled && scss.filled
-          } ${optionsOpened && scss.opened} ${scss[theme]} ${scss[modifier]}`
+          `${scss.selectbox} ${invalid && scss.invalid} ${isFilled && scss.filled} ${
+            optionsOpened && scss.opened
+          } ${scss[theme]} ${scss[modifier]}`
         )}
         onClick={() => setOptionsOpened(!optionsOpened)}
         type="button"
         disabled={_disabled}
         {...preventCloseProps}
       >
-        <div className={scss.selectbox_value}>
-          {isFilled ? selectedLabel : placeholder}
-        </div>
-        {modifier !== "readonly" &&
-          (upDown === "down" ? <ChevronDown /> : <ChevronUp />)}
+        <div className={scss.selectbox_value}>{isFilled ? selectedLabel : placeholder}</div>
+        {modifier !== 'readonly' && (upDown === 'down' ? <ChevronDown /> : <ChevronUp />)}
       </button>
       <ul
         className={cleanClassName(
-          `${scss.options} ${!optionsOpened && scss.hidden} ${scss[upDown]} ${
-            scss[leftRight]
-          }`
+          `${scss.options} ${!optionsOpened && scss.hidden} ${scss[upDown]} ${scss[leftRight]}`
         )}
         {...preventCloseProps}
       >
@@ -107,7 +98,7 @@ export function Selectbox<T extends OptionHint>({
                 className={scss.item_button}
                 onClick={() => {
                   if (value !== selectedValue) {
-                    setSelectedValue(value);
+                    setSelectedValue?.(value);
                     onChange?.(value);
                   }
                   setOptionsOpened(false);

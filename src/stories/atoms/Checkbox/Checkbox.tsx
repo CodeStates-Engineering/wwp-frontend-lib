@@ -1,38 +1,23 @@
-import scss from "./Checkbox.module.scss";
-import { Check, Minus, X } from "react-feather";
-import { useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
+import scss from './Checkbox.module.scss';
+import { Check, Minus, X } from 'react-feather';
+import { useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
 
 export interface CheckboxProps {
   className?: string;
-  value?: boolean | "half";
+  value?: boolean | null;
   onChange?: (checked: boolean) => void;
   name?: string;
   disabled?: boolean;
   id?: string;
+  valueSync?: boolean;
 }
 
-export function Checkbox({
-  value = false,
-  onChange,
-  className,
-  name,
-  disabled,
-}: CheckboxProps) {
-  const [checkedValue, setCheckedValue] = useParentState(value);
-
-  const isCheckedHalf = checkedValue === "half";
-
+export function Checkbox({ value, onChange, className, name, disabled, valueSync }: CheckboxProps) {
+  const [checkedValue, setCheckedValue] = useParentState(() => value, [value], valueSync);
+  const isIndeterminate = checkedValue === null;
   const CheckboxIcon = () =>
-    isCheckedHalf ? (
-      <Minus />
-    ) : checkedValue ? (
-      <Check />
-    ) : disabled ? (
-      <X />
-    ) : (
-      <></>
-    );
+    isIndeterminate ? <Minus /> : checkedValue ? <Check /> : disabled ? <X /> : <></>;
 
   return (
     <div
@@ -40,8 +25,8 @@ export function Checkbox({
         `${scss.checkbox_container} ${
           disabled
             ? scss.disabled
-            : isCheckedHalf
-            ? scss.half
+            : isIndeterminate
+            ? scss.indeterminate
             : checkedValue && scss.checked
         } ${className}`
       )}
@@ -51,14 +36,12 @@ export function Checkbox({
       </div>
       <input
         type="checkbox"
-        className={cleanClassName(
-          `${scss.checkbox} ${disabled && scss.disabled}`
-        )}
+        className={cleanClassName(`${scss.checkbox} ${disabled && scss.disabled}`)}
         name={name}
-        checked={!!checkedValue}
+        checked={checkedValue === null ? true : !!checkedValue}
         disabled={disabled}
         onChange={({ target: { checked } }) => {
-          setCheckedValue(checked);
+          setCheckedValue?.(checked);
           onChange?.(checked);
         }}
       />

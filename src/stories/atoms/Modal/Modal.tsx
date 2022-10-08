@@ -1,9 +1,9 @@
-import scss from "./Modal.module.scss";
-import { X } from "react-feather";
-import { useParentState } from "@hooks";
-import { cleanClassName } from "@utils";
-import { Button, ButtonProps } from "../Button/Button";
-import { useState } from "react";
+import scss from './Modal.module.scss';
+import { X } from 'react-feather';
+import { useParentState } from '@hooks';
+import { cleanClassName } from '@utils';
+import { Button, ButtonProps } from '../Button/Button';
+import { useState } from 'react';
 
 export interface ModalProps {
   children?: React.ReactNode;
@@ -12,33 +12,35 @@ export interface ModalProps {
   closeButton?: boolean;
   title?: React.ReactNode;
   subText?: React.ReactNode;
-  modalType?: "left" | "center";
-  maxWidth?: React.CSSProperties["maxWidth"];
-  buttonsOptions?: (Omit<ButtonProps, "onClick"> & {
+  modalType?: 'left' | 'center';
+  maxWidth?: React.CSSProperties['maxWidth'];
+  buttonsOptions?: (Omit<ButtonProps, 'onClick'> & {
     onClick?: (closeModal: () => void) => void;
   })[];
   contour?: boolean;
+  valueSync?: boolean;
 }
 
 export function Modal({
   children,
-  opened = false,
+  opened,
   closeButton = true,
   onClose,
   title,
   subText,
-  modalType = "left",
-  maxWidth = "340px",
+  modalType = 'left',
+  maxWidth = '340px',
   contour = false,
   buttonsOptions,
+  valueSync,
 }: ModalProps) {
-  const [modalOpened, setModalOpened] = useParentState(opened),
+  const [modalOpened, setModalOpened] = useParentState(() => opened, [opened], valueSync),
     [modalClosing, setModalClosing] = useState(false),
     closeModal = () => {
       setModalClosing(true);
       setTimeout(() => {
         setModalClosing(false);
-        setModalOpened(false);
+        setModalOpened?.(false);
         onClose?.();
       }, 200);
     };
@@ -66,22 +68,16 @@ export function Modal({
   const modalBodyClassName = `${scss.modal_body} ${scss[modalType]}`;
 
   return (
-    <div
-      className={cleanClassName(
-        `${scss.modal_container} ${modalClosing && scss.closing}`
-      )}
-    >
+    <div className={cleanClassName(`${scss.modal_container} ${modalClosing && scss.closing}`)}>
       <div className={scss.background} onClick={closeModal} />
       <article className={scss.modal} style={{ maxWidth }}>
         {(() => {
           switch (modalType) {
-            case "left":
+            case 'left':
               return (
                 <>
                   <header
-                    className={cleanClassName(
-                      `${scss.modal_header} ${contour && scss.contour}`
-                    )}
+                    className={cleanClassName(`${scss.modal_header} ${contour && scss.contour}`)}
                   >
                     <TitleSection />
                     <CloseButton />
@@ -89,13 +85,11 @@ export function Modal({
                   <section className={modalBodyClassName}>{children}</section>
                 </>
               );
-            case "center":
+            case 'center':
               return (
                 <>
                   <header
-                    className={cleanClassName(
-                      `${scss.modal_header} ${contour && scss.contour}`
-                    )}
+                    className={cleanClassName(`${scss.modal_header} ${contour && scss.contour}`)}
                   >
                     <CloseButton />
                   </header>
@@ -111,12 +105,7 @@ export function Modal({
           <footer className={`${scss.modal_footer} ${contour && scss.contour}`}>
             {buttonsOptions.map((buttonOptions) => {
               const { onClick, ...buttonProps } = buttonOptions;
-              return (
-                <Button
-                  {...buttonProps}
-                  onClick={() => onClick?.(closeModal)}
-                />
-              );
+              return <Button {...buttonProps} onClick={() => onClick?.(closeModal)} />;
             })}
           </footer>
         )}

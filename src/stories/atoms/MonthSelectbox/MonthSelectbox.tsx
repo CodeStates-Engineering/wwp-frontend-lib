@@ -20,26 +20,13 @@ export interface MonthSelectboxProps {
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
   width?: React.CSSProperties['width'];
+  valueSync?: boolean;
 }
 
-const monthOptions = [
-  '01',
-  '02',
-  '03',
-  '04',
-  '05',
-  '06',
-  '07',
-  '08',
-  '09',
-  '10',
-  '11',
-  '12',
-];
+const monthOptions = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 const yearOptions: number[] = [];
-for (let startYear = 1980; startYear < 2100; startYear++)
-  yearOptions.push(startYear);
+for (let startYear = 1980; startYear < 2100; startYear++) yearOptions.push(startYear);
 
 const scrollToSelectedValue = (targetYear?: number) => {
   const HIDDEN_ELEMENT_HEIGHT = 12;
@@ -49,8 +36,7 @@ const scrollToSelectedValue = (targetYear?: number) => {
   const targetElement = document.getElementById(String(targetYear));
   setTimeout(() => {
     if (targetElement?.parentElement) {
-      targetElement.parentElement.scrollTop =
-        targetElement.offsetTop - HIDDEN_ELEMENT_HEIGHT;
+      targetElement.parentElement.scrollTop = targetElement.offsetTop - HIDDEN_ELEMENT_HEIGHT;
     }
   });
 };
@@ -67,16 +53,16 @@ export function MonthSelectbox({
   theme = 'box',
   modifier = 'user',
   width = '246px',
+  valueSync,
 }: MonthSelectboxProps) {
   const {
     openedState: [optionsOpened, setOptionsOpened],
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
-  const [selectedValue, setSelectedValue] = useParentState(value),
+  const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync),
     selectedYear = selectedValue?.year,
     selectedMonthNum = selectedValue?.month,
-    selectedMonthString =
-      selectedMonthNum !== undefined ? String(selectedMonthNum + 1) : undefined,
+    selectedMonthString = selectedMonthNum !== undefined ? String(selectedMonthNum + 1) : undefined,
     selectedMonth = selectedMonthString
       ? selectedMonthString.length === 1
         ? '0' + selectedMonthString
@@ -90,7 +76,7 @@ export function MonthSelectbox({
       className={cleanClassName(
         `
         ${scss.month_selectbox_wrap}
-        ${scss[theme]} ${modifier && scss[modifier]}`,
+        ${scss[theme]} ${modifier && scss[modifier]}`
       )}
       style={{ width }}
     >
@@ -103,7 +89,7 @@ export function MonthSelectbox({
           `${scss.month_selectbox} ${isFilled && scss.filled} 
           ${optionsOpened && scss.opened} 
           ${invalid && scss.invalid} 
-          ${scss[theme]} ${modifier && scss[modifier]}`,
+          ${scss[theme]} ${modifier && scss[modifier]}`
         )}
         style={{ width }}
         onClick={() => {
@@ -125,9 +111,7 @@ export function MonthSelectbox({
       </button>
       <div
         className={cleanClassName(
-          `${scss.options} ${!optionsOpened && scss.hidden} ${scss[upDown]} ${
-            scss[leftRight]
-          }`,
+          `${scss.options} ${!optionsOpened && scss.hidden} ${scss[upDown]} ${scss[leftRight]}`
         )}
         {...preventCloseProps}
       >
@@ -139,19 +123,14 @@ export function MonthSelectbox({
                 <li key={yearOption} id={String(yearOption)}>
                   <button
                     className={cleanClassName(
-                      `${scss.item_button} ${scss.month} ${
-                        isSelectedYear && scss.selected
-                      }`,
+                      `${scss.item_button} ${scss.month} ${isSelectedYear && scss.selected}`
                     )}
                     onClick={() => {
                       const year = !isSelectedYear ? yearOption : undefined;
                       const _selectedValue = { ...selectedValue, year };
-
-                      setSelectedValue(_selectedValue);
+                      setSelectedValue?.(_selectedValue);
                       onChange?.(_selectedValue);
-                      !isSelectedYear &&
-                      selectedMonth &&
-                      setOptionsOpened(false);
+                      !isSelectedYear && selectedMonth && setOptionsOpened(false);
                     }}
                     type="button"
                   >
@@ -169,21 +148,15 @@ export function MonthSelectbox({
                 <li key={monthOption}>
                   <button
                     className={cleanClassName(
-                      `${scss.item_button} ${scss.month} ${
-                        isSelectedMonth && scss.selected
-                      }`,
+                      `${scss.item_button} ${scss.month} ${isSelectedMonth && scss.selected}`
                     )}
                     onClick={() => {
-                      const month = !isSelectedMonth
-                        ? Number(monthOption) - 1
-                        : undefined;
+                      const month = !isSelectedMonth ? Number(monthOption) - 1 : undefined;
                       const _selectedValue = { ...selectedValue, month };
 
-                      setSelectedValue(_selectedValue);
+                      setSelectedValue?.(_selectedValue);
                       onChange?.(_selectedValue);
-                      !isSelectedMonth &&
-                      selectedYear &&
-                      setOptionsOpened(false);
+                      !isSelectedMonth && selectedYear && setOptionsOpened(false);
                     }}
                     type="button"
                   >

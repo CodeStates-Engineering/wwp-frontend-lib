@@ -15,10 +15,9 @@ export interface TextboxProps {
   disabled?: boolean;
   invalid?: boolean;
   id?: string;
-  className?: string;
   width?: React.CSSProperties['width'];
-
   onChange?: (value: string) => void;
+  valueSync?: boolean;
 }
 
 export function Textbox({
@@ -29,24 +28,25 @@ export function Textbox({
   type,
   onChange,
   name,
-  value = '',
+  value,
   invalid,
   theme = 'box',
   modifier = 'user',
   width = '246px',
+  valueSync,
 }: TextboxProps) {
-  const [inputValue, setInputValue] = useParentState(value);
+  const [inputValue, setInputValue] = useParentState(() => value, [value], valueSync);
   const _disabled = modifier === 'user' ? disabled : true;
   const isFilled = inputValue !== '';
 
   const conditionalProps = (() => {
     const createChangeEventHandler =
       (changeEventHandler: (value: string) => void) =>
-        (event: React.ChangeEvent<HTMLInputElement>) =>
-          changeEventHandler(event.target.value);
+      (event: React.ChangeEvent<HTMLInputElement>) =>
+        changeEventHandler(event.target.value);
 
     const handleCommonEvent = (value: string) => {
-      setInputValue(value);
+      setInputValue?.(value);
       onChange?.(value);
     };
 
@@ -55,17 +55,15 @@ export function Textbox({
         return {
           placeholder: placeholder ?? '00',
           value: inputValue,
-          onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value),
-          ),
+          onChange: createChangeEventHandler((value) => handleCommonEvent(value)),
         };
 
       case 'comma-separated-number':
         return {
           placeholder: placeholder ?? '000,000,000',
-          value: inputValue.replace(regex.addCommasToNumber, ','),
+          value: inputValue?.replace(regex.addCommasToNumber, ','),
           onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value.replace(regex.number, '')),
+            handleCommonEvent(value.replace(regex.number, ''))
           ),
         };
 
@@ -73,9 +71,7 @@ export function Textbox({
         return {
           placeholder: placeholder ?? '내용을 입력하세요.',
           value: inputValue,
-          onChange: createChangeEventHandler((value) =>
-            handleCommonEvent(value),
-          ),
+          onChange: createChangeEventHandler((value) => handleCommonEvent(value)),
         };
     }
   })();
@@ -98,17 +94,11 @@ export function Textbox({
         ${modifier && scss[modifier]}
         ${invalid && scss.invalid} 
         ${_disabled && scss.disabled} 
-        ${isFilled && scss.filled}`,
+        ${isFilled && scss.filled}`
       )}
       style={{ width }}
     >
-      <input
-        type={type}
-        {...conditionalProps}
-        disabled={_disabled}
-        id={id}
-        name={name}
-      />
+      <input type={type} {...conditionalProps} disabled={_disabled} id={id} name={name} />
       <Unit />
     </div>
   );

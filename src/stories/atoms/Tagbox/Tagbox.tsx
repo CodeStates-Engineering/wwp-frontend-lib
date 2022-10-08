@@ -1,8 +1,8 @@
-import scss from "./Tagbox.module.scss";
-import { Tag, X, Plus } from "react-feather";
-import { useEffect, useState, useRef } from "react";
-import { useDepsState, useOpenedStateWithCloseExternalClick } from "@hooks";
-import { cleanClassName } from "@utils";
+import scss from './Tagbox.module.scss';
+import { Tag, X, Plus } from 'react-feather';
+import { useEffect, useState, useRef } from 'react';
+import { useDepsState, useOpenedStateWithCloseExternalClick } from '@hooks';
+import { cleanClassName } from '@utils';
 
 export interface TagboxProps {
   value?: string[];
@@ -16,6 +16,11 @@ export interface TagboxProps {
   maxTagCount?: number;
   maxTextLength?: number;
 }
+
+/**
+ * @deprecated
+ * 로직 수정이 필요합니다.
+ */
 export function Tagbox({
   className,
   disabled,
@@ -29,12 +34,10 @@ export function Tagbox({
   invalid,
 }: TagboxProps) {
   const tagInputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [tagList, setTagList] = useDepsState(() => value ?? [], [value]),
     duplicated = tagList.includes(inputValue);
-  const isOverMaxTextLength = maxTextLength
-    ? maxTextLength < inputValue.length
-    : false;
+  const isOverMaxTextLength = maxTextLength ? maxTextLength < inputValue.length : false;
   const isOverMaxTagCount = maxTagCount ? maxTagCount <= tagList.length : false;
   const isDuplicated = !duplicationAllowed ? duplicated : false;
 
@@ -49,15 +52,14 @@ export function Tagbox({
     if (current && tagInputOpened) current.focus();
   }, [tagInputOpened]);
 
-  const isUnableAdd =
-    isOverMaxTagCount || isDuplicated || !inputValue || isOverMaxTextLength;
+  const isUnableAdd = isOverMaxTagCount || isDuplicated || !inputValue || isOverMaxTextLength;
 
   const addTag = () => {
     if (isUnableAdd) return;
     const addedTagList = [...tagList, inputValue];
     setTagList(addedTagList);
     onChange?.(addedTagList);
-    setInputValue("");
+    setInputValue('');
   };
 
   const removeTag = (index: number) => {
@@ -70,9 +72,9 @@ export function Tagbox({
       <div
         {...preventCloseProps}
         className={cleanClassName(
-          `${scss.tagbox} ${tagInputOpened && scss.opened} ${
-            invalid && scss.invalid
-          } ${disabled && scss.disabled} ${className}`
+          `${scss.tagbox} ${tagInputOpened && scss.opened} ${invalid && scss.invalid} ${
+            disabled && scss.disabled
+          } ${className}`
         )}
         onClick={() => {
           setTagInputOpened(!tagInputOpened);
@@ -110,9 +112,7 @@ export function Tagbox({
         >
           <div
             className={cleanClassName(
-              `${scss.input_container} ${scss.disabled_box_shadow} ${
-                disabled && scss.disabled
-              }`
+              `${scss.input_container} ${scss.disabled_box_shadow} ${disabled && scss.disabled}`
             )}
           >
             <input
@@ -122,7 +122,7 @@ export function Tagbox({
               ref={tagInputRef}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
+                if (e.key !== 'Enter') return;
                 e.preventDefault();
                 addTag();
               }}
@@ -139,17 +139,14 @@ export function Tagbox({
           </div>
           <p
             className={cleanClassName(
-              `${scss.prevent_message} ${
-                inputValue && isUnableAdd && scss.show
-              }`
+              `${scss.prevent_message} ${inputValue && isUnableAdd && scss.show}`
             )}
           >
             {isOverMaxTagCount
               ? `태그는 최대 ${maxTagCount}개까지 입력 가능합니다.`
               : isDuplicated
-              ? "이미 존재하는 태그입니다."
-              : isOverMaxTextLength &&
-                `${maxTextLength}자 이내로 입력해 주세요.`}
+              ? '이미 존재하는 태그입니다.'
+              : isOverMaxTextLength && `${maxTextLength}자 이내로 입력해 주세요.`}
           </p>
         </div>
       )}

@@ -47,7 +47,7 @@ type InputPropsHint =
   | DateSelectboxProps<'date' | 'date-range'>
   | TextareaProps
   | CheckboxProps
-  | RadioboxProps
+  | RadioboxProps<OptionHint>
   | SelectboxProps<OptionHint>
   | SearchboxProps<OptionHint>
   | FileUploadProps
@@ -154,7 +154,8 @@ export type ComplexDateSelectboxProps<T extends DateType = 'date'> = DateSelectb
   CommonProps<DateSelectboxProps<T>>;
 export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
-export type ComplexRadioboxProps = RadioboxProps & CommonProps<RadioboxProps>;
+export type ComplexRadioboxProps = RadioboxProps<OptionHint> &
+  CommonProps<RadioboxProps<OptionHint>>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
 
 export type ComplexTextareaProps = TextareaProps & CommonProps<TextareaProps>;
