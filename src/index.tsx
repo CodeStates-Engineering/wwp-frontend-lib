@@ -28,6 +28,7 @@ export {
   Tab,
   FileDownload,
   FileUpload,
+  Progress,
 } from './stories/atoms';
 export type {
   ButtonProps,
@@ -62,6 +63,7 @@ export type {
   TabProps,
   FileDownloadProps,
   FileUploadProps,
+  ProgressProps,
 } from './stories/atoms';
 
 export {
