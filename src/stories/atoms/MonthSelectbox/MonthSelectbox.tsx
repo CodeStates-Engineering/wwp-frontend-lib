@@ -20,6 +20,7 @@ export interface MonthSelectboxProps {
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
   width?: React.CSSProperties['width'];
+  valueSync?: boolean;
 }
 
 const monthOptions = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
@@ -52,12 +53,13 @@ export function MonthSelectbox({
   theme = 'box',
   modifier = 'user',
   width = '246px',
+  valueSync,
 }: MonthSelectboxProps) {
   const {
     openedState: [optionsOpened, setOptionsOpened],
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
-  const [selectedValue, setSelectedValue] = useParentState(value),
+  const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync),
     selectedYear = selectedValue?.year,
     selectedMonthNum = selectedValue?.month,
     selectedMonthString = selectedMonthNum !== undefined ? String(selectedMonthNum + 1) : undefined,

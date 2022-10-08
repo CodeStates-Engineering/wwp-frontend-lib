@@ -10,10 +10,11 @@ export interface CheckboxProps {
   name?: string;
   disabled?: boolean;
   id?: string;
+  valueSync?: boolean;
 }
 
-export function Checkbox({ value, onChange, className, name, disabled }: CheckboxProps) {
-  const [checkedValue, setCheckedValue] = useParentState(value);
+export function Checkbox({ value, onChange, className, name, disabled, valueSync }: CheckboxProps) {
+  const [checkedValue, setCheckedValue] = useParentState(() => value, [value], valueSync);
   const isIndeterminate = checkedValue === null;
   const CheckboxIcon = () =>
     isIndeterminate ? <Minus /> : checkedValue ? <Check /> : disabled ? <X /> : <></>;

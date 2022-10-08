@@ -32,7 +32,7 @@ export function ModalOpener<T extends ModalOpenerType = 'button'>({
   modalOptions,
 }: ModalOpenerProps<T>) {
   const { opened, onClose, ...restModalOptions } = modalOptions ?? {},
-    [modalOpened, setModalOpend] = useParentState(opened);
+    [modalOpened, setModalOpend] = useParentState(() => opened, [opened], modalOptions?.valueSync);
 
   const { onClick, ...restOpenerOptions } = openerOptions ?? {};
 

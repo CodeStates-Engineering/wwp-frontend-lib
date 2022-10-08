@@ -28,9 +28,10 @@ export interface DateSelectboxProps<T extends DateType> {
   theme?: 'box' | 'linear';
   modifier?: 'system' | 'readonly' | 'user';
   invalid?: boolean;
+  valueSync?: boolean;
 }
 
-export function DateSelectbox<T extends DateType>({
+export function DateSelectbox<T extends DateType, U extends Object = Object>({
   type = 'date' as T,
   value,
   onChange,
@@ -44,13 +45,13 @@ export function DateSelectbox<T extends DateType>({
   theme = 'box',
   modifier = 'user',
   invalid,
+  valueSync,
 }: DateSelectboxProps<T>) {
   const isDate = type === 'date';
-
   const _disabled = modifier === 'user' ? disabled : true;
+
   const [selectedPeriod, setSelectedPeriod] = useParentState<Period | undefined>(
-    (() => {
-      if (!value) return;
+    () => {
       if (isDate)
         return {
           from: value as DateSelectboxProps<'date'>['value'],
@@ -62,7 +63,9 @@ export function DateSelectbox<T extends DateType>({
           to: _value?.to,
         };
       }
-    })()
+    },
+    [isDate, value],
+    valueSync
   );
 
   const handlePeriodChange = useCallback(

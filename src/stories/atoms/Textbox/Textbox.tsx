@@ -15,10 +15,9 @@ export interface TextboxProps {
   disabled?: boolean;
   invalid?: boolean;
   id?: string;
-  className?: string;
   width?: React.CSSProperties['width'];
-
   onChange?: (value: string) => void;
+  valueSync?: boolean;
 }
 
 export function Textbox({
@@ -34,8 +33,9 @@ export function Textbox({
   theme = 'box',
   modifier = 'user',
   width = '246px',
+  valueSync,
 }: TextboxProps) {
-  const [inputValue, setInputValue] = useParentState(value);
+  const [inputValue, setInputValue] = useParentState(() => value, [value], valueSync);
   const _disabled = modifier === 'user' ? disabled : true;
   const isFilled = inputValue !== '';
 

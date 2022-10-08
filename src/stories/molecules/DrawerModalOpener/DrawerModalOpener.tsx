@@ -32,7 +32,7 @@ export function DrawerModalOpener<T extends ModalOpenerType = 'button'>({
   modalOptions,
 }: DrawerModalOpenerProps<T>) {
   const { opened, onClose, ...restModalOptions } = modalOptions ?? {},
-    [modalOpened, setModalOpend] = useParentState(opened);
+    [modalOpened, setModalOpend] = useParentState(() => opened, [opened], modalOptions?.valueSync);
 
   const { onClick, ...restOpenerOptions } = openerOptions ?? {};
 
@@ -48,6 +48,7 @@ export function DrawerModalOpener<T extends ModalOpenerType = 'button'>({
     ...restModalOptions,
     children,
     opened: modalOpened,
+    valueSync: true,
     onClose: () => {
       setModalOpend?.(false);
       onClose?.();

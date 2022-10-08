@@ -7,9 +7,10 @@ export interface SwitchProps {
   onChange?: (value: boolean) => void;
   id?: string;
   className?: string;
+  valueSync?: boolean;
 }
-export function Switch({ className, onChange, id, value }: SwitchProps) {
-  const [turendOn, setTurendOn] = useParentState(value);
+export function Switch({ className, onChange, id, value, valueSync }: SwitchProps) {
+  const [turendOn, setTurendOn] = useParentState(() => value, [value], valueSync);
 
   return (
     <button

@@ -16,6 +16,7 @@ export interface TextareaProps {
   theme?: 'linear' | 'box';
   modifier?: 'readonly' | 'user';
   maxHeight?: React.CSSProperties['maxHeight'] | 'auto';
+  valueSync?: boolean;
 }
 
 export function Textarea({
@@ -30,8 +31,9 @@ export function Textarea({
   modifier = 'user',
   maxHeight,
   disabled,
+  valueSync,
 }: TextareaProps) {
-  const [inputValue, setInputValue] = useParentState(value);
+  const [inputValue, setInputValue] = useParentState(() => value, [value], valueSync);
   const _disabled = modifier === 'user' ? disabled : true;
   const textarea = useRef<HTMLTextAreaElement>(null);
 

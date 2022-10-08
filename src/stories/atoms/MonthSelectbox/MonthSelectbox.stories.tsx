@@ -1,5 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MonthSelectbox } from './MonthSelectbox';
+import type { MonthSelectboxProps } from './MonthSelectbox';
 import React from 'react';
 
 export default {
@@ -12,3 +13,10 @@ const MonthSelectboxStory: ComponentStory<typeof MonthSelectbox> = (args) => (
 );
 
 export const Default = MonthSelectboxStory.bind({});
+const defaultArgs: MonthSelectboxProps = {
+  value: {
+    year: 2021,
+    month: 0,
+  },
+};
+Default.args = defaultArgs;

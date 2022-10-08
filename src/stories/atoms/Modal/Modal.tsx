@@ -18,6 +18,7 @@ export interface ModalProps {
     onClick?: (closeModal: () => void) => void;
   })[];
   contour?: boolean;
+  valueSync?: boolean;
 }
 
 export function Modal({
@@ -31,8 +32,9 @@ export function Modal({
   maxWidth = '340px',
   contour = false,
   buttonsOptions,
+  valueSync,
 }: ModalProps) {
-  const [modalOpened, setModalOpened] = useParentState(opened),
+  const [modalOpened, setModalOpened] = useParentState(() => opened, [opened], valueSync),
     [modalClosing, setModalClosing] = useState(false),
     closeModal = () => {
       setModalClosing(true);

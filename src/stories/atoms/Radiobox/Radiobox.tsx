@@ -13,6 +13,7 @@ export interface RadioboxProps<T extends OptionHint> {
   disabled?: boolean;
   invalid?: boolean;
   options: T extends PairOption<infer U> ? PairOption<U>[] : T[];
+  valueSync?: boolean;
 }
 export function Radiobox<T extends OptionHint>({
   options: originalOptions,
@@ -21,8 +22,9 @@ export function Radiobox<T extends OptionHint>({
   onChange,
   className,
   invalid,
+  valueSync,
 }: RadioboxProps<T>) {
-  const [selectedValue, setSelectedValue] = useParentState(value);
+  const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync);
   const options = useMemo(() => {
     return originalOptions.map((option) => {
       return typeof option === 'string' ? { label: option, value: option } : option;

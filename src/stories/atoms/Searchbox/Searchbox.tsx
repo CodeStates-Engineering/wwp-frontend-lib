@@ -32,6 +32,7 @@ export interface SearchboxProps<T extends OptionHint> {
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
   width?: React.CSSProperties['width'];
+  valueSync?: boolean;
 }
 
 export function Searchbox<T extends OptionHint>({
@@ -43,6 +44,7 @@ export function Searchbox<T extends OptionHint>({
   theme = 'box',
   modifier = 'user',
   width = '246px',
+  valueSync,
   ...restProps
 }: SearchboxProps<T>) {
   const disabled = modifier === 'user' ? restProps.disabled : true;
@@ -55,7 +57,7 @@ export function Searchbox<T extends OptionHint>({
   );
   const isOptionsExist = 0 < options.length;
   const [searchValue, setSearchValue] = useParentState(
-      (() => {
+      () => {
         if (!value) return;
         if (options.length === 0 && typeof value === 'string') {
           return {
@@ -72,7 +74,9 @@ export function Searchbox<T extends OptionHint>({
           inputValue: selectedOption?.label ?? '',
           selectedOption,
         };
-      })()
+      },
+      [value, options],
+      valueSync
     ),
     _searchValue = searchValue ?? { inputValue: '', selectedOption: undefined };
 

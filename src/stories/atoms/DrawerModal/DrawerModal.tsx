@@ -11,6 +11,7 @@ export interface DrawerModalProps {
   title?: React.ReactNode;
   contour?: boolean;
   onClose?: () => void;
+  valueSync?: boolean;
 }
 
 export function DrawerModal({
@@ -20,9 +21,10 @@ export function DrawerModal({
   title,
   contour = true,
   onClose,
+  valueSync,
 }: DrawerModalProps) {
   const [] = useState();
-  const [modalOpened, setModalOpened] = useParentState(opened),
+  const [modalOpened, setModalOpened] = useParentState(() => opened, [opened], valueSync),
     [modalClosing, setModalClosing] = useState(false),
     closeModal = () => {
       setModalClosing(true);

@@ -25,6 +25,7 @@ export interface SelectboxProps<T extends OptionHint> {
   width?: React.CSSProperties['width'];
   theme?: 'linear' | 'box';
   modifier?: 'system' | 'readonly' | 'user';
+  valueSync?: boolean;
 }
 
 export function Selectbox<T extends OptionHint>({
@@ -41,6 +42,7 @@ export function Selectbox<T extends OptionHint>({
   theme = 'box',
   optionsIncludePlaceholder = false,
   disabled,
+  valueSync,
 }: SelectboxProps<T>) {
   const _options = useMemo(() => {
     if (!options) return [];
@@ -56,7 +58,7 @@ export function Selectbox<T extends OptionHint>({
     preventCloseProps,
   } = useOpenedStateWithCloseExternalClick(false);
 
-  const [selectedValue, setSelectedValue] = useParentState(value);
+  const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync);
 
   const selectedLabel = _options.find(({ value }) => value === selectedValue)?.label;
 

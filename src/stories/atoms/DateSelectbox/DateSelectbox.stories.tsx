@@ -1,6 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { DateSelectbox, DateSelectboxProps } from './DateSelectbox';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default {
   title: 'atoms/DateSelectbox',
@@ -14,6 +14,14 @@ export const Default = DateSelectboxStory.bind({});
 
 const defaultArgs: DateSelectboxProps<'date-range'> = {
   openDirection: ['down', 'left'],
-  type: 'date-range',
 };
 Default.args = defaultArgs;
+Default.decorators = [
+  (Story) => {
+    return (
+      <div style={{ width: '300px' }}>
+        <DateSelectbox type="date-range" />
+      </div>
+    );
+  },
+];
