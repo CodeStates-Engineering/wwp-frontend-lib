@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useMountedEffect } from './useMountedEffect';
-
+import { useDebouncedFunction } from './useDebouncedFunction';
 /**undefined을 제외한 값을 받으면 setter를 반환하지 않는다.*/
 export function useParentState<T>(
   factory: () => T,
@@ -8,9 +8,8 @@ export function useParentState<T>(
   stateSync: boolean = false
 ) {
   const initialValue = useMemo(factory, stateSync ? undefined : deps);
-  const state = useState(initialValue),
-    setValue = state[1];
-
+  const state = useState(initialValue);
+  const setValue = useDebouncedFunction(state[1], 1000);
   useMountedEffect(() => {
     !stateSync && setValue(initialValue);
   }, [initialValue, setValue]);

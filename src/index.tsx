@@ -132,6 +132,7 @@ export {
   useParentState,
   usePaginationState,
   useDebouncedValue,
+  useDebouncedFunction,
   useValidationStorage,
   useValidation,
   useDepsState,
