@@ -92,6 +92,7 @@ export function Button({
       </button>
     );
   }
-  if (to) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
+  if (to)
+    return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} className={scss.link} />;
   return <button {...buttonProps} type={type} />;
 }
