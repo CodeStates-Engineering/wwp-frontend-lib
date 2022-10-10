@@ -1,17 +1,17 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Radiobox } from "./Radiobox";
-import React from "react";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Radiobox, RadioboxProps } from './Radiobox';
+import React from 'react';
 
 export default {
-  title: "atoms/Radiobox",
+  title: 'atoms/Radiobox',
   component: Radiobox,
 } as ComponentMeta<typeof Radiobox>;
 
-const RadioboxStory: ComponentStory<typeof Radiobox> = (args) => (
+const RadioboxStory: ComponentStory<typeof Radiobox> = (args: RadioboxProps<any>) => (
   <Radiobox {...args} />
 );
 
 export const Default = RadioboxStory.bind({});
 Default.args = {
-  options: ["option1", "option2", "option3", "option4"],
+  options: ['option1', 'option2', 'option3', 'option4'],
 };

@@ -29,7 +29,7 @@ export interface SelectboxProps<T extends OptionHint> {
 }
 
 export function Selectbox<T extends OptionHint>({
-  placeholder = '',
+  placeholder = '옵션을 선택해주세요.',
   onChange,
   id,
   invalid,

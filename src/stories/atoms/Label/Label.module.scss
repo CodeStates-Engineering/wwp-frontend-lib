@@ -1,13 +1,14 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 .essential_mark {
+  margin-left: 4px;
   color: $PEACH500;
 }
 
 .label {
   pointer-events: none;
   white-space: nowrap;
-  color: $GRAY3;
+  color: $BLUISH_GRAY600;
 }
 
 //font-weight

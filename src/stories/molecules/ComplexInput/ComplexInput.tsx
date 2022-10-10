@@ -31,6 +31,8 @@ import type {
   DateType,
   TextareaProps,
   CheckboxProps,
+  RadioboxOption,
+  RadioboxOptionHint,
   RadioboxProps,
   FileUploadProps,
   FileDownloadProps,
@@ -154,8 +156,8 @@ export type ComplexDateSelectboxProps<T extends DateType = 'date'> = DateSelectb
   CommonProps<DateSelectboxProps<T>>;
 export const ComplexDateSelectbox = attachCommonProps(DateSelectbox);
 
-export type ComplexRadioboxProps = RadioboxProps<OptionHint> &
-  CommonProps<RadioboxProps<OptionHint>>;
+export type ComplexRadioboxProps = RadioboxProps<RadioboxOptionHint> &
+  CommonProps<RadioboxProps<RadioboxOptionHint>>;
 export const ComplexRadiobox = attachCommonProps(Radiobox);
 
 export type ComplexTextareaProps = TextareaProps & CommonProps<TextareaProps>;
