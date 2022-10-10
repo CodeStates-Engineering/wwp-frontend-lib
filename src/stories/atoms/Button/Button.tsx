@@ -74,7 +74,7 @@ export function Button({
       ${scss['font_size_' + restProps.fontSize]}
       ${scss['font_weight_' + restProps.fontWeight]}
       ${isDelaying && scss.delay_button}
-      ${restProps.fitContainer && scss.fit_container}`
+      ${restProps.fitContainer && scss.fit_container} ${to && scss.link}`
     ),
     style: {
       minWidth,
@@ -92,7 +92,6 @@ export function Button({
       </button>
     );
   }
-  if (to)
-    return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} className={scss.link} />;
+  if (to) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
   return <button {...buttonProps} type={type} />;
 }
