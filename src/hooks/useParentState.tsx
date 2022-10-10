@@ -7,9 +7,10 @@ export function useParentState<T>(
   deps?: React.DependencyList,
   stateSync: boolean = false
 ) {
-  const initialValue = useMemo(factory, stateSync ? undefined : deps);
-  const state = useState(initialValue);
-  const setValue = useDebouncedFunction(state[1], 1000);
+  const initialValue = useMemo(factory, stateSync ? undefined : deps),
+    state = useState(initialValue),
+    [, setValue] = state;
+
   useMountedEffect(() => {
     !stateSync && setValue(initialValue);
   }, [initialValue, setValue]);

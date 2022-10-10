@@ -49,8 +49,8 @@ export function Modal({
 
   const TitleSection = () => (
     <section className={`${scss.title_section} ${scss[modalType]}`}>
-      <h2 className={scss.title}>{title}</h2>
-      <p className={scss.sub_text}>{subText}</p>
+      {title && <h2 className={scss.title}>{title}</h2>}
+      {subText && <p className={scss.sub_text}>{subText}</p>}
     </section>
   );
 
