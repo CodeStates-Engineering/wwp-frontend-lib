@@ -16,12 +16,3 @@ const defaultArgs: DateSelectboxProps<'date-range'> = {
   openDirection: ['down', 'left'],
 };
 Default.args = defaultArgs;
-Default.decorators = [
-  (Story) => {
-    return (
-      <div style={{ width: '300px' }}>
-        <DateSelectbox type="date-range" />
-      </div>
-    );
-  },
-];
