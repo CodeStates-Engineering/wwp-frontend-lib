@@ -1,8 +1,8 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 .tagbox,
 .input_container {
   position: relative;
-  border: $BORDER_GRAY300;
+  border: $INPUT_FOCUS_BORDER;
   background-color: white;
   border-radius: 4px;
   min-height: 36px;
@@ -74,7 +74,7 @@
   min-width: 3em;
   min-height: 36px;
   height: 100%;
-  border-left: $BORDER_GRAY300;
+  border-left: $INPUT_FOCUS_BORDER;
   background-color: $GRAY50;
   cursor: pointer;
   > svg {

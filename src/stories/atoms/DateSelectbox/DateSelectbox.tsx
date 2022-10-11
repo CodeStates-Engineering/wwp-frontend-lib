@@ -231,6 +231,7 @@ export function DateSelectbox<T extends DateType, U extends Object = Object>({
             disabled={disabledDates}
             defaultMonth={currentModalDate ?? new Date()}
             selected={currentModalDate}
+            className={scss.calendar_default}
             onSelect={(date: Date | undefined) => {
               handlePeriodChange({ ...selectedPeriod, [currentModal]: date });
               setSelectedPeriodString({
@@ -238,6 +239,10 @@ export function DateSelectbox<T extends DateType, U extends Object = Object>({
                 [currentModal]: formatDate(date),
               });
               setCalendarOpened(false);
+            }}
+            modifiersClassNames={{
+              selected: scss.selected,
+              today: scss.today,
             }}
           />
         </section>

@@ -1,12 +1,10 @@
-@import "./palette";
+@import './palette';
 
 //Purposeful Value
 $PLACEHOLDER: #a0aec0;
-$BORDER_GRAY300: 1px solid $GRAY300;
 $BORDER_FOCUS: 1px solid $WEWIN_BLUE500;
 $BOX_SHADOW013: 0px 1px 3px rgba(0, 0, 0, 0.15);
-$BOX_SHADOW_INPUT_OPTIONS: 0px 8px 20px rgba(0, 0, 0, 0.15),
-  0px 0px 1px rgba(0, 0, 0, 0.9);
+$BOX_SHADOW_INPUT_OPTIONS: 0px 5px 16px rgba(0, 0, 0, 0.15);
 
 //Input Style Value
 $INPUT_BORDER_RADIUS: 3px;

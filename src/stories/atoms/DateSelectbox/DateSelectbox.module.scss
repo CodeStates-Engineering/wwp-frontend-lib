@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 .date_selectbox_container {
   position: relative;
@@ -206,12 +206,7 @@
     }
     &.readonly {
       @include input-theme($INPUT_READONLY_COLOR, transparent);
-      @include border-icon-theme(
-        transparent,
-        transparent,
-        transparent,
-        transparent
-      );
+      @include border-icon-theme(transparent, transparent, transparent, transparent);
       @include dividing-line(transparent);
     }
   }
@@ -230,9 +225,9 @@
 .calendar_modal {
   border-radius: 4px;
   position: absolute;
-  background-color: white;
+  background-color: $BLUISH_GRAY10;
   z-index: 10;
-  border: $BORDER_GRAY300;
+  border: $INPUT_FOCUS_BORDER;
   box-shadow: $BOX_SHADOW_INPUT_OPTIONS;
   @include fade-in;
   color: $GRAY600;
@@ -252,4 +247,19 @@
   &.right {
     right: 0;
   }
+}
+
+.selected {
+  background-color: $WEWIN_BLUE500;
+  color: white;
+  border-radius: 3px;
+}
+
+.today {
+  color: $WEWIN_BLUE600;
+  font-weight: $BOLD_FONT_WEIGHT;
+}
+
+.calendar_default {
+  color: $BLUISH_GRAY700;
 }

@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 @mixin linear-style() {
   border: {
@@ -155,7 +155,7 @@
     display: none;
   }
   &:first-child {
-    border-right: $BORDER_GRAY300;
+    border-right: $INPUT_FOCUS_BORDER;
   }
 }
 
