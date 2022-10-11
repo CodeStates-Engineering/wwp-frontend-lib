@@ -1,6 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { DateSelectbox, DateSelectboxProps } from './DateSelectbox';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default {
   title: 'atoms/DateSelectbox',
