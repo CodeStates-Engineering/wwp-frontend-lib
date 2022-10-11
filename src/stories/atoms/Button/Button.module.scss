@@ -1,8 +1,7 @@
 @import '../../../scss/libs.scss';
 
-@mixin set-theme($variant, $color, $backgroundColor: white) {
+@mixin set-theme($variant, $color, $backgroundColor: transparent) {
   color: $color;
-  background-color: $backgroundColor;
 
   @if ($variant == 'contain') {
     &:hover {
@@ -21,6 +20,7 @@
 
   @if ($variant == 'outline') {
     border: 1px solid $BLUISH_GRAY200;
+    background-color: white;
     &:hover {
       color: darken($color, 7%);
       border: 1px solid darken($BLUISH_GRAY200, 7%);
@@ -37,6 +37,7 @@
   }
 
   @if ($variant == 'ghost') {
+    background-color: transparent;
     &:hover {
       color: darken($color, 7%);
       text-decoration: underline;
