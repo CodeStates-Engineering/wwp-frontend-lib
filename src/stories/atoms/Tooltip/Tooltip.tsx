@@ -1,6 +1,6 @@
 import scss from './Tooltip.module.scss';
-import { AlertCircle } from 'react-feather';
 import { cleanClassName } from '@utils';
+import { ReactComponent as TooltipIcon } from '@assets/tooltip.svg';
 
 export interface TooltipProps {
   children?: React.ReactNode;
@@ -12,7 +12,7 @@ export function Tooltip({
 }: TooltipProps) {
   return (
     <div className={scss.announcement_message_container}>
-      <AlertCircle />
+      <TooltipIcon />
       <div className={cleanClassName(
         `${scss.announcement_message} ${scss[openDirection]}`,
       )}>

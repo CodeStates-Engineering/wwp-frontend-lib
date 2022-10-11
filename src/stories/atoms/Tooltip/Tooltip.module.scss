@@ -11,7 +11,9 @@
     transition: color 0.3s;
     cursor: help;
     &:hover {
-      color: $WEWIN_BLUE500;
+      > path {
+        fill: $BLUISH_GRAY500;
+      }
     }
   }
   > .announcement_message {
