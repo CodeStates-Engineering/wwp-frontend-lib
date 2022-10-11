@@ -37,7 +37,7 @@ export function Textbox({
 }: TextboxProps) {
   const [inputValue, setInputValue] = useParentState(() => value, [value], valueSync);
   const _disabled = modifier === 'user' ? disabled : true;
-  const isFilled = inputValue !== '';
+  const isFilled = inputValue;
 
   const conditionalProps = (() => {
     const createChangeEventHandler =
