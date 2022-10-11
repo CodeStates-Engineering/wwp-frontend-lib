@@ -55,11 +55,14 @@ export function Radiobox<T extends RadioboxOptionHint>({
       id={id}
     >
       {options?.map(({ label, value, reverse, children, disabled }, index) => {
+        const checked = selectedValue === value;
         return (
           <li key={index} style={innerGap}>
             <label
               className={cleanClassName(
-                `${scss.radio_label} ${reverse && scss.reverse} ${disabled && scss.disabled}`
+                `${scss.radio_label} ${reverse && scss.reverse} ${checked && scss.checked} ${
+                  disabled && scss.disabled
+                }`
               )}
               style={innerGap}
             >

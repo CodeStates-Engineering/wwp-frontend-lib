@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 .file_download {
   display: flex;
@@ -35,7 +35,7 @@
     transition: background-color 0.3s, color 0.3s;
     &:hover {
       color: $INPUT_ICON_FOCUS_COLOR;
-      background-color: $INPUT_ICON_FOCUS_BG_COLOR;
+      background-color: darken($INPUT_ICON_FOCUS_BG_COLOR, 7%);
     }
     &.disabled {
       color: $INPUT_ICON_DISABLED_COLOR;

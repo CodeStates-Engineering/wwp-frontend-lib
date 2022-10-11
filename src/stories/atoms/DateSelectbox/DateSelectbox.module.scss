@@ -249,17 +249,43 @@
   }
 }
 
-.selected {
+@mixin selected() {
   background-color: $WEWIN_BLUE500;
   color: white;
   border-radius: 3px;
+  &:hover:not([disabled]) {
+    border-color: red;
+    color: red;
+  }
+}
+
+.selected {
+  @include selected();
 }
 
 .today {
   color: $WEWIN_BLUE600;
   font-weight: $BOLD_FONT_WEIGHT;
+  &.selected {
+    @include selected();
+  }
 }
 
 .calendar_default {
   color: $BLUISH_GRAY700;
+  table > tbody > tr > td {
+    > button {
+      transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
+      border-radius: 3px;
+    }
+    > button:hover:not([disabled]) {
+      background-color: $WEWIN_BLUE100;
+    }
+    > button:active:not([disabled]) {
+      border: none;
+
+      background-color: $WEWIN_BLUE200;
+      font-weight: $BOLD_FONT_WEIGHT;
+    }
+  }
 }

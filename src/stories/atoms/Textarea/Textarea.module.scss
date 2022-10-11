@@ -1,6 +1,4 @@
-@import "../../../scss/libs.scss";
-$TEXTAREA_DISABLED_BORDER: 1px solid $GRAY10;
-$TEXTAREA_DISABLED_BG_COLOR: $GRAY10;
+@import '../../../scss/libs.scss';
 
 @mixin linear-border($width: 1px, $style: solid, $color: $BLUISH_GRAY200) {
   border: {
@@ -13,19 +11,18 @@ $TEXTAREA_DISABLED_BG_COLOR: $GRAY10;
 }
 
 .textarea {
-  color: $BLUISH_GRAY500;
-  background-color: $WHITISH_GRAY;
-  border: 1px solid $BLUISH_GRAY200;
+  color: $INPUT_DEFAULT_COLOR;
+  background-color: $INPUT_DEFAULT_BG_COLOR;
+  border: $INPUT_DEFAULT_BORDER;
   border-radius: 3px;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.3s, background-color 0.3s, border 0.3s;
   display: flex;
   align-items: center;
-  padding: 0.5714285em;
-  gap: 0.5em;
+  padding: 7.5px 11px;
   outline: none;
-  min-height: 6.6428575em;
+  min-height: 58px;
 
   &.linear {
     @include linear-border();
@@ -42,7 +39,7 @@ $TEXTAREA_DISABLED_BG_COLOR: $GRAY10;
   &.filled {
     background: $INPUT_FILLED_BG_COLOR;
     color: $INPUT_FILLED_COLOR;
-    border: 1px solid $BLUISH_GRAY300;
+    border: $INPUT_FILLED_BORDER;
     &.linear {
       @include linear-border();
     }
@@ -60,9 +57,13 @@ $TEXTAREA_DISABLED_BG_COLOR: $GRAY10;
 
   &:disabled {
     cursor: not-allowed;
-    border: $TEXTAREA_DISABLED_BORDER;
-    background-color: $TEXTAREA_DISABLED_BG_COLOR;
+    border: $INPUT_DISABLED_BORDER;
+    background-color: $INPUT_DISABLED_BG_COLOR;
     color: $INPUT_DISABLED_COLOR;
+    &::placeholder {
+      color: $INPUT_DISABLED_COLOR;
+    }
+
     &.readonly {
       border: 1px solid transparent;
       background-color: transparent;
@@ -71,9 +72,6 @@ $TEXTAREA_DISABLED_BG_COLOR: $GRAY10;
       &::placeholder {
         color: $INPUT_READONLY_COLOR;
       }
-    }
-    &::placeholder {
-      color: $GRAY500;
     }
   }
 }

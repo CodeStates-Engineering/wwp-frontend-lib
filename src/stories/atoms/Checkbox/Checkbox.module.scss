@@ -18,8 +18,8 @@
   }
 
   &.indeterminate {
-    background-color: $BLUISH_GRAY300;
-    color: $WEWIN_BLUE600;
+    background-color: $BLUISH_GRAY200;
+    color: $BLUISH_GRAY500;
   }
 }
 
@@ -46,7 +46,8 @@
   top: 0;
   left: 0;
   > svg {
-    width: 85%;
-    height: 85%;
+    width: 78%;
+    height: 78%;
+    stroke-width: 3.5px;
   }
 }

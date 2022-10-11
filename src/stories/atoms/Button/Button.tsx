@@ -42,6 +42,8 @@ export function Button({
   theme = 'wewin-blue600',
   size = 'medium',
   type = 'button',
+  fontWeight = 'medium',
+  fontSize = 'normal',
   delay,
   minWidth,
   icon: Icon,
@@ -72,8 +74,8 @@ export function Button({
       `${scss.button} ${scss['theme_' + variant + '-' + theme]}
       ${scss['size_' + size]}
       ${scss['shape_' + shape]} 
-      ${scss['font_size_' + restProps.fontSize]}
-      ${scss['font_weight_' + restProps.fontWeight]}
+      ${scss['font_size_' + fontSize]}
+      ${scss['font_weight_' + fontWeight]}
       ${isDelaying && scss.delay_button}
       ${restProps.fitContainer && scss.fit_container} ${to && scss.link}`
     ),

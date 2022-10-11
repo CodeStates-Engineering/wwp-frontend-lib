@@ -1,8 +1,8 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 .switch {
-  width: 28px;
-  height: 16px;
+  width: 32px;
+  height: 20px;
   border-radius: 100px;
   position: relative;
   display: flex;
@@ -17,15 +17,15 @@
   &.off {
     background-color: $BLUISH_GRAY400;
     > .circle {
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
   }
 }
 
 .circle {
   transition: transform 0.3s ease-in-out;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background-color: white;
   border-radius: 100%;
 }
