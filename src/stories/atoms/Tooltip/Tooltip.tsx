@@ -1,6 +1,6 @@
 import scss from './Tooltip.module.scss';
 import { cleanClassName } from '@utils';
-import { ReactComponent as TooltipIcon } from '@assets/tooltip.svg';
+import { ReactComponent as TooltipIcon } from '../../../assets/tooltip.svg';
 
 export interface TooltipProps {
   children?: React.ReactNode;

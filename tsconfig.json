@@ -19,10 +19,7 @@
       "@utils": ["utils"],
       "@hooks": ["hooks"],
       "@scss/*": ["./scss/*"],
-
-
-      "@stories/*": ["./stories/*"],
-      "@assets/*": ["./assets/*"]
+      "@stories/*": ["./stories/*"]
     },
     "declaration": true,
     "declarationDir": "dist/library/types"
