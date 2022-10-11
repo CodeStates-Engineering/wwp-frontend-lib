@@ -1,4 +1,6 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 .edit_stamp {
-  color: $BLUISH_GRAY600;
+  color: $BLUISH_GRAY500;
+  font-weight: $REGULAR_FONT_WEIGHT;
+  font-size: $SMALLX_FONT_SIZE;
 }

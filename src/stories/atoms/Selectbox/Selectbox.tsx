@@ -111,7 +111,7 @@ export function Selectbox<T extends OptionHint>({
             </li>
           ))
         ) : (
-          <li>선택 가능한 옵션이 없습니다.</li>
+          <li className={scss.no_options}>선택 가능한 옵션이 없습니다.</li>
         )}
         <li className={`${scss.empty_space} ${scss.bottom}`} />
       </ul>
