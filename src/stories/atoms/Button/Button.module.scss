@@ -4,6 +4,7 @@
   color: $color;
 
   @if ($variant == 'contain') {
+    background-color: $backgroundColor;
     &:hover {
       color: darken($color, 7%);
       background-color: darken($backgroundColor, 7%);
