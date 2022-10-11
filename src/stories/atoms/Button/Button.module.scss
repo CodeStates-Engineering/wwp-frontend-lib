@@ -197,6 +197,14 @@
     }
   }
 
+  .theme_#{$variant}-bluish-gray700 {
+    @if ($variant == 'contain') {
+      @include set-theme('contain', white, $BLUISH_GRAY700);
+    } @else {
+      @include set-theme($variant, $BLUISH_GRAY700);
+    }
+  }
+
   .theme_#{$variant}-wewin-peach500 {
     @if ($variant == 'contain') {
       @include set-theme('contain', white, $WEWIN_PEACH500);

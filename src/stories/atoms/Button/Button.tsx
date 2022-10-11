@@ -13,6 +13,7 @@ export type ButtonTheme =
   | 'bluish-gray200'
   | 'bluish-gray500'
   | 'bluish-gray600'
+  | 'bluish-gray700'
   | 'wewin-peach500';
 
 export type Variant = 'contain' | 'outline' | 'ghost';
