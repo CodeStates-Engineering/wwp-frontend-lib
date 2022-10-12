@@ -249,25 +249,17 @@
   }
 }
 
-@mixin selected() {
+.selected {
   background-color: $WEWIN_BLUE500;
   color: white;
-  border-radius: 3px;
-  &:hover:not([disabled]) {
-    border-color: red;
-    color: red;
-  }
-}
-
-.selected {
-  @include selected();
 }
 
 .today {
   color: $WEWIN_BLUE600;
   font-weight: $BOLD_FONT_WEIGHT;
   &.selected {
-    @include selected();
+    background-color: $WEWIN_BLUE500;
+    color: white;
   }
 }
 
@@ -280,10 +272,11 @@
     }
     > button:hover:not([disabled]) {
       background-color: $WEWIN_BLUE100;
+      color: $GRAY600;
     }
     > button:active:not([disabled]) {
       border: none;
-
+      color: $GRAY600;
       background-color: $WEWIN_BLUE200;
       font-weight: $BOLD_FONT_WEIGHT;
     }

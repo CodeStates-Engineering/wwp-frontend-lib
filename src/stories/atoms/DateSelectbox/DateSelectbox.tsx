@@ -14,7 +14,7 @@ export interface Period {
 }
 
 export type DateType = 'date' | 'date-range';
-export interface DateSelectboxProps<T extends DateType> {
+export interface DateSelectboxProps<T extends DateType = 'date'> {
   type?: T;
   value?: T extends 'date' ? Period['from'] : Period;
   onChange?: T extends 'date' ? (value: Period['from']) => void : (value: Period) => void;
@@ -31,7 +31,7 @@ export interface DateSelectboxProps<T extends DateType> {
   valueSync?: boolean;
 }
 
-export function DateSelectbox<T extends DateType, U extends Object = Object>({
+export function DateSelectbox<T extends DateType = 'date'>({
   type = 'date' as T,
   value,
   onChange,
@@ -152,28 +152,19 @@ export function DateSelectbox<T extends DateType, U extends Object = Object>({
         setCalendarOpened(true);
       });
     };
-    if (!selectedPeriodString[type]) {
-      const initDateString = `2000-01-01${withTime ? ' 00:00' : ''}`;
+    setSelectedPeriodString({
+      ...selectedPeriodString,
+      [type]: value,
+    });
+    if (value === '') handlePeriodChange({ ...selectedPeriod, [type]: undefined });
+    else if (!isNaN(Date.parse(value))) {
+      const selectedDate = new Date(value);
       handlePeriodChange({
         ...selectedPeriod,
-        [type]: new Date(initDateString),
+        [type]: selectedDate,
       });
-      refreshCalendar(initDateString);
-    } else {
-      setSelectedPeriodString({
-        ...selectedPeriodString,
-        [type]: value,
-      });
-      if (value === '') handlePeriodChange({ ...selectedPeriod, [type]: undefined });
-      else if (!isNaN(Date.parse(value))) {
-        const selectedDate = new Date(value);
-        handlePeriodChange({
-          ...selectedPeriod,
-          [type]: selectedDate,
-        });
-        const currentYearMonth = format(selectedDate, 'yyyy-MM');
-        previousYearMonth !== currentYearMonth && refreshCalendar(value);
-      }
+      const currentYearMonth = format(selectedDate, 'yyyy-MM');
+      previousYearMonth !== currentYearMonth && refreshCalendar(value);
     }
   };
 
@@ -216,9 +207,9 @@ export function DateSelectbox<T extends DateType, U extends Object = Object>({
             </>
           )}
         </div>
-        <div className={scss.icon_wrap}>
+        <button className={scss.icon_wrap} onClick={() => setCalendarOpened(!calendarOpened)}>
           <Calendar />
-        </div>
+        </button>
       </div>
       {calendarOpened && (
         <section
