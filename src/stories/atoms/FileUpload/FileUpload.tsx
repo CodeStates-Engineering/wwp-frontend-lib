@@ -10,11 +10,11 @@ export interface FileUploadProps {
   accept?: string;
   theme?: 'box' | 'linear';
   modifier?: 'system' | 'readonly' | 'user';
-  onChange?: (file: File | null) => void;
   instantUpload?: boolean;
   invalid?: boolean;
   disabled?: boolean;
   value?: string;
+  onChange?: (file: FileUploadProps['value']) => void;
   id?: string;
 }
 
@@ -77,8 +77,8 @@ export function FileUpload({
             e.preventDefault();
             setDisplayFileName(placeholder);
             try {
-              const [file] = e.target.files || [null];
-              onChange?.(file);
+              const [file] = e.target.files || [undefined];
+              onChange?.(file ? value ?? file.name : undefined);
               if (!file) return;
               setDisplayFileName(UPLOAD_PROGRESS_MESSAGE);
               const data = new FormData();

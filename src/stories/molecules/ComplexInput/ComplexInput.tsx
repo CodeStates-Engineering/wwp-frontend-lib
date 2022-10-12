@@ -1,5 +1,5 @@
 import scss from './ComplexInput.module.scss';
-
+import { useMemo } from 'react';
 import {
   Searchbox,
   Selectbox,
@@ -31,7 +31,6 @@ import type {
   DateType,
   TextareaProps,
   CheckboxProps,
-  RadioboxOption,
   RadioboxOptionHint,
   RadioboxProps,
   FileUploadProps,
@@ -61,6 +60,7 @@ interface CommonProps<T extends InputPropsHint> {
   labelDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   labelText?: string;
   essential?: LabelProps['essential'];
+  addEssentialValidation?: boolean;
   labelFontSize?: LabelProps['fontSize'];
   labelFontWeight?: LabelProps['fontWeight'];
   validationStorage?: ValidationStorage;
@@ -81,6 +81,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     labelDirection = 'column',
     labelText,
     essential,
+    addEssentialValidation = true,
     labelFontSize,
     labelFontWeight,
     validationStorage,
@@ -90,11 +91,32 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     inputWidth = '246px',
     justifyContent = 'flex-start',
     minHeight,
+    value,
     ...restProps
   }: T & CommonProps<T>) => {
+    const _validations = useMemo(() => {
+      return essential && addEssentialValidation
+        ? [
+            {
+              rule: (value: any) => {
+                switch (typeof value) {
+                  case 'object':
+                    for (const key in value) if (value[key] === undefined) return false;
+                    return true;
+                  default:
+                    return !!value;
+                }
+              },
+              message: '필수 항목입니다.',
+            },
+            ...(validations ?? []),
+          ]
+        : validations;
+    }, [validations, essential, addEssentialValidation]);
+
     const { checkValidation, validated, visableMessage } = useValidation(
-      restProps.value,
-      validations,
+      value,
+      _validations,
       id,
       validationStorage
     );
@@ -110,6 +132,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
 
     const inputProps: any = {
       id,
+      value,
       width: '100%',
       onChange: (value: never) => {
         onChange?.(value);
@@ -131,7 +154,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
         ) : null}
         <div style={{ width: inputWidth }}>
           <Input {...inputProps} />
-          {validations ? (
+          {_validations ? (
             <ValidationMessage validated={validated} visableMessage={visableMessage} />
           ) : null}
         </div>
