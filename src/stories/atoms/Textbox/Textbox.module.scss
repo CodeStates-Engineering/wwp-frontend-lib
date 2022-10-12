@@ -40,7 +40,9 @@
     cursor: not-allowed;
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
-    color: $INPUT_DISABLED_COLOR;
+    > input {
+      color: $INPUT_DISABLED_COLOR;
+    }
     > .unit_wrap {
       color: $INPUT_ICON_DISABLED_COLOR;
       background-color: $INPUT_ICON_DISABLED_BG_COLOR;
@@ -84,15 +86,14 @@
     margin: 0 0.8em;
     border: none;
     outline: none;
-    &::placeholder {
-      color: $INPUT_DEFAULT_COLOR;
-    }
-    outline: none;
     min-width: 0;
     background-color: transparent;
     flex: 1;
     &:disabled {
       cursor: not-allowed;
+    }
+    &::placeholder {
+      color: $INPUT_DEFAULT_COLOR;
     }
   }
 
