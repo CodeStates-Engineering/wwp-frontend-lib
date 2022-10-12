@@ -1,5 +1,5 @@
 import scss from './ComplexInput.module.scss';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   Searchbox,
   Selectbox,
@@ -38,7 +38,7 @@ import type {
 } from '../../atoms';
 import { useValidation } from '@hooks';
 import { cleanClassName } from '@utils';
-import type { Validation, ValidationStorage } from '@hooks';
+import type { ValidationStorage } from '@hooks';
 
 type InputPropsHint =
   | TextboxProps
@@ -48,7 +48,7 @@ type InputPropsHint =
   | DateSelectboxProps<'date' | 'date-range'>
   | TextareaProps
   | CheckboxProps
-  | RadioboxProps<OptionHint>
+  | RadioboxProps<RadioboxOptionHint>
   | SelectboxProps<OptionHint>
   | SearchboxProps<OptionHint>
   | FileUploadProps
@@ -64,7 +64,7 @@ interface CommonProps<T extends InputPropsHint> {
   labelFontSize?: LabelProps['fontSize'];
   labelFontWeight?: LabelProps['fontWeight'];
   validationStorage?: ValidationStorage;
-  validations?: Validation<T['value']>[];
+  validation?: (value: Parameters<Exclude<T['onChange'], undefined>>[0]) => string | undefined;
   width?: React.CSSProperties['width'];
   inputWidth?: React.CSSProperties['width'];
   justifyContent?: React.CSSProperties['justifyContent'];
@@ -85,7 +85,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     labelFontSize,
     labelFontWeight,
     validationStorage,
-    validations,
+    validation,
     onChange,
     width = 'fit-content',
     inputWidth = '246px',
@@ -94,29 +94,24 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     value,
     ...restProps
   }: T & CommonProps<T>) => {
-    const _validations = useMemo(() => {
-      return essential && addEssentialValidation
-        ? [
-            {
-              rule: (value: any) => {
-                switch (typeof value) {
-                  case 'object':
-                    for (const key in value) if (value[key] === undefined) return false;
-                    return true;
-                  default:
-                    return value === undefined || value === '' ? false : true;
-                }
-              },
-              message: '필수 항목입니다.',
-            },
-            ...(validations ?? []),
-          ]
-        : validations;
-    }, [validations, essential, addEssentialValidation]);
+    const _validation = useCallback((value: any) => {
+      const ESSENTIAL_MESSAGE = '필수 항목입니다.';
+      if (addEssentialValidation && essential) {
+        switch (typeof value) {
+          case 'object':
+            if (Array.isArray(value) && value.length === 0) return ESSENTIAL_MESSAGE;
+            else for (const key in value) if (value[key] === undefined) return ESSENTIAL_MESSAGE;
+            break;
+          default:
+            if (value === undefined || value === '') return ESSENTIAL_MESSAGE;
+        }
+      }
+      return validation?.(value);
+    }, []);
 
-    const { checkValidation, validated, visableMessage } = useValidation(
+    const { checkValidation, ...ValidationMessageProps } = useValidation(
       value,
-      _validations,
+      _validation,
       id,
       validationStorage
     );
@@ -133,11 +128,12 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     const inputProps: any = {
       id,
       value,
-      width: '100%',
+      width: inputWidth,
       onChange: (value: never) => {
         onChange?.(value);
         checkValidation(value);
       },
+      invalid: ValidationMessageProps.invalid,
       ...restProps,
     };
 
@@ -155,8 +151,8 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
           ) : null}
           <Input {...inputProps} />
         </div>
-        {_validations ? (
-          <ValidationMessage validated={validated} visableMessage={visableMessage} />
+        {(validation || essential) && addEssentialValidation ? (
+          <ValidationMessage {...ValidationMessageProps} />
         ) : null}
       </div>
     );

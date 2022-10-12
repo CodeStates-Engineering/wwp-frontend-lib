@@ -27,11 +27,7 @@
   display: flex;
   min-height: 36px;
   align-items: center;
-  border-radius: 4px;
-
-  &.invalid {
-    border: 1px solid $PEACH500;
-  }
+  border: 1px solid transparent;
 
   > li {
     display: flex;

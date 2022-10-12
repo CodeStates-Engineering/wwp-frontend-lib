@@ -1,60 +1,34 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { ValidationStorage } from './useValidationStorage';
 
-export interface Validation<T> {
-  rule: (value: T) => boolean;
-  message: string;
-}
+export type Validation<T> = (value: T) => string | undefined;
 
 export function useValidation<T>(
   value: T,
-  validations: Validation<T>[] | undefined,
+  validation: (value: T) => string | undefined,
   storageKey: string | undefined,
   validationStorage: ValidationStorage | undefined
 ) {
-  const [validated, setValidated] = useState<boolean | 'never-try'>('never-try');
-  const [visableMessage, setVisableMessage] = useState<string>();
+  const [validated, setValidated] = useState(false);
+  const [message, setMessage] = useState('');
 
-  let checkedValue = value;
   const checkValidation = useCallback(
     (value: T) => {
-      if (!validations) return true;
-      let _validated = true;
-      let _message: string | undefined;
-      for (const { rule, message } of validations)
-        if (!rule(value)) {
-          _validated = false;
-          _message = message;
-          break;
-        }
-      //? 굳이 memorize 될 필요가 없는 값
-      // eslint-disable-next-line
-      checkedValue = value;
-      setValidated(_validated);
-      setVisableMessage(_message);
-      return _validated;
+      setValidated(true);
+      const _message = validation?.(value);
+      setMessage(_message ?? '');
+      return !_message;
     },
-    [validations]
+    [setValidated, validation]
   );
 
   useEffect(() => {
-    if (checkValidation(value)) return;
-    setValidated('never-try');
-    setVisableMessage(undefined);
-  }, [value, checkValidation]);
-
-  useEffect(() => {
-    if (validationStorage && storageKey) {
-      validationStorage.set(storageKey, () => checkValidation(checkedValue));
+    if (!validationStorage) return () => {};
+    if (storageKey) {
+      validationStorage.set(storageKey, () => checkValidation?.(value));
       return () => validationStorage.delete(storageKey);
     }
-    return () => {};
-  }, [validationStorage, checkValidation, checkedValue, storageKey]);
+  });
 
-  return { validated, visableMessage, checkValidation };
-}
-
-export interface ValidationResult<T>
-  extends Omit<ReturnType<typeof useValidation>, 'checkValidation'> {
-  checkValidation: (value: T) => boolean;
+  return { invalid: !!(message && validated), message, checkValidation };
 }

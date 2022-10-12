@@ -144,5 +144,4 @@ export type {
   PaginationState,
   ValidationStorage,
   Validation,
-  ValidationResult,
 } from './hooks';

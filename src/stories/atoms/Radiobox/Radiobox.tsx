@@ -20,22 +20,24 @@ export interface RadioboxProps<T extends RadioboxOptionHint> {
     value: T extends RadioboxOption<infer U> ? RadioboxOption<U>['value'] | undefined : T
   ) => void;
   id?: string;
-  invalid?: boolean;
+
   options?: T extends RadioboxOption<infer U> ? RadioboxOption<U>[] : T[];
   valueSync?: boolean;
   gap?: {
     in?: React.CSSProperties['gap'];
     out?: React.CSSProperties['gap'];
   };
+  width?: React.CSSProperties['width'];
 }
 export function Radiobox<T extends RadioboxOptionHint>({
   options: originalOptions,
   id,
   value,
   onChange,
-  invalid,
+
   valueSync,
   gap,
+  width,
 }: RadioboxProps<T>) {
   const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync);
   const options = useMemo(() => {
@@ -50,8 +52,8 @@ export function Radiobox<T extends RadioboxOptionHint>({
 
   return (
     <ul
-      style={{ gap: gap?.out ?? '30px' }}
-      className={cleanClassName(`${scss.radiobox_list} ${invalid && scss.invalid}`)}
+      style={{ gap: gap?.out ?? '30px', width }}
+      className={cleanClassName(scss.radiobox_list)}
       id={id}
     >
       {options?.map(({ label, value, reverse, children, disabled }, index) => {

@@ -1,9 +1,10 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { ComplexTextbox } from "./ComplexInput";
-import React from "react";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComplexTextbox } from './ComplexInput';
+import type { ComplexTextboxProps } from './ComplexInput';
+import React from 'react';
 
 export default {
-  title: "molecules/ComplexInput/ComplexTextbox",
+  title: 'molecules/ComplexInput/ComplexTextbox',
   component: ComplexTextbox,
 } as ComponentMeta<typeof ComplexTextbox>;
 
@@ -12,6 +13,8 @@ const ComplexTextboxStory: ComponentStory<typeof ComplexTextbox> = (args) => (
 );
 
 export const Default = ComplexTextboxStory.bind({});
-Default.args = {
-  labelText: "라벨",
+const defaultArgs: ComplexTextboxProps = {
+  labelText: '라벨',
+  essential: true,
 };
+Default.args = defaultArgs;

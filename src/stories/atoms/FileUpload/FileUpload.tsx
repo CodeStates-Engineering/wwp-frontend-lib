@@ -30,7 +30,8 @@ export function FileUpload({
   disabled = false,
   value,
   id,
-  ...restProps
+  url,
+  method = 'put',
 }: FileUploadProps) {
   const [displayFileName, setDisplayFileName] = useDepsState(
     () => value ?? placeholder,
@@ -73,6 +74,7 @@ export function FileUpload({
         파일 선택
         <input
           type="file"
+          accept={accept}
           onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault();
             setDisplayFileName(placeholder);
@@ -86,7 +88,8 @@ export function FileUpload({
               if (process.env.BUILD_TYPE !== 'storybook' && instantUpload) {
                 const axios = require('axios').default;
                 await axios({
-                  ...restProps,
+                  url,
+                  method,
                   data,
                 });
               }
@@ -95,7 +98,6 @@ export function FileUpload({
               setDisplayFileName(UPLOAD_FAILED_MESSAGE);
             }
           }}
-          accept={accept}
         />
       </FileUploadButton>
     </div>

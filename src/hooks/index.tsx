@@ -13,7 +13,7 @@ export { useValidationStorage } from './useValidationStorage';
 export type { ValidationStorage } from './useValidationStorage';
 
 export { useValidation } from './useValidation';
-export type { Validation, ValidationResult } from './useValidation';
+export type { Validation } from './useValidation';
 
 export { useDepsState } from './useDepsState';
 
