@@ -104,7 +104,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
                     for (const key in value) if (value[key] === undefined) return false;
                     return true;
                   default:
-                    return !!value;
+                    return value === undefined || value === '' ? false : true;
                 }
               },
               message: '필수 항목입니다.',
