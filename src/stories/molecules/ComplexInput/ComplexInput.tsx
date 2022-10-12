@@ -142,22 +142,22 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     };
 
     return (
-      <div
-        className={cleanClassName(`${scss.labeled_input_container} ${scss[labelDirection]}`)}
-        style={{ width, justifyContent, minHeight }}
-      >
-        {label && (labelText || id) ? (
-          <div className={scss.label_container}>
-            <Label {...labelProps} />
-            {children ? <Tooltip>{children}</Tooltip> : null}
-          </div>
-        ) : null}
-        <div style={{ width: inputWidth }}>
-          <Input {...inputProps} />
-          {_validations ? (
-            <ValidationMessage validated={validated} visableMessage={visableMessage} />
+      <div style={{ width, minHeight }} className={scss.complex_input_container}>
+        <div
+          style={{ justifyContent }}
+          className={cleanClassName(`${scss.labeled_input_container} ${scss[labelDirection]}`)}
+        >
+          {label && (labelText || id) ? (
+            <div className={scss.label_container}>
+              <Label {...labelProps} />
+              {children ? <Tooltip>{children}</Tooltip> : null}
+            </div>
           ) : null}
+          <Input {...inputProps} />
         </div>
+        {_validations ? (
+          <ValidationMessage validated={validated} visableMessage={visableMessage} />
+        ) : null}
       </div>
     );
   };
