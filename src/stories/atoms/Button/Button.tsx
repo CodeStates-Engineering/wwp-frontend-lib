@@ -33,6 +33,7 @@ export interface ButtonProps
   minWidth?: string;
   to?: string;
   delay?: number;
+  refresh?: boolean;
   icon?: React.FunctionComponent<IconProps>;
 }
 export function Button({
@@ -45,7 +46,9 @@ export function Button({
   fontWeight = 'medium',
   fontSize = 'normal',
   delay,
+  refresh = false,
   minWidth,
+
   icon: Icon,
   ...restProps
 }: ButtonProps) {
@@ -58,31 +61,32 @@ export function Button({
     }
   }, [setStartDelaying, setIsDelaying, delay]);
   const buttonProps = {
-    ...restProps,
-    disabled: restProps.disabled || isDelaying,
-    children: (
-      <div className={scss.button_contents}>
-        {restProps.children}
-        {Icon ? (
-          <div className={scss.button_wrap}>
-            <Icon />
-          </div>
-        ) : undefined}
-      </div>
-    ),
-    className: cleanClassName(
-      `${scss.button} ${scss['theme_' + variant + '-' + theme]}
+      ...restProps,
+      disabled: restProps.disabled || isDelaying,
+      children: (
+        <div className={scss.button_contents}>
+          {restProps.children}
+          {Icon ? (
+            <div className={scss.button_wrap}>
+              <Icon />
+            </div>
+          ) : undefined}
+        </div>
+      ),
+      className: cleanClassName(
+        `${scss.button} ${scss['theme_' + variant + '-' + theme]}
       ${scss['size_' + size]}
       ${scss['shape_' + shape]} 
       ${scss['font_size_' + fontSize]}
       ${scss['font_weight_' + fontWeight]}
       ${isDelaying && scss.delay_button}
       ${restProps.fitContainer && scss.fit_container} ${to && scss.link}`
-    ),
-    style: {
-      minWidth,
+      ),
+      style: {
+        minWidth,
+      },
     },
-  };
+    linkProps = omit(buttonProps, ['disabled', 'name']);
 
   if (isDelaying && delay) {
     return (
@@ -95,6 +99,7 @@ export function Button({
       </button>
     );
   }
-  if (to && !restProps.disabled) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
+  if (to && !restProps.disabled)
+    return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
   return <button {...buttonProps} type={type} />;
 }

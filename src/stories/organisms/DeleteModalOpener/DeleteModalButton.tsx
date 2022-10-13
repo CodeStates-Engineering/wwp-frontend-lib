@@ -1,16 +1,11 @@
-import { Trash2 } from "react-feather";
-import { ModalOpener } from "../../molecules";
-import type { ModalOpenerProps } from "../../molecules";
+import { Trash2 } from 'react-feather';
+import { ModalOpener } from '../../molecules';
+import type { ModalOpenerProps } from '../../molecules';
 
 export interface DeleteModalOpenerProps
-  extends Omit<ModalOpenerProps<"button">, "modalOptions" | "type"> {
-  modalOptions?: Omit<
-    Required<ModalOpenerProps>["modalOptions"],
-    "buttonsOptions"
-  >;
-  deleteButtonOptions?: Required<
-    Required<ModalOpenerProps>["modalOptions"]
-  >["buttonsOptions"][0];
+  extends Omit<ModalOpenerProps<'button'>, 'modalOptions' | 'type'> {
+  modalOptions?: Omit<Required<ModalOpenerProps>['modalOptions'], 'buttonsOptions'>;
+  deleteButtonOptions?: Required<Required<ModalOpenerProps>['modalOptions']>['buttonsOptions'][0];
 }
 
 export function DeleteModalOpener({
@@ -19,27 +14,28 @@ export function DeleteModalOpener({
   modalOptions,
   ...restProps
 }: DeleteModalOpenerProps) {
-  const openerProps: DeleteModalOpenerProps["openerOptions"] = {
-    fontWeight: "medium",
-    fontSize: "small",
-    variant: "ghost",
-    theme: "bluish-gray600",
+  const openerProps: DeleteModalOpenerProps['openerOptions'] = {
+    fontWeight: 'medium',
+    fontSize: 'small',
+    variant: 'ghost',
+    theme: 'bluish-gray600',
     icon: Trash2,
     ...openerOptions,
   };
 
-  const deleteButtonProps: DeleteModalOpenerProps["deleteButtonOptions"] = {
-    fontWeight: "medium",
-    fontSize: "normal",
-    children: "네, 삭제합니다.",
-    theme: "wewin-peach500",
+  const deleteButtonProps: DeleteModalOpenerProps['deleteButtonOptions'] = {
+    fontWeight: 'medium',
+    fontSize: 'normal',
+    children: '네, 삭제합니다.',
+    theme: 'wewin-peach500',
     delay: 3000,
+    fitContainer: true,
     ...deleteButtonOptions,
   };
 
   const modalOpenerProps: ModalOpenerProps = {
     modalOptions: {
-      modalType: "center",
+      modalType: 'center',
       ...modalOptions,
       buttonsOptions: [deleteButtonProps],
     },

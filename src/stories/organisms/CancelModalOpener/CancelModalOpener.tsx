@@ -1,15 +1,10 @@
-import { ModalOpener } from "../../molecules";
-import type { ModalOpenerProps } from "../../molecules";
+import { ModalOpener } from '../../molecules';
+import type { ModalOpenerProps } from '../../molecules';
 
 export interface CancelModalOpenerProps
-  extends Omit<ModalOpenerProps<"button">, "modalOptions" | "type"> {
-  modalOptions?: Omit<
-    Required<ModalOpenerProps>["modalOptions"],
-    "buttonsOptions"
-  >;
-  cancelButtonOptions?: Required<
-    Required<ModalOpenerProps>["modalOptions"]
-  >["buttonsOptions"][0];
+  extends Omit<ModalOpenerProps<'button'>, 'modalOptions' | 'type'> {
+  modalOptions?: Omit<Required<ModalOpenerProps>['modalOptions'], 'buttonsOptions'>;
+  cancelButtonOptions?: Required<Required<ModalOpenerProps>['modalOptions']>['buttonsOptions'][0];
 }
 
 export function CancelModalOpener({
@@ -18,24 +13,25 @@ export function CancelModalOpener({
   modalOptions,
   ...restProps
 }: CancelModalOpenerProps) {
-  const openerProps: CancelModalOpenerProps["openerOptions"] = {
-    theme: "bluish-gray50",
-    fontWeight: "medium",
-    fontSize: "small",
+  const openerProps: CancelModalOpenerProps['openerOptions'] = {
+    theme: 'bluish-gray50',
+    fontWeight: 'medium',
+    fontSize: 'small',
     ...openerOptions,
   };
 
-  const cancelButtonProps: CancelModalOpenerProps["cancelButtonOptions"] = {
-    theme: "wewin-peach500",
-    fontWeight: "medium",
-    fontSize: "normal",
-    children: "네, 취소합니다.",
+  const cancelButtonProps: CancelModalOpenerProps['cancelButtonOptions'] = {
+    theme: 'wewin-peach500',
+    fontWeight: 'medium',
+    fontSize: 'normal',
+    children: '네, 취소합니다.',
+    fitContainer: true,
     ...cancelButtonOptions,
   };
 
   const modalOpenerProps: ModalOpenerProps = {
     modalOptions: {
-      modalType: "center",
+      modalType: 'center',
       title: (
         <>
           작성중인 내용이 사라집니다.

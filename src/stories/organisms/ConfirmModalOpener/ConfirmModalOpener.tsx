@@ -1,15 +1,10 @@
-import { ModalOpener } from "../../molecules";
-import type { ModalOpenerProps } from "../../molecules";
+import { ModalOpener } from '../../molecules';
+import type { ModalOpenerProps } from '../../molecules';
 
 export interface ConfirmModalOpenerProps
-  extends Omit<ModalOpenerProps<"button">, "modalOptions" | "type"> {
-  modalOptions?: Omit<
-    Required<ModalOpenerProps>["modalOptions"],
-    "buttonsOptions"
-  >;
-  confirmButtonOptions?: Required<
-    Required<ModalOpenerProps>["modalOptions"]
-  >["buttonsOptions"][0];
+  extends Omit<ModalOpenerProps<'button'>, 'modalOptions' | 'type'> {
+  modalOptions?: Omit<Required<ModalOpenerProps>['modalOptions'], 'buttonsOptions'>;
+  confirmButtonOptions?: Required<Required<ModalOpenerProps>['modalOptions']>['buttonsOptions'][0];
 }
 
 export function ConfirmModalOpener({
@@ -18,15 +13,16 @@ export function ConfirmModalOpener({
   modalOptions,
   ...restProps
 }: ConfirmModalOpenerProps) {
-  const openerProps: ConfirmModalOpenerProps["openerOptions"] = {
-    fontWeight: "medium",
-    fontSize: "small",
+  const openerProps: ConfirmModalOpenerProps['openerOptions'] = {
+    fontWeight: 'medium',
+    fontSize: 'small',
     ...openerOptions,
   };
 
-  const confirmButtonProps: ConfirmModalOpenerProps["confirmButtonOptions"] = {
-    fontWeight: "medium",
-    fontSize: "normal",
+  const confirmButtonProps: ConfirmModalOpenerProps['confirmButtonOptions'] = {
+    fontWeight: 'medium',
+    fontSize: 'normal',
+    fitContainer: true,
     ...confirmButtonOptions,
   };
 
