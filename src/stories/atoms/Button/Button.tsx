@@ -95,6 +95,6 @@ export function Button({
       </button>
     );
   }
-  if (to) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
+  if (to && !restProps.disabled) return <Link {...omit(buttonProps, ['disabled', 'name'])} to={to} />;
   return <button {...buttonProps} type={type} />;
 }
