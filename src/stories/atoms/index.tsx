@@ -20,6 +20,7 @@ export { Label } from './Label/Label';
 export type { LabelProps } from './Label/Label';
 
 export { Loading } from './Loading/Loading';
+export type { LoadingProps } from './Loading/Loading';
 
 export { Modal } from './Modal/Modal';
 export type { ModalProps } from './Modal/Modal';

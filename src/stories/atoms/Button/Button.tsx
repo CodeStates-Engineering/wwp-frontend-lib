@@ -18,24 +18,25 @@ export type ButtonTheme =
 
 export type Variant = 'contain' | 'outline' | 'ghost';
 
-export interface ButtonProps
-  extends Pick<
-    React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
-    'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'
-  > {
-  variant?: Variant;
-  theme?: ButtonTheme;
-  shape?: 'round' | 'square';
-  size?: 'small' | 'medium' | 'large';
-  fontSize?: 'smallX' | 'small' | 'normal' | 'large' | 'large2X' | 'large4X';
-  fontWeight?: 'regular' | 'medium' | 'bold';
-  fitContainer?: boolean;
-  minWidth?: string;
-  to?: string;
-  delay?: number;
-  refresh?: boolean;
-  icon?: React.FunctionComponent<IconProps>;
-}
+export type ButtonProps = Pick<
+  React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
+  'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'
+> &
+  Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'target' | 'download'> & {
+    variant?: Variant;
+    theme?: ButtonTheme;
+    shape?: 'round' | 'square';
+    size?: 'small' | 'medium' | 'large';
+    fontSize?: 'smallX' | 'small' | 'normal' | 'large' | 'large2X' | 'large4X';
+    fontWeight?: 'regular' | 'medium' | 'bold';
+    fitContainer?: boolean;
+    minWidth?: string;
+    to?: string;
+    delay?: number;
+    refresh?: boolean;
+    icon?: React.FunctionComponent<IconProps>;
+  };
+
 export function Button({
   to,
   variant = 'contain',
@@ -48,58 +49,76 @@ export function Button({
   delay,
   refresh = false,
   minWidth,
-
   icon: Icon,
+  target,
+  download,
+  disabled,
+  fitContainer,
+  name,
+  children,
   ...restProps
 }: ButtonProps) {
   const [isDelaying, setIsDelaying] = useState(!!delay);
   const [startDelaying, setStartDelaying] = useState(false);
+
   useEffect(() => {
     if (delay) {
       setTimeout(() => setStartDelaying(true), 1000);
       setTimeout(() => setIsDelaying(false), 1000 + delay);
     }
   }, [setStartDelaying, setIsDelaying, delay]);
-  const buttonProps = {
-      ...restProps,
-      disabled: restProps.disabled || isDelaying,
-      children: (
-        <div className={scss.button_contents}>
-          {restProps.children}
-          {Icon ? (
-            <div className={scss.button_wrap}>
-              <Icon />
-            </div>
-          ) : undefined}
-        </div>
-      ),
-      className: cleanClassName(
-        `${scss.button} ${scss['theme_' + variant + '-' + theme]}
-      ${scss['size_' + size]}
-      ${scss['shape_' + shape]} 
-      ${scss['font_size_' + fontSize]}
-      ${scss['font_weight_' + fontWeight]}
-      ${isDelaying && scss.delay_button}
-      ${restProps.fitContainer && scss.fit_container} ${to && scss.link}`
-      ),
-      style: {
-        minWidth,
-      },
-    },
-    linkProps = omit(buttonProps, ['disabled', 'name']);
 
-  if (isDelaying && delay) {
-    return (
-      <button {...buttonProps} disabled type={type}>
+  const commonProps = {
+    ...restProps,
+    className: cleanClassName(
+      `${scss.button} ${scss['theme_' + variant + '-' + theme]}
+    ${scss['size_' + size]}
+    ${scss['shape_' + shape]} 
+    ${scss['font_size_' + fontSize]}
+    ${scss['font_weight_' + fontWeight]}
+    ${isDelaying && scss.delay_button}
+    ${fitContainer && scss.fit_container} ${to && scss.link}`
+    ),
+    style: {
+      minWidth,
+    },
+    children: (
+      <div className={scss.button_contents}>
+        {children}
+        {Icon ? (
+          <div className={scss.button_wrap}>
+            <Icon />
+          </div>
+        ) : undefined}
+      </div>
+    ),
+  };
+
+  if (to && !disabled) {
+    const linkProps = {
+      ...commonProps,
+      to,
+      target,
+      download,
+    };
+    return refresh ? <a {...linkProps} /> : <Link {...linkProps} />;
+  } else {
+    let buttonProps = {
+      ...commonProps,
+      disabled,
+      name,
+      type,
+    };
+    return isDelaying && delay ? (
+      <button {...buttonProps} disabled>
         <div
           className={cleanClassName(`${scss.delaying_bar} ${startDelaying && scss.delaying}`)}
           style={{ transitionDuration: `${delay / 1000}s` }}
         />
         <div className={scss.delay_button_contents}>{buttonProps.children}</div>
       </button>
+    ) : (
+      <button {...buttonProps} />
     );
   }
-  if (to && !restProps.disabled)
-    return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
-  return <button {...buttonProps} type={type} />;
 }

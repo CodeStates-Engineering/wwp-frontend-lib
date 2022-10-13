@@ -40,6 +40,7 @@ export type {
   ExpandableButtonProps,
   HrProps,
   LabelProps,
+  LoadingProps,
   ModalProps,
   MonthSelectboxProps,
   MonthDate,
