@@ -97,11 +97,10 @@ export function Button({
   if (to && !disabled) {
     const linkProps = {
       ...commonProps,
-      to,
       target,
       download,
     };
-    return refresh ? <a {...linkProps} /> : <Link {...linkProps} />;
+    return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
   } else {
     let buttonProps = {
       ...commonProps,
