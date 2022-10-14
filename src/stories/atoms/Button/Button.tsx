@@ -77,7 +77,7 @@ export function Button({
     ${scss['font_size_' + fontSize]}
     ${scss['font_weight_' + fontWeight]}
     ${isDelaying && scss.delay_button}
-    ${fitContainer && scss.fit_container} ${to && scss.link}`
+    ${fitContainer && scss.fit_container}`
     ),
     style: {
       minWidth,
