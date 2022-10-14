@@ -22,16 +22,16 @@ export function FileDownload({
 }: FileDownloadProps) {
   const { label, url } = value || {};
   const displayFileName = label || url?.split('/').pop() || placeholder;
-  useMountedEffect(() => {
-    onChange?.(value);
-  }, [label, url]);
   return (
     <div style={{ width }} className={scss.file_download} id={id}>
       <div className={scss.file_name}>{displayFileName}</div>
       <a
         href={url}
-        download
+        download={label}
         className={cleanClassName(`${scss.download_link} ${!value?.url && scss.disabled}`)}
+        onClick={() => {
+          onChange?.(value);
+        }}
       >
         <Download />
       </a>

@@ -14,7 +14,7 @@ export interface Period {
 }
 
 export type DateType = 'date' | 'date-range';
-export interface DateSelectboxProps<T extends DateType = 'date'> {
+export interface DateSelectboxProps<T extends DateType> {
   type?: T;
   value?: T extends 'date' ? Period['from'] : Period;
   onChange?: T extends 'date' ? (value: Period['from']) => void : (value: Period) => void;
@@ -31,7 +31,7 @@ export interface DateSelectboxProps<T extends DateType = 'date'> {
   valueSync?: boolean;
 }
 
-export function DateSelectbox<T extends DateType = 'date'>({
+export function DateSelectbox<T extends DateType>({
   type = 'date' as T,
   value,
   onChange,

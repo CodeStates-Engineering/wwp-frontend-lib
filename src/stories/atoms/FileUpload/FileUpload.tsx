@@ -14,7 +14,7 @@ export interface FileUploadProps {
   invalid?: boolean;
   disabled?: boolean;
   value?: string;
-  onChange?: (file: FileUploadProps['value']) => void;
+  onChange?: (file: File | null) => void;
   id?: string;
 }
 
@@ -79,8 +79,8 @@ export function FileUpload({
             e.preventDefault();
             setDisplayFileName(placeholder);
             try {
-              const [file] = e.target.files || [undefined];
-              onChange?.(file ? value ?? file.name : undefined);
+              const [file] = e.target.files || [null];
+              onChange?.(file);
               if (!file) return;
               setDisplayFileName(UPLOAD_PROGRESS_MESSAGE);
               const data = new FormData();
