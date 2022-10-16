@@ -30,7 +30,13 @@ export interface TableContainerProps {
   maxWidth?: React.CSSProperties['maxWidth'];
   minWidth?: React.CSSProperties['minWidth'];
 }
-function Container({ children, loading, invalid = true, minWidth, maxWidth }: TableContainerProps) {
+function Container({
+  children,
+  loading,
+  invalid = false,
+  minWidth,
+  maxWidth,
+}: TableContainerProps) {
   const [rowExisted, setRowExisted] = useState(true);
   const widthRange = { minWidth, maxWidth };
   return (
