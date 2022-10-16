@@ -1,8 +1,8 @@
-import scss from "./PageContents.module.scss";
-import { Link } from "react-router-dom";
-import { cleanClassName } from "@utils";
-import { Loading } from "../../atoms";
-import { useEffect, useState } from "react";
+import scss from './PageContents.module.scss';
+import { Link } from 'react-router-dom';
+import { cleanClassName } from '@utils';
+import { Loading } from '../../atoms';
+import { useEffect, useState } from 'react';
 
 export interface PageContentsContainerProps {
   children?: React.ReactNode;
@@ -11,10 +11,8 @@ export interface PageContentsContainerProps {
 
 export interface PageContentsSectionProps {
   children?: React.ReactNode;
-  pageWidthRange?: {
-    minWidth?: React.CSSProperties["maxWidth"];
-    maxWidth?: React.CSSProperties["maxWidth"];
-  };
+  minWidth?: React.CSSProperties['maxWidth'];
+  maxWidth?: React.CSSProperties['maxWidth'];
 }
 
 export interface PageContentsHeaderProps extends PageContentsSectionProps {
@@ -37,11 +35,7 @@ export const PageContents = {
     }, [loading, setLoaded]);
 
     return (
-      <article
-        className={cleanClassName(
-          `${scss.container} ${loaded && scss.loading}`
-        )}
-      >
+      <article className={cleanClassName(`${scss.container} ${loaded && scss.loading}`)}>
         {loaded && (
           <div className={scss.loading_wrap}>
             <Loading />
@@ -59,11 +53,12 @@ export const PageContents = {
     itemCount,
     description,
     children,
-    pageWidthRange,
+    minWidth,
+    maxWidth,
   }: PageContentsHeaderProps) => (
     <header
       className={cleanClassName(`${scss.header} ${contour && scss.contour}`)}
-      style={pageWidthRange}
+      style={{ minWidth, maxWidth }}
     >
       {title || itemCount ? (
         <h1 className={scss.title}>
@@ -81,24 +76,19 @@ export const PageContents = {
           <li className={scss.path}>{title}</li>
         </ul>
       ) : undefined}
-      {description ? (
-        <p className={scss.description}>{description}</p>
-      ) : undefined}
+      {description ? <p className={scss.description}>{description}</p> : undefined}
       {children}
     </header>
   ),
 
-  Section: ({ children, pageWidthRange }: PageContentsSectionProps) => (
-    <section className={scss.section} style={pageWidthRange}>
+  Section: ({ children, minWidth, maxWidth }: PageContentsSectionProps) => (
+    <section className={scss.section} style={{ minWidth, maxWidth }}>
       {children}
     </section>
   ),
 
-  Footer: ({ children, pageWidthRange }: PageContentsFooterProps) => (
-    <footer
-      className={`${scss.section} ${scss.padding_bottom}`}
-      style={pageWidthRange}
-    >
+  Footer: ({ children, minWidth, maxWidth }: PageContentsFooterProps) => (
+    <footer className={`${scss.section} ${scss.padding_bottom}`} style={{ minWidth, maxWidth }}>
       {children}
     </footer>
   ),

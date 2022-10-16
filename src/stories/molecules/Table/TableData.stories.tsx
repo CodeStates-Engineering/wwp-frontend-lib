@@ -11,19 +11,17 @@ const TableDataStory: ComponentStory<typeof Table.Data> = (args) => <Table.Data 
 
 function TableCommonDecorators({ children }: { children?: React.ReactNode }) {
   return (
-    <div style={{ width: '1000px' }}>
-      <Table.Container>
-        <Table.Head>
-          <Table.Row>
-            <Table.Title>title</Table.Title>
-            <Table.Title>title</Table.Title>
-            <Table.Title>title</Table.Title>
-            <Table.Title>title</Table.Title>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>{children}</Table.Body>
-      </Table.Container>
-    </div>
+    <Table.Container>
+      <Table.Head>
+        <Table.Row>
+          <Table.Title>title</Table.Title>
+          <Table.Title>title</Table.Title>
+          <Table.Title>title</Table.Title>
+          <Table.Title>title</Table.Title>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>{children}</Table.Body>
+    </Table.Container>
   );
 }
 

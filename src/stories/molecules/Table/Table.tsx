@@ -27,13 +27,19 @@ export interface TableContainerProps {
   loading?: boolean;
   invalid?: boolean;
   children?: React.ReactNode;
+  maxWidth?: React.CSSProperties['maxWidth'];
+  minWidth?: React.CSSProperties['minWidth'];
 }
-function Container({ children, loading, invalid = false }: TableContainerProps) {
+function Container({ children, loading, invalid = true, minWidth, maxWidth }: TableContainerProps) {
   const [rowExisted, setRowExisted] = useState(true);
+  const widthRange = { minWidth, maxWidth };
   return (
     <RowExistedSetterContext.Provider value={setRowExisted}>
       {loading ? (
-        <section className={cleanClassName(`${scss.no_row_container} ${invalid && scss.invalid}`)}>
+        <section
+          className={cleanClassName(`${scss.no_row_container} ${invalid && scss.invalid}`)}
+          style={widthRange}
+        >
           <Loading />
         </section>
       ) : (
@@ -42,6 +48,7 @@ function Container({ children, loading, invalid = false }: TableContainerProps) 
             className={cleanClassName(
               `${scss.table_container} ${invalid && scss.invalid} ${!rowExisted && scss.hidden}`
             )}
+            style={widthRange}
           >
             {children}
           </table>
@@ -49,6 +56,7 @@ function Container({ children, loading, invalid = false }: TableContainerProps) 
             className={cleanClassName(
               `${scss.no_row_container} ${invalid && scss.invalid} ${rowExisted && scss.hidden}`
             )}
+            style={widthRange}
           >
             <Logo />
             <span>No Row To Show</span>
