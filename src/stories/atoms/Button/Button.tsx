@@ -1,7 +1,6 @@
 import scss from './Button.module.scss';
 import { cleanClassName } from '@utils';
 import { Link } from 'react-router-dom';
-import { omit } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';
 
@@ -58,25 +57,32 @@ export function Button({
   children,
   ...restProps
 }: ButtonProps) {
-  const [isDelaying, setIsDelaying] = useState(!!delay);
-  const [startDelaying, setStartDelaying] = useState(false);
-
+  const [isDelaying, setIsDelaying] = useState(false);
+  const [leftDelay, setLeftDelay] = useState(0);
   useEffect(() => {
     if (delay) {
-      setTimeout(() => setStartDelaying(true), 1000);
-      setTimeout(() => setIsDelaying(false), 1000 + delay);
+      setLeftDelay(delay + 1000);
+      setTimeout(() => {
+        setIsDelaying(true);
+        setTimeout(() => {
+          setIsDelaying(false);
+          setLeftDelay(0);
+        }, delay);
+      }, 1000);
     }
-  }, [setStartDelaying, setIsDelaying, delay]);
+  }, [setLeftDelay, setIsDelaying, delay]);
 
   const commonProps = {
     ...restProps,
     className: cleanClassName(
-      `${scss.button} ${scss['theme_' + variant + '-' + theme]}
+      `${scss.button} ${scss['theme_' + variant + '-' + theme]} ${
+        !Icon ? scss.only_text : !children && scss.only_icon
+      }
     ${scss['size_' + size]}
     ${scss['shape_' + shape]} 
     ${scss['font_size_' + fontSize]}
     ${scss['font_weight_' + fontWeight]}
-    ${isDelaying && scss.delay_button}
+    ${leftDelay && scss.delay_button}
     ${fitContainer && scss.fit_container}`
     ),
     style: {
@@ -108,11 +114,11 @@ export function Button({
       name,
       type,
     };
-    return isDelaying && delay ? (
+    return leftDelay ? (
       <button {...buttonProps} disabled>
         <div
-          className={cleanClassName(`${scss.delaying_bar} ${startDelaying && scss.delaying}`)}
-          style={{ transitionDuration: `${delay / 1000}s` }}
+          className={cleanClassName(`${scss.delaying_bar} ${isDelaying && scss.delaying}`)}
+          style={{ transition: `transform ${leftDelay / 1000}s linear` }}
         />
         <div className={scss.delay_button_contents}>{buttonProps.children}</div>
       </button>
