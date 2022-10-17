@@ -68,6 +68,16 @@ export const colors = {
 //Wewin Peach
   wewinPeach500: '#ff5447',
   wewinPeach600: '#fd1808',
+
+  //Green
+  GREEN50: '#E9FBEF',
+  GREEN100: '#D3F8DE',
+  GREEN200: '#B0F2C4',
+  GREEN300: '#84EBAA',
+  GREEN400: '#56DC90',
+  GREEN500: '#10C677',
+  GREEN600: '#00A86B',
+  GREEN700: '#008059',
 };
 
 export type Color = keyof typeof colors;
