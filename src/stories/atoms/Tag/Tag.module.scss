@@ -1,4 +1,10 @@
 @import "../../../scss/libs.scss";
+
+@mixin theme($color, $backgroundColor) {
+  color: $color;
+  background-color: $backgroundColor;
+}
+
 .tag {
   border-radius: 6px;
   min-width: 80px;
@@ -10,38 +16,39 @@
   }
 }
 
-.theme_blue {
-  background-color: $WEWIN_BLUE100;
-  color: $WEWIN_BLUE600;
+.theme_wewinBlue600 {
+  @include theme($WEWIN_BLUE600, $WEWIN_BLUE100);
 }
 
-.theme_gray {
-  background-color: $GRAY200;
-  color: $GRAY700;
+.theme_wewinOrange600 {
+  @include theme($WEWIN_ORANGE600, $WEWIN_ORANGE10);
 }
 
-.theme_gold {
-  background-color: $WEWIN_GOLD200;
-  color: $WEWIN_GOLD700;
+.theme_gray200 {
+  @include theme($GRAY200, $GRAY800);
 }
 
-.theme_mint {
-  background-color: $MINT100;
-  color: $MINT700;
-}
-
-.theme_black {
-  background-color: $GRAY800;
-  color: $GRAY200;
-}
-
-.theme_white {
-  background-color: white;
+.theme_gray600 {
+  @include theme($GRAY600, white);
   border: 1px solid $GRAY300;
-  color: $GRAY600;
 }
 
-.theme_peach {
-  background-color: $PEACH50;
-  color: $PEACH500;
+.theme_gray700 {
+  @include theme($GRAY700, $GRAY200);
+}
+
+.theme_wewinGold700 {
+  @include theme($WEWIN_GOLD700, $WEWIN_GOLD200);
+}
+
+.theme_mint700 {
+  @include theme($MINT700, $MINT100);
+}
+
+.theme_peach500 {
+  @include theme($PEACH500, $PEACH50);
+}
+
+.theme_green600 {
+  @include theme($GREEN600, $GREEN50);
 }

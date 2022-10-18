@@ -1,17 +1,18 @@
 import scss from './Tag.module.scss';
-import { cleanClassName } from '@utils';
+import { cleanClassName, Color } from '@utils';
+
 export interface TagProps {
   children?: React.ReactNode;
-  theme?: 'blue' | 'gray' | 'gold' | 'mint' | 'black' | 'white' | 'peach';
+  theme?: Color;
   className?: string;
   style?: React.CSSProperties;
   id?: string;
   onClick?: (event: React.MouseEvent) => void;
   type?: 'tag' | 'button';
 }
-export function Tag({ theme = 'blue', className, type = 'tag', ...tagProps }: TagProps) {
+export function Tag({ theme = 'wewinBlue600', className, type = 'tag', ...tagProps }: TagProps) {
   const classNames = cleanClassName(
-    `${scss.tag} ${scss[type]} ${scss[`theme_${theme}`]} ${className}`
+    `${scss.tag} ${scss[type]} ${scss[`theme_${theme}`]} ${className}`,
   );
   switch (type) {
     case 'tag':
