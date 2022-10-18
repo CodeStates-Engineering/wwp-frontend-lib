@@ -28,7 +28,7 @@ export function DeleteModalOpener({
     fontSize: 'normal',
     children: '네, 삭제합니다.',
     theme: 'wewin-peach500',
-    delay: 3000,
+    delay: 1500,
     fitContainer: true,
     ...deleteButtonOptions,
   };

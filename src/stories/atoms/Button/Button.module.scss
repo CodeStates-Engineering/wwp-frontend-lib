@@ -41,7 +41,7 @@
     background-color: transparent;
     &:hover:not(:disabled) {
       color: darken($color, 7%);
-      background-color: invert(rgba($color, 0.07));
+      background-color: rgba($backgroundColor, 0.07);
       &.only_text {
         text-decoration: underline;
         background: none;
@@ -49,7 +49,7 @@
     }
     &:active:not(:disabled) {
       color: darken($color, 14%);
-      background-color: invert(rgba($color, 0.14));
+      background-color: rgba($backgroundColor, 0.14);
       &.only_text {
         text-decoration: underline;
         background: none;

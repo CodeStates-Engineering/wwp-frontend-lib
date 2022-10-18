@@ -61,14 +61,14 @@ export function Button({
   const [leftDelay, setLeftDelay] = useState(0);
   useEffect(() => {
     if (delay) {
-      setLeftDelay(delay + 1000);
+      setLeftDelay(delay);
       setTimeout(() => {
         setIsDelaying(true);
         setTimeout(() => {
           setIsDelaying(false);
           setLeftDelay(0);
         }, delay);
-      }, 1000);
+      });
     }
   }, [setLeftDelay, setIsDelaying, delay]);
 

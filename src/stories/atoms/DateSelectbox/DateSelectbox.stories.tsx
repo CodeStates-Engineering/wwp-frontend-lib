@@ -15,4 +15,5 @@ export const Default = DateSelectboxStory.bind({});
 const defaultArgs: DateSelectboxProps<'date-range'> = {
   openDirection: ['down', 'left'],
 };
+
 Default.args = defaultArgs;
