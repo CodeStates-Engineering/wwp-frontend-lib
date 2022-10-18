@@ -21,7 +21,7 @@ export type ButtonProps = Pick<
   React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
   'onClick' | 'type' | 'children' | 'disabled' | 'name' | 'id'
 > &
-  Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'target' | 'download' | 'rel'> & {
+  Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'target' | 'download'> & {
     variant?: Variant;
     theme?: ButtonTheme;
     shape?: 'round' | 'square';
@@ -51,7 +51,6 @@ export function Button({
   icon: Icon,
   target,
   download,
-  rel,
   disabled,
   fitContainer,
   name,
@@ -106,7 +105,6 @@ export function Button({
       ...commonProps,
       target,
       download,
-      rel,
     };
     return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
   } else {
