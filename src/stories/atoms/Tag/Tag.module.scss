@@ -16,11 +16,11 @@
   }
 }
 
-.theme_wewinBlue600 {
+.theme_wewin-blue600 {
   @include theme($WEWIN_BLUE600, $WEWIN_BLUE100);
 }
 
-.theme_wewinOrange600 {
+.theme_wewin-orange600 {
   @include theme($WEWIN_ORANGE600, $WEWIN_ORANGE10);
 }
 
@@ -37,7 +37,7 @@
   @include theme($GRAY700, $GRAY200);
 }
 
-.theme_wewinGold700 {
+.theme_wewin-gold700 {
   @include theme($WEWIN_GOLD700, $WEWIN_GOLD200);
 }
 

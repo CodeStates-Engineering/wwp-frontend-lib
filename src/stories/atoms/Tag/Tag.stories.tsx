@@ -18,14 +18,14 @@ Default.argTypes = {
     table: {
       type: {
         summary: `
-        "wewinBlue600" 
+        "wewin-blue600" 
         | "gray700" 
-        | "wewinGold700" 
+        | "wewin-gold700" 
         | "mint700" 
         | "gray200" 
         | "gray600" 
         | "peach500"
-        | "wewinOrange600"
+        | "wewin-orange600"
         | "green600"
         `,
       },
