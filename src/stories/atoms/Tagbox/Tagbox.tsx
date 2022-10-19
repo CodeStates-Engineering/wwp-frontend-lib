@@ -17,10 +17,7 @@ export interface TagboxProps {
   maxTextLength?: number;
 }
 
-/**
- * @deprecated
- * 로직 수정이 필요합니다.
- */
+/** @deprecated 로직 수정 필요 */
 export function Tagbox({
   className,
   disabled,

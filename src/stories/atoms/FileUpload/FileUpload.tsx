@@ -1,21 +1,25 @@
 import { cleanClassName } from '../../../utils';
 import scss from './FileUpload.module.scss';
-import { useDepsState } from '../../../hooks';
+import { useParentState } from '../../../hooks';
+import { X } from 'react-feather';
+export type WebFile = {
+  name?: string;
+  url?: string;
+};
 
 export interface FileUploadProps {
   width?: React.CSSProperties['width'];
   placeholder?: string;
-  url?: string;
-  method?: 'post' | 'put';
   accept?: string;
   theme?: 'box' | 'linear';
   modifier?: 'system' | 'readonly' | 'user';
   instantUpload?: boolean;
   invalid?: boolean;
   disabled?: boolean;
-  value?: string;
-  onChange?: (file: File | null) => void;
+  value?: WebFile | File;
+  onChange?: (file?: File) => void;
   id?: string;
+  valueSync?: boolean;
 }
 
 export function FileUpload({
@@ -25,26 +29,24 @@ export function FileUpload({
   theme = 'box',
   onChange,
   modifier = 'user',
-  instantUpload = true,
   invalid = false,
   disabled = false,
   value,
   id,
-  url,
-  method = 'put',
+  valueSync,
 }: FileUploadProps) {
-  const [displayFileName, setDisplayFileName] = useDepsState(
-    () => value ?? placeholder,
-    [value, placeholder]
-  );
+  const [file, setFile] = useParentState(() => value, [value], valueSync),
+    fileName = file?.name || placeholder;
 
-  const UPLOAD_FAILED_MESSAGE = '업로드에 실패했습니다.';
-  const UPLOAD_PROGRESS_MESSAGE = '업로드 중입니다.';
+  const fileUrl = file instanceof File ? URL.createObjectURL(file) : file?.url;
 
-  const isUploadFailed = displayFileName === UPLOAD_FAILED_MESSAGE;
-  const isUploadProgress = displayFileName === UPLOAD_PROGRESS_MESSAGE;
-  const isFilled = !(displayFileName === placeholder) && !isUploadProgress && !isUploadFailed;
+  const isFilled = !(fileName === placeholder);
   const isDisabled = modifier === 'user' ? disabled : true;
+
+  const handleFileChange = (file?: File) => {
+    setFile?.(file);
+    onChange?.(file);
+  };
 
   const FileUploadButton = ({ children }: { children: React.ReactNode }) =>
     isDisabled ? (
@@ -52,7 +54,18 @@ export function FileUpload({
         {children}
       </button>
     ) : (
-      <label className={scss.file_upload_button}>{children}</label>
+      <>
+        {isFilled && (
+          <button
+            className={scss.delete_file_button}
+            type="button"
+            onClick={() => handleFileChange(undefined)}
+          >
+            <X />
+          </button>
+        )}
+        <label className={scss.file_upload_button}>{children}</label>
+      </>
     );
 
   return (
@@ -60,43 +73,25 @@ export function FileUpload({
       id={id}
       style={{ width }}
       className={cleanClassName(
-        `${scss.file_upload} ${scss[theme]} ${(isUploadFailed || invalid) && scss.invalid} ${
-          isFilled && scss.filled
-        } ${isUploadProgress && scss.progress} ${isDisabled && scss.disabled} ${
-          modifier && scss[modifier]
-        }`
+        `${scss.file_upload} ${scss[theme]} ${invalid && scss.invalid} ${isFilled && scss.filled} ${
+          isDisabled && scss.disabled
+        } ${modifier && scss[modifier]}`
       )}
     >
       <div className={scss.display_file_name}>
-        <span>{displayFileName}</span>
+        <a href={isDisabled ? undefined : fileUrl} download>
+          {fileName}
+        </a>
       </div>
       <FileUploadButton>
         파일 선택
         <input
           type="file"
           accept={accept}
-          onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(e) => {
             e.preventDefault();
-            setDisplayFileName(placeholder);
-            try {
-              const [file] = e.target.files || [null];
-              onChange?.(file);
-              if (!file) return;
-              setDisplayFileName(UPLOAD_PROGRESS_MESSAGE);
-              const data = new FormData();
-              data.append('file', file);
-              if (process.env.BUILD_TYPE !== 'storybook' && instantUpload) {
-                const axios = require('axios').default;
-                await axios({
-                  url,
-                  method,
-                  data,
-                });
-              }
-              setDisplayFileName(file.name);
-            } catch (e) {
-              setDisplayFileName(UPLOAD_FAILED_MESSAGE);
-            }
+            const [file] = e.target.files || [undefined];
+            handleFileChange(file);
           }}
         />
       </FileUploadButton>

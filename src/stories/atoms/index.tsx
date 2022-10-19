@@ -89,4 +89,4 @@ export { FileDownload } from './FileDownload/FileDownload';
 export type { FileDownloadProps } from './FileDownload/FileDownload';
 
 export { FileUpload } from './FileUpload/FileUpload';
-export type { FileUploadProps } from './FileUpload/FileUpload';
+export type { FileUploadProps, WebFile } from './FileUpload/FileUpload';

@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 @mixin theme($text-color, $bg-color, $border, $icon-color, $icon-bg-color) {
   color: $text-color;
@@ -26,12 +26,18 @@
   display: flex;
 
   > .display_file_name {
-    padding: 0 11px;
+    position: relative;
+    padding: {
+      top: 0;
+      bottom: 0;
+      left: 11px;
+      right: 5px;
+    }
     display: flex;
     align-items: center;
     min-width: 0;
     flex: 1 1 auto;
-    > span {
+    > a {
       font-weight: $MEDIUM_FONT_WEIGHT;
       font-size: $SMALL_FONT_SIZE;
       text-overflow: ellipsis;
@@ -66,16 +72,6 @@
     $INPUT_ICON_DEFAULT_BG_COLOR
   );
 
-  &.progress {
-    @include theme(
-      $INPUT_FOCUS_COLOR,
-      $INPUT_FOCUS_BG_COLOR,
-      $INPUT_FOCUS_BORDER,
-      $INPUT_ICON_FOCUS_COLOR,
-      $INPUT_ICON_FOCUS_BG_COLOR
-    );
-  }
-
   &.filled {
     @include theme(
       $INPUT_FILLED_COLOR,
@@ -84,10 +80,16 @@
       $INPUT_ICON_FILLED_COLOR,
       $INPUT_ICON_FILLED_BG_COLOR
     );
+    > .display_file_name > a:hover {
+      text-decoration: underline;
+    }
   }
 
   &.disabled {
     cursor: not-allowed;
+    > .file_upload_button > a {
+      text-decoration: none;
+    }
     @include theme(
       $INPUT_DISABLED_COLOR,
       $INPUT_DISABLED_BG_COLOR,
@@ -106,13 +108,7 @@
     }
     &.readonly {
       cursor: default;
-      @include theme(
-        $INPUT_READONLY_COLOR,
-        transparent,
-        transparent,
-        transparent,
-        transparent
-      );
+      @include theme($INPUT_READONLY_COLOR, transparent, transparent, transparent, transparent);
     }
     &.linear {
       > .file_upload_button {
@@ -127,6 +123,7 @@
     > .file_upload_button {
       &:hover:not(:disabled) {
         color: $INPUT_ICON_FOCUS_COLOR;
+        background-color: darken($INPUT_ICON_FOCUS_BG_COLOR, 1%);
       }
     }
     &.invalid {
@@ -138,5 +135,26 @@
     &.invalid {
       border-bottom: $INPUT_ALERT_BORDER;
     }
+  }
+}
+
+.delete_file_button {
+  height: 12px;
+  width: 12px;
+  margin: 3px;
+  float: top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: $BLUISH_GRAY500;
+  transition: background-color 0.2s, color 0.2s;
+  &:hover {
+    color: white;
+    background-color: $BLUISH_GRAY500;
+  }
+  > svg {
+    width: 12px;
+    height: 12px;
   }
 }
