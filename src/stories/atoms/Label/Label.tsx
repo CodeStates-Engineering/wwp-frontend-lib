@@ -1,4 +1,4 @@
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import scss from './Label.module.scss';
 export interface LabelProps {
   htmlFor?: string;

@@ -28,8 +28,8 @@ export type {
   ComplexFileDownloadProps,
 } from './ComplexInput/ComplexInput';
 
-export { FormEditStamp } from './FormEditStamp/FormEditStamp';
-export type { FormEditStampProps } from './FormEditStamp/FormEditStamp';
+export { FormTimeStamp } from './FormTimeStamp/FormTimeStamp';
+export type { FormTimeStampProps } from './FormTimeStamp/FormTimeStamp';
 
 export { PaginationWithPageSize } from './PaginationWithPageSize/PaginationWithPageSize';
 export type { PaginationWithPageSizeProps } from './PaginationWithPageSize/PaginationWithPageSize';

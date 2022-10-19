@@ -1,7 +1,6 @@
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import scss from './FileDownload.module.scss';
 import { Download } from 'react-feather';
-import { useMountedEffect } from '@hooks';
 
 export interface FileDownloadProps {
   id?: string;

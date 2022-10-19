@@ -1,7 +1,7 @@
 import scss from './Modal.module.scss';
 import { X } from 'react-feather';
-import { useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 import { Button, ButtonProps } from '../Button/Button';
 import { useState } from 'react';
 

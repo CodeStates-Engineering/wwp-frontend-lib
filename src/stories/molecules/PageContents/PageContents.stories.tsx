@@ -1,15 +1,15 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { PageContents } from "./PageContents";
-import React from "react";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { PageContents } from './PageContents';
+import React from 'react';
 
 export default {
-  title: "molecules/PageContents",
+  title: 'molecules/PageContents',
   component: PageContents.Container,
 } as ComponentMeta<typeof PageContents.Container>;
 
-const PageContentsStory: ComponentStory<typeof PageContents.Container> = (
-  args
-) => <PageContents.Container {...args} />;
+const PageContentsStory: ComponentStory<typeof PageContents.Container> = (args) => (
+  <PageContents.Container {...args} />
+);
 
 export const Default = PageContentsStory.bind({});
 

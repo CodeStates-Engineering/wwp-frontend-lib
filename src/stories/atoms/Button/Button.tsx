@@ -1,5 +1,5 @@
 import scss from './Button.module.scss';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';

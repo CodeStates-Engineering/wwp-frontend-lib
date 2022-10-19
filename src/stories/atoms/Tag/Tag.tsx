@@ -1,5 +1,5 @@
 import scss from './Tag.module.scss';
-import { cleanClassName } from '@utils';
+import { cleanClassName, Color } from '../../../utils';
 
 export interface TagProps {
   children?: React.ReactNode;
@@ -20,7 +20,7 @@ export interface TagProps {
 }
 export function Tag({ theme = 'wewin-blue600', className, type = 'tag', ...tagProps }: TagProps) {
   const classNames = cleanClassName(
-    `${scss.tag} ${scss[type]} ${scss[`theme_${theme}`]} ${className}`,
+    `${scss.tag} ${scss[type]} ${scss[`theme_${theme}`]} ${className}`
   );
   switch (type) {
     case 'tag':

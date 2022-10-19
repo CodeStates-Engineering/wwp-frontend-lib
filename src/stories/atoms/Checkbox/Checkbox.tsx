@@ -1,7 +1,7 @@
 import scss from './Checkbox.module.scss';
 import { Check, Minus, X } from 'react-feather';
-import { useMountedEffect, useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useMountedEffect, useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 
 export interface CheckboxProps {
   className?: string;

@@ -1,18 +1,18 @@
-import { cleanClassName } from "@utils";
-import { Label } from "../../atoms";
-import type { LabelProps } from "../../atoms";
-import scss from "./FormGroup.module.scss";
-import type React from "react";
+import { cleanClassName } from '../../../utils';
+import { Label } from '../../atoms';
+import type { LabelProps } from '../../atoms';
+import scss from './FormGroup.module.scss';
+import type React from 'react';
 
 export interface FormGroupProps {
-  type?: "form" | "section";
+  type?: 'form' | 'section';
   children?: React.ReactNode;
   className?: string;
   padding?: boolean;
-  backgroundColor?: "gray";
-  labelText?: LabelProps["children"];
-  labelTextSize?: LabelProps["fontSize"];
-  essential?: LabelProps["essential"];
+  backgroundColor?: 'gray';
+  labelText?: LabelProps['children'];
+  labelTextSize?: LabelProps['fontSize'];
+  essential?: LabelProps['essential'];
   border?: boolean;
 }
 
@@ -28,19 +28,19 @@ export interface FormGroupProps {
  * @prop border - border 여부
  */
 export function FormGroup({
-  type = "form",
+  type = 'form',
   children,
   className,
   padding = true,
   backgroundColor,
   labelText,
-  labelTextSize = "large2x",
+  labelTextSize = 'large2x',
   border = true,
   essential,
 }: FormGroupProps) {
   const formProps = {
     className: cleanClassName(
-      `${scss.form_container} ${scss["background_color_" + backgroundColor]} ${
+      `${scss.form_container} ${scss['background_color_' + backgroundColor]} ${
         padding && scss.padding
       } ${border && scss.border} ${
         labelText && scss[`margin_padding_${labelTextSize}`]
@@ -58,9 +58,9 @@ export function FormGroup({
       ) : undefined}
       {(() => {
         switch (type) {
-          case "form":
+          case 'form':
             return <form {...formProps} />;
-          case "section":
+          case 'section':
             return <section {...formProps} />;
         }
       })()}

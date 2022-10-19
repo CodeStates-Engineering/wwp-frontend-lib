@@ -1,6 +1,6 @@
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import scss from './FileUpload.module.scss';
-import { useDepsState } from '@hooks';
+import { useDepsState } from '../../../hooks';
 
 export interface FileUploadProps {
   width?: React.CSSProperties['width'];

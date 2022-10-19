@@ -1,6 +1,6 @@
 import scss from './SectionMoveButton.module.scss';
 import { ChevronRight } from 'react-feather';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 
 export interface SectionMoveButtonProps {
   title: string;

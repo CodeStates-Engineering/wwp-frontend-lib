@@ -1,6 +1,6 @@
 import scss from './Pagination.module.scss';
 import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'react-feather';
-import type { PaginationState } from '@hooks';
+import type { PaginationState } from '../../../hooks';
 
 export interface PaginationProps {
   pageCount: number;

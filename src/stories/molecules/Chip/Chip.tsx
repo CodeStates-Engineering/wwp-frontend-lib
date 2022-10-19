@@ -1,8 +1,8 @@
-import scss from "./Chip.module.scss";
-import { cleanClassName } from "@utils";
-import { X } from "react-feather";
-import { Button, Modal } from "../../atoms";
-import { useState } from "react";
+import scss from './Chip.module.scss';
+import { cleanClassName } from '../../../utils';
+import { X } from 'react-feather';
+import { Button, Modal } from '../../atoms';
+import { useState } from 'react';
 
 export interface ChipProps {
   children?: React.ReactNode;
@@ -22,10 +22,10 @@ export function Chip(props: ChipProps) {
         onClose={() => setDeleteModalOpened(false)}
         buttonsOptions={[
           {
-            fontWeight: "bold",
-            fontSize: "normal",
-            theme: "wewin-peach500",
-            children: "네, 삭제합니다.",
+            fontWeight: 'bold',
+            fontSize: 'normal',
+            theme: 'wewin-peach500',
+            children: '네, 삭제합니다.',
             onClick: (closeModal) => {
               setIsExisted(false);
               closeModal();

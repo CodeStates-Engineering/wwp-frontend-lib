@@ -1,14 +1,12 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Tooltip } from "./Tooltip";
-import React from "react";
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Tooltip } from './Tooltip';
+import React from 'react';
 export default {
-  title: "atoms/Tooltip",
+  title: 'atoms/Tooltip',
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 
-const TooltipStory: ComponentStory<typeof Tooltip> = (args) => (
-  <Tooltip {...args} />
-);
+const TooltipStory: ComponentStory<typeof Tooltip> = (args) => <Tooltip {...args} />;
 
 export const Default = TooltipStory.bind({});
 Default.args = {
@@ -25,11 +23,11 @@ Default.decorators = [
   (Story) => (
     <div
       style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: "120px",
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '120px',
       }}
     >
       <Story />

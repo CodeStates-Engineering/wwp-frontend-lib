@@ -1,6 +1,6 @@
-import { useParentState } from '@hooks';
+import { useParentState } from '../../../hooks';
 import scss from './Textarea.module.scss';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import { useLayoutEffect, useRef } from 'react';
 
 export interface TextareaProps {

@@ -9,9 +9,7 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const ButtonStory: ComponentStory<typeof Button> = (args) => (
-  <Button {...args} />
-);
+const ButtonStory: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = ButtonStory.bind({});
 Default.args = {
@@ -19,6 +17,4 @@ Default.args = {
   icon: File,
   disabled: false,
 };
-Default.decorators = [
-  (Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>,
-];
+Default.decorators = [(Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>];

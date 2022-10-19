@@ -1,7 +1,7 @@
-import { cleanClassName } from "@utils";
-import React, { useMemo } from "react";
+import { cleanClassName } from '../../../utils';
+import React, { useMemo } from 'react';
 
-import scss from "./SectionSlider.module.scss";
+import scss from './SectionSlider.module.scss';
 
 export interface SectionSliderContainerProps extends SectionSliderItemProps {
   currentSection: number;
@@ -12,13 +12,9 @@ function Container(props: SectionSliderContainerProps) {
     const childrenArray = React.Children.toArray(children),
       sliderItemCount = childrenArray.length,
       sliderItemWidth = 100 / sliderItemCount,
-      sliderItemStyle = { width: sliderItemWidth + "%" },
+      sliderItemStyle = { width: sliderItemWidth + '%' },
       sliderItems = childrenArray.map((Section, index) => (
-        <section
-          key={index}
-          className={scss.section_slider_item_wrap}
-          style={sliderItemStyle}
-        >
+        <section key={index} className={scss.section_slider_item_wrap} style={sliderItemStyle}>
           {Section}
         </section>
       ));
@@ -48,9 +44,7 @@ export interface SectionSliderItemProps {
 }
 function Item({ children, className }: SectionSliderItemProps) {
   return (
-    <div className={cleanClassName(`${scss.section_slider_item} ${className}`)}>
-      {children}
-    </div>
+    <div className={cleanClassName(`${scss.section_slider_item} ${className}`)}>{children}</div>
   );
 }
 

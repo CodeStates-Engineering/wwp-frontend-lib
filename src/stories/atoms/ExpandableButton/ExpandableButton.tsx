@@ -1,14 +1,14 @@
-import type React from "react";
-import type { IconProps } from "react-feather";
+import type React from 'react';
+import type { IconProps } from 'react-feather';
 
-import scss from "./ExpandableButton.module.scss";
-import { cleanClassName } from "@utils";
-import { useState } from "react";
+import scss from './ExpandableButton.module.scss';
+import { cleanClassName } from '../../../utils';
+import { useState } from 'react';
 
 //확장형 버튼 관련 컴포넌트
 export interface ExpandableButtonProps {
   className?: string;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   children?: React.ReactNode;
   onClick?: () => void;
   icon?: React.FunctionComponent<IconProps>;
@@ -16,7 +16,7 @@ export interface ExpandableButtonProps {
 }
 export function ExpandableButton({
   className,
-  type = "button",
+  type = 'button',
   children,
   onClick,
   icon: Icon,
@@ -26,7 +26,7 @@ export function ExpandableButton({
   return (
     <button
       disabled={disabled}
-      type={!isActive ? "button" : type}
+      type={!isActive ? 'button' : type}
       className={cleanClassName(`
       ${scss.expandable_button}
       ${isActive && scss.active}
