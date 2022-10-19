@@ -20,6 +20,3 @@ export { useDepsState } from './useDepsState';
 export { assignTypeToPropsStore } from './assignTypeToPropsStore';
 
 export { useMountedEffect } from './useMountedEffect';
-
-export { useFileState } from './useFileState';
-export type { FileState, CustomFile } from './useFileState';

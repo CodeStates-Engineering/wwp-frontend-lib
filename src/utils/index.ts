@@ -4,6 +4,8 @@ export { copyText } from './copyText';
 export { undefinable } from './undefinableType';
 export { regex } from './regex';
 export { checkStringDate } from './checkStringDate';
+export { getExtension } from './getExtension';
+export { uploadFile } from './uploadFile';
 
 export { colors } from './palette';
 export type { Color } from './palette';

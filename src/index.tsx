@@ -1,5 +1,6 @@
 import './scss/global.scss';
 
+//? Atom 컴포넌트
 export {
   Button,
   Checkbox,
@@ -64,9 +65,11 @@ export type {
   TabProps,
   FileDownloadProps,
   FileUploadProps,
+  WebFile,
   ProgressProps,
 } from './stories/atoms';
 
+//? Molecule 컴포넌트
 export {
   Chip,
   ComplexCheckbox,
@@ -119,6 +122,7 @@ export type {
   ComplexFileDownloadProps,
 } from './stories/molecules';
 
+//? Organism 컴포넌트
 export { ConfirmModalOpener, CancelModalOpener, DeleteModalOpener } from './stories/organisms';
 export type {
   ConfirmModalOpenerProps,
@@ -126,8 +130,19 @@ export type {
   DeleteModalOpenerProps,
 } from './stories/organisms';
 
-export { validator, cleanClassName, copyText, undefinable, regex, checkStringDate } from './utils';
+//? Util 함수
+export {
+  validator,
+  cleanClassName,
+  copyText,
+  undefinable,
+  regex,
+  checkStringDate,
+  getExtension,
+  uploadFile,
+} from './utils';
 
+//? Hook 함수
 export {
   useOpenedStateWithCloseExternalClick,
   useParentState,
@@ -139,14 +154,10 @@ export {
   useDepsState,
   assignTypeToPropsStore,
   useMountedEffect,
-  useFileState,
 } from './hooks';
-
 export type {
   OpenedStateWithCloseExternalClick,
   PaginationState,
   ValidationStorage,
   Validation,
-  FileState,
-  CustomFile,
 } from './hooks';

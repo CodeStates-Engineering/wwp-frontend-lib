@@ -1,6 +1,11 @@
 import { cleanClassName } from '../../../utils';
 import scss from './FileUpload.module.scss';
-import { useDepsState, useParentState, CustomFile } from '../../../hooks';
+import { useParentState } from '../../../hooks';
+import { X } from 'react-feather';
+export type WebFile = {
+  name?: string;
+  url?: string;
+};
 
 export interface FileUploadProps {
   width?: React.CSSProperties['width'];
@@ -11,9 +16,10 @@ export interface FileUploadProps {
   instantUpload?: boolean;
   invalid?: boolean;
   disabled?: boolean;
-  value?: CustomFile;
+  value?: WebFile | File;
   onChange?: (file?: File) => void;
   id?: string;
+  valueSync?: boolean;
 }
 
 export function FileUpload({
@@ -27,22 +33,20 @@ export function FileUpload({
   disabled = false,
   value,
   id,
+  valueSync,
 }: FileUploadProps) {
-  const [file, setFile] = useParentState(() => value, [value]);
-  const [displayFileName, setDisplayFileName] = useDepsState(
-    () => file?.name ?? placeholder,
-    [file]
-  );
+  const [file, setFile] = useParentState(() => value, [value], valueSync),
+    fileName = file?.name || placeholder;
 
   const fileUrl = file instanceof File ? URL.createObjectURL(file) : file?.url;
 
-  const UPLOAD_FAILED_MESSAGE = '업로드에 실패했습니다.';
-  const UPLOAD_PROGRESS_MESSAGE = '업로드 중입니다.';
-
-  const isUploadFailed = displayFileName === UPLOAD_FAILED_MESSAGE;
-  const isUploadProgress = displayFileName === UPLOAD_PROGRESS_MESSAGE;
-  const isFilled = !(displayFileName === placeholder) && !isUploadProgress && !isUploadFailed;
+  const isFilled = !(fileName === placeholder);
   const isDisabled = modifier === 'user' ? disabled : true;
+
+  const handleFileChange = (file?: File) => {
+    setFile?.(file);
+    onChange?.(file);
+  };
 
   const FileUploadButton = ({ children }: { children: React.ReactNode }) =>
     isDisabled ? (
@@ -50,29 +54,33 @@ export function FileUpload({
         {children}
       </button>
     ) : (
-      <label className={scss.file_upload_button}>{children}</label>
+      <>
+        {isFilled && (
+          <button
+            className={scss.delete_file_button}
+            type="button"
+            onClick={() => handleFileChange(undefined)}
+          >
+            <X />
+          </button>
+        )}
+        <label className={scss.file_upload_button}>{children}</label>
+      </>
     );
-
-  const handleFileChange = (file?: File) => {
-    setFile?.(file);
-    onChange?.(file);
-  };
 
   return (
     <div
       id={id}
       style={{ width }}
       className={cleanClassName(
-        `${scss.file_upload} ${scss[theme]} ${(isUploadFailed || invalid) && scss.invalid} ${
-          isFilled && scss.filled
-        } ${isUploadProgress && scss.progress} ${isDisabled && scss.disabled} ${
-          modifier && scss[modifier]
-        }`
+        `${scss.file_upload} ${scss[theme]} ${invalid && scss.invalid} ${isFilled && scss.filled} ${
+          isDisabled && scss.disabled
+        } ${modifier && scss[modifier]}`
       )}
     >
       <div className={scss.display_file_name}>
         <a href={isDisabled ? undefined : fileUrl} download>
-          {displayFileName}
+          {fileName}
         </a>
       </div>
       <FileUploadButton>
@@ -80,16 +88,10 @@ export function FileUpload({
         <input
           type="file"
           accept={accept}
-          onClick={() => handleFileChange(undefined)}
-          onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(e) => {
             e.preventDefault();
-            try {
-              setDisplayFileName?.(UPLOAD_PROGRESS_MESSAGE);
-              const [file] = e.target.files || [undefined];
-              handleFileChange(file);
-            } catch (e) {
-              setDisplayFileName(UPLOAD_FAILED_MESSAGE);
-            }
+            const [file] = e.target.files || [undefined];
+            handleFileChange(file);
           }}
         />
       </FileUploadButton>

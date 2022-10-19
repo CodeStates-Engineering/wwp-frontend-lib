@@ -1,3 +1,4 @@
+/** @deprecated 아직 사용 X */
 export const colors = {
   //Gray
   gray3: '#828282',
@@ -27,7 +28,7 @@ export const colors = {
   bluishGray800: '#262f40',
   bluishGray900: '#0f1319',
 
-//Wewin Blue
+  //Wewin Blue
   wewinBlue10: '#f0f4ff',
   wewinBlue50: '#ebf0ff',
   wewinBlue100: '#e0e9ff',
@@ -40,7 +41,7 @@ export const colors = {
   wewinBlue800: '#001b66',
   wewinBlue900: '#000b29',
 
-//Wewin Gold
+  //Wewin Gold
   wewinGold200: '#fff3cc',
   wewinGold700: '#b88d00',
 
@@ -56,7 +57,7 @@ export const colors = {
   wewinOrange700: '#b85c00',
   wewinOrange800: '#663300',
 
-//Peach
+  //Peach
   peach50: '#ffeceb',
   peach100: '#ffe2e0',
   peach200: '#ffcfcc',
@@ -65,7 +66,7 @@ export const colors = {
   peach500: '#ff5447',
   peach600: '#fd1808',
 
-//Wewin Peach
+  //Wewin Peach
   wewinPeach500: '#ff5447',
   wewinPeach600: '#fd1808',
 
@@ -81,4 +82,3 @@ export const colors = {
 };
 
 export type Color = keyof typeof colors;
-

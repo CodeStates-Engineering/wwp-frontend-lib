@@ -26,7 +26,13 @@
   display: flex;
 
   > .display_file_name {
-    padding: 0 11px;
+    position: relative;
+    padding: {
+      top: 0;
+      bottom: 0;
+      left: 11px;
+      right: 5px;
+    }
     display: flex;
     align-items: center;
     min-width: 0;
@@ -37,9 +43,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 
@@ -69,16 +72,6 @@
     $INPUT_ICON_DEFAULT_BG_COLOR
   );
 
-  &.progress {
-    @include theme(
-      $INPUT_FOCUS_COLOR,
-      $INPUT_FOCUS_BG_COLOR,
-      $INPUT_FOCUS_BORDER,
-      $INPUT_ICON_FOCUS_COLOR,
-      $INPUT_ICON_FOCUS_BG_COLOR
-    );
-  }
-
   &.filled {
     @include theme(
       $INPUT_FILLED_COLOR,
@@ -87,6 +80,9 @@
       $INPUT_ICON_FILLED_COLOR,
       $INPUT_ICON_FILLED_BG_COLOR
     );
+    > .display_file_name > a:hover {
+      text-decoration: underline;
+    }
   }
 
   &.disabled {
@@ -127,6 +123,7 @@
     > .file_upload_button {
       &:hover:not(:disabled) {
         color: $INPUT_ICON_FOCUS_COLOR;
+        background-color: darken($INPUT_ICON_FOCUS_BG_COLOR, 1%);
       }
     }
     &.invalid {
@@ -138,5 +135,26 @@
     &.invalid {
       border-bottom: $INPUT_ALERT_BORDER;
     }
+  }
+}
+
+.delete_file_button {
+  height: 12px;
+  width: 12px;
+  margin: 3px;
+  float: top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: $BLUISH_GRAY500;
+  transition: background-color 0.2s, color 0.2s;
+  &:hover {
+    color: white;
+    background-color: $BLUISH_GRAY500;
+  }
+  > svg {
+    width: 12px;
+    height: 12px;
   }
 }
