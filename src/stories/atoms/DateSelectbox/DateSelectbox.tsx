@@ -4,9 +4,9 @@ import { DayPicker, Matcher } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import ko from 'date-fns/locale/ko';
 import scss from './DateSelectbox.module.scss';
-import { useOpenedStateWithCloseExternalClick, useDepsState, useParentState } from '@hooks';
+import { useOpenedStateWithCloseExternalClick, useDepsState, useParentState } from '../../../hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 
 export interface Period {
   from?: Date;

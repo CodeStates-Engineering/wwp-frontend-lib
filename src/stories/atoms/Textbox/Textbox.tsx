@@ -1,7 +1,7 @@
 import scss from './Textbox.module.scss';
-import { useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
-import { regex } from '@utils';
+import { useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
+import { regex } from '../../../utils';
 import { Percent } from 'react-feather';
 
 export interface TextboxProps {

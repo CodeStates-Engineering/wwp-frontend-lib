@@ -9,8 +9,8 @@ import {
   SetStateAction,
   useEffect,
 } from 'react';
-import { cleanClassName } from '@utils';
-import { copyText } from '@utils';
+import { cleanClassName } from '../../../utils';
+import { copyText } from '../../../utils';
 import { ReactComponent as Logo } from '../../../assets/wewin_logo.svg';
 import { Loading } from '../../atoms';
 

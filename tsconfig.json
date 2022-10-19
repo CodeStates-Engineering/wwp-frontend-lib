@@ -15,12 +15,6 @@
     "experimentalDecorators": true,
     "importsNotUsedAsValues": "error",
     "baseUrl": "./src",
-    "paths": {
-      "@utils": ["utils"],
-      "@hooks": ["hooks"],
-      "@scss/*": ["./scss/*"],
-      "@stories/*": ["./stories/*"]
-    },
     "declaration": true,
     "declarationDir": "dist/library/types"
   },

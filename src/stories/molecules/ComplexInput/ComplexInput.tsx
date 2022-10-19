@@ -36,9 +36,9 @@ import type {
   FileUploadProps,
   FileDownloadProps,
 } from '../../atoms';
-import { useValidation } from '@hooks';
-import { cleanClassName } from '@utils';
-import type { ValidationStorage } from '@hooks';
+import { useValidation } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
+import type { ValidationStorage } from '../../../hooks';
 
 type InputPropsHint =
   | TextboxProps

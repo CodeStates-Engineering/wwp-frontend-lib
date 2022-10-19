@@ -1,30 +1,31 @@
-import type { ComponentStory } from "@storybook/react";
-import { SectionSlider } from "./SectionSlider";
-import { SectionMoveButton } from "../SectionMoveButton/SectionMoveButton";
-import { useState } from "react";
+import type { ComponentStory } from '@storybook/react';
+import { SectionSlider } from './SectionSlider';
+import { SectionMoveButton } from '../SectionMoveButton/SectionMoveButton';
+import { useState } from 'react';
+import React from 'react';
 export default {
-  title: "atoms/SectionSlider",
+  title: 'atoms/SectionSlider',
 };
 
-const SectionSliderStory: ComponentStory<typeof SectionSlider.Container> = (
-  args
-) => <SectionSlider.Container {...args} />;
+const SectionSliderStory: ComponentStory<typeof SectionSlider.Container> = (args) => (
+  <SectionSlider.Container {...args} />
+);
 
 export const Default = SectionSliderStory.bind({});
 Default.decorators = [
   () => {
     const [currentSection, setCurrentSection] = useState(0);
     const commonStyle = {
-      backgroundColor: "gray",
-      minHeight: "50vh",
-      margin: "1em",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      backgroundColor: 'gray',
+      minHeight: '50vh',
+      margin: '1em',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     };
     return (
       <div>
-        <div style={{ display: "flex", gap: "1em" }}>
+        <div style={{ display: 'flex', gap: '1em' }}>
           <SectionMoveButton
             title="섹션1"
             subTitle="섹션1로 이동"

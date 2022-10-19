@@ -1,7 +1,7 @@
 import scss from './MonthSelectbox.module.scss';
 import { Check, Calendar } from 'react-feather';
-import { useOpenedStateWithCloseExternalClick, useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 
 export interface MonthDate {
   year?: number;

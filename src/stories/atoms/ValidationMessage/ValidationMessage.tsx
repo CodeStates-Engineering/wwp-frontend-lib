@@ -1,6 +1,6 @@
 import scss from './ValidationMessage.module.scss';
-import type { useValidation } from '@hooks';
-import { cleanClassName } from '@utils';
+import type { useValidation } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 
 export type ValidationMessageProps = Omit<ReturnType<typeof useValidation>, 'checkValidation'>;
 

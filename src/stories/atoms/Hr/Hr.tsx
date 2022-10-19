@@ -1,4 +1,4 @@
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import scss from './Hr.module.scss';
 
 export interface HrProps {

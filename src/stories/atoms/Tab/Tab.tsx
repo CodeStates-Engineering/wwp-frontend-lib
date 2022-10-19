@@ -1,5 +1,5 @@
 import scss from './Tab.module.scss';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import { Link, useLocation } from 'react-router-dom';
 
 export interface TabProps {

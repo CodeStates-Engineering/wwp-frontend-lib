@@ -1,6 +1,6 @@
 import scss from './SectionSwitch.module.scss';
 import { createContext, useContext } from 'react';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 
 const CurrentSectionContext = createContext<number | string>(0);
 

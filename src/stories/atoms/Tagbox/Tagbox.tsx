@@ -1,8 +1,8 @@
 import scss from './Tagbox.module.scss';
 import { Tag, X, Plus } from 'react-feather';
 import { useEffect, useState, useRef } from 'react';
-import { useDepsState, useOpenedStateWithCloseExternalClick } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useDepsState, useOpenedStateWithCloseExternalClick } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 
 export interface TagboxProps {
   value?: string[];

@@ -1,6 +1,6 @@
 import scss from './Switch.module.scss';
-import { useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 
 export interface SwitchProps {
   value?: boolean;

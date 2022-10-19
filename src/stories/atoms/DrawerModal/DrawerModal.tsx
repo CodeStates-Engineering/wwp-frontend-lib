@@ -1,7 +1,7 @@
 import scss from './DrawerModal.module.scss';
 import { X } from 'react-feather';
-import { useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 import { useState } from 'react';
 
 export interface DrawerModalProps {

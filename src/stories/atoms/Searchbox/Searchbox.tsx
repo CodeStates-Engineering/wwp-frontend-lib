@@ -1,8 +1,8 @@
-import { useOpenedStateWithCloseExternalClick, useParentState } from '@hooks';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '../../../hooks';
 
 import scss from './Searchbox.module.scss';
 import { Check, Search } from 'react-feather';
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import { useMemo } from 'react';
 
 import type { PairOption, OptionHint } from '../Selectbox/Selectbox';

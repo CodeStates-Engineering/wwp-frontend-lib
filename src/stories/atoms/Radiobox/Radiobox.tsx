@@ -1,5 +1,5 @@
-import { useParentState } from '@hooks';
-import { cleanClassName } from '@utils';
+import { useParentState } from '../../../hooks';
+import { cleanClassName } from '../../../utils';
 import scss from './Radiobox.module.scss';
 
 import { useMemo } from 'react';

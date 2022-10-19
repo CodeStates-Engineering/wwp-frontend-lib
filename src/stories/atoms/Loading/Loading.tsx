@@ -1,4 +1,4 @@
-import { cleanClassName } from '@utils';
+import { cleanClassName } from '../../../utils';
 import { ReactComponent as Logo } from '../../../assets/wewin_logo.svg';
 import scss from './Loading.module.scss';
 

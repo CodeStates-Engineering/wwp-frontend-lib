@@ -1,16 +1,14 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { PaginationWithPageSize } from "./PaginationWithPageSize";
-import { usePaginationState } from "../../../hooks";
-import React from "react";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { PaginationWithPageSize } from './PaginationWithPageSize';
+import { usePaginationState } from '../../../hooks';
+import React from 'react';
 
 export default {
-  title: "molecules/PaginationWithPageSize",
+  title: 'molecules/PaginationWithPageSize',
   component: PaginationWithPageSize,
 } as ComponentMeta<typeof PaginationWithPageSize>;
 
-const PaginationWithPageSizeStory: ComponentStory<
-  typeof PaginationWithPageSize
-> = (args) => {
+const PaginationWithPageSizeStory: ComponentStory<typeof PaginationWithPageSize> = (args) => {
   const paginationState = usePaginationState();
   return <PaginationWithPageSize {...args} paginationState={paginationState} />;
 };
@@ -22,7 +20,7 @@ Default.args = {
 };
 Default.decorators = [
   (Story) => (
-    <div style={{ marginTop: "200px" }}>
+    <div style={{ marginTop: '200px' }}>
       <Story />
     </div>
   ),
