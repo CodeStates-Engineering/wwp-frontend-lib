@@ -7,8 +7,8 @@ export type { CheckboxProps } from './Checkbox/Checkbox';
 export { DateSelectbox } from './DateSelectbox/DateSelectbox';
 export type { DateSelectboxProps, Period, DateType } from './DateSelectbox/DateSelectbox';
 
-export { EditStamp } from './EditStamp/EditStamp';
-export type { EditStampProps } from './EditStamp/EditStamp';
+export { TimeStamp } from './TimeStamp/TimeStamp';
+export type { TimeStampProps } from './TimeStamp/TimeStamp';
 
 export { ExpandableButton } from './ExpandableButton/ExpandableButton';
 export type { ExpandableButtonProps } from './ExpandableButton/ExpandableButton';
