@@ -90,7 +90,7 @@ export function Button({
     },
     children: (
       <div className={scss.button_contents}>
-        {children}
+        {children ? <div> {children} </div> : undefined}
         {Icon ? (
           <div className={scss.button_wrap}>
             <Icon />
