@@ -139,10 +139,14 @@ export {
   useDepsState,
   assignTypeToPropsStore,
   useMountedEffect,
+  useFileState,
 } from './hooks';
+
 export type {
   OpenedStateWithCloseExternalClick,
   PaginationState,
   ValidationStorage,
   Validation,
+  FileState,
+  CustomFile,
 } from './hooks';

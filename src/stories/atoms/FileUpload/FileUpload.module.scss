@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 @mixin theme($text-color, $bg-color, $border, $icon-color, $icon-bg-color) {
   color: $text-color;
@@ -31,12 +31,15 @@
     align-items: center;
     min-width: 0;
     flex: 1 1 auto;
-    > span {
+    > a {
       font-weight: $MEDIUM_FONT_WEIGHT;
       font-size: $SMALL_FONT_SIZE;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -88,6 +91,9 @@
 
   &.disabled {
     cursor: not-allowed;
+    > .file_upload_button > a {
+      text-decoration: none;
+    }
     @include theme(
       $INPUT_DISABLED_COLOR,
       $INPUT_DISABLED_BG_COLOR,
@@ -106,13 +112,7 @@
     }
     &.readonly {
       cursor: default;
-      @include theme(
-        $INPUT_READONLY_COLOR,
-        transparent,
-        transparent,
-        transparent,
-        transparent
-      );
+      @include theme($INPUT_READONLY_COLOR, transparent, transparent, transparent, transparent);
     }
     &.linear {
       > .file_upload_button {
