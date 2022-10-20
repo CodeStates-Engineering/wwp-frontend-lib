@@ -1,5 +1,5 @@
-import { useEffect as createEffect, useState as createState } from "react";
-import create from "zustand";
+import { useEffect as createEffect, useState as createState } from 'react';
+import create from 'zustand';
 
 interface PropsStore<T extends object> {
   props: T;
@@ -22,14 +22,14 @@ const propsStore = create<PropsStore<any>>((set) => ({
   },
 }));
 
+/** @deprecated 개선필요, zutand를 사용해주세요.*/
 export function assignTypeToPropsStore<T>() {
   return {
-    useInitialPropsStore: (customizer) =>
-      propsStore((state) => state.setProps)(customizer),
+    useInitialPropsStore: (customizer) => propsStore((state) => state.setProps)(customizer),
     usePropsStore: () => propsStore((state) => state.props),
   } as T extends object
     ? {
-        useInitialPropsStore: PropsStore<T>["setProps"];
+        useInitialPropsStore: PropsStore<T>['setProps'];
         usePropsStore: () => Readonly<T>;
       }
     : void;

@@ -80,7 +80,7 @@
       $INPUT_ICON_FILLED_COLOR,
       $INPUT_ICON_FILLED_BG_COLOR
     );
-    > .display_file_name > a:hover {
+    &.link > .display_file_name > a:hover {
       text-decoration: underline;
     }
   }
@@ -139,8 +139,7 @@
 }
 
 .delete_file_button {
-  height: 12px;
-  width: 12px;
+  padding: 3px;
   margin: 3px;
   float: top;
   display: flex;
@@ -149,9 +148,11 @@
   border-radius: 50%;
   color: $BLUISH_GRAY500;
   transition: background-color 0.2s, color 0.2s;
+  margin: auto 0;
+  margin-right: 8px;
   &:hover {
     color: white;
-    background-color: $BLUISH_GRAY500;
+    background-color: $BLUISH_GRAY300;
   }
   > svg {
     width: 12px;

@@ -68,7 +68,7 @@ export function Button({
           setIsDelaying(false);
           setLeftDelay(0);
         }, delay);
-      });
+      }, 500);
     }
   }, [setLeftDelay, setIsDelaying, delay]);
 

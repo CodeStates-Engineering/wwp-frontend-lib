@@ -74,8 +74,8 @@ export function FileUpload({
       style={{ width }}
       className={cleanClassName(
         `${scss.file_upload} ${scss[theme]} ${invalid && scss.invalid} ${isFilled && scss.filled} ${
-          isDisabled && scss.disabled
-        } ${modifier && scss[modifier]}`
+          fileUrl && scss.link
+        } ${isDisabled && scss.disabled} ${modifier && scss[modifier]}`
       )}
     >
       <div className={scss.display_file_name}>
