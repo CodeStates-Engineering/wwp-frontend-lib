@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexFileUpload } from './ComplexInput';
-import type { ComplexFileUploadProps } from './ComplexInput';
+import { ComplexFileUpload } from '../ComplexInput';
+import type { ComplexFileUploadProps } from '../ComplexInput';
 import React from 'react';
 
 export default {

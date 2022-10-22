@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexFileDownload } from './ComplexInput';
-import type { ComplexFileDownloadProps } from './ComplexInput';
+import { ComplexFileDownload } from '../ComplexInput';
+import type { ComplexFileDownloadProps } from '../ComplexInput';
 import React from 'react';
 
 export default {

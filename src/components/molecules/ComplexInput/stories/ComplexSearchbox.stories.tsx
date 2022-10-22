@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexSearchbox } from './ComplexInput';
+import { ComplexSearchbox } from '../ComplexInput';
 import React from 'react';
 
 export default {

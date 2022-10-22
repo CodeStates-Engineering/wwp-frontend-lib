@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexTextarea } from './ComplexInput';
+import { ComplexTextarea } from '../ComplexInput';
 import React from 'react';
 
 export default {

@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexRadiobox } from './ComplexInput';
+import { ComplexRadiobox } from '../ComplexInput';
 import React from 'react';
 
 export default {

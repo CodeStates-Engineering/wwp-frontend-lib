@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexTextbox } from './ComplexInput';
-import type { ComplexTextboxProps } from './ComplexInput';
+import { ComplexTextbox } from '../ComplexInput';
+import type { ComplexTextboxProps } from '../ComplexInput';
 import React from 'react';
 
 export default {

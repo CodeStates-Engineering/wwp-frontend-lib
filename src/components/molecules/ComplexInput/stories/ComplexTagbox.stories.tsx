@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexTagbox } from './ComplexInput';
+import { ComplexTagbox } from '../ComplexInput';
 import React from 'react';
 
 export default {

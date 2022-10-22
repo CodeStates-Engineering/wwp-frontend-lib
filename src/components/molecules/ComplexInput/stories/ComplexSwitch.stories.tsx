@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ComplexSwitch } from './ComplexInput';
+import { ComplexSwitch } from '../ComplexInput';
 import React from 'react';
 
 export default {
