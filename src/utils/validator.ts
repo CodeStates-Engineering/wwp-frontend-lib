@@ -1,6 +1,7 @@
 import type { Period } from '..';
 import { regex } from './regex';
 
+/** @deprecated validation 로직 변경에 따른 deprecated*/
 export const validator = {
   essential: { rule: (value: any) => !!value, message: '필수 항목입니다.' },
   essentialPeriod: {
