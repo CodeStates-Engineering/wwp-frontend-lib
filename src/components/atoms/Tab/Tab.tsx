@@ -10,10 +10,10 @@ export function Tab({ items }: TabProps) {
   return (
     <nav className={scss.tab}>
       <ul className={scss.tab_list}>
-        {items.map(({ label, to }) => {
+        {items.map(({ label, to }, index) => {
           const isActive = currentPath === to.split('?')[0];
           return (
-            <li className={cleanClassName(isActive && scss.active)}>
+            <li className={cleanClassName(isActive && scss.active)} key={`${label}_${index}`}>
               <Link
                 to={to}
                 className={cleanClassName(`${scss.tab_link} ${isActive && scss.active}`)}
