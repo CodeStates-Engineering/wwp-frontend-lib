@@ -30,7 +30,7 @@ export {
   FileDownload,
   FileUpload,
   Progress,
-} from './stories/atoms';
+} from './components/atoms';
 export type {
   ButtonProps,
   CheckboxProps,
@@ -67,7 +67,7 @@ export type {
   FileUploadProps,
   WebFile,
   ProgressProps,
-} from './stories/atoms';
+} from './components/atoms';
 
 //? Molecule 컴포넌트
 export {
@@ -91,7 +91,7 @@ export {
   PaginationWithPageSize,
   Table,
   ComplexFileDownload,
-} from './stories/molecules';
+} from './components/molecules';
 export type {
   ComplexCheckboxProps,
   ComplexDateSelectboxProps,
@@ -120,15 +120,15 @@ export type {
   FormGroupProps,
   ChipProps,
   ComplexFileDownloadProps,
-} from './stories/molecules';
+} from './components/molecules';
 
 //? Organism 컴포넌트
-export { ConfirmModalOpener, CancelModalOpener, DeleteModalOpener } from './stories/organisms';
+export { ConfirmModalOpener, CancelModalOpener, DeleteModalOpener } from './components/organisms';
 export type {
   ConfirmModalOpenerProps,
   CancelModalOpenerProps,
   DeleteModalOpenerProps,
-} from './stories/organisms';
+} from './components/organisms';
 
 //? Util 함수
 export {
