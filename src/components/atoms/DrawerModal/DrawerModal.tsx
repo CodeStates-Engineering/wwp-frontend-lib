@@ -23,7 +23,6 @@ export function DrawerModal({
   onClose,
   valueSync,
 }: DrawerModalProps) {
-  const [] = useState();
   const [modalOpened, setModalOpened] = useParentState(() => opened, [opened], valueSync),
     [modalClosing, setModalClosing] = useState(false),
     closeModal = () => {
