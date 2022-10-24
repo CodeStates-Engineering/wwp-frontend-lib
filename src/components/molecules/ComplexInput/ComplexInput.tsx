@@ -1,5 +1,5 @@
 import scss from './ComplexInput.module.scss';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   Searchbox,
   Selectbox,
@@ -15,7 +15,7 @@ import {
   Checkbox,
   FileUpload,
   FileDownload,
-  ValidationMessage,
+  InputDescription,
 } from '../../atoms';
 
 import type {
@@ -35,6 +35,7 @@ import type {
   RadioboxProps,
   FileUploadProps,
   FileDownloadProps,
+  InputDescriptionProps,
 } from '../../atoms';
 import { useValidation } from '../../../hooks';
 import { cleanClassName } from '../../../utils';
@@ -69,6 +70,7 @@ interface CommonProps<T extends InputPropsHint> {
   inputWidth?: React.CSSProperties['width'];
   justifyContent?: React.CSSProperties['justifyContent'];
   minHeight?: React.CSSProperties['minHeight'];
+  description?: React.ReactNode;
 }
 
 type InputComponentHint<T extends InputPropsHint> = (props: T) => JSX.Element;
@@ -92,6 +94,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     justifyContent = 'flex-start',
     minHeight,
     value,
+    description,
     ...restProps
   }: T & CommonProps<T>) => {
     const _validation = useCallback((value: any) => {
@@ -109,7 +112,7 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
       return validation?.(value);
     }, []);
 
-    const { checkValidation, ...ValidationMessageProps } = useValidation(
+    const { checkValidation, message, invalid } = useValidation(
       value,
       _validation,
       id,
@@ -133,9 +136,11 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
         onChange?.(value);
         checkValidation(value);
       },
-      invalid: ValidationMessageProps.invalid,
+      invalid,
       ...restProps,
     };
+
+    const isDescriptionExist = !!description;
 
     return (
       <div style={{ width, minHeight }} className={scss.complex_input_container}>
@@ -151,9 +156,14 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
           ) : null}
           <Input {...inputProps} />
         </div>
-        {(validation || essential) && addEssentialValidation ? (
-          <ValidationMessage {...ValidationMessageProps} />
-        ) : null}
+        {(((validation || essential) && addEssentialValidation) || isDescriptionExist) && (
+          <InputDescription
+            visible={isDescriptionExist || invalid}
+            theme={invalid ? 'error' : 'default'}
+          >
+            {message || description}
+          </InputDescription>
+        )}
       </div>
     );
   };

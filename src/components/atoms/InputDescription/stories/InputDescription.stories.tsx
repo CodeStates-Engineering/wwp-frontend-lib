@@ -14,7 +14,7 @@ const InputDescriptionStory: ComponentStory<typeof InputDescription> = (args) =>
 
 export const Default = InputDescriptionStory.bind({});
 const defaultArgs: InputDescriptionProps = {
-  children: '숫자만 입력 가능합니다.',
+  children: '2022년 10월 24일에 최초 월소득 제출 알림톡이 발송됩니다.',
   visible: true,
 };
 Default.args = defaultArgs;

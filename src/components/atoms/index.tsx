@@ -78,6 +78,9 @@ export type { DrawerModalProps } from './DrawerModal/DrawerModal';
 
 export { ValidationMessage } from './ValidationMessage/ValidationMessage';
 export type { ValidationMessageProps } from './ValidationMessage/ValidationMessage';
+//TODO: ▲ 컴포넌트가 모두 ▼ 컴포넌트로 대체되면 삭제
+export { InputDescription } from './InputDescription/InputDescription';
+export type { InputDescriptionProps } from './InputDescription/InputDescription';
 
 export { Tab } from './Tab/Tab';
 export type { TabProps } from './Tab/Tab';
