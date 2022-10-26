@@ -1,7 +1,7 @@
 name: 'Auto Build & Deploy'
 
 on:
-  push:
+  pull_request_target:
     branches:
       - 'release/*'
 
