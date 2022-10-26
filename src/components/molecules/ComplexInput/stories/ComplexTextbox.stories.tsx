@@ -18,3 +18,13 @@ const defaultArgs: ComplexTextboxProps = {
   essential: true,
 };
 Default.args = defaultArgs;
+
+export const NumSeparatedByComma = ComplexTextboxStory.bind({});
+const NumSeparatedByCommaArgs: ComplexTextboxProps = {
+  labelText: '후불 납부 총액',
+  essential: true,
+  type: 'comma-separated-number',
+  description: '후불 납부 총액을 입력해 주세요.',
+  unit: '원',
+};
+NumSeparatedByComma.args = NumSeparatedByCommaArgs;
