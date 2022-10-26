@@ -38,13 +38,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-        with: npm version patch
+        with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: 
-        env:
-          CSE_NPM_TOKEN: ${{secrets.CSE_NPM_TOKEN}}
+      - run: npm version patch
+      - run: git push
   publish:
+    needs: bump-version
     runs-on: ubuntu-latest
     permissions:
       contents: read
