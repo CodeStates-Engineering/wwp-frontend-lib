@@ -35,3 +35,5 @@ jobs:
         run: yarn build:package
       - name: deploy package
         run: npm version patch && git push && yarn deploy:package
+      - name: build storybook
+        run: yarn build:storybook
