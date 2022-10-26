@@ -11,10 +11,23 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm run deploy
+      - run: yarn build
 
-  publish-gpr:
+  deploy:
     needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: yarn deploy
+
+  publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -16,8 +16,8 @@
   ],
   "scripts": {
     "start": "start-storybook --no-manager-cache -p 6006 -s public",
-    "build": "export BUILD_TYPE=storybook && tsc --emitDeclarationOnly && rollup -c && build-storybook -o dist/storybook && export BUILD_TYPE=",
-    "deploy": "yarn build && gh-pages -d dist/storybook && yarn publish && git reset --soft HEAD^"
+    "build": "tsc --emitDeclarationOnly && rollup -c && build-storybook -o dist/storybook",
+    "deploy": "gh-pages -d dist/storybook"
   },
   "eslintConfig": {
     "extends": [
