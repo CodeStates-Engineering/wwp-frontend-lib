@@ -5,24 +5,25 @@
   position: relative;
   display: flex;
   height: 12px;
-  background-image: repeating-linear-gradient(to right, $BLUISH_GRAY300, $BLUISH_GRAY300 1px, $BLUISH_GRAY50 1px, $BLUISH_GRAY50);
+  background-color: $BLUISH_GRAY50;
   border-right: 1px solid $BLUISH_GRAY300;
 
   .indicator {
-    z-index: 3;
-  }
-
-  .sub_indicator, .last_indicator {
-    height: 100%;
-    position: absolute;
-    left: 0;
-
-    &.sub_indicator {
-      z-index: 2;
+    &:not(:last-child) {
+      border-right: 1px solid $BLUISH_GRAY300;
     }
 
-    &.last_indicator {
-      z-index: 1;
+    &.green600 {
+      background-color: $GREEN600;
+    }
+    &.peach400 {
+      background-color: $PEACH400;
+    }
+    &.wewin-orange500 {
+      background-color: $WEWIN_ORANGE500;
+    }
+    &.wewin-blue300 {
+      background-color: $WEWIN_BLUE300;
     }
   }
 }

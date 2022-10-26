@@ -9,9 +9,23 @@ export default {
 
 const ProgressStory: ComponentStory<typeof Progress> = (args) => (
   <div style={{ width: '900px' }}>
-    <Progress {...args} />
+    <Progress
+      {...args}
+    />
   </div>
 );
 
 export const Default = ProgressStory.bind({});
-Default.args = {};
+Default.args = {
+  totalCount: 6,
+  indicatorConfig: [
+    {
+      color: 'green600',
+      activeNumber: [1, 2],
+    },
+    {
+      color: 'wewin-orange500',
+      activeNumber: [3, 4],
+    },
+  ],
+};

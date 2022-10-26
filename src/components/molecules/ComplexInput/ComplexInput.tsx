@@ -139,7 +139,6 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
       invalid,
       ...restProps,
     };
-
     const isDescriptionExist = !!description;
 
     return (
