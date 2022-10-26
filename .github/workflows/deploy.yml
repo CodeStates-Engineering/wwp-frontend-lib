@@ -27,3 +27,8 @@ jobs:
         run: npm version patch && git push && yarn deploy:package
       - name: build storybook
         run: yarn build:storybook
+      - name: deploy storybook
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{secrets.CSE_NPM_TOKEN}}
+          publish_dir: ./dist/storybook
