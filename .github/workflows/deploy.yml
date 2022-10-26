@@ -24,7 +24,7 @@ jobs:
       - run: git config --global user.email "leehyeokjae97@gmail.com"
       - run: git config --global user.name "HyeokjaeLee"
       - name: deploy package
-        run: npm version patch && git push && yarn deploy:package
+        run: git pull && npm version patch && git push && yarn deploy:package
       - name: build storybook
         run: yarn build:storybook
       - name: deploy storybook
