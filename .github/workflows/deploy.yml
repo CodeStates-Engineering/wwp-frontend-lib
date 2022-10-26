@@ -6,7 +6,7 @@ on:
       - 'release/*'
 
 jobs:
-  dependencies-install:
+  auto-build-and-deploy:
     runs-on: ubuntu-latest
     env:
       CSE_NPM_TOKEN: ${{secrets.CSE_NPM_TOKEN}}
