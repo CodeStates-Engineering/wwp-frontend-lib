@@ -1,0 +1,16 @@
+@import '../../../scss/libs.scss';
+
+.input_description {
+  font-size: $SMALLX_FONT_SIZE;
+  display: block;
+  height: 16px;
+  padding-left: 5px;
+  &.default > p {
+    color: $BLUISH_GRAY500;
+    @include fade-in(0.3s);
+  }
+  &.error > p {
+    color: $PEACH500;
+    @include shake-horizontal(0.8s);
+  }
+}
