@@ -7,11 +7,10 @@ on:
 
 jobs:
   dependencies-install:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     env:
       CSE_NPM_TOKEN: ${{secrets.CSE_NPM_TOKEN}}
-    - run: git config --global user.email "leehyeokjae97@gmail.com"
-    - run: git config --global user.name "HyeokjaeLee"
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,6 +33,8 @@ jobs:
         run: yarn install
       - name: build package
         run: yarn build:package
+      - run: git config --global user.email "leehyeokjae97@gmail.com"
+      - run: git config --global user.name "HyeokjaeLee"
       - name: deploy package
         run: npm version patch && git push && yarn deploy:package
       - name: build storybook
