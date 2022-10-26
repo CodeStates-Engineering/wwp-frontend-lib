@@ -8,6 +8,8 @@ on:
 jobs:
   dependencies-install:
     runs-on: ubuntu-latest
+    env:
+      CSE_NPM_TOKEN: ${{secrets.CSE_NPM_TOKEN}}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
