@@ -1,9 +1,11 @@
 name: 'Auto Build & Deploy'
 
 on:
-  pull_request_target:
+  push:
     branches:
       - 'release/*'
+      paths:
+        - '!package.json'
 
 jobs:
   auto-build-and-deploy:
