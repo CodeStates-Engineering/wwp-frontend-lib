@@ -4,7 +4,12 @@ import { DayPicker, Matcher } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import ko from 'date-fns/locale/ko';
 import scss from './DateSelectbox.module.scss';
-import { useOpenedStateWithCloseExternalClick, useDepsState, useParentState } from '../../../hooks';
+import {
+  useOpenedStateWithCloseExternalClick,
+  useDepsState,
+  useParentState,
+  useMountedEffect,
+} from '../../../hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { cleanClassName } from '../../../utils';
 
@@ -14,10 +19,10 @@ export interface Period {
 }
 
 export type DateType = 'date' | 'date-range';
-export interface DateSelectboxProps<T extends DateType> {
+export type DateSelectboxProps<T extends DateType> = {
   type?: T;
   value?: T extends 'date' ? Period['from'] : Period;
-  onChange?: T extends 'date' ? (value: Period['from']) => void : (value: Period) => void;
+  onChange?: (value: T extends 'date' | undefined ? Period['from'] : Period) => void;
   disabledDates?: Matcher | Matcher[];
   disabled?: boolean;
   withTime?: boolean;
@@ -29,9 +34,9 @@ export interface DateSelectboxProps<T extends DateType> {
   modifier?: 'system' | 'readonly' | 'user';
   invalid?: boolean;
   valueSync?: boolean;
-}
+};
 
-export function DateSelectbox<T extends DateType>({
+export function DateSelectbox<T extends DateType = 'date'>({
   type = 'date' as T,
   value,
   onChange,
@@ -48,10 +53,15 @@ export function DateSelectbox<T extends DateType>({
   valueSync,
 }: DateSelectboxProps<T>) {
   const isDate = type === 'date';
-  const _disabled = modifier === 'user' ? disabled : true;
+  const isDisabled = modifier === 'user' ? disabled : true;
 
-  const [selectedPeriod, setSelectedPeriod] = useParentState<Period | undefined>(
-    () => {
+  const formatDate = useCallback(
+    (date?: Date) => (date ? format(date, withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd') : ''),
+    [withTime]
+  );
+
+  const generateToPeriodDate = useCallback(
+    (value: DateSelectboxProps<T>['value']) => (): Period => {
       if (isDate)
         return {
           from: value as DateSelectboxProps<'date'>['value'],
@@ -64,26 +74,51 @@ export function DateSelectbox<T extends DateType>({
         };
       }
     },
-    [isDate, value],
+    [isDate]
+  );
+
+  const [periodDate, setPeriodDate] = useParentState<Period>(
+    generateToPeriodDate(value),
+    [generateToPeriodDate, value],
     valueSync
   );
 
-  const handlePeriodChange = useCallback(
-    (period: Period) => {
-      if (isDate) {
-        const _onChange = onChange as DateSelectboxProps<'date'>['onChange'];
-        _onChange?.(period.from);
-      } else {
-        const _onChange = onChange as DateSelectboxProps<'date-range'>['onChange'];
-        _onChange?.({
-          from: period.from,
-          to: period.to,
-        });
+  const generateToPeriodString = useCallback(
+    (value: DateSelectboxProps<T>['value']) => () => {
+      if (isDate)
+        return {
+          from: formatDate(value as DateSelectboxProps<'date'>['value']),
+          to: '',
+        };
+      else {
+        const _value = value as DateSelectboxProps<'date-range'>['value'];
+        return {
+          from: formatDate(_value?.from),
+          to: formatDate(_value?.to),
+        };
       }
-      setSelectedPeriod?.(period);
     },
-    [onChange, setSelectedPeriod, isDate]
+    [formatDate, isDate]
   );
+
+  const [periodString, setPeriodString] = useDepsState(generateToPeriodString(value), [
+    value,
+    formatDate,
+    isDate,
+  ]);
+
+  const handleChange = (period: Period) => {
+    if (isDate) {
+      const _onChange = onChange as DateSelectboxProps<'date'>['onChange'];
+      _onChange?.(period.from);
+    } else {
+      const _onChange = onChange as DateSelectboxProps<'date-range'>['onChange'];
+      _onChange?.({
+        from: period.from,
+        to: period.to,
+      });
+    }
+  };
 
   const periodPlaceholder = useMemo(() => {
     const defaultPlaceholder = `YYYY-MM-DD${withTime ? ' HH:mm' : ''}`;
@@ -102,75 +137,82 @@ export function DateSelectbox<T extends DateType>({
     }
   }, [withTime, isDate, placeholder]);
 
-  const formatDate = useCallback(
-    (date?: Date) => (date ? format(date, withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd') : ''),
-    [withTime]
-  );
+  const {
+      openedState: [calendarOpened, setCalendarOpened],
+      preventCloseProps,
+    } = useOpenedStateWithCloseExternalClick(false),
+    [calendarDisplay, setCalendarDisplay] = useDepsState(() => calendarOpened, [calendarOpened]);
 
-  const [selectedPeriodString, setSelectedPeriodString] = useDepsState(() => {
-    if (isDate)
-      return {
-        from: formatDate(value as DateSelectboxProps<'date'>['value']),
+  const [currentModal, setCurrentModal] = useState<keyof Period>('from'),
+    currentModalDate = periodDate?.[currentModal] ?? undefined;
+
+  const isConvertableDate = (value: string) => !isNaN(Date.parse(value));
+
+  useMountedEffect(() => {
+    if (calendarOpened) return;
+    const selectedPeriodDate: Period = {
+      from: undefined,
+      to: undefined,
+    };
+    const { from, to } = periodString;
+    if (valueSync) {
+      setPeriodDate?.(generateToPeriodDate(value)());
+      setPeriodString?.(generateToPeriodString(value)());
+      if (isConvertableDate(from)) {
+        selectedPeriodDate.from = new Date(from);
+      }
+      if (isConvertableDate(to)) {
+        selectedPeriodDate.to = new Date(to);
+      }
+    } else {
+      const selectedPeriodString = {
+        from: '',
         to: '',
       };
-    else {
-      const _value = value as DateSelectboxProps<'date-range'>['value'];
-      return {
-        from: formatDate(_value?.from),
-        to: formatDate(_value?.to),
-      };
+      if (isConvertableDate(from)) {
+        const fromDate = new Date(from);
+        selectedPeriodString.from = formatDate(fromDate);
+        selectedPeriodDate.from = fromDate;
+      }
+      if (isConvertableDate(to)) {
+        const toDate = new Date(to);
+        selectedPeriodString.to = formatDate(toDate);
+        selectedPeriodDate.to = toDate;
+      }
+      setPeriodString?.(selectedPeriodString);
+      setPeriodDate?.(selectedPeriodDate);
     }
-  }, [value, formatDate, isDate]);
+    handleChange(selectedPeriodDate);
+  }, [calendarOpened, formatDate]);
 
-  const {
-    openedState: [calendarOpened, setCalendarOpened],
-    preventCloseProps,
-  } = useOpenedStateWithCloseExternalClick(false);
+  const createInputChangeHandler =
+    (type: 'from' | 'to') => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      const selectedDate = periodDate?.[type];
+      const previousYearMonth = selectedDate ? format(selectedDate, 'yyyy-MM') : '';
 
-  const [currentModal, setCurrentModal] = useState<'from' | 'to'>('from'),
-    currentModalDate = selectedPeriod?.[currentModal] ?? undefined;
-
-  useEffect(() => {
-    !calendarOpened &&
-      setSelectedPeriodString({
-        from: formatDate(selectedPeriod?.from),
-        to: formatDate(selectedPeriod?.to),
+      setPeriodString?.({
+        ...periodString,
+        [type]: value,
       });
-  }, [calendarOpened]);
 
-  const handleInputChange = (type: 'from' | 'to') => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    const selectedDate = selectedPeriod?.[type];
-    const previousYearMonth = selectedDate ? format(selectedDate, 'yyyy-MM') : '';
-    const refreshCalendar = (dateString: string) => {
-      setCalendarOpened(false);
-      setTimeout(() => {
-        setSelectedPeriodString({
-          ...selectedPeriodString,
-          [type]: dateString,
+      if (isConvertableDate(value)) {
+        const selectedDate = new Date(value);
+        setPeriodDate?.({
+          ...periodDate,
+          [type]: selectedDate,
         });
-        setCalendarOpened(true);
-      });
+        const currentYearMonth = format(selectedDate, 'yyyy-MM');
+        if (previousYearMonth !== currentYearMonth) {
+          setCalendarDisplay(false);
+          setTimeout(() => setCalendarDisplay(true));
+        }
+      }
     };
-    setSelectedPeriodString({
-      ...selectedPeriodString,
-      [type]: value,
-    });
-    if (value === '') handlePeriodChange({ ...selectedPeriod, [type]: undefined });
-    else if (!isNaN(Date.parse(value))) {
-      const selectedDate = new Date(value);
-      handlePeriodChange({
-        ...selectedPeriod,
-        [type]: selectedDate,
-      });
-      const currentYearMonth = format(selectedDate, 'yyyy-MM');
-      previousYearMonth !== currentYearMonth && refreshCalendar(value);
-    }
-  };
 
   const setInputProps = (type: 'from' | 'to') => ({
     className: cleanClassName(
-      `${scss.date_input} ${!!selectedPeriod?.[type] && scss.filled} ${
+      `${scss.date_input} ${!!periodDate?.[type] && scss.filled} ${
         calendarOpened && currentModal === type && scss.opened
       }`
     ),
@@ -178,18 +220,18 @@ export function DateSelectbox<T extends DateType>({
       setCurrentModal(type);
       setCalendarOpened(true);
     },
-    value: selectedPeriodString[type],
+    value: periodString[type],
     placeholder: periodPlaceholder[type],
-    onChange: handleInputChange(type),
-    disabled: _disabled,
+    onChange: createInputChangeHandler(type),
+    disabled: isDisabled,
   });
 
   return (
     <div className={scss.date_selectbox_container} id={id} style={{ width }}>
       <div
         className={`${isDate ? scss.date_selectbox : scss.date_range_selectbox} ${scss[theme]} ${
-          _disabled && scss.disabled
-        } ${scss[modifier]} ${(!!selectedPeriod?.from || !!selectedPeriod?.to) && scss.filled} ${
+          isDisabled && scss.disabled
+        } ${scss[modifier]} ${(!!periodDate?.from || !!periodDate?.to) && scss.filled} ${
           calendarOpened && scss.opened
         } ${invalid && scss.invalid}`}
         {...preventCloseProps}
@@ -211,7 +253,7 @@ export function DateSelectbox<T extends DateType>({
           <Calendar />
         </button>
       </div>
-      {calendarOpened && (
+      {calendarDisplay && (
         <section
           className={`${scss.calendar_modal} ${scss[upDown]} ${scss[leftRight]}`}
           {...preventCloseProps}
@@ -224,11 +266,13 @@ export function DateSelectbox<T extends DateType>({
             selected={currentModalDate}
             className={scss.calendar_default}
             onSelect={(date: Date | undefined) => {
-              handlePeriodChange({ ...selectedPeriod, [currentModal]: date });
-              setSelectedPeriodString({
-                ...selectedPeriodString,
+              setPeriodString?.({
+                ...periodString,
                 [currentModal]: formatDate(date),
               });
+              const _period = { ...periodDate, [currentModal]: date };
+              setPeriodDate?.(_period);
+              handleChange(_period);
               setCalendarOpened(false);
             }}
             modifiersClassNames={{
