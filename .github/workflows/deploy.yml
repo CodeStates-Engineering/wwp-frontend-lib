@@ -5,7 +5,7 @@ on:
     branches:
       - 'release/*'
     paths:
-      - '!package.json'
+      - 'src/**'
 
 jobs:
   auto-build-and-deploy:
