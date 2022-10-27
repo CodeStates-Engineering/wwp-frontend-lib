@@ -35,7 +35,6 @@ import type {
   RadioboxProps,
   FileUploadProps,
   FileDownloadProps,
-  InputDescriptionProps,
 } from '../../atoms';
 import { useValidation } from '../../../hooks';
 import { cleanClassName } from '../../../utils';

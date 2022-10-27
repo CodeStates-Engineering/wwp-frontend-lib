@@ -10,7 +10,7 @@ import {
   useParentState,
   useMountedEffect,
 } from '../../../hooks';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { cleanClassName } from '../../../utils';
 
 export interface Period {
