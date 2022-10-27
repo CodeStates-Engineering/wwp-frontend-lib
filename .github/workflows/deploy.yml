@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'release/*'
-      paths:
-        - '!package.json'
+    paths:
+      - '!package.json'
 
 jobs:
   auto-build-and-deploy:
