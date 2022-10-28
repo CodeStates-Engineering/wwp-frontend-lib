@@ -1,6 +1,6 @@
 import create from 'zustand';
 import type { UseBoundStore, StoreApi } from 'zustand';
-import { useEffect } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 
 export type StateSetter<T extends object> = (
   partial: T | Partial<T> | ((state: T) => T | Partial<T>),
@@ -15,7 +15,7 @@ export function getPropsStore<T extends object>() {
     usePropsStore,
 
     usePropsStoreInitializer: (initializer: (set: StateSetter<T>, get: () => T) => T) => {
-      useEffect(() => {
+      useMemo(() => {
         const initialStore = initializer(usePropsStore.setState, usePropsStore.getState);
         usePropsStore.setState(initialStore, true);
       }, []);
@@ -26,7 +26,7 @@ export function getPropsStore<T extends object>() {
       subscription: React.DependencyList,
       replace: boolean = false
     ) => {
-      useEffect(() => {
+      useLayoutEffect(() => {
         const initialStore = setter(usePropsStore.setState, usePropsStore.getState);
         usePropsStore.setState(initialStore, replace);
       }, subscription);
