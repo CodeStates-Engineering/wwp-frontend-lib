@@ -153,7 +153,7 @@ export {
   useValidation,
   useDepsState,
   assignTypeToPropsStore,
-  getPagePropsStore,
+  getPropsStore,
   useMountedEffect,
 } from './hooks';
 
