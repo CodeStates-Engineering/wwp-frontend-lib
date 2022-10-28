@@ -22,7 +22,7 @@ const propsStore = create<PropsStore<any>>((set) => ({
   },
 }));
 
-/** @deprecated 개선필요, zutand를 사용해주세요.*/
+/** @deprecated getPagePropsStore를 사용해주세요.*/
 export function assignTypeToPropsStore<T>() {
   return {
     useInitialPropsStore: (customizer) => propsStore((state) => state.setProps)(customizer),

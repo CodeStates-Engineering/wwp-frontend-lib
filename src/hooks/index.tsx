@@ -3,9 +3,6 @@ export type { OpenedStateWithCloseExternalClick } from './useOpenedStateWithClos
 
 export { useParentState } from './useParentState';
 
-export { usePaginationState } from './usePaginationState';
-export type { PaginationState } from './usePaginationState';
-
 export { useDebouncedValue } from './useDebouncedValue';
 export { useDebouncedFunction } from './useDebouncedFunction';
 
@@ -20,3 +17,8 @@ export { useDepsState } from './useDepsState';
 export { assignTypeToPropsStore } from './assignTypeToPropsStore';
 
 export { useMountedEffect } from './useMountedEffect';
+
+export { getPagePropsStore } from './getPagePropsStore';
+
+export { createPaginationState } from './createPaginationState';
+export type { PaginationState } from './createPaginationState';
