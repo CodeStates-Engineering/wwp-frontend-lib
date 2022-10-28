@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { PaginationWithPageSize } from '../PaginationWithPageSize';
-import { usePaginationState } from '../../../../hooks';
+import type { PaginationWithPageSizeProps } from '../PaginationWithPageSize';
+import { useState } from 'react';
 import React from 'react';
 
 export default {
@@ -9,19 +10,20 @@ export default {
 } as ComponentMeta<typeof PaginationWithPageSize>;
 
 const PaginationWithPageSizeStory: ComponentStory<typeof PaginationWithPageSize> = (args) => {
-  const paginationState = usePaginationState();
-  return <PaginationWithPageSize {...args} paginationState={paginationState} />;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(30);
+  const PaginationWithPageSizeProps: PaginationWithPageSizeProps = {
+    ...args,
+    currentPage,
+    onChangeCurrentPage: setCurrentPage,
+    pageSize,
+    onChangePageSize: setPageSize,
+  };
+  return <PaginationWithPageSize {...PaginationWithPageSizeProps} />;
 };
 
 export const Default = PaginationWithPageSizeStory.bind({});
-Default.args = {
+const defaultArgs: PaginationWithPageSizeProps = {
   totalItemCount: 100,
-  pageSizeOptions: [10, 20, 30, 50],
 };
-Default.decorators = [
-  (Story) => (
-    <div style={{ marginTop: '200px' }}>
-      <Story />
-    </div>
-  ),
-];
+Default.args = defaultArgs;

@@ -1,6 +1,6 @@
 import './scss/global.scss';
 
-//? Atom 컴포넌트
+//* Atom 컴포넌트
 export {
   Button,
   Checkbox,
@@ -69,7 +69,7 @@ export type {
   ProgressProps,
 } from './components/atoms';
 
-//? Molecule 컴포넌트
+//* Molecule 컴포넌트
 export {
   Chip,
   ComplexCheckbox,
@@ -122,7 +122,7 @@ export type {
   ComplexFileDownloadProps,
 } from './components/molecules';
 
-//? Organism 컴포넌트
+//* Organism 컴포넌트
 export { ConfirmModalOpener, CancelModalOpener, DeleteModalOpener } from './components/organisms';
 export type {
   ConfirmModalOpenerProps,
@@ -130,7 +130,7 @@ export type {
   DeleteModalOpenerProps,
 } from './components/organisms';
 
-//? Util 함수
+//* Util 함수
 export {
   validator,
   cleanClassName,
@@ -142,19 +142,21 @@ export {
   uploadFile,
 } from './utils';
 
-//? Hook 함수
+//* Hook 함수
 export {
   useOpenedStateWithCloseExternalClick,
   useParentState,
-  usePaginationState,
+  createPaginationState,
   useDebouncedValue,
   useDebouncedFunction,
   useValidationStorage,
   useValidation,
   useDepsState,
   assignTypeToPropsStore,
+  getPagePropsStore,
   useMountedEffect,
 } from './hooks';
+
 export type {
   OpenedStateWithCloseExternalClick,
   PaginationState,
