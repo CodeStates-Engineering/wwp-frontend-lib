@@ -2,38 +2,39 @@ import scss from './PaginationWithPageSize.module.scss';
 import { Pagination, Selectbox } from '../../atoms';
 import type { PaginationProps } from '../../atoms';
 
-export interface PaginationWithPageSizeProps {
+export interface PaginationWithPageSizeProps extends Omit<PaginationProps, 'totalPageCount'> {
   totalItemCount?: number;
+  pageSize?: number;
+  onChangePageSize?: (pageSize: number) => void;
   pageSizeOptions?: number[];
-  paginationState: {
-    pageState: PaginationProps['pageState'];
-    pageSizeState: [number, (pageSize: number) => void];
-  };
 }
 
-const PAGE_SIZE_TEXT = '개씩 보기';
-
 export function PaginationWithPageSize({
-  paginationState,
-  totalItemCount = 0,
+  totalItemCount = 1,
+  pageSize = 30,
+  onChangePageSize,
   pageSizeOptions = [10, 20, 30, 50],
+  ...restProps
 }: PaginationWithPageSizeProps) {
-  const { pageState, pageSizeState } = paginationState;
-  const [pageSize, setPageSize] = pageSizeState;
-  const pageCount = Math.ceil(totalItemCount / pageSize) || 1;
-  const pagenationProps = {
-    pageCount,
-    pageState,
+  const PAGE_SIZE_TEXT = '개씩 보기';
+  const paginationProps: PaginationProps = {
+    ...restProps,
+    totalPageCount: Math.ceil(totalItemCount / pageSize),
   };
+
   return (
     <div className={scss.pagination_container}>
-      <Pagination {...pagenationProps} />
+      <Pagination {...paginationProps} />
       <Selectbox
-        options={pageSizeOptions.map((option) => option + PAGE_SIZE_TEXT)}
-        onChange={(option) => setPageSize(Number(option?.replace(PAGE_SIZE_TEXT, '')))}
+        options={pageSizeOptions.map((option) => ({
+          value: option,
+          label: `${option}${PAGE_SIZE_TEXT}`,
+        }))}
+        onChange={onChangePageSize}
         width="137px"
-        value={pageSize + PAGE_SIZE_TEXT}
+        value={pageSize}
         openDirection={['up', 'left']}
+        valueSync
       />
     </div>
   );

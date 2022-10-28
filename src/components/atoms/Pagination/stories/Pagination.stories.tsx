@@ -1,6 +1,5 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Pagination } from '../Pagination';
-import { useState } from 'react';
 import React from 'react';
 
 export default {
@@ -10,7 +9,4 @@ export default {
 
 const PaginationStory: ComponentStory<typeof Pagination> = (args) => <Pagination {...args} />;
 
-export const Default = () => {
-  const pageState = useState(1);
-  return <PaginationStory pageCount={10} pageState={pageState} />;
-};
+export const Default = PaginationStory.bind({});

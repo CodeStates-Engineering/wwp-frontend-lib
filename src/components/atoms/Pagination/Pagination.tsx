@@ -1,47 +1,50 @@
 import scss from './Pagination.module.scss';
 import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'react-feather';
-import type { PaginationState } from '../../../hooks';
 
 export interface PaginationProps {
-  pageCount: number;
-  pageState: PaginationState['pageState'];
+  totalPageCount?: number;
+  currentPage?: number;
+  onChangeCurrentPage?: (page: number) => void;
 }
 
-export function Pagination({ pageCount, pageState }: PaginationProps) {
-  const [page, setPage] = pageState;
-  const isFirstPage = page === 1;
-  const isLastPage = page === pageCount;
-  const packagedSetCurrentPage = (num: number) => setPage(num);
+export function Pagination({
+  totalPageCount = 1,
+  currentPage = 1,
+  onChangeCurrentPage,
+}: PaginationProps) {
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPageCount;
+  const handleCurrentPageChange = (page: number) => () => onChangeCurrentPage?.(page);
   return (
     <nav className={scss.pagination}>
       <button
         className={scss.move_button}
         disabled={isFirstPage}
-        onClick={() => packagedSetCurrentPage(1)}
+        onClick={handleCurrentPageChange(1)}
       >
         <ChevronsLeft />
       </button>
       <button
         className={scss.move_button}
         disabled={isFirstPage}
-        onClick={() => packagedSetCurrentPage(page - 1)}
+        onClick={handleCurrentPageChange(currentPage - 1)}
       >
         <ChevronLeft />
       </button>
       <div className={scss.page_number}>
-        Page<span>{page}</span> of <span>{pageCount}</span>
+        Page<span>{currentPage}</span> of <span>{totalPageCount}</span>
       </div>
       <button
         className={scss.move_button}
         disabled={isLastPage}
-        onClick={() => packagedSetCurrentPage(page + 1)}
+        onClick={handleCurrentPageChange(currentPage + 1)}
       >
         <ChevronRight />
       </button>
       <button
         className={scss.move_button}
         disabled={isLastPage}
-        onClick={() => packagedSetCurrentPage(pageCount)}
+        onClick={handleCurrentPageChange(totalPageCount)}
       >
         <ChevronsRight />
       </button>
