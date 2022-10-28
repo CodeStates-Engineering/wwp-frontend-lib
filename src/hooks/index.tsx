@@ -18,7 +18,7 @@ export { assignTypeToPropsStore } from './assignTypeToPropsStore';
 
 export { useMountedEffect } from './useMountedEffect';
 
-export { getPagePropsStore } from './getPagePropsStore';
+export { getPropsStore } from './getPropsStore';
 
 export { createPaginationState } from './createPaginationState';
 export type { PaginationState } from './createPaginationState';

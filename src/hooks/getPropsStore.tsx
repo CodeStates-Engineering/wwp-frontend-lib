@@ -7,10 +7,10 @@ export type StateSetter<T extends object> = (
   replace?: boolean | undefined
 ) => void;
 
-const pagePropsStore = create<any>(() => ({}));
+const propsStore = create<any>(() => ({}));
 
-export function getPagePropsStore<T extends object>() {
-  const usePropsStore: UseBoundStore<StoreApi<T>> = pagePropsStore;
+export function getPropsStore<T extends object>() {
+  const usePropsStore: UseBoundStore<StoreApi<T>> = propsStore;
   const PagePropsStore = {
     usePropsStore,
 
