@@ -1,0 +1,32 @@
+@import '../../../scss/libs.scss';
+.toast {
+  background-color: $GREEN100;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.toast_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-width: 10em;
+  > .title {
+    font-weight: $REGULAR_FONT_WEIGHT;
+    font-size: $NORMAL_FONT_SIZE;
+    color: $BLUISH_GRAY800;
+  }
+  > .close_button {
+    border-radius: 100%;
+    height: 19px;
+    width: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ;
+  }
+  > .sucess_icon {
+    height: 19px;
+    width: 19px;
+  }
+}
