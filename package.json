@@ -81,7 +81,6 @@
     "react-day-picker": "^8.2.1",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
-    "react-router-dom": "^6.4.0",
     "react-scripts": "^5.0.1",
     "rollup": "^2.79.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -103,6 +102,7 @@
     "react": "^18.0.0"
   },
   "dependencies": {
+    "react-router-dom": "^6.4.0",
     "axios": "^1.0.0"
   }
 }
