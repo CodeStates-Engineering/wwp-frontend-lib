@@ -1,5 +1,5 @@
 import scss from './PageContents.module.scss';
-import { Link } from 'react-router-dom';
+import { Link } from '../../../adaptor';
 import { cleanClassName } from '../../../utils';
 import { Loading } from '../../atoms';
 import { useEffect, useState } from 'react';
