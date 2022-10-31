@@ -1,5 +1,5 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-import { OptionHint, Selectbox } from '../Selectbox';
+import { Selectbox } from '../Selectbox';
 import type { SelectboxProps } from '../Selectbox';
 import React from 'react';
 export default {

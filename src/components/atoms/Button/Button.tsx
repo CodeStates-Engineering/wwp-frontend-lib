@@ -70,10 +70,7 @@ export function Button({
       }, 500);
     }
   }, [setLeftDelay, setIsDelaying, delay]);
-  try {
-    const test = require('test');
-    console.log(test);
-  } catch (e) {}
+
   const commonProps = {
     ...restProps,
     className: cleanClassName(
@@ -112,8 +109,12 @@ export function Button({
     const Link = ({ refresh }: { refresh: boolean }) => {
       if (!refresh) {
         try {
-          const Link = require('next/link').default;
-          return <Link {...linkProps} href={to} />;
+          if (process.env.buildType === 'storybook') {
+            throw new Error('storybook');
+          } else {
+            const Link = require('next/link').default;
+            return <Link {...linkProps} href={to} />;
+          }
         } catch (e) {
           try {
             const { Link } = require('react-router-dom');

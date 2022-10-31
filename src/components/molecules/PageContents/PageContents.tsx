@@ -57,8 +57,12 @@ export const PageContents = {
   }: PageContentsHeaderProps) => {
     const Link = ({ to, children }: { to: string; children: React.ReactNode }) => {
       try {
-        const Link = require('next/link').default;
-        return <Link href={to}>{children}</Link>;
+        if (process.env.buildType === 'storybook') {
+          throw new Error('storybook');
+        } else {
+          const Link = require('next/link').default;
+          return <Link href={to}>{children}</Link>;
+        }
       } catch (e) {
         const { Link } = require('react-router-dom');
         return <Link to={to}>{children}</Link>;

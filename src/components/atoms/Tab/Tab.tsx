@@ -7,11 +7,15 @@ export interface TabProps {
 export function Tab({ items }: TabProps) {
   const currentPath: string = (() => {
     try {
-      const { useRouter } = require('next/router');
-      return useRouter().pathname;
+      if (process.env.buildType === 'storybook') {
+        throw new Error('storybook');
+      } else {
+        const { useRouter: createRouter } = require('next/router');
+        return createRouter().pathname;
+      }
     } catch (e) {
-      const { useLocation } = require('react-router-dom');
-      return useLocation().pathname;
+      const { useLocation: createLocation } = require('react-router-dom');
+      return createLocation().pathname;
     }
   })();
   const Link = ({
@@ -28,8 +32,12 @@ export function Tab({ items }: TabProps) {
       children,
     };
     try {
-      const Link = require('next/link').default;
-      return <Link {...commonProps} href={to}></Link>;
+      if (process.env.buildType === 'storybook') {
+        throw new Error('storybook');
+      } else {
+        const Link = require('next/link').default;
+        return <Link {...commonProps} href={to}></Link>;
+      }
     } catch (e) {
       const { Link } = require('react-router-dom');
       return <Link {...commonProps} to={to} />;
