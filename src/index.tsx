@@ -140,6 +140,7 @@ export {
   checkStringDate,
   getExtension,
   uploadFile,
+  createConvenienceObject,
 } from './utils';
 
 //* Hook 함수
