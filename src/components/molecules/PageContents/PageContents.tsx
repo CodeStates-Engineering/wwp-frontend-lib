@@ -1,4 +1,5 @@
 import scss from './PageContents.module.scss';
+import { Link } from '../../../adaptor';
 import { cleanClassName } from '../../../utils';
 import { Loading } from '../../atoms';
 import React, { useEffect, useState } from 'react';

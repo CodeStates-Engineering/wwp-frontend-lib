@@ -1,48 +1,12 @@
 import scss from './Tab.module.scss';
 import { cleanClassName } from '../../../utils';
+import { Link, usePathname } from '../../../adaptor';
 
 export interface TabProps {
   items: { label: React.ReactNode; to: string }[];
 }
 export function Tab({ items }: TabProps) {
-  const currentPath: string = (() => {
-    try {
-      if (process.env.buildType === 'storybook') {
-        throw new Error('storybook');
-      } else {
-        const { useRouter: createRouter } = require('next/router');
-        return createRouter().pathname;
-      }
-    } catch (e) {
-      const { useLocation: createLocation } = require('react-router-dom');
-      return createLocation().pathname;
-    }
-  })();
-  const Link = ({
-    isActive,
-    children,
-    to,
-  }: {
-    isActive: boolean;
-    children: React.ReactNode;
-    to: string;
-  }) => {
-    const commonProps = {
-      className: cleanClassName(`${scss.tab_link} ${isActive && scss.active}`),
-      children,
-    };
-    try {
-      if (process.env.buildType === 'storybook') {
-        throw new Error('storybook');
-      } else {
-        const Link = require('next/link').default;
-        return <Link {...commonProps} href={to}></Link>;
-      }
-    } catch (e) {
-      const { Link } = require('react-router-dom');
-      return <Link {...commonProps} to={to} />;
-    }
-  };
+  const currentPath = usePathname();
   return (
     <nav className={scss.tab}>
       <ul className={scss.tab_list}>

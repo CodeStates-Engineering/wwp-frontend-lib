@@ -21,4 +21,5 @@ Default.args = {
     { label: 'page4', to: '/page4' },
   ],
 };
+//TODO: React, NextJs 어뎁터 테스트 후 제거해도 될듯
 Default.decorators = [(Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>];

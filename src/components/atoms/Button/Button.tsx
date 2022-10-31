@@ -1,5 +1,6 @@
 import scss from './Button.module.scss';
 import { cleanClassName } from '../../../utils';
+import { Link } from '../../../adaptor';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';
 

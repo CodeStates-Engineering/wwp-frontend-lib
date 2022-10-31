@@ -17,4 +17,5 @@ Default.args = {
   icon: File,
   disabled: false,
 };
+//TODO: React, NextJs 어뎁터 테스트 후 제거해도 될듯
 Default.decorators = [(Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>];
