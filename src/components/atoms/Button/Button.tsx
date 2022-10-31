@@ -1,6 +1,5 @@
 import scss from './Button.module.scss';
 import { cleanClassName } from '../../../utils';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';
 
@@ -71,7 +70,10 @@ export function Button({
       }, 500);
     }
   }, [setLeftDelay, setIsDelaying, delay]);
-
+  try {
+    const test = require('test');
+    console.log(test);
+  } catch (e) {}
   const commonProps = {
     ...restProps,
     className: cleanClassName(
@@ -106,7 +108,22 @@ export function Button({
       target,
       download,
     };
-    return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
+
+    const Link = ({ refresh }: { refresh: boolean }) => {
+      if (!refresh) {
+        try {
+          const Link = require('next/link').default;
+          return <Link {...linkProps} href={to} />;
+        } catch (e) {
+          try {
+            const { Link } = require('react-router-dom');
+            return <Link {...linkProps} to={to} />;
+          } catch (e) {}
+        }
+      }
+      return <a {...linkProps} href={to} />;
+    };
+    return <Link refresh={refresh} />;
   } else {
     let buttonProps = {
       ...commonProps,

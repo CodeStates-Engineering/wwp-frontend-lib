@@ -1,8 +1,7 @@
 import scss from './PageContents.module.scss';
-import { Link } from 'react-router-dom';
 import { cleanClassName } from '../../../utils';
 import { Loading } from '../../atoms';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export interface PageContentsContainerProps {
   children?: React.ReactNode;
@@ -55,31 +54,42 @@ export const PageContents = {
     children,
     minWidth,
     maxWidth,
-  }: PageContentsHeaderProps) => (
-    <header
-      className={cleanClassName(`${scss.header} ${contour && scss.contour}`)}
-      style={{ minWidth, maxWidth }}
-    >
-      {title || itemCount ? (
-        <h1 className={scss.title}>
-          {title} {itemCount && `(${itemCount})`}
-        </h1>
-      ) : undefined}
-      {previousPathList ? (
-        <ul className={scss.path_list}>
-          {previousPathList?.map(({ url, title: previousPathTitle }, index) => (
-            <li key={previousPathTitle + index}>
-              {<Link to={url}>{previousPathTitle}</Link>}
-              <span className={scss.arrow}>►</span>
-            </li>
-          ))}
-          <li className={scss.path}>{title}</li>
-        </ul>
-      ) : undefined}
-      {description ? <p className={scss.description}>{description}</p> : undefined}
-      {children}
-    </header>
-  ),
+  }: PageContentsHeaderProps) => {
+    const Link = ({ to, children }: { to: string; children: React.ReactNode }) => {
+      try {
+        const Link = require('next/link').default;
+        return <Link href={to}>{children}</Link>;
+      } catch (e) {
+        const { Link } = require('react-router-dom');
+        return <Link to={to}>{children}</Link>;
+      }
+    };
+    return (
+      <header
+        className={cleanClassName(`${scss.header} ${contour && scss.contour}`)}
+        style={{ minWidth, maxWidth }}
+      >
+        {title || itemCount ? (
+          <h1 className={scss.title}>
+            {title} {itemCount && `(${itemCount})`}
+          </h1>
+        ) : undefined}
+        {previousPathList ? (
+          <ul className={scss.path_list}>
+            {previousPathList?.map(({ url, title: previousPathTitle }, index) => (
+              <li key={previousPathTitle + index}>
+                {<Link to={url}>{previousPathTitle}</Link>}
+                <span className={scss.arrow}>►</span>
+              </li>
+            ))}
+            <li className={scss.path}>{title}</li>
+          </ul>
+        ) : undefined}
+        {description ? <p className={scss.description}>{description}</p> : undefined}
+        {children}
+      </header>
+    );
+  },
 
   Section: ({ children, minWidth, maxWidth }: PageContentsSectionProps) => (
     <section className={scss.section} style={{ minWidth, maxWidth }}>
