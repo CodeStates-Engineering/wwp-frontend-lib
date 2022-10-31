@@ -14,10 +14,7 @@ export function Tab({ items }: TabProps) {
           const isActive = currentPath === to.split('?')[0];
           return (
             <li className={cleanClassName(isActive && scss.active)} key={`${label}_${index}`}>
-              <Link
-                to={to}
-                className={cleanClassName(`${scss.tab_link} ${isActive && scss.active}`)}
-              >
+              <Link to={to} isActive={isActive}>
                 {label}
               </Link>
             </li>

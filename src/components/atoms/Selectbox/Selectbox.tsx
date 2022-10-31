@@ -1,6 +1,6 @@
 import scss from './Selectbox.module.scss';
 import { Check, ChevronUp, ChevronDown } from 'react-feather';
-import { useOpenedStateWithCloseExternalClick, useDepsState, useParentState } from '../../../hooks';
+import { useOpenedStateWithCloseExternalClick, useParentState } from '../../../hooks';
 import { cleanClassName } from '../../../utils';
 import { useMemo } from 'react';
 
