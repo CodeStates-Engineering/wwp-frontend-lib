@@ -98,11 +98,11 @@
     "zustand": "^4.1.1"
   },
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^18.0.0",
+    "next": "^13.0.0",
+    "react-router-dom": "^6.4.0"
   },
   "dependencies": {
-    "react-router-dom": "^6.4.0",
-    "next": "^13.0.0",
     "axios": "^1.0.0"
   }
 }
