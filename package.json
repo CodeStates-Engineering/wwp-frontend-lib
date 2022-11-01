@@ -1,6 +1,6 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "1.3.75",
+  "version": "1.4.0",
   "types": "dist/library/types/index.d.ts",
   "private": false,
   "module": "dist/library/index.js",
