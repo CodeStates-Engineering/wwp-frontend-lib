@@ -28,7 +28,7 @@ jobs:
       - name: deploy package
         run: git pull && npm version patch && git push && yarn deploy:package
       - name: build storybook
-        run: export buildType="storybook" && yarn build:storybook
+        run: export PRODUCT_TYPE="storybook" && yarn build:storybook
       - name: deploy storybook
         uses: peaceiris/actions-gh-pages@v3
         with:

@@ -9,18 +9,19 @@ export interface LinkProps
 }
 
 const LinkTag = (() => {
-  if (process.env.buildType !== 'storybook') {
-    try {
+  switch (process.env.PRODUCT_TYPE) {
+    case 'next': {
       const NextLink = require('next/link').default;
       return ({ to, ...restProps }: LinkProps) => <NextLink href={to} {...restProps} />;
-    } catch (e) {
-      try {
-        const ReactLink = require('react-router-dom').Link;
-        return (props: LinkProps) => <ReactLink {...props} />;
-      } catch (e) {}
+    }
+    case 'react': {
+      const ReactLink = require('react-router-dom').Link;
+      return (props: LinkProps) => <ReactLink {...props} />;
+    }
+    default: {
+      return ({ to, ...restProps }: LinkProps) => <a href={to} {...restProps} />;
     }
   }
-  return ({ to, ...restProps }: LinkProps) => <a href={to} {...restProps} />;
 })();
 
 export function Link(props: LinkProps) {

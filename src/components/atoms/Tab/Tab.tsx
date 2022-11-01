@@ -1,6 +1,6 @@
 import scss from './Tab.module.scss';
 import { cleanClassName } from '../../../utils';
-import { Link, usePathname } from '../../../adaptor';
+import { Link, usePathname } from '../../../plugins';
 
 export interface TabProps {
   items: { label: React.ReactNode; to: string }[];
