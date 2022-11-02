@@ -1,8 +1,18 @@
 @import '../../../scss/libs.scss';
+
 .toast {
-  background-color: $GREEN100;
   padding: 12px;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  @include fade-in;
+  &.success {
+    background-color: $GREEN100;
+  }
+  &.error {
+    background-color: $WEWIN_PEACH50;
+  }
 }
 
 .toast_header {
@@ -10,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  min-width: 10em;
+  min-width: 15em;
   > .title {
     font-weight: $REGULAR_FONT_WEIGHT;
     font-size: $NORMAL_FONT_SIZE;
@@ -23,10 +33,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: ;
+    color: $BLUISH_GRAY700;
+    transition: color 0.2s;
+    &:hover {
+      color: $BLUISH_GRAY900;
+    }
   }
-  > .sucess_icon {
-    height: 19px;
-    width: 19px;
+}
+
+.icon {
+  height: 19px;
+  width: 19px;
+  &.success {
+    color: $GREEN600;
+  }
+  &.error {
+    color: $WEWIN_PEACH600;
   }
 }
