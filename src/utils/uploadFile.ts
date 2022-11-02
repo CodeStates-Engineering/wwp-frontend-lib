@@ -1,5 +1,5 @@
-import axios from 'axios';
 export function uploadFile(file: File, url: string, method: 'put' | 'post' = 'put'): Promise<any> {
+  const axios = require('axios').default;
   return axios({
     url,
     method,

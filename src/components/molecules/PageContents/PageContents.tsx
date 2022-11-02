@@ -56,19 +56,6 @@ export const PageContents = {
     minWidth,
     maxWidth,
   }: PageContentsHeaderProps) => {
-    const Link = ({ to, children }: { to: string; children: React.ReactNode }) => {
-      try {
-        if (process.env.buildType === 'storybook') {
-          throw new Error('storybook');
-        } else {
-          const Link = require('next/link').default;
-          return <Link href={to}>{children}</Link>;
-        }
-      } catch (e) {
-        const { Link } = require('react-router-dom');
-        return <Link to={to}>{children}</Link>;
-      }
-    };
     return (
       <header
         className={cleanClassName(`${scss.header} ${contour && scss.contour}`)}
