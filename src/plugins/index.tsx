@@ -1,2 +1,7 @@
-export { Link } from './Link';
-export { LinkProps } from './Link';
+import { Link, setLinkToNext } from './Link';
+export { Link };
+export type { LinkProps } from './Link';
+
+export function setupForNext() {
+  setLinkToNext();
+}

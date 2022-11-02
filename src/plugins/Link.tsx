@@ -9,17 +9,7 @@ export interface LinkProps
   to: string;
 }
 
-const LinkTag = (() => {
-  switch (process.env.PRODUCT_TYPE) {
-    case 'next': {
-      return ({ to, ...restProps }: LinkProps) => <NextLink href={to} {...restProps} />;
-    }
-    default: {
-      return (props: LinkProps) => <ReactLink {...props} />;
-    }
-  }
-})();
-
-export function Link(props: LinkProps) {
-  return <LinkTag {...props} />;
+export let Link = (props: LinkProps) => <ReactLink {...props} />;
+export function setLinkToNext() {
+  Link = ({ to, ...restProps }: LinkProps) => <NextLink href={to} {...restProps} />;
 }
