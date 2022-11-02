@@ -1,7 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Modal, ModalProps } from '../Modal';
 import React from 'react';
-import { Button } from '../..';
 
 export default {
   title: 'atoms/Modal',

@@ -1,6 +1,6 @@
 import scss from './Button.module.scss';
 import { cleanClassName } from '../../../utils';
-import { Link } from 'react-router-dom';
+import { Link } from '../../../plugins';
 import { useEffect, useState } from 'react';
 import type { IconProps } from 'react-feather';
 
@@ -106,7 +106,11 @@ export function Button({
       target,
       download,
     };
-    return refresh ? <a {...linkProps} href={to} /> : <Link {...linkProps} to={to} />;
+
+    if (refresh || target === '_blank') {
+      return <a href={to} {...linkProps} />;
+    }
+    return <Link to={to} {...linkProps} />;
   } else {
     let buttonProps = {
       ...commonProps,

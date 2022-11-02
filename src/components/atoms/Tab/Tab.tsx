@@ -1,12 +1,11 @@
 import scss from './Tab.module.scss';
 import { cleanClassName } from '../../../utils';
-import { Link, useLocation } from 'react-router-dom';
-
+import { Link, usePathname } from '../../../plugins';
 export interface TabProps {
   items: { label: React.ReactNode; to: string }[];
 }
 export function Tab({ items }: TabProps) {
-  const currentPath = useLocation().pathname;
+  const currentPath = usePathname();
   return (
     <nav className={scss.tab}>
       <ul className={scss.tab_list}>
