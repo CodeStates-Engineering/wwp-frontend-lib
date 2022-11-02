@@ -1,5 +1,6 @@
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from 'react';
-
+import { Link as ReactLink } from 'react-router-dom';
+import NextLink from 'next/link';
 export interface LinkProps
   extends Pick<
     DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>,
@@ -11,15 +12,10 @@ export interface LinkProps
 const LinkTag = (() => {
   switch (process.env.PRODUCT_TYPE) {
     case 'next': {
-      const NextLink = require('next/link').default;
       return ({ to, ...restProps }: LinkProps) => <NextLink href={to} {...restProps} />;
     }
-    case 'react': {
-      const ReactLink = require('react-router-dom').Link;
-      return (props: LinkProps) => <ReactLink {...props} />;
-    }
     default: {
-      return ({ to, ...restProps }: LinkProps) => <a href={to} {...restProps} />;
+      return (props: LinkProps) => <ReactLink {...props} />;
     }
   }
 })();

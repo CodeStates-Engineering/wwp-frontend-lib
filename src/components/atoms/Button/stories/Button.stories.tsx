@@ -35,10 +35,9 @@ Icon.args = iconArgs;
 export const Link = ButtonStory.bind({});
 const linkArgs: ButtonProps = {
   children: 'Link Button',
-  to: '#',
+  to: '/test',
   theme: 'bluish-gray600',
   variant: 'ghost',
-  target: '_blank',
 };
 Link.args = linkArgs;
 
