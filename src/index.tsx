@@ -166,4 +166,4 @@ export type {
 } from './hooks';
 
 //* plugins
-export { setupForNext } from './plugins';
+export { replaceDependency } from './plugins';
