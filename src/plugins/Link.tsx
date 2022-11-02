@@ -1,6 +1,6 @@
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import NextLink from 'next/link';
+
 export interface LinkProps
   extends Pick<
     DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>,
@@ -11,6 +11,6 @@ export interface LinkProps
 
 export let Link = (props: LinkProps) => <ReactLink {...props} />;
 
-export function setLinkToNext() {
-  Link = ({ to, ...restProps }: LinkProps) => <NextLink href={to} {...restProps} />;
+export function setLink(LinkComponent: (props: any) => JSX.Element) {
+  Link = ({ to, ...restProps }) => <LinkComponent {...restProps} href={to} />;
 }

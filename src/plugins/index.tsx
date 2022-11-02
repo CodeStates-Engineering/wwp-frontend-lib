@@ -1,9 +1,15 @@
-import { Link, setLinkToNext } from './Link';
-import { usePathname, setUsePathnameToNext } from './usePathname';
+import { Link, setLink } from './Link';
+import { usePathname, setUsePathname } from './usePathname';
 export type { LinkProps } from './Link';
 export { Link, usePathname };
-/**react 용으로 개발된 컴포넌트들을 next 용으로 변경*/
-export function setupForNext() {
-  setLinkToNext();
-  setUsePathnameToNext();
+
+interface Dependency {
+  Link: (props: any) => JSX.Element;
+  usePathname: () => string;
+}
+
+/**react 의존성 교체*/
+export function replaceDependency({ Link, usePathname }: Dependency) {
+  setLink(Link);
+  setUsePathname(usePathname);
 }
