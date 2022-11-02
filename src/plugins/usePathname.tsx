@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import Router from 'next/router';
+import navigation from 'next/navigation';
 
 export let usePathname = () => useLocation().pathname;
 export function setUsePathnameToNext() {
-  usePathname = () => Router.pathname;
+  usePathname = navigation.usePathname;
 }
