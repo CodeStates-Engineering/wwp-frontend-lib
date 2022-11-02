@@ -1,7 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { Tab } from '../Tab';
-import { MemoryRouter } from 'react-router-dom';
 export default {
   title: 'atoms/Tab',
   component: Tab,
@@ -21,5 +20,3 @@ Default.args = {
     { label: 'page4', to: '/page4' },
   ],
 };
-//TODO: React, NextJs 어뎁터 테스트 후 제거해도 될듯
-Default.decorators = [(Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>];

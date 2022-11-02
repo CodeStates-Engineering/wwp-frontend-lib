@@ -107,25 +107,10 @@ export function Button({
       download,
     };
 
-    const Link = ({ refresh }: { refresh: boolean }) => {
-      if (!refresh) {
-        try {
-          if (process.env.buildType === 'storybook') {
-            throw new Error('storybook');
-          } else {
-            const Link = require('next/link').default;
-            return <Link {...linkProps} href={to} />;
-          }
-        } catch (e) {
-          try {
-            const { Link } = require('react-router-dom');
-            return <Link {...linkProps} to={to} />;
-          } catch (e) {}
-        }
-      }
-      return <a {...linkProps} href={to} />;
-    };
-    return <Link refresh={refresh} />;
+    if (refresh || target === '_blank') {
+      return <a href={to} {...linkProps} />;
+    }
+    return <Link to={to} {...linkProps} />;
   } else {
     let buttonProps = {
       ...commonProps,
