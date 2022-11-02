@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
-
 export let usePathname = () => useLocation().pathname;
 export function setUsePathnameToNext() {
-  usePathname = require('next/navigation').usePathname;
+  usePathname = () => {
+    if (typeof window === 'undefined') return '';
+    return window.location.pathname;
+  };
 }

@@ -19,7 +19,8 @@
     "build:package": "tsc --emitDeclarationOnly && rollup -c",
     "build:storybook": "build-storybook -o dist/storybook",
     "deploy:storybook": "gh-pages -d dist/storybook",
-    "deploy:package": "yarn publish"
+    "deploy:package": "yarn publish",
+    "deploy": "yarn build:package && yarn build:storybook && yarn deploy:storybook && yarn deploy:package"
   },
   "eslintConfig": {
     "extends": [
@@ -100,11 +101,11 @@
     "web-vitals": "^2.1.4",
     "webpack": "^5.74.0",
     "react-router-dom": "^6.4.0",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.1",
+    "next": "^13.0.1"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "next": "^13.0.1"
+    "react": "^18.0.0"
   },
   "dependencies": {
     "axios": "^1.0.0"
