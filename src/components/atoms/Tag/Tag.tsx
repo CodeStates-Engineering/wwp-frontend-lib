@@ -1,9 +1,10 @@
 import scss from './Tag.module.scss';
-import { cleanClassName, Color } from '../../../utils';
+import { cleanClassName } from '../../../utils';
 
 export interface TagProps {
   children?: React.ReactNode;
-  theme?: 'wewin-blue600'
+  theme?:
+    | 'wewin-blue600'
     | 'gray700'
     | 'wewin-gold700'
     | 'mint700'

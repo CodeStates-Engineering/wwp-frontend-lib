@@ -1,7 +1,7 @@
 import scss from './Chip.module.scss';
 import { cleanClassName } from '../../../utils';
 import { X } from 'react-feather';
-import { Button, Modal } from '../../atoms';
+import { Modal } from '../../atoms';
 import { useState } from 'react';
 
 export interface ChipProps {

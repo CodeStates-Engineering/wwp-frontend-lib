@@ -1,12 +1,9 @@
 import { Toast } from '../../atoms/Toast/Toast';
-import type { ToastProps } from '../../atoms/Toast/Toast';
 import { useToastLayoutStore } from '../../../hooks/useToast';
 import scss from './ToastLayout.module.scss';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { cleanClassName } from 'utils';
-import { useDepsState } from 'hooks';
+import { useEffect } from 'react';
 
-interface ToastLayoutProps {
+export interface ToastLayoutProps {
   holdingTime?: number;
 }
 

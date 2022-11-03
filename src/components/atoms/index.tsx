@@ -93,3 +93,6 @@ export type { FileDownloadProps } from './FileDownload/FileDownload';
 
 export { FileUpload } from './FileUpload/FileUpload';
 export type { FileUploadProps, WebFile } from './FileUpload/FileUpload';
+
+export { Toast } from './Toast/Toast';
+export type { ToastProps } from './Toast/Toast';
