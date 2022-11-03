@@ -10,5 +10,15 @@ export default {
 const ToastStory: ComponentStory<typeof Toast> = (args) => <Toast {...args} />;
 
 export const Default = ToastStory.bind({});
-const defaultArgs: ToastProps = {};
+const defaultArgs: ToastProps = {
+  title: 'Success',
+};
 Default.args = defaultArgs;
+
+export const Error = ToastStory.bind({});
+const errorArgs: ToastProps = {
+  title: 'Error',
+  type: 'error',
+};
+
+Error.args = errorArgs;

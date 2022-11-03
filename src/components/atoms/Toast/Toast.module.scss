@@ -6,7 +6,13 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  @include fade-in;
+  &.show {
+    @include scale-in-top(0.2s, 0.1s);
+  }
+  &.hide {
+    @include scale-out-top(0.2s, 0.1s);
+  }
+
   &.success {
     background-color: $GREEN100;
   }

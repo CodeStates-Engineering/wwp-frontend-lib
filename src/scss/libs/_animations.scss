@@ -1,6 +1,5 @@
 @mixin fade-in($duration: 0.3s, $delay: 0s) {
-  -webkit-animation: fade-in $duration cubic-bezier(0.39, 0.575, 0.565, 1)
-    $delay both;
+  -webkit-animation: fade-in $duration cubic-bezier(0.39, 0.575, 0.565, 1) $delay both;
   animation: fade-in $duration cubic-bezier(0.39, 0.575, 0.565, 1) $delay both;
 }
 @-webkit-keyframes fade-in {
@@ -42,10 +41,8 @@
 }
 
 @mixin shake-horizontal($duration: 1s, $delay: 0s) {
-  -webkit-animation: shake-horizontal $duration
-    cubic-bezier(0.455, 0.03, 0.515, 0.955) $delay both;
-  animation: shake-horizontal $duration cubic-bezier(0.455, 0.03, 0.515, 0.955)
-    $delay both;
+  -webkit-animation: shake-horizontal $duration cubic-bezier(0.455, 0.03, 0.515, 0.955) $delay both;
+  animation: shake-horizontal $duration cubic-bezier(0.455, 0.03, 0.515, 0.955) $delay both;
 }
 
 @-webkit-keyframes shake-horizontal {
@@ -106,18 +103,14 @@
 }
 
 @mixin tilt-in-fwd-tr($duration: 1s, $delay: 0s) {
-  -webkit-animation: tilt-in-fwd-tr $duration
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
-  animation: tilt-in-fwd-tr $duration cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    $delay both;
+  -webkit-animation: tilt-in-fwd-tr $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+  animation: tilt-in-fwd-tr $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
 }
 
 @-webkit-keyframes tilt-in-fwd-tr {
   0% {
-    -webkit-transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px)
-      skew(-35deg, 10deg);
-    transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px)
-      skew(-35deg, 10deg);
+    -webkit-transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px) skew(-35deg, 10deg);
+    transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px) skew(-35deg, 10deg);
     opacity: 0;
   }
   100% {
@@ -128,10 +121,8 @@
 }
 @keyframes tilt-in-fwd-tr {
   0% {
-    -webkit-transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px)
-      skew(-35deg, 10deg);
-    transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px)
-      skew(-35deg, 10deg);
+    -webkit-transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px) skew(-35deg, 10deg);
+    transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px) skew(-35deg, 10deg);
     opacity: 0;
   }
   100% {
@@ -142,10 +133,8 @@
 }
 
 @mixin slide-in-fwd-center($duration: 1s, $delay: 0s) {
-  -webkit-animation: slide-in-fwd-center $duration
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
-  animation: slide-in-fwd-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    $delay both;
+  -webkit-animation: slide-in-fwd-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+  animation: slide-in-fwd-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
 }
 @-webkit-keyframes slide-in-fwd-center {
   0% {
@@ -173,10 +162,8 @@
 }
 
 @mixin scale-in-center($duration: 1s, $delay: 0s) {
-  -webkit-animation: scale-in-center $duration
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
-  animation: scale-in-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    $delay both;
+  -webkit-animation: scale-in-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+  animation: scale-in-center $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
 }
 @-webkit-keyframes scale-in-center {
   0% {
@@ -203,10 +190,8 @@
   }
 }
 @mixin slide-in-right($duration: 1s, $delay: 0s) {
-  -webkit-animation: slide-in-right $duration
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
-  animation: slide-in-right $duration cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    $delay both;
+  -webkit-animation: slide-in-right $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+  animation: slide-in-right $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
 }
 
 @-webkit-keyframes slide-in-right {
@@ -235,10 +220,8 @@
 }
 
 @mixin slide-out-right($duration: 1s, $delay: 0s) {
-  -webkit-animation: slide-out-right $duration
-    cubic-bezier(0.55, 0.085, 0.68, 0.53) $delay both;
-  animation: slide-out-right $duration cubic-bezier(0.55, 0.085, 0.68, 0.53)
-    $delay both;
+  -webkit-animation: slide-out-right $duration cubic-bezier(0.55, 0.085, 0.68, 0.53) $delay both;
+  animation: slide-out-right $duration cubic-bezier(0.55, 0.085, 0.68, 0.53) $delay both;
 }
 
 @-webkit-keyframes slide-out-right {
@@ -263,5 +246,81 @@
     -webkit-transform: translateX(1000px);
     transform: translateX(1000px);
     opacity: 0;
+  }
+}
+
+@mixin scale-in-top($duration: 0.5s, $delay: 0s) {
+  -webkit-animation: scale-in-top $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+  animation: scale-in-top $duration cubic-bezier(0.25, 0.46, 0.45, 0.94) $delay both;
+}
+
+@-webkit-keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+
+@mixin scale-out-top($duration: 0.5s, $delay: 0s) {
+  -webkit-animation: scale-out-top $duration cubic-bezier(0.55, 0.085, 0.68, 0.53) $delay both;
+  animation: scale-out-top $duration cubic-bezier(0.55, 0.085, 0.68, 0.53) $delay both;
+}
+
+@-webkit-keyframes scale-out-top {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-out-top {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
   }
 }
