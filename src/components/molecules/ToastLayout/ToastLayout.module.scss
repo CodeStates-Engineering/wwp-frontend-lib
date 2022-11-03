@@ -1,0 +1,10 @@
+@import '../../../scss/libs.scss';
+.toast_layout {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  margin-top: 20px;
+}
