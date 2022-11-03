@@ -1,7 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { Tab } from '../Tab';
-import { MemoryRouter } from 'react-router-dom';
 export default {
   title: 'atoms/Tab',
   component: Tab,
@@ -21,4 +20,3 @@ Default.args = {
     { label: 'page4', to: '/page4' },
   ],
 };
-Default.decorators = [(Story) => <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>];

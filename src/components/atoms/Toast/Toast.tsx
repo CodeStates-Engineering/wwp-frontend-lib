@@ -17,7 +17,6 @@ export function Toast({
   type = 'success',
   onClose,
   opened = true,
-
   valueSync,
 }: ToastProps) {
   const [display, setDispaly] = useParentState(() => opened, [opened], valueSync);

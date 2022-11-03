@@ -12,7 +12,6 @@
   &.hide {
     @include scale-out-top(0.2s, 0.1s);
   }
-
   &.success {
     background-color: $GREEN100;
   }

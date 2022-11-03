@@ -169,3 +169,6 @@ export type {
   ValidationStorage,
   Validation,
 } from './hooks';
+
+//* plugins
+export { replaceDependency } from './plugins';
