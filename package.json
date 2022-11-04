@@ -1,6 +1,6 @@
 {
   "name": "@codestates-engineering/wwp-frontend-lib",
-  "version": "1.4.12",
+  "version": "1.4.13-test",
   "types": "dist/library/types/index.d.ts",
   "private": false,
   "module": "dist/library/index.js",
@@ -84,7 +84,7 @@
     "react-day-picker": "^8.2.1",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
-    "react-router-dom": "^6.4.0",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "^5.0.1",
     "rollup": "^2.79.0",
     "rollup-plugin-babel": "^4.4.0",
