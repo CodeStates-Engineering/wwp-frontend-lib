@@ -54,7 +54,7 @@ export default {
   output: [
     {
       file: pkg.module,
-      format: 'es',
+      format: 'cjs',
     },
   ],
 };
