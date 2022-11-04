@@ -96,20 +96,23 @@ function attachCommonProps<T extends InputPropsHint>(Input: InputComponentHint<T
     description,
     ...restProps
   }: T & CommonProps<T>) => {
-    const _validation = useCallback((value: any) => {
-      const ESSENTIAL_MESSAGE = '필수 항목입니다.';
-      if (addEssentialValidation && essential) {
-        switch (typeof value) {
-          case 'object':
-            if (Array.isArray(value) && value.length === 0) return ESSENTIAL_MESSAGE;
-            else for (const key in value) if (value[key] === undefined) return ESSENTIAL_MESSAGE;
-            break;
-          default:
-            if (value === undefined || value === '') return ESSENTIAL_MESSAGE;
+    const _validation = useCallback(
+      (value: any) => {
+        const ESSENTIAL_MESSAGE = '필수 항목입니다.';
+        if (addEssentialValidation && essential) {
+          switch (typeof value) {
+            case 'object':
+              if (Array.isArray(value) && value.length === 0) return ESSENTIAL_MESSAGE;
+              else for (const key in value) if (value[key] === undefined) return ESSENTIAL_MESSAGE;
+              break;
+            default:
+              if (value === undefined || value === '') return ESSENTIAL_MESSAGE;
+          }
         }
-      }
-      return validation?.(value);
-    }, []);
+        return validation?.(value);
+      },
+      [addEssentialValidation, essential]
+    );
 
     const { checkValidation, message, invalid } = useValidation(
       value,

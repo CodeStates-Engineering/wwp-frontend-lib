@@ -62,3 +62,6 @@ export type { FormGroupProps } from './FormGroup/FormGroup';
 
 export { Chip } from './Chip/Chip';
 export type { ChipProps } from './Chip/Chip';
+
+export { ToastLayout } from './ToastLayout/ToastLayout';
+export type { ToastLayoutProps } from './ToastLayout/ToastLayout';

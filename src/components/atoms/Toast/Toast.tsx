@@ -16,7 +16,7 @@ export function Toast({
   title,
   type = 'success',
   onClose,
-  opened = false,
+  opened = true,
   valueSync,
 }: ToastProps) {
   const [display, setDispaly] = useParentState(() => opened, [opened], valueSync);
@@ -26,8 +26,8 @@ export function Toast({
     error: AlertCircle,
   }[type];
 
-  return display ? (
-    <section className={`${scss.toast} ${scss[type]}`}>
+  return (
+    <section className={`${scss.toast} ${scss[type]} ${scss[display ? 'show' : 'hide']}`}>
       <header className={scss.toast_header}>
         <Icon className={`${scss.icon} ${scss[type]}`} />
         <h4 className={scss.title}>{title}</h4>
@@ -43,7 +43,5 @@ export function Toast({
       </header>
       {children}
     </section>
-  ) : (
-    <></>
   );
 }
