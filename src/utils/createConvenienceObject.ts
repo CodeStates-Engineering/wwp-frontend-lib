@@ -1,15 +1,15 @@
-type OriginalObject<Key extends string, Value> = {
+type OriginalObject<Key extends string | number, Value> = {
   [K in Key]: Value;
 };
 
-type OriginalData<Key extends string, Value> =
+type OriginalData<Key extends string | number, Value> =
   | {
       key: Key;
       value: Value;
     }[]
   | OriginalObject<Key, Value>;
 
-class ConvenienceObject<Key extends string, Value> {
+class ConvenienceObject<Key extends string | number, Value> {
   constructor(originalData: OriginalData<Key, Value>) {
     let object = {} as OriginalObject<Key, Value>;
     if (Array.isArray(originalData)) {
@@ -36,20 +36,20 @@ class ConvenienceObject<Key extends string, Value> {
     return keys.map((key, index) => ({ key, value: values[index] }));
   }
 
+  toOptions() {
+    const keys = this.keys();
+    const values = this.values();
+    return keys.map((key, index) => ({ label: key, value: values[index] }));
+  }
+
   toMap() {
     const keys = this.keys();
     const values = this.values();
     return new Map(keys.map((key, index) => [key, values[index]]));
   }
 
-  valueOf(key: string): Value | undefined {
-    const object: object = this;
-    for (const k in object) {
-      if (k === key) {
-        return object[k as keyof object];
-      }
-    }
-    return undefined as any;
+  valueOf(key: string | number): Value | undefined {
+    return this[key as keyof object];
   }
 
   keyOf(value: Value): Key | undefined {
@@ -64,7 +64,7 @@ class ConvenienceObject<Key extends string, Value> {
   }
 }
 
-export function createConvenienceObject<Key extends string, Value>(
+export function createConvenienceObject<Key extends string | number, Value>(
   object: OriginalData<Key, Value>
 ) {
   return new ConvenienceObject(object) as ConvenienceObject<Key, Value> &
