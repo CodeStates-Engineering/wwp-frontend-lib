@@ -14,9 +14,8 @@ export function CancelModalOpener({
   ...restProps
 }: CancelModalOpenerProps) {
   const openerProps: CancelModalOpenerProps['openerOptions'] = {
-    theme: 'bluish-gray50',
+    theme: 'bluish-gray500',
     fontWeight: 'medium',
-    fontSize: 'small',
     ...openerOptions,
   };
 
