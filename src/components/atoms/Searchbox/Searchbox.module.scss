@@ -1,4 +1,4 @@
-@import "../../../scss/libs.scss";
+@import '../../../scss/libs.scss';
 
 .searchbox_wrap {
   position: relative;
@@ -66,7 +66,7 @@
   &.disabled {
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
-    > input {
+    > .input_wrap > input {
       color: $INPUT_DISABLED_COLOR;
     }
     &.system {
