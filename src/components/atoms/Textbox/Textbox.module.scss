@@ -51,7 +51,9 @@
     &.system {
       border-bottom: $INPUT_SYSTEM_BORDER;
       background-color: $INPUT_SYSTEM_BG_COLOR;
-      color: $INPUT_SYSTEM_COLOR;
+      > input {
+        color: $INPUT_SYSTEM_COLOR;
+      }
       &.linear {
         background-color: transparent;
       }
