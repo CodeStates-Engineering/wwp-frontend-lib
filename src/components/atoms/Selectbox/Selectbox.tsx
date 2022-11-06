@@ -60,7 +60,9 @@ export function Selectbox<T extends OptionHint>({
 
   const [selectedValue, setSelectedValue] = useParentState(() => value, [value], valueSync);
 
-  const selectedLabel = _options.find(({ value }) => value === selectedValue)?.label;
+  const selectedLabel = options
+    ? _options.find(({ value }) => value === selectedValue)?.label
+    : value;
 
   const isFilled = selectedLabel !== undefined && selectedValue !== null;
 
