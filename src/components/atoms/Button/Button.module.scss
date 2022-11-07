@@ -42,7 +42,7 @@
     &:hover:not(:disabled) {
       color: darken($color, 7%);
       background-color: rgba($backgroundColor, 0.07);
-      &.only_text {
+      &.include_text {
         text-decoration: underline;
         background: none;
       }
@@ -50,7 +50,7 @@
     &:active:not(:disabled) {
       color: darken($color, 14%);
       background-color: rgba($backgroundColor, 0.14);
-      &.only_text {
+      &.include_text {
         text-decoration: underline;
         background: none;
       }
@@ -130,22 +130,28 @@
 // size
 .size_small {
   padding: 3px 7px;
-  &.only_icon {
+  &.include_icon {
     padding: 3px;
+    &.include_text {
+      padding-right: 6px;
+    }
   }
 }
 
 .size_medium {
   padding: 6px 12px;
-  &.only_icon {
+  &.include_icon {
     padding: 6px;
+    &.include_text {
+      padding-right: 8px;
+    }
   }
 }
 
 .size_large {
-  padding: 6px 16px;
-  &.only_icon {
-    padding: 6px;
+  padding: 10px 16px;
+  &.include_icon {
+    padding: 10px;
   }
 }
 

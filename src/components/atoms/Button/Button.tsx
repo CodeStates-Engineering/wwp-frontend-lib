@@ -74,17 +74,18 @@ export function Button({
 
   const commonProps = {
     ...restProps,
-    className: cleanClassName(
-      `${scss.button} ${scss['theme_' + variant + '-' + theme]} ${
-        !Icon ? scss.only_text : !children && scss.only_icon
-      }
-    ${scss['size_' + size]}
-    ${scss['shape_' + shape]} 
-    ${scss['font_size_' + fontSize]}
-    ${scss['font_weight_' + fontWeight]}
-    ${leftDelay && scss.delay_button}
-    ${fitContainer && scss.fit_container}`
-    ),
+    className: cleanClassName(`
+      ${scss.button}
+      ${scss['theme_' + variant + '-' + theme]}
+      ${!!Icon && scss.include_icon}
+      ${!!children && scss.include_text}
+      ${scss['size_' + size]}
+      ${scss['shape_' + shape]} 
+      ${scss['font_size_' + fontSize]}
+      ${scss['font_weight_' + fontWeight]}
+      ${leftDelay && scss.delay_button}
+      ${fitContainer && scss.fit_container}
+      `),
     style: {
       minWidth,
     },

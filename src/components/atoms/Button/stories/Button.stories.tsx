@@ -1,6 +1,6 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
-import { File, X } from 'react-feather';
+import { File, X, PlayCircle } from 'react-feather';
 import { Button } from '../Button';
 import type { ButtonProps } from '../Button';
 
@@ -12,11 +12,11 @@ export default {
 const ButtonStory: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = ButtonStory.bind({});
-const defaultArgs: ButtonProps = { children: 'Button', icon: File };
+const defaultArgs: ButtonProps = { children: 'Button' };
 Default.args = defaultArgs;
 
 export const BluishGray600 = ButtonStory.bind({});
-const bluishGray600Args: ButtonProps = { ...defaultArgs, theme: 'bluish-gray600' };
+const bluishGray600Args: ButtonProps = { ...defaultArgs, icon: File, theme: 'bluish-gray600' };
 BluishGray600.args = bluishGray600Args;
 
 export const Outline = ButtonStory.bind({});
@@ -28,9 +28,21 @@ const outlineArgs: ButtonProps = {
 };
 Outline.args = outlineArgs;
 
-export const Icon = ButtonStory.bind({});
-const iconArgs: ButtonProps = { icon: X, theme: 'bluish-gray500', shape: 'round', size: 'small' };
-Icon.args = iconArgs;
+export const RoundIcon = ButtonStory.bind({});
+const roundIconArgs: ButtonProps = {
+  icon: PlayCircle,
+  theme: 'bluish-gray500',
+  shape: 'round',
+  size: 'small',
+};
+RoundIcon.args = roundIconArgs;
+
+export const RoundIconText = ButtonStory.bind({});
+const roundIconTextArgs: ButtonProps = {
+  ...roundIconArgs,
+  children: 'Button',
+};
+RoundIconText.args = roundIconTextArgs;
 
 export const Link = ButtonStory.bind({});
 const linkArgs: ButtonProps = {

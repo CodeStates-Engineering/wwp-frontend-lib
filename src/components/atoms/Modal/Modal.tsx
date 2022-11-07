@@ -29,7 +29,7 @@ export function Modal({
   title,
   subText,
   modalType = 'left',
-  maxWidth = '340px',
+  maxWidth = 'unset',
   contour = false,
   buttonsOptions,
   valueSync,
