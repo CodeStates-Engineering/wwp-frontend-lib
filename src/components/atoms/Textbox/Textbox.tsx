@@ -28,7 +28,7 @@ export function Textbox({
   type,
   onChange,
   name,
-  value,
+  value = '',
   invalid,
   theme = 'box',
   modifier = 'user',
@@ -61,7 +61,7 @@ export function Textbox({
       case 'comma-separated-number':
         return {
           placeholder: placeholder ?? '000,000,000',
-          value: inputValue?.replace(regex.addCommasToNumber, ','),
+          value: inputValue.replace(regex.addCommasToNumber, ','),
           onChange: createChangeEventHandler((value) =>
             handleCommonEvent(value.replace(regex.number, ''))
           ),

@@ -79,7 +79,7 @@ export function Textarea({
       )}
       style={{ width }}
       placeholder={placeholder}
-      value={inputValue}
+      value={inputValue ?? ''}
       name={name}
       id={id}
       disabled={_disabled}

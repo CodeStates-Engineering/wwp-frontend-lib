@@ -10,7 +10,7 @@ export interface SwitchProps {
   valueSync?: boolean;
 }
 export function Switch({ className, onChange, id, value, valueSync }: SwitchProps) {
-  const [turendOn, setTurendOn] = useParentState(() => value, [value], valueSync);
+  const [turendOn, setTurendOn] = useParentState(() => !!value, [value], valueSync);
 
   return (
     <button
