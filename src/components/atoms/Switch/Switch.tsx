@@ -16,6 +16,7 @@ export function Switch({ className, onChange, id, value, valueSync }: SwitchProp
     <button
       className={cleanClassName(`${scss.switch} ${scss[turendOn ? 'on' : 'off']} ${className}`)}
       id={id}
+      type="button"
     >
       <div className={scss.circle} />
       <input

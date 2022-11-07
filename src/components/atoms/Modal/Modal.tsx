@@ -57,7 +57,7 @@ export function Modal({
   const CloseButton = () =>
     closeButton ? (
       <div>
-        <button className={scss.modal_close_button} onClick={closeModal}>
+        <button className={scss.modal_close_button} onClick={closeModal} type="button">
           <X />
         </button>
       </div>

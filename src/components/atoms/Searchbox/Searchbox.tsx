@@ -161,6 +161,7 @@ export function Searchbox<T extends OptionHint>({
                     isOptionsExist && onChange?.(option.value);
                     setOptionsOpened(false);
                   }}
+                  type="button"
                 >
                   <Check className={scss.check} />
                   {option.label}

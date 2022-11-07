@@ -255,7 +255,11 @@ export function DateSelectbox<T extends DateType = 'date'>({
             </>
           )}
         </div>
-        <button className={scss.icon_wrap} onClick={() => setCalendarOpened(!calendarOpened)}>
+        <button
+          className={scss.icon_wrap}
+          type="button"
+          onClick={() => setCalendarOpened(!calendarOpened)}
+        >
           <Calendar />
         </button>
       </div>
