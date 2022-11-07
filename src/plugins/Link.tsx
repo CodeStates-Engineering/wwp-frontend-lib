@@ -1,5 +1,4 @@
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from 'react';
-import { Link as ReactLink } from 'react-router-dom';
 
 export interface LinkProps
   extends Pick<
@@ -9,8 +8,8 @@ export interface LinkProps
   to: string;
 }
 
-export let Link = (props: LinkProps) => <ReactLink {...props} />;
+export let Link = (props: LinkProps) => <a {...props} href={props.to} />;
 
-export function setLink(LinkComponent: (props: any) => JSX.Element) {
-  Link = ({ to, ...restProps }) => <LinkComponent {...restProps} href={to} />;
+export function setLink(LinkComponent: (props: any) => JSX.Element | null) {
+  Link = (props) => <LinkComponent {...props} href={props.to} />;
 }

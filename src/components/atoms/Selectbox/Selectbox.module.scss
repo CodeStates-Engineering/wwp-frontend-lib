@@ -66,19 +66,25 @@
     cursor: not-allowed;
     border: $INPUT_DISABLED_BORDER;
     background-color: $INPUT_DISABLED_BG_COLOR;
-    color: $INPUT_DISABLED_COLOR;
+    &.filled {
+      color: $INPUT_DISABLED_COLOR;
+    }
     > svg {
       color: $INPUT_ICON_DISABLED_COLOR;
     }
     &.system {
       border: $INPUT_SYSTEM_BORDER;
       background-color: $INPUT_SYSTEM_BG_COLOR;
-      color: $INPUT_SYSTEM_COLOR;
+      &.filled {
+        color: $INPUT_SYSTEM_COLOR;
+      }
     }
     &.readonly {
       border: transparent;
       background-color: transparent;
-      color: $INPUT_READONLY_COLOR;
+      &.filled {
+        color: $INPUT_READONLY_COLOR;
+      }
     }
     @include linear;
   }

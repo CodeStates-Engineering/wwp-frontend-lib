@@ -9,7 +9,7 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const ButtonStory: ComponentStory<typeof Button> = (args) => <Button {...args} refresh />;
+const ButtonStory: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = ButtonStory.bind({});
 const defaultArgs: ButtonProps = { children: 'Button', icon: File };

@@ -10,7 +10,6 @@ export default {
 } as ComponentMeta<typeof Tab>;
 
 const SwitchStory: ComponentStory<typeof Tab> = (args) => <Tab {...args} />;
-
 export const Default = SwitchStory.bind({});
 Default.args = {
   items: [

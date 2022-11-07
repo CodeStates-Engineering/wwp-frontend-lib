@@ -149,6 +149,12 @@ export function DateSelectbox<T extends DateType = 'date'>({
   const isConvertableDate = (value: string) => !isNaN(Date.parse(value));
 
   useMountedEffect(() => {
+    if (!calendarOpened) return;
+    setCalendarOpened(false);
+    setTimeout(() => setCalendarOpened(true));
+  }, [currentModal]);
+
+  useMountedEffect(() => {
     if (calendarOpened) return;
     const selectedPeriodDate: Period = {
       from: undefined,

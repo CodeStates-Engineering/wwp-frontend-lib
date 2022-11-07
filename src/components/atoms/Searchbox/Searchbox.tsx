@@ -34,7 +34,7 @@ export interface SearchboxProps<T extends OptionHint> {
   width?: React.CSSProperties['width'];
   valueSync?: boolean;
 }
-//TODO: 옵션이 있는데 선택하지 않은경우 이전값으로 되돌리는 로직 추가 필요
+
 export function Searchbox<T extends OptionHint>({
   onChange,
   placeholder = '검색어를 입력하세요',
