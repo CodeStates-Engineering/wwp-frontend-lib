@@ -25,6 +25,7 @@ export {
   Textbox,
   Tooltip,
   ValidationMessage,
+  InputDescription,
   DrawerModal,
   Tab,
   FileDownload,
