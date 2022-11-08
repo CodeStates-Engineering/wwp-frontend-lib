@@ -1,7 +1,7 @@
 import create from 'zustand';
 import type { ToastProps } from '../components/atoms/Toast/Toast';
 
-interface ToastOption extends Pick<ToastProps, 'title' | 'type'> {
+export interface ToastOption extends Pick<ToastProps, 'title' | 'type'> {
   description?: React.ReactNode;
 }
 

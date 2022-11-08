@@ -168,6 +168,7 @@ export type {
   PaginationState,
   ValidationStorage,
   Validation,
+  ToastOption,
 } from './hooks';
 
 //* plugins

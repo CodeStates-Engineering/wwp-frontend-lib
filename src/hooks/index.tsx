@@ -24,3 +24,4 @@ export { createPaginationState } from './createPaginationState';
 export type { PaginationState } from './createPaginationState';
 
 export { useToast } from './useToast';
+export type { ToastOption } from './useToast';
