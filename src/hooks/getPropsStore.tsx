@@ -1,4 +1,5 @@
 import create from 'zustand';
+import shallow from 'zustand/shallow';
 import type { UseBoundStore, StoreApi } from 'zustand';
 import { useLayoutEffect, useMemo } from 'react';
 
@@ -12,7 +13,8 @@ const propsStore = create<any>(() => ({}));
 export function getPropsStore<T extends object>() {
   const usePropsStore: UseBoundStore<StoreApi<T>> = propsStore;
   const PagePropsStore = {
-    usePropsStore,
+    usePropsStore: <R extends any>(selector: (state: T) => R, renderingOptimized: boolean = true) =>
+      usePropsStore(selector, renderingOptimized ? shallow : undefined),
 
     usePropsStoreInitializer: (initializer: (set: StateSetter<T>, get: () => T) => T) => {
       useMemo(() => {
@@ -33,5 +35,5 @@ export function getPropsStore<T extends object>() {
     },
   };
 
-  return PagePropsStore as T extends object ? typeof PagePropsStore : void;
+  return PagePropsStore;
 }
