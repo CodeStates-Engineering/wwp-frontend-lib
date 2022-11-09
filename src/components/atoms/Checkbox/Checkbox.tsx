@@ -1,27 +1,22 @@
 import scss from './Checkbox.module.scss';
 import { Check, Minus, X } from 'react-feather';
-import { useMountedEffect, useParentState } from '../../../hooks';
+import { useParentState } from '../../../hooks';
 import { cleanClassName } from '../../../utils';
 
 export interface CheckboxProps {
-  className?: string;
   value?: boolean | null;
-  onChange?: (checked: CheckboxProps['value']) => void;
+  onChange?: (checked: boolean) => void;
   name?: string;
   disabled?: boolean;
   id?: string;
   valueSync?: boolean;
 }
 
-export function Checkbox({ value, onChange, className, name, disabled, valueSync }: CheckboxProps) {
+export function Checkbox({ value = false, onChange, name, disabled, valueSync }: CheckboxProps) {
   const [checkedValue, setCheckedValue] = useParentState(() => value, [value], valueSync);
   const isIndeterminate = checkedValue === null;
   const CheckboxIcon = () =>
     isIndeterminate ? <Minus /> : checkedValue ? <Check /> : disabled ? <X /> : <></>;
-
-  useMountedEffect(() => {
-    if (isIndeterminate) onChange?.(null);
-  }, [isIndeterminate]);
 
   return (
     <div
@@ -32,7 +27,7 @@ export function Checkbox({ value, onChange, className, name, disabled, valueSync
             : isIndeterminate
             ? scss.indeterminate
             : checkedValue && scss.checked
-        } ${className}`
+        }`
       )}
     >
       <div className={scss.checkbox_icon_wrap}>
