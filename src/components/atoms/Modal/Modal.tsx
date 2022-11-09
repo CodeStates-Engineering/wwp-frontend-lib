@@ -103,9 +103,9 @@ export function Modal({
         })()}
         {buttonsOptions && (
           <footer className={`${scss.modal_footer} ${contour && scss.contour}`}>
-            {buttonsOptions.map((buttonOptions) => {
+            {buttonsOptions.map((buttonOptions, index) => {
               const { onClick, ...buttonProps } = buttonOptions;
-              return <Button {...buttonProps} onClick={() => onClick?.(closeModal)} />;
+              return <Button {...buttonProps} onClick={() => onClick?.(closeModal)} key={index} />;
             })}
           </footer>
         )}
