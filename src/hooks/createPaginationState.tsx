@@ -14,7 +14,7 @@ export function createPaginationState<T extends PaginationState>(
 ): PaginationState {
   return {
     pageSize: initialPageSize,
-    handlePageSizeChange: (pageSize) => set({ pageSize } as T),
+    handlePageSizeChange: (pageSize) => set({ pageSize, currentPage: 1 } as T),
     currentPage: initialCurrentPage,
     handleCurrentPageChange: (currentPage) => set({ currentPage } as T),
   };
