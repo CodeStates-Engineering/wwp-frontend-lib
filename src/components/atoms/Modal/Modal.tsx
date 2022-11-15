@@ -37,12 +37,14 @@ export function Modal({
   const [modalOpened, setModalOpened] = useParentState(() => opened, [opened], valueSync),
     [modalClosing, setModalClosing] = useState(false),
     closeModal = () => {
-      setModalClosing(true);
-      setTimeout(() => {
-        setModalClosing(false);
-        setModalOpened?.(false);
-        onClose?.();
-      }, 200);
+      if (!!(setModalOpened || onClose)) {
+        setModalClosing(true);
+        setTimeout(() => {
+          setModalClosing(false);
+          setModalOpened?.(false);
+          onClose?.();
+        }, 200);
+      }
     };
 
   if (!modalOpened) return <></>;
