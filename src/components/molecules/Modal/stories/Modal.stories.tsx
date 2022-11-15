@@ -3,7 +3,7 @@ import { Modal, ModalProps } from '../Modal';
 import React from 'react';
 
 export default {
-  title: 'atoms/Modal',
+  title: 'molecules/Modal',
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ConfirmModalOpener } from './ConfirmModalOpener';
-import type { ConfirmModalOpenerProps } from './ConfirmModalOpener';
+import { ConfirmModalOpener } from '../ConfirmModalOpener';
+import type { ConfirmModalOpenerProps } from '../ConfirmModalOpener';
 import React from 'react';
 import { File } from 'react-feather';
 

@@ -5,7 +5,7 @@ import { File } from 'react-feather';
 import React from 'react';
 
 export default {
-  title: 'molecules/ModalOpener',
+  title: 'organisms/ModalOpener',
   component: ModalOpener,
 } as ComponentMeta<typeof ModalOpener>;
 

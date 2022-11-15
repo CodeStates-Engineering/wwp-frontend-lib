@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Table } from './Table';
+import { Table } from '../Table';
 import React from 'react';
 
 export default {

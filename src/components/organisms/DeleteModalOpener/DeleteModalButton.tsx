@@ -1,7 +1,6 @@
 import { Trash2 } from 'react-feather';
-import { ModalOpener } from '../../molecules';
-import type { ModalOpenerProps } from '../../molecules';
-
+import { ModalOpener } from '..';
+import type { ModalOpenerProps } from '..';
 export interface DeleteModalOpenerProps
   extends Omit<ModalOpenerProps<'button'>, 'modalOptions' | 'type'> {
   modalOptions?: Omit<Required<ModalOpenerProps>['modalOptions'], 'buttonsOptions'>;

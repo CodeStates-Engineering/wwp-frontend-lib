@@ -1,5 +1,5 @@
-import { ModalOpener } from '../../molecules';
-import type { ModalOpenerProps } from '../../molecules';
+import { ModalOpener } from '..';
+import type { ModalOpenerProps } from '..';
 
 export interface CancelModalOpenerProps
   extends Omit<ModalOpenerProps<'button'>, 'modalOptions' | 'type'> {

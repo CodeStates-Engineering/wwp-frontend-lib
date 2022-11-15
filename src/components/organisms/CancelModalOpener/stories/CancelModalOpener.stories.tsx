@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CancelModalOpener } from './CancelModalOpener';
-import type { CancelModalOpenerProps } from './CancelModalOpener';
+import { CancelModalOpener } from '../CancelModalOpener';
+import type { CancelModalOpenerProps } from '../CancelModalOpener';
 import React from 'react';
 
 export default {
