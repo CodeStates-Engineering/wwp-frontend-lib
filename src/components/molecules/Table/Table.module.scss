@@ -126,12 +126,6 @@
       min-width: 100%;
       width: fit-content;
       max-width: fit-content;
-      &.copyable {
-        padding-right: 3em;
-      }
-      > .copy_button {
-        visibility: visible;
-      }
     }
   }
   &.hover_highlight:hover {

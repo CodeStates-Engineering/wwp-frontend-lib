@@ -117,51 +117,23 @@ function Body({ children }: TableBodyProps) {
   return <tbody className={scss.table_body}>{children}</tbody>;
 }
 
-interface CopyButtonProps {
-  children?: React.ReactNode;
-  copyable?: boolean;
-  visible: boolean;
-}
-function CopyButton(props: CopyButtonProps) {
-  const { children, copyable, visible } = props;
-  const [copied, setCopied] = useState(false);
-  if (!copyable || !children) return <></>;
-  return (
-    <button
-      className={cleanClassName(`${scss.copy_button} ${copied && scss.copied}`)}
-      onClick={
-        visible
-          ? () => {
-              const text = children.toString();
-              copyText(text);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }
-          : undefined
-      }
-    >
-      {copied ? <Clipboard /> : <Copy />}
-    </button>
-  );
-}
-
-interface DataItemProps extends CopyButtonProps {
+interface DataItemProps {
   hoverDirection?: 'left' | 'right';
   hoverHighlight?: boolean;
+  visible?: boolean;
+  children?: React.ReactNode;
 }
-function DataItem({ hoverDirection, hoverHighlight = true, ...copyButtonProps }: DataItemProps) {
-  const { children, copyable, visible } = copyButtonProps;
+function DataItem({ hoverDirection, hoverHighlight = true, children, visible }: DataItemProps) {
   if (!children) return <></>;
   return (
     <div
       className={cleanClassName(
         `${scss.table_data_contents} ${hoverDirection === 'left' ? scss.left : scss.right} ${
           visible ? scss.front : scss.back
-        } ${visible && hoverHighlight && scss.hover_highlight} ${copyable && scss.copyable}`
+        } ${visible && hoverHighlight && scss.hover_highlight}`
       )}
     >
       {children}
-      <CopyButton {...copyButtonProps} />
     </div>
   );
 }

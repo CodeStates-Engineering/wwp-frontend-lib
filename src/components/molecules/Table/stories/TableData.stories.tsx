@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from '../Table';
+import { Button } from '../../../atoms';
 import React from 'react';
 
 export default {
@@ -11,13 +12,13 @@ const TableDataStory: ComponentStory<typeof Table.Data> = (args) => <Table.Data 
 
 function TableCommonDecorators({ children }: { children?: React.ReactNode }) {
   return (
-    <Table.Container>
+    <Table.Container maxWidth="800px">
       <Table.Head>
         <Table.Row>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
-          <Table.Title>title</Table.Title>
+          <Table.Title>name</Table.Title>
+          <Table.Title>email</Table.Title>
+          <Table.Title>test</Table.Title>
+          <Table.Title>button</Table.Title>
         </Table.Row>
       </Table.Head>
       <Table.Body>{children}</Table.Body>
@@ -26,116 +27,21 @@ function TableCommonDecorators({ children }: { children?: React.ReactNode }) {
 }
 
 export const Default = TableDataStory.bind({});
-Default.argTypes = {
-  children: {
-    defaultValue: '이것은 긴 텍스트를 내용의 적용된 모습을 보기위한 dummy-data 입니다.',
-    control: {
-      type: 'text',
-    },
-    table: {
-      type: {
-        summary: 'ReactNode',
-      },
-    },
-  },
-  resizable: {
-    defaultValue: false,
-    control: {
-      type: 'boolean',
-    },
-    table: {
-      defaultValue: {
-        summary: false,
-      },
-      type: {
-        summary: 'boolean',
-      },
-    },
-  },
-  align: {
-    defaultValue: 'center',
-    control: {
-      type: 'radio',
-      options: ['start', 'center', 'end'],
-    },
-    table: {
-      defaultValue: {
-        summary: 'center',
-      },
-      type: {
-        summary: `"start" | "center" | "end"`,
-      },
-    },
-  },
-  justify: {
-    defaultValue: 'center',
-    control: {
-      type: 'radio',
-      options: ['start', 'center', 'end'],
-    },
-    table: {
-      defaultValue: {
-        summary: 'center',
-      },
-      type: {
-        summary: `"start" | "center" | "end"`,
-      },
-    },
-  },
-  hoverDirection: {
-    defaultValue: 'right',
-    control: {
-      type: 'radio',
-      options: ['left', 'right'],
-    },
-    table: {
-      defaultValue: {
-        summary: 'right',
-      },
-      type: {
-        summary: `"left" | "right"`,
-      },
-    },
-  },
-  hoverHighlight: {
-    defaultValue: true,
-    control: {
-      type: 'boolean',
-    },
-    table: {
-      defaultValue: {
-        summary: true,
-      },
-      type: {
-        summary: 'boolean',
-      },
-    },
-  },
-  copyable: {
-    defaultValue: false,
-    control: {
-      type: 'boolean',
-    },
-    table: {
-      defaultValue: {
-        summary: false,
-      },
-      type: {
-        summary: 'boolean',
-      },
-    },
-  },
-};
+
 Default.decorators = [
   (Story) => {
     const RowList: React.ReactNode[] = [];
     for (let i = 0; i < 10; i++) {
       RowList.push(
         <Table.Row>
+          <Table.Data>User {i}</Table.Data>
+          <Table.Data resizable>User{i}@codestates.com</Table.Data>
           <Story />
-          <Story />
-          <Story />
-          <Story />
+          <Table.Data hoverHighlight={false}>
+            <Button size="small" theme="bluish-gray200">
+              Button {i}
+            </Button>
+          </Table.Data>
         </Table.Row>
       );
     }
@@ -143,8 +49,7 @@ Default.decorators = [
   },
 ];
 Default.args = {
-  children: '이것은 긴 텍스트를 내용의 적용된 모습을 보기위한 dummy-data 입니다.',
-  resizable: true,
+  children: '매우 매우 긴글 테스트',
 };
 
 export const NoData = TableDataStory.bind({});

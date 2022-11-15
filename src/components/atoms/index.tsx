@@ -73,9 +73,6 @@ export type { TooltipProps } from './Tooltip/Tooltip';
 export { DrawerModal } from './DrawerModal/DrawerModal';
 export type { DrawerModalProps } from './DrawerModal/DrawerModal';
 
-export { ValidationMessage } from './ValidationMessage/ValidationMessage';
-export type { ValidationMessageProps } from './ValidationMessage/ValidationMessage';
-//TODO: ▲ 컴포넌트가 모두 ▼ 컴포넌트로 대체되면 삭제
 export { InputDescription } from './InputDescription/InputDescription';
 export type { InputDescriptionProps } from './InputDescription/InputDescription';
 
