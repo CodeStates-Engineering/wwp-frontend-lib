@@ -15,6 +15,7 @@ export const Default = TableStory.bind({});
 {
   const ROW_COUNT = 13;
   const defaultArgs: TableProps = {
+    loading: true,
     config: {
       code: {
         hoverHighlight: true,

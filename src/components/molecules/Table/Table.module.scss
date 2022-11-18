@@ -6,7 +6,23 @@
   border-collapse: collapse;
 }
 
+.empty_wrap {
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: $LARGE_FONT_SIZE;
+  font-weight: $BOLD_FONT_WEIGHT;
+  color: #c2c2c2;
+}
+
 .body {
+  position: relative;
   > .row {
     transition: background-color 0.2s;
     border-bottom: 1px solid $BLUISH_GRAY300;
@@ -57,7 +73,8 @@
   border-bottom: 1px solid $BLUISH_GRAY300;
   > .row {
     background-color: $BLUISH_GRAY10;
-    color: $BLUISH_GRAY600;
+    color: $BLUISH_GRAY500;
+    font-weight: $BOLD_FONT_WEIGHT;
     .title {
       padding: 10px;
       &:first-child {

@@ -9,6 +9,7 @@ import {
   SetStateAction,
   useEffect,
   createElement,
+  useMemo,
 } from 'react';
 import { cleanClassName } from '../../../utils';
 import { copyText } from '../../../utils';
@@ -79,17 +80,35 @@ interface TableConfig {
 export interface TableProps extends ChildrenProps {
   loading?: boolean;
   invalid?: boolean;
+  emptyHeight?: React.CSSProperties['height'];
   config?: {
     [name: string]: TableConfig;
   };
 }
 
-const TableContext = createContext<Omit<TableProps, 'children' | 'invalid'>>({});
+const TableContext = createContext<
+  Omit<TableProps, 'children' | 'invalid'> & {
+    setHasRow?: Dispatch<SetStateAction<boolean>>;
+  }
+>({});
 export interface TableTitleProps {}
-function Container({ children, invalid, ...restProps }: TableProps) {
+function Container({ children, invalid, emptyHeight = '100%', ...restProps }: TableProps) {
+  const [hasRow, setHasRow] = useState(false);
+  const tableContext = { ...restProps, setHasRow };
   return (
-    <TableContext.Provider value={restProps}>
-      <table className={scss.container}>{children}</table>
+    <TableContext.Provider value={tableContext}>
+      <table
+        className={scss.container}
+        style={
+          hasRow
+            ? undefined
+            : {
+                height: emptyHeight,
+              }
+        }
+      >
+        {children}
+      </table>
     </TableContext.Provider>
   );
 }
@@ -98,8 +117,36 @@ function Head(props: ChildrenProps) {
   return <thead {...props} className={scss.head} />;
 }
 
-function Body(props: ChildrenProps) {
-  return <tbody {...props} className={scss.body} />;
+function Body({ children }: ChildrenProps) {
+  const { loading, setHasRow } = useContext(TableContext);
+  const hasRow = !!Children.toArray(children).length && !loading;
+  console.log(hasRow);
+  useMemo(() => {
+    setHasRow?.(hasRow);
+  }, [hasRow]);
+
+  return (
+    <tbody className={scss.body}>
+      {hasRow ? (
+        children
+      ) : (
+        <tr>
+          <td>
+            <div className={scss.empty_wrap}>
+              {loading ? (
+                <Loading />
+              ) : (
+                <>
+                  <Logo />
+                  No Row to Show
+                </>
+              )}
+            </div>
+          </td>
+        </tr>
+      )}
+    </tbody>
+  );
 }
 
 function Row(props: ChildrenProps) {
