@@ -1,5 +1,4 @@
 import scss from './Table.module.scss';
-import { Copy, Clipboard } from 'react-feather';
 import {
   useState,
   Children,
@@ -7,63 +6,14 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
-  useEffect,
-  createElement,
   useMemo,
 } from 'react';
 import { cleanClassName } from '../../../utils';
-import { copyText } from '../../../utils';
+
 import { ReactComponent as Logo } from '../../../assets/wewin_logo.svg';
 import { Loading } from '../../atoms';
-import { isValidElement } from 'react';
-import { Modal } from '../Modal/Modal';
-type Deployment = 'start' | 'center' | 'end';
 
-export interface TableContainerProps extends ChildrenProps {
-  dataExisted?: boolean;
-  loading?: boolean;
-  invalid?: boolean;
-  maxWidth?: React.CSSProperties['maxWidth'];
-  minWidth?: React.CSSProperties['minWidth'];
-  children?: React.ReactNode;
-}
-
-export interface TableHeadProps {
-  children?: React.ReactNode;
-}
-
-export interface TableRowProps {
-  children?: React.ReactNode;
-}
-
-export interface TableBodyProps {
-  children?: React.ReactNode;
-}
-
-interface DataItemProps {
-  hoverDirection?: 'left' | 'right';
-  hoverHighlight?: boolean;
-  visible?: boolean;
-  children?: React.ReactNode;
-}
-function DataItem({ hoverDirection, hoverHighlight = true, children, visible }: DataItemProps) {
-  if (!children) return <></>;
-  return (
-    <div
-      className={cleanClassName(
-        `${scss.table_data_contents} ${hoverDirection === 'left' ? scss.left : scss.right} ${
-          visible ? scss.front : scss.back
-        } ${visible && hoverHighlight && scss.hover_highlight}`
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-export type TableDataProps = Omit<DataItemProps, 'visible'>;
-
-//TODO:
+import { Modal } from '../../molecules/Modal/Modal';
 
 interface ChildrenProps {
   children?: React.ReactNode;
@@ -91,7 +41,7 @@ const TableContext = createContext<
     setHasRow?: Dispatch<SetStateAction<boolean>>;
   }
 >({});
-export interface TableTitleProps {}
+
 function Container({ children, invalid, emptyHeight = '100%', ...restProps }: TableProps) {
   const [hasRow, setHasRow] = useState(false);
   const tableContext = { ...restProps, setHasRow };

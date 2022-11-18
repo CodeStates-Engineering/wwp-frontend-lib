@@ -87,7 +87,6 @@ export {
   DrawerModalOpener,
   PageContents,
   PaginationWithPageSize,
-  Table,
   ComplexFileDownload,
   ToastLayout,
 } from './components/molecules';
@@ -105,12 +104,6 @@ export type {
   ComplexFileUploadProps,
   FormTimeStampProps,
   PaginationWithPageSizeProps,
-  TableBodyProps,
-  TableHeadProps,
-  TableRowProps,
-  TableContainerProps,
-  TableDataProps,
-  TableTitleProps,
   ModalProps,
   DrawerModalOpenerProps,
   PageContentsContainerProps,
@@ -128,6 +121,7 @@ export {
   ConfirmModalOpener,
   CancelModalOpener,
   DeleteModalOpener,
+  Table,
 } from './components/organisms';
 export type {
   ChipProps,
@@ -135,6 +129,7 @@ export type {
   ConfirmModalOpenerProps,
   CancelModalOpenerProps,
   DeleteModalOpenerProps,
+  TableProps,
 } from './components/organisms';
 
 //* Util 함수

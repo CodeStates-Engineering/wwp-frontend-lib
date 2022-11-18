@@ -34,16 +34,6 @@ export type { FormTimeStampProps } from './FormTimeStamp/FormTimeStamp';
 export { PaginationWithPageSize } from './PaginationWithPageSize/PaginationWithPageSize';
 export type { PaginationWithPageSizeProps } from './PaginationWithPageSize/PaginationWithPageSize';
 
-export { Table } from './Table/Table';
-export type {
-  TableContainerProps,
-  TableRowProps,
-  TableHeadProps,
-  TableTitleProps,
-  TableBodyProps,
-  TableDataProps,
-} from './Table/Table';
-
 export { DrawerModalOpener } from './DrawerModalOpener/DrawerModalOpener';
 export type { DrawerModalOpenerProps } from './DrawerModalOpener/DrawerModalOpener';
 
