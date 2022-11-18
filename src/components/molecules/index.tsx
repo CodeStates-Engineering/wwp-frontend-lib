@@ -34,19 +34,6 @@ export type { FormTimeStampProps } from './FormTimeStamp/FormTimeStamp';
 export { PaginationWithPageSize } from './PaginationWithPageSize/PaginationWithPageSize';
 export type { PaginationWithPageSizeProps } from './PaginationWithPageSize/PaginationWithPageSize';
 
-export { Table } from './Table/Table';
-export type {
-  TableContainerProps,
-  TableRowProps,
-  TableHeadProps,
-  TableTitleProps,
-  TableBodyProps,
-  TableDataProps,
-} from './Table/Table';
-
-export { ModalOpener } from './ModalOpener/ModalOpener';
-export type { ModalOpenerProps } from './ModalOpener/ModalOpener';
-
 export { DrawerModalOpener } from './DrawerModalOpener/DrawerModalOpener';
 export type { DrawerModalOpenerProps } from './DrawerModalOpener/DrawerModalOpener';
 
@@ -60,8 +47,8 @@ export type {
 export { FormGroup } from './FormGroup/FormGroup';
 export type { FormGroupProps } from './FormGroup/FormGroup';
 
-export { Chip } from './Chip/Chip';
-export type { ChipProps } from './Chip/Chip';
-
 export { ToastLayout } from './ToastLayout/ToastLayout';
 export type { ToastLayoutProps } from './ToastLayout/ToastLayout';
+
+export { Modal } from './Modal/Modal';
+export type { ModalProps } from './Modal/Modal';

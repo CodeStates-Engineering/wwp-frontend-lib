@@ -2,7 +2,7 @@ import scss from './Modal.module.scss';
 import { X } from 'react-feather';
 import { useParentState } from '../../../hooks';
 import { cleanClassName } from '../../../utils';
-import { Button, ButtonProps } from '../Button/Button';
+import { Button, ButtonProps } from '../../atoms/Button/Button';
 import { useState } from 'react';
 
 export interface ModalProps {
@@ -12,7 +12,7 @@ export interface ModalProps {
   closeButton?: boolean;
   title?: React.ReactNode;
   subText?: React.ReactNode;
-  modalType?: 'left' | 'center';
+  modalType?: 'left' | 'center' | 'none';
   maxWidth?: React.CSSProperties['maxWidth'];
   buttonsOptions?: (Omit<ButtonProps, 'onClick'> & {
     onClick?: (closeModal: () => void) => void;
@@ -101,6 +101,8 @@ export function Modal({
                   </section>
                 </>
               );
+            case 'none':
+              return <section className={scss.modal_body}>{children}</section>;
           }
         })()}
         {buttonsOptions && (

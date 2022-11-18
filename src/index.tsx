@@ -10,7 +10,6 @@ export {
   Hr,
   Label,
   Loading,
-  Modal,
   MonthSelectbox,
   Pagination,
   Radiobox,
@@ -24,7 +23,6 @@ export {
   Textarea,
   Textbox,
   Tooltip,
-  ValidationMessage,
   InputDescription,
   DrawerModal,
   Tab,
@@ -44,7 +42,6 @@ export type {
   HrProps,
   LabelProps,
   LoadingProps,
-  ModalProps,
   MonthSelectboxProps,
   MonthDate,
   PaginationProps,
@@ -62,7 +59,6 @@ export type {
   TextareaProps,
   TextboxProps,
   TooltipProps,
-  ValidationMessageProps,
   DrawerModalProps,
   TabProps,
   FileDownloadProps,
@@ -74,7 +70,6 @@ export type {
 
 //* Molecule 컴포넌트
 export {
-  Chip,
   ComplexCheckbox,
   ComplexDateSelectbox,
   ComplexMonthSelectbox,
@@ -88,11 +83,10 @@ export {
   ComplexFileUpload,
   FormTimeStamp,
   FormGroup,
-  ModalOpener,
+  Modal,
   DrawerModalOpener,
   PageContents,
   PaginationWithPageSize,
-  Table,
   ComplexFileDownload,
   ToastLayout,
 } from './components/molecules';
@@ -110,29 +104,32 @@ export type {
   ComplexFileUploadProps,
   FormTimeStampProps,
   PaginationWithPageSizeProps,
-  TableBodyProps,
-  TableHeadProps,
-  TableRowProps,
-  TableContainerProps,
-  TableDataProps,
-  TableTitleProps,
-  ModalOpenerProps,
+  ModalProps,
   DrawerModalOpenerProps,
   PageContentsContainerProps,
   PageContentsHeaderProps,
   PageContentsSectionProps,
   FormGroupProps,
-  ChipProps,
   ComplexFileDownloadProps,
   ToastLayoutProps,
 } from './components/molecules';
 
 //* Organism 컴포넌트
-export { ConfirmModalOpener, CancelModalOpener, DeleteModalOpener } from './components/organisms';
+export {
+  Chip,
+  ModalOpener,
+  ConfirmModalOpener,
+  CancelModalOpener,
+  DeleteModalOpener,
+  Table,
+} from './components/organisms';
 export type {
+  ChipProps,
+  ModalOpenerProps,
   ConfirmModalOpenerProps,
   CancelModalOpenerProps,
   DeleteModalOpenerProps,
+  TableProps,
 } from './components/organisms';
 
 //* Util 함수

@@ -1,6 +1,4 @@
 import {
-  Modal,
-  ModalProps,
   Tag,
   TagProps,
   ExpandableButton,
@@ -8,6 +6,7 @@ import {
   Button,
   ButtonProps,
 } from '../../atoms';
+import { Modal, ModalProps } from '../../molecules/Modal/Modal';
 import { useParentState } from '../../../hooks';
 
 type ModalOpenerType = 'tag' | 'expandable-button' | 'button';
