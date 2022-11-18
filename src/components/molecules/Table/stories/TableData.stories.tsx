@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from '../Table';
-import { Button } from '../../../atoms';
+import type { TableProps } from '../Table';
+import { Button, Tab } from '../../../atoms';
 import React from 'react';
 
 export default {
@@ -8,49 +9,72 @@ export default {
   component: Table.Data,
 } as ComponentMeta<typeof Table.Data>;
 
-const TableDataStory: ComponentStory<typeof Table.Data> = (args) => <Table.Data {...args} />;
+const TableStory: ComponentStory<typeof Table.Data> = (args) => <Table.Container {...args} />;
 
-function TableCommonDecorators({ children }: { children?: React.ReactNode }) {
-  return (
-    <Table.Container maxWidth="800px">
-      <Table.Head>
-        <Table.Row>
-          <Table.Title>name</Table.Title>
-          <Table.Title>email</Table.Title>
-          <Table.Title>test</Table.Title>
-          <Table.Title>button</Table.Title>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>{children}</Table.Body>
-    </Table.Container>
-  );
+export const Default = TableStory.bind({});
+{
+  const ROW_COUNT = 13;
+  const defaultArgs: TableProps = {
+    config: {
+      code: {
+        hoverHighlight: true,
+        maxWidth: '100px',
+      },
+      long_text: {
+        maxWidth: '400px',
+        summarized: true,
+      },
+      email: {
+        minWidth: '200px',
+        align: 'left',
+      },
+      button: {
+        minWidth: '300px',
+      },
+    },
+    children: (
+      <>
+        <Table.Head>
+          <Table.Row>
+            <Table.Title name="code">Code</Table.Title>
+            <Table.Title>PhoneNumber</Table.Title>
+            <Table.Title name="email">Email</Table.Title>
+            <Table.Title name="button">Button</Table.Title>
+            <Table.Title>index</Table.Title>
+            <Table.Title name="long_text">long text</Table.Title>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {(() => {
+            const rows: JSX.Element[] = [];
+            for (let i = 0; i < ROW_COUNT; i++) {
+              rows.push(
+                <Table.Row key={i}>
+                  <Table.Data>{(i + 1) * 100000 + i * 33}</Table.Data>
+                  <Table.Data>010-0000-0000</Table.Data>
+                  <Table.Data name="email">User{i}@codestates.com</Table.Data>
+                  <Table.Data name="button">
+                    <Button
+                      size="small"
+                      minWidth="70px"
+                      fontSize="smallX"
+                      onClick={() => console.log('test2')}
+                    >
+                      Button {i}
+                    </Button>
+                  </Table.Data>
+                  <Table.Data>{i}</Table.Data>
+                  <Table.Data name="long_text">
+                    http://localhost:6006/?path=/story/molecules-table-data--default&args=config.0.maxWidth:200px
+                  </Table.Data>
+                </Table.Row>
+              );
+            }
+            return rows;
+          })()}
+        </Table.Body>
+      </>
+    ),
+  };
+  Default.args = defaultArgs;
 }
-
-export const Default = TableDataStory.bind({});
-
-Default.decorators = [
-  (Story) => {
-    const RowList: React.ReactNode[] = [];
-    for (let i = 0; i < 10; i++) {
-      RowList.push(
-        <Table.Row>
-          <Table.Data>User {i}</Table.Data>
-          <Table.Data resizable>User{i}@codestates.com</Table.Data>
-          <Story />
-          <Table.Data hoverHighlight={false}>
-            <Button size="small" theme="bluish-gray200">
-              Button {i}
-            </Button>
-          </Table.Data>
-        </Table.Row>
-      );
-    }
-    return <TableCommonDecorators>{RowList}</TableCommonDecorators>;
-  },
-];
-Default.args = {
-  children: '매우 매우 긴글 테스트',
-};
-
-export const NoData = TableDataStory.bind({});
-NoData.decorators = [() => <TableCommonDecorators />];

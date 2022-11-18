@@ -12,7 +12,7 @@ export interface ModalProps {
   closeButton?: boolean;
   title?: React.ReactNode;
   subText?: React.ReactNode;
-  modalType?: 'left' | 'center';
+  modalType?: 'left' | 'center' | 'none';
   maxWidth?: React.CSSProperties['maxWidth'];
   buttonsOptions?: (Omit<ButtonProps, 'onClick'> & {
     onClick?: (closeModal: () => void) => void;
@@ -101,6 +101,8 @@ export function Modal({
                   </section>
                 </>
               );
+            case 'none':
+              return <section className={scss.modal_body}>{children}</section>;
           }
         })()}
         {buttonsOptions && (
